@@ -187,7 +187,7 @@ const FooterStage = () => {
         {/* Left Side: Heading & Address */}
         <div className="w-full lg:w-1/2 flex flex-col gap-8 md:gap-12">
           <h2 className="text-[#f5f5f5] font-helvetica text-3xl md:text-4xl lg:text-[3.5vw] font-normal leading-[1.1] tracking-tight uppercase">
-            Finest gallery in<br />New York
+            ARTAIL STORY<br />NEW YORK
           </h2>
           <p className="text-[#a0a0a0] font-helvetica text-sm md:text-base leading-relaxed">
             524 W 24th St<br />
