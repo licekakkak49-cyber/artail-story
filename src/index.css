@@ -1,0 +1,34 @@
+/* นำเข้า Tailwind v4 */
+@import "tailwindcss";
+/* นำเข้า Font */
+@import url('https://api.fontshare.com/v2/css?f[]=switzer@700&display=swap');
+
+/* ล้างค่าเริ่มต้นที่รบกวน Framer Motion */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+#root {
+  width: 100%;
+  max-width: none;
+  padding: 0;
+  margin: 0;
+  text-align: left;
+}
+
+/* ซ่อน Scrollbar */
+::-webkit-scrollbar { 
+  display: none; 
+}
+
+/* เอฟเฟกต์หมึกกระจาย */
+.ink-bleed-mask {
+  mask-image: radial-gradient(circle, black 15%, transparent 60%);
+  -webkit-mask-image: radial-gradient(circle, black 15%, transparent 60%);
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-position: center;
+}
