@@ -270,8 +270,8 @@ export default function App() {
   
   const curtainY = useTransform(scrollYProgress, [0.45, 0.60], ["0vh", "-100vh"]);
 
-  // --- ปรับจังหวะสกรอลล์ให้พอดีกับ Footer ใหม่ที่สั้นลง ---
-  const stageY = useTransform(scrollYProgress, [0.65, 0.73, 0.78, 0.86, 0.90, 1], ["0vh", "-100vh", "-100vh", "-155vh", "-155vh", "-180vh"]);
+  // --- ปรับจังหวะสกรอลล์ให้ยาวขึ้นเพื่อให้เห็น Footer และสถานที่ด้านล่างได้เต็ม ---
+  const stageY = useTransform(scrollYProgress, [0.65, 0.73, 0.78, 0.86, 0.90, 1], ["0vh", "-100vh", "-100vh", "-155vh", "-155vh", "-260vh"]);
 
   return (
     <div className="bg-[#F5F5F5] text-[#111111] selection:bg-[#111111] selection:text-[#F5F5F5] relative">
