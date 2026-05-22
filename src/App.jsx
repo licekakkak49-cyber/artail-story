@@ -181,59 +181,22 @@ const JourneyStage = () => {
 // --- ฉาก 4: Footer สไตล์ใหม่ (New York) อิงตามเรฟเฟอเรนซ์ ---
 const FooterStage = () => {
   return (
-    <div className="w-full bg-[#1c1c1e] pt-20 md:pt-32 pb-8 flex flex-col justify-between items-center px-6 md:px-12 lg:px-24">
+    <div className="w-full bg-[#1c1c1e] pt-24 md:pt-32 pb-8 flex flex-col justify-between items-center px-6 md:px-12 lg:px-24">
       <div className="w-full max-w-[1300px] flex flex-col">
         
-        {/* Top Grid: Info & Newsletter */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 w-full mb-20 md:mb-32">
+        {/* Top Section: Split Layout */}
+        <div className="flex flex-col lg:flex-row justify-between items-start w-full mb-24 md:mb-32 gap-16 lg:gap-8">
           
-          {/* Col 1: Location */}
-          <div className="md:col-span-3 flex flex-col gap-6">
-            <h4 className="text-[#f5f5f5] font-helvetica text-xs font-bold uppercase tracking-[0.15em]">Location</h4>
-            <p className="text-[#a0a0a0] font-inter text-sm leading-[1.8]">
-              524 W 24th St,<br />
-              Chelsea Art District,<br />
-              New York, NY 10011
-            </p>
-          </div>
-
-          {/* Col 2: Contact & Hours */}
-          <div className="md:col-span-3 flex flex-col gap-6">
-            <h4 className="text-[#f5f5f5] font-helvetica text-xs font-bold uppercase tracking-[0.15em]">Contact</h4>
-            <p className="text-[#a0a0a0] font-inter text-sm leading-[1.8]">
-              +1 (212) 555-0198<br />
-              info@artailstory.com
-            </p>
-            <div className="mt-4">
-              <h4 className="text-[#f5f5f5] font-helvetica text-xs font-bold uppercase tracking-[0.15em] mb-4">Hours</h4>
-              <p className="text-[#a0a0a0] font-inter text-sm leading-[1.8]">
-                Wed - Sun<br />
-                6:00 PM - 2:00 AM
-              </p>
-            </div>
-          </div>
-
-          {/* Col 3: Social */}
-          <div className="md:col-span-2 flex flex-col gap-6">
-            <h4 className="text-[#f5f5f5] font-helvetica text-xs font-bold uppercase tracking-[0.15em]">Social</h4>
-            <div className="flex flex-col gap-3">
-              <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-inter text-sm transition-colors">Instagram</a>
-              <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-inter text-sm transition-colors">Spotify</a>
-              <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-inter text-sm transition-colors">Artsy</a>
-            </div>
-          </div>
-
-          {/* Col 4: Newsletter */}
-          <div className="md:col-span-4 flex flex-col gap-6">
-            <h4 className="text-[#f5f5f5] font-helvetica text-xs font-bold uppercase tracking-[0.15em]">Newsletter</h4>
-            <p className="text-[#a0a0a0] font-inter text-sm leading-[1.8]">
-              Subscribe to our newsletter for upcoming seasonal menus and exclusive art events.
-            </p>
-            <div className="flex w-full border-b border-[#555555] pb-3 mt-2 group focus-within:border-[#f5f5f5] transition-colors">
+          {/* Left: Newsletter Statement */}
+          <div className="w-full lg:w-1/2 flex flex-col gap-8">
+            <h3 className="text-[#f5f5f5] font-helvetica text-3xl md:text-5xl font-normal tracking-tight leading-[1.1]">
+              Subscribe to our newsletter<br />for exclusive art events.
+            </h3>
+            <div className="flex w-full max-w-[400px] border-b border-[#555555] pb-3 mt-4 group focus-within:border-[#f5f5f5] transition-colors">
               <input 
                 type="email" 
-                placeholder="Email Address" 
-                className="flex-1 bg-transparent text-[#f5f5f5] font-inter text-sm focus:outline-none placeholder-zinc-600" 
+                placeholder="EMAIL ADDRESS" 
+                className="flex-1 bg-transparent text-[#f5f5f5] font-inter text-xs tracking-widest focus:outline-none placeholder-zinc-500 uppercase" 
               />
               <button className="text-[#f5f5f5] font-inter text-xs font-bold uppercase tracking-widest hover:text-zinc-400 transition-colors">
                 Submit
@@ -241,11 +204,50 @@ const FooterStage = () => {
             </div>
           </div>
 
+          {/* Right: Info Grid */}
+          <div className="w-full lg:w-1/2 grid grid-cols-2 sm:grid-cols-3 gap-10 md:gap-8">
+            {/* Location */}
+            <div className="flex flex-col gap-6">
+              <h4 className="text-[#f5f5f5] font-helvetica text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400">Location</h4>
+              <p className="text-[#f5f5f5] font-inter text-sm leading-[1.8]">
+                524 W 24th St,<br />
+                Chelsea Art District,<br />
+                New York, NY 10011
+              </p>
+            </div>
+
+            {/* Contact & Hours */}
+            <div className="flex flex-col gap-6">
+              <h4 className="text-[#f5f5f5] font-helvetica text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400">Contact</h4>
+              <p className="text-[#f5f5f5] font-inter text-sm leading-[1.8]">
+                +1 (212) 555-0198<br />
+                info@artailstory.com
+              </p>
+              <div className="mt-2">
+                <h4 className="text-[#f5f5f5] font-helvetica text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400 mb-4">Hours</h4>
+                <p className="text-[#f5f5f5] font-inter text-sm leading-[1.8]">
+                  Wed - Sun<br />
+                  6PM - 2AM
+                </p>
+              </div>
+            </div>
+
+            {/* Social */}
+            <div className="flex flex-col gap-6">
+              <h4 className="text-[#f5f5f5] font-helvetica text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400">Social</h4>
+              <div className="flex flex-col gap-3">
+                <a href="#" className="text-[#f5f5f5] hover:text-zinc-400 font-inter text-sm transition-colors">Instagram</a>
+                <a href="#" className="text-[#f5f5f5] hover:text-zinc-400 font-inter text-sm transition-colors">Spotify</a>
+                <a href="#" className="text-[#f5f5f5] hover:text-zinc-400 font-inter text-sm transition-colors">Artsy</a>
+              </div>
+            </div>
+          </div>
+
         </div>
 
         {/* Bottom: Huge Brand Name */}
-        <div className="w-full flex flex-col items-center border-t border-zinc-800/50 pt-8 md:pt-12">
-          <h1 className="text-[#f5f5f5] font-helvetica text-[13vw] md:text-[11vw] font-bold uppercase tracking-tighter leading-none w-full text-center mb-8 md:mb-12">
+        <div className="w-full flex flex-col items-center border-t border-zinc-800/80 pt-8 md:pt-12">
+          <h1 className="text-[#f5f5f5] font-helvetica text-[14vw] md:text-[12vw] font-bold uppercase tracking-tighter leading-none w-full text-center mb-8 md:mb-12">
             ARTAIL STORY
           </h1>
           
