@@ -178,21 +178,21 @@ const JourneyStage = () => {
   );
 };
 
-// --- ฉาก 4: Footer สไตล์ Minimalist Gallery (London) ---
+// --- ฉาก 4: Footer สไตล์ Minimalist Gallery (New York - Dark Mode) ---
 const FooterStage = () => {
   return (
-    <div className="w-full bg-[#F5F5F5] py-24 md:py-32 flex justify-center items-start px-6 md:px-12 lg:px-24">
+    <div className="w-full bg-[#1c1c1e] py-24 md:py-32 flex justify-center items-start px-6 md:px-12 lg:px-24">
       <div className="w-full max-w-[1300px] flex flex-col lg:flex-row justify-between items-start gap-16 lg:gap-8">
         
         {/* Left Side: Heading & Address */}
-        <div className="w-full lg:w-1/2 flex flex-col gap-12 md:gap-16">
-          <h2 className="text-[#111111] font-helvetica text-5xl md:text-6xl lg:text-[5vw] font-normal tracking-tight leading-[1.05]">
-            Finest gallery in<br />London centre
+        <div className="w-full lg:w-1/2 flex flex-col gap-8 md:gap-12">
+          <h2 className="text-[#f5f5f5] font-helvetica text-3xl md:text-4xl lg:text-[3.5vw] font-normal leading-[1.1] tracking-tight uppercase">
+            Finest gallery in<br />New York
           </h2>
-          <p className="text-[#111111] font-helvetica text-base md:text-lg leading-snug">
-            47 Mortimer Street<br />
-            Fitzrovia – London<br />
-            W1T 3TE
+          <p className="text-[#a0a0a0] font-helvetica text-sm md:text-base leading-relaxed">
+            524 W 24th St<br />
+            Chelsea Art District – NY<br />
+            10011
           </p>
         </div>
 
@@ -200,25 +200,25 @@ const FooterStage = () => {
         <div className="w-full lg:w-1/2 grid grid-cols-2 sm:grid-cols-3 gap-8 md:gap-12 pt-2">
           {/* Col 1 */}
           <div className="flex flex-col gap-4">
-            <a href="#" className="text-[#111111] hover:text-gray-500 font-helvetica text-base md:text-lg transition-colors">Home</a>
-            <a href="#" className="text-[#111111] hover:text-gray-500 font-helvetica text-base md:text-lg transition-colors">Artists</a>
-            <a href="#" className="text-[#111111] hover:text-gray-500 font-helvetica text-base md:text-lg transition-colors">Exhibitions</a>
-            <a href="#" className="text-[#111111] hover:text-gray-500 font-helvetica text-base md:text-lg transition-colors">Collection</a>
-            <a href="#" className="text-[#111111] hover:text-gray-500 font-helvetica text-base md:text-lg transition-colors">Art Fairs</a>
+            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-helvetica text-sm md:text-base transition-colors">Home</a>
+            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-helvetica text-sm md:text-base transition-colors">Artists</a>
+            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-helvetica text-sm md:text-base transition-colors">Exhibitions</a>
+            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-helvetica text-sm md:text-base transition-colors">Collection</a>
+            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-helvetica text-sm md:text-base transition-colors">Art Fairs</a>
           </div>
           {/* Col 2 */}
           <div className="flex flex-col gap-4">
-            <a href="#" className="text-[#111111] hover:text-gray-500 font-helvetica text-base md:text-lg transition-colors">News</a>
-            <a href="#" className="text-[#111111] hover:text-gray-500 font-helvetica text-base md:text-lg transition-colors">Videos</a>
-            <a href="#" className="text-[#111111] hover:text-gray-500 font-helvetica text-base md:text-lg transition-colors">About</a>
-            <a href="#" className="text-[#111111] hover:text-gray-500 font-helvetica text-base md:text-lg transition-colors">Contact</a>
-            <a href="#" className="text-[#111111] hover:text-gray-500 font-helvetica text-base md:text-lg transition-colors">Residency</a>
+            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-helvetica text-sm md:text-base transition-colors">News</a>
+            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-helvetica text-sm md:text-base transition-colors">Videos</a>
+            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-helvetica text-sm md:text-base transition-colors">About</a>
+            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-helvetica text-sm md:text-base transition-colors">Contact</a>
+            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-helvetica text-sm md:text-base transition-colors">Residency</a>
           </div>
           {/* Col 3 */}
           <div className="flex flex-col gap-4">
-            <a href="#" className="text-[#111111] hover:text-gray-500 font-helvetica text-base md:text-lg transition-colors">Insta</a>
-            <a href="#" className="text-[#111111] hover:text-gray-500 font-helvetica text-base md:text-lg transition-colors">X (Twitter)</a>
-            <a href="#" className="text-[#111111] hover:text-gray-500 font-helvetica text-base md:text-lg transition-colors">YouTube</a>
+            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-helvetica text-sm md:text-base transition-colors">Insta</a>
+            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-helvetica text-sm md:text-base transition-colors">X (Twitter)</a>
+            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-helvetica text-sm md:text-base transition-colors">YouTube</a>
           </div>
         </div>
 
