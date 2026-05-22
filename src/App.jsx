@@ -178,81 +178,84 @@ const JourneyStage = () => {
   );
 };
 
-// --- ฉาก 4: Footer สไตล์ใหม่ (New York) ---
+// --- ฉาก 4: Footer สไตล์ใหม่ (New York) อิงตามเรฟเฟอเรนซ์ ---
 const FooterStage = () => {
   return (
-    <div className="w-full bg-[#1c1c1e] py-16 md:py-24 flex justify-center items-center px-6 md:px-12 lg:px-24 border-t border-zinc-800">
+    <div className="w-full bg-[#1c1c1e] pt-20 md:pt-32 pb-8 flex flex-col justify-between items-center px-6 md:px-12 lg:px-24">
       <div className="w-full max-w-[1300px] flex flex-col">
         
-        {/* Top: Large Brand Name & Newsletter */}
-        <div className="w-full flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-24 gap-12">
-          <h2 className="text-[#f5f5f5] font-helvetica text-5xl md:text-7xl lg:text-[6vw] font-bold uppercase tracking-tighter leading-none">
-            Artail<br />Story
-          </h2>
-          <div className="flex flex-col w-full max-w-[380px]">
-            <p className="text-[#a0a0a0] font-inter text-sm leading-relaxed mb-6">
-              Subscribe to our newsletter for upcoming seasonal menus and exclusive art events.
-            </p>
-            <div className="flex w-full border-b border-[#a0a0a0] pb-2">
-              <input 
-                type="email" 
-                placeholder="Email Address" 
-                className="flex-1 bg-transparent text-[#f5f5f5] font-inter text-sm focus:outline-none placeholder-zinc-600" 
-              />
-              <button className="text-[#f5f5f5] font-inter text-sm uppercase tracking-widest hover:text-zinc-400 transition-colors">
-                Submit
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Middle: Grid Info */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 md:gap-8 w-full border-t border-zinc-800 pt-12">
-          {/* Location */}
-          <div className="flex flex-col gap-4">
-            <h4 className="text-[#f5f5f5] font-helvetica text-sm font-bold uppercase tracking-widest">Location</h4>
-            <p className="text-[#a0a0a0] font-inter text-sm leading-relaxed">
+        {/* Top Grid: Info & Newsletter */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 w-full mb-20 md:mb-32">
+          
+          {/* Col 1: Location */}
+          <div className="md:col-span-3 flex flex-col gap-6">
+            <h4 className="text-[#f5f5f5] font-helvetica text-xs font-bold uppercase tracking-[0.15em]">Location</h4>
+            <p className="text-[#a0a0a0] font-inter text-sm leading-[1.8]">
               524 W 24th St,<br />
               Chelsea Art District,<br />
               New York, NY 10011
             </p>
           </div>
-          
-          {/* Contact */}
-          <div className="flex flex-col gap-4">
-            <h4 className="text-[#f5f5f5] font-helvetica text-sm font-bold uppercase tracking-widest">Contact</h4>
-            <p className="text-[#a0a0a0] font-inter text-sm leading-relaxed">
+
+          {/* Col 2: Contact & Hours */}
+          <div className="md:col-span-3 flex flex-col gap-6">
+            <h4 className="text-[#f5f5f5] font-helvetica text-xs font-bold uppercase tracking-[0.15em]">Contact</h4>
+            <p className="text-[#a0a0a0] font-inter text-sm leading-[1.8]">
               +1 (212) 555-0198<br />
               info@artailstory.com
             </p>
+            <div className="mt-4">
+              <h4 className="text-[#f5f5f5] font-helvetica text-xs font-bold uppercase tracking-[0.15em] mb-4">Hours</h4>
+              <p className="text-[#a0a0a0] font-inter text-sm leading-[1.8]">
+                Wed - Sun<br />
+                6:00 PM - 2:00 AM
+              </p>
+            </div>
           </div>
 
-          {/* Social */}
-          <div className="flex flex-col gap-4">
-            <h4 className="text-[#f5f5f5] font-helvetica text-sm font-bold uppercase tracking-widest">Social</h4>
-            <div className="flex flex-col gap-2">
+          {/* Col 3: Social */}
+          <div className="md:col-span-2 flex flex-col gap-6">
+            <h4 className="text-[#f5f5f5] font-helvetica text-xs font-bold uppercase tracking-[0.15em]">Social</h4>
+            <div className="flex flex-col gap-3">
               <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-inter text-sm transition-colors">Instagram</a>
               <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-inter text-sm transition-colors">Spotify</a>
               <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-inter text-sm transition-colors">Artsy</a>
             </div>
           </div>
 
-          {/* Hours */}
-          <div className="flex flex-col gap-4">
-            <h4 className="text-[#f5f5f5] font-helvetica text-sm font-bold uppercase tracking-widest">Hours</h4>
-            <p className="text-[#a0a0a0] font-inter text-sm leading-relaxed">
-              Wed - Sun<br />
-              6:00 PM - 2:00 AM
+          {/* Col 4: Newsletter */}
+          <div className="md:col-span-4 flex flex-col gap-6">
+            <h4 className="text-[#f5f5f5] font-helvetica text-xs font-bold uppercase tracking-[0.15em]">Newsletter</h4>
+            <p className="text-[#a0a0a0] font-inter text-sm leading-[1.8]">
+              Subscribe to our newsletter for upcoming seasonal menus and exclusive art events.
             </p>
+            <div className="flex w-full border-b border-[#555555] pb-3 mt-2 group focus-within:border-[#f5f5f5] transition-colors">
+              <input 
+                type="email" 
+                placeholder="Email Address" 
+                className="flex-1 bg-transparent text-[#f5f5f5] font-inter text-sm focus:outline-none placeholder-zinc-600" 
+              />
+              <button className="text-[#f5f5f5] font-inter text-xs font-bold uppercase tracking-widest hover:text-zinc-400 transition-colors">
+                Submit
+              </button>
+            </div>
           </div>
+
         </div>
 
-        {/* Bottom: Copyright */}
-        <div className="w-full flex flex-col md:flex-row justify-between items-center mt-24 pt-8 border-t border-zinc-800 text-[#666666] font-inter text-xs">
-          <p>© 2025 Artail Story. All rights reserved.</p>
-          <div className="flex gap-6 mt-4 md:mt-0">
-            <a href="#" className="hover:text-[#a0a0a0] transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-[#a0a0a0] transition-colors">Terms of Service</a>
+        {/* Bottom: Huge Brand Name */}
+        <div className="w-full flex flex-col items-center border-t border-zinc-800/50 pt-8 md:pt-12">
+          <h1 className="text-[#f5f5f5] font-helvetica text-[13vw] md:text-[11vw] font-bold uppercase tracking-tighter leading-none w-full text-center mb-8 md:mb-12">
+            ARTAIL STORY
+          </h1>
+          
+          {/* Copyright & Links */}
+          <div className="w-full flex flex-col md:flex-row justify-between items-center text-[#666666] font-inter text-xs tracking-wide">
+            <p>© 2025 Artail Story. All rights reserved.</p>
+            <div className="flex gap-6 mt-4 md:mt-0">
+              <a href="#" className="hover:text-[#a0a0a0] transition-colors">Privacy Policy</a>
+              <a href="#" className="hover:text-[#a0a0a0] transition-colors">Terms of Service</a>
+            </div>
           </div>
         </div>
 
