@@ -178,78 +178,84 @@ const JourneyStage = () => {
   );
 };
 
-// --- ฉาก 4: Footer ถอดแบบจากเรฟเฟอเรนซ์ระดับมิลลิเมตร ---
+// --- ฉาก 4: Footer สไตล์ใหม่ (New York) ---
 const FooterStage = () => {
   return (
-    <div className="w-full bg-[#1c1c1e] py-20 md:py-32 flex justify-center items-center px-6 md:px-12 lg:px-24">
-      <div className="w-full max-w-[1200px] flex flex-col md:flex-row gap-16 md:gap-8 justify-between">
+    <div className="w-full bg-[#1c1c1e] py-16 md:py-24 flex justify-center items-center px-6 md:px-12 lg:px-24 border-t border-zinc-800">
+      <div className="w-full max-w-[1300px] flex flex-col">
         
-        {/* ฝั่งซ้าย: Newsletter & แบรนด์ */}
-        <div className="w-full md:w-[45%] flex flex-col justify-between gap-16 md:gap-32">
-          {/* Newsletter */}
-          <div className="flex flex-col">
-            <h3 className="text-[#f5f5f5] font-helvetica text-3xl md:text-4xl font-bold uppercase tracking-wide mb-3 md:mb-4">Newsletter</h3>
-            <p className="text-[#a0a0a0] font-inter text-[11px] md:text-xs tracking-wide mb-6 md:mb-8 max-w-[380px] leading-relaxed">
-              Subscribe to newsletter for upcoming seasonal menus, featured guest shifts, and exclusive art events.
+        {/* Top: Large Brand Name & Newsletter */}
+        <div className="w-full flex flex-col md:flex-row justify-between items-start md:items-end mb-16 md:mb-24 gap-12">
+          <h2 className="text-[#f5f5f5] font-helvetica text-5xl md:text-7xl lg:text-[6vw] font-bold uppercase tracking-tighter leading-none">
+            Artail<br />Story
+          </h2>
+          <div className="flex flex-col w-full max-w-[380px]">
+            <p className="text-[#a0a0a0] font-inter text-sm leading-relaxed mb-6">
+              Subscribe to our newsletter for upcoming seasonal menus and exclusive art events.
             </p>
-            <div className="flex w-full max-w-[420px]">
+            <div className="flex w-full border-b border-[#a0a0a0] pb-2">
               <input 
                 type="email" 
-                placeholder="name@email.com" 
-                className="flex-1 bg-[#EAEAEA] text-[#111111] font-inter text-[11px] md:text-xs px-4 py-3 md:py-4 focus:outline-none placeholder-zinc-500" 
+                placeholder="Email Address" 
+                className="flex-1 bg-transparent text-[#f5f5f5] font-inter text-sm focus:outline-none placeholder-zinc-600" 
               />
-              <button className="bg-[#333333] hover:bg-[#111111] text-[#f5f5f5] font-inter text-[11px] md:text-xs px-6 md:px-8 py-3 md:py-4 transition-colors duration-300">
-                Subscribe
+              <button className="text-[#f5f5f5] font-inter text-sm uppercase tracking-widest hover:text-zinc-400 transition-colors">
+                Submit
               </button>
             </div>
           </div>
+        </div>
+
+        {/* Middle: Grid Info */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12 md:gap-8 w-full border-t border-zinc-800 pt-12">
+          {/* Location */}
+          <div className="flex flex-col gap-4">
+            <h4 className="text-[#f5f5f5] font-helvetica text-sm font-bold uppercase tracking-widest">Location</h4>
+            <p className="text-[#a0a0a0] font-inter text-sm leading-relaxed">
+              524 W 24th St,<br />
+              Chelsea Art District,<br />
+              New York, NY 10011
+            </p>
+          </div>
           
-          {/* Contact / Logo */}
-          <div className="flex flex-col">
-            <h2 className="text-[#f5f5f5] font-helvetica text-3xl md:text-4xl tracking-[-0.03em] mb-4 md:mb-5">Artail Story</h2>
-            <p className="text-[#a0a0a0] font-inter text-[11px] md:text-xs tracking-wide leading-[1.8]">
-              ( +66 ) 89 123 4567<br/>
-              reservations@artailstory.com<br/>
-              Narkara Alley, Art District, Bangkok, Thailand
+          {/* Contact */}
+          <div className="flex flex-col gap-4">
+            <h4 className="text-[#f5f5f5] font-helvetica text-sm font-bold uppercase tracking-widest">Contact</h4>
+            <p className="text-[#a0a0a0] font-inter text-sm leading-relaxed">
+              +1 (212) 555-0198<br />
+              info@artailstory.com
+            </p>
+          </div>
+
+          {/* Social */}
+          <div className="flex flex-col gap-4">
+            <h4 className="text-[#f5f5f5] font-helvetica text-sm font-bold uppercase tracking-widest">Social</h4>
+            <div className="flex flex-col gap-2">
+              <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-inter text-sm transition-colors">Instagram</a>
+              <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-inter text-sm transition-colors">Spotify</a>
+              <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-inter text-sm transition-colors">Artsy</a>
+            </div>
+          </div>
+
+          {/* Hours */}
+          <div className="flex flex-col gap-4">
+            <h4 className="text-[#f5f5f5] font-helvetica text-sm font-bold uppercase tracking-widest">Hours</h4>
+            <p className="text-[#a0a0a0] font-inter text-sm leading-relaxed">
+              Wed - Sun<br />
+              6:00 PM - 2:00 AM
             </p>
           </div>
         </div>
 
-        {/* ฝั่งขวา: 4 คอลัมน์ลิงก์ */}
-        <div className="w-full md:w-[50%] grid grid-cols-2 gap-y-12 md:gap-y-16 gap-x-8 md:gap-x-12">
-          {/* Col 1 */}
-          <div className="flex flex-col gap-4 md:gap-5">
-            <h4 className="text-[#f5f5f5] font-helvetica text-base md:text-lg font-bold uppercase tracking-wide mb-1">Collections</h4>
-            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-inter text-[10px] md:text-[11px] tracking-[0.15em] uppercase transition-colors">Signature Canvas</a>
-            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-inter text-[10px] md:text-[11px] tracking-[0.15em] uppercase transition-colors">Nature Plating</a>
-            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-inter text-[10px] md:text-[11px] tracking-[0.15em] uppercase transition-colors">Ethereal Play</a>
-            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-inter text-[10px] md:text-[11px] tracking-[0.15em] uppercase transition-colors">Archive Menus</a>
-          </div>
-          {/* Col 2 */}
-          <div className="flex flex-col gap-4 md:gap-5">
-            <h4 className="text-[#f5f5f5] font-helvetica text-base md:text-lg font-bold uppercase tracking-wide mb-1">Social Media</h4>
-            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-inter text-[10px] md:text-[11px] tracking-[0.15em] uppercase transition-colors">Instagram</a>
-            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-inter text-[10px] md:text-[11px] tracking-[0.15em] uppercase transition-colors">Facebook</a>
-            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-inter text-[10px] md:text-[11px] tracking-[0.15em] uppercase transition-colors">Spotify</a>
-            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-inter text-[10px] md:text-[11px] tracking-[0.15em] uppercase transition-colors">Tiktok</a>
-          </div>
-          {/* Col 3 */}
-          <div className="flex flex-col gap-4 md:gap-5">
-            <h4 className="text-[#f5f5f5] font-helvetica text-base md:text-lg font-bold uppercase tracking-wide mb-1">Quick Link</h4>
-            <a href="#" className="text-[#f5f5f5] underline underline-offset-4 decoration-1 font-inter text-[10px] md:text-[11px] tracking-[0.15em] uppercase transition-colors">Home</a>
-            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-inter text-[10px] md:text-[11px] tracking-[0.15em] uppercase transition-colors">The Journey</a>
-            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-inter text-[10px] md:text-[11px] tracking-[0.15em] uppercase transition-colors">Reservations</a>
-            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-inter text-[10px] md:text-[11px] tracking-[0.15em] uppercase transition-colors">Artists</a>
-          </div>
-          {/* Col 4 */}
-          <div className="flex flex-col gap-4 md:gap-5">
-            <h4 className="text-[#f5f5f5] font-helvetica text-base md:text-lg font-bold uppercase tracking-wide mb-1">Artists</h4>
-            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-inter text-[10px] md:text-[11px] tracking-[0.15em] uppercase transition-colors">Mimi</a>
-            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-inter text-[10px] md:text-[11px] tracking-[0.15em] uppercase transition-colors">Teddy</a>
-            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-inter text-[10px] md:text-[11px] tracking-[0.15em] uppercase transition-colors">Guest Shifts</a>
-            <a href="#" className="text-[#a0a0a0] hover:text-[#f5f5f5] font-inter text-[10px] md:text-[11px] tracking-[0.15em] uppercase transition-colors">Join Us</a>
+        {/* Bottom: Copyright */}
+        <div className="w-full flex flex-col md:flex-row justify-between items-center mt-24 pt-8 border-t border-zinc-800 text-[#666666] font-inter text-xs">
+          <p>© 2025 Artail Story. All rights reserved.</p>
+          <div className="flex gap-6 mt-4 md:mt-0">
+            <a href="#" className="hover:text-[#a0a0a0] transition-colors">Privacy Policy</a>
+            <a href="#" className="hover:text-[#a0a0a0] transition-colors">Terms of Service</a>
           </div>
         </div>
+
       </div>
     </div>
   );
