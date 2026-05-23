@@ -789,18 +789,18 @@ export default function App() {
               </div>
             </motion.div>
 
-            {/* เปลี่ยนกลับเป็น justify-center และลบ px ออก เพื่อให้อยู่ตรงกลางจอแบบสมบูรณ์ */}
-            <motion.div style={{ opacity: textLayerMasterOpacity, y: textInitY }} className="absolute inset-0 flex flex-col items-center justify-center px-2 z-20 pointer-events-none">
-              <motion.div style={{ filter: logoBlur, WebkitFilter: logoBlur }} className="absolute inset-0 flex flex-col items-center justify-center">
+            {/* เปลี่ยนเป็น justify-end เพื่อให้ข้อความอยู่ด้านล่างสุดของหน้าจอ */}
+            <motion.div style={{ opacity: textLayerMasterOpacity, y: textInitY }} className="absolute inset-0 flex flex-col items-center justify-end px-2 z-20 pointer-events-none">
+              <motion.div style={{ filter: logoBlur, WebkitFilter: logoBlur }} className="absolute inset-0 flex flex-col items-center justify-end pb-[8vh] md:pb-[10vh]">
                 <motion.div style={{ filter: gooeyFilter, WebkitFilter: gooeyFilter }} className="relative w-full mx-auto flex items-center justify-center">
                   
                   <motion.div className="absolute bg-[#111111] rounded-full z-0" style={{ width: '40px', height: '40px', top: '50%', marginTop: '-20px', left: '50%', marginLeft: '-20px', y: dropY, x: dropHideX, scaleY: dropScaleY, opacity: dropOpacity, originY: 0.5 }} />
                   
-                  {/* เปลี่ยนฟอนต์เป็น Inter (font-inter) และน้ำหนัก 500 (font-medium) พร้อมลดขนาดลงนิดหน่อยไม่ให้ล้นจอ */}
-                  <motion.div style={{ opacity: logoOpacity, y: logoHideY, WebkitTransform: 'translateZ(0)', transform: 'translateZ(0)' }} className="relative flex items-center justify-center w-full z-10 text-[11vw] md:text-[9.5vw] font-inter font-medium tracking-tighter leading-[0.8] text-[#111111] whitespace-nowrap h-[2.2em]">
+                  {/* เปลี่ยนฟอนต์เป็น Inter (font-inter) และน้ำหนัก 500 (font-medium) ปรับขนาดให้พอดีบรรทัดเดียว */}
+                  <motion.div style={{ opacity: logoOpacity, y: logoHideY, WebkitTransform: 'translateZ(0)', transform: 'translateZ(0)' }} className="relative flex items-center justify-center w-full z-10 text-[6.5vw] md:text-[5.5vw] font-inter font-medium tracking-tighter leading-[0.8] text-[#111111] whitespace-nowrap h-[1.2em]">
                     
-                    {/* --- บรรทัดที่ 1 (WHAT ARE YOU) --- */}
-                    <motion.div style={{ y: line1Y, x: line1X }} className="absolute flex justify-center items-baseline w-full">
+                    {/* --- บรรทัดเดียว (WHAT ARE YOU DRINKING?) --- */}
+                    <motion.div className="flex justify-center items-baseline w-full">
                       <motion.span style={{ scaleY: meltScaleY }} className="flex-shrink-0 inline-block origin-top">W</motion.span>
                       <motion.div style={{ maxWidth: mw1, opacity: smallOpacity, y: smallTextHideY }} className="flex-shrink-0 flex overflow-hidden items-baseline">
                         <span className="font-inter font-medium tracking-tighter uppercase pr-[1.5vw]">HAT</span>
@@ -815,10 +815,7 @@ export default function App() {
                       <motion.div style={{ maxWidth: mw3, opacity: smallOpacity, y: smallTextHideY }} className="flex-shrink-0 flex overflow-hidden items-baseline">
                         <span className="font-inter font-medium tracking-tighter uppercase pr-[1.5vw]">OU</span>
                       </motion.div>
-                    </motion.div>
 
-                    {/* --- บรรทัดที่ 2 (DRINKING?) --- */}
-                    <motion.div style={{ y: line2Y, x: line2X }} className="absolute flex justify-center items-baseline w-full">
                       <motion.span style={{ scaleY: meltScaleY }} className="flex-shrink-0 inline-block origin-top">D</motion.span>
                       <motion.div style={{ maxWidth: mw4, opacity: smallOpacity, y: smallTextHideY }} className="flex-shrink-0 flex overflow-hidden items-baseline">
                         <span className="font-inter font-medium tracking-tighter uppercase pr-[0.5vw]">RINKING</span>
