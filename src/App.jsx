@@ -348,13 +348,13 @@ const ArtistStage = () => {
     <div className="w-full h-[100vh] md:h-[120vh] bg-[#1c1c1e] relative overflow-hidden">
       
       {/* Top Right Text */}
-      <div className="absolute top-12 md:top-16 right-6 md:right-12 lg:right-24 text-right z-20">
+      <div className="absolute top-12 md:top-16 right-6 md:right-12 lg:right-32 text-right z-20">
         <p className="text-[#f5f5f5] font-inter-tight text-[9px] md:text-[11px] tracking-[0.05em] font-normal uppercase mb-1">WINNER "BARSTAR AWARDS"</p>
         <p className="text-[#f5f5f5] font-inter-tight text-[9px] md:text-[11px] tracking-[0.05em] uppercase font-normal">by NEW YORK BARTENDER WEEK 2025</p>
       </div>
 
       {/* Mimi (Left - เว้นบนนิดเดียว) */}
-      <div className="absolute top-4 md:top-6 left-6 md:left-12 lg:left-24 w-[35vw] md:w-[22vw] lg:w-[16vw] flex flex-col group z-20">
+      <div className="absolute top-4 md:top-6 left-6 md:left-12 lg:left-32 w-[35vw] md:w-[22vw] lg:w-[16vw] flex flex-col group z-20">
         <div className="w-full aspect-[2/3] bg-[#2a2a2c] overflow-hidden mb-3">
           <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" alt="Mimi" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-105 will-change-transform" draggable="false" />
         </div>
@@ -365,7 +365,7 @@ const ArtistStage = () => {
       </div>
 
       {/* Teddy (Right - เยื้องล่าง แต่พ้นตัวอักษร) */}
-      <div className="absolute top-[20%] md:top-[25%] right-6 md:right-12 lg:right-24 w-[35vw] md:w-[22vw] lg:w-[16vw] flex flex-col group z-20">
+      <div className="absolute top-[20%] md:top-[25%] right-6 md:right-12 lg:right-32 w-[35vw] md:w-[22vw] lg:w-[16vw] flex flex-col group z-20">
         <div className="w-full aspect-[2/3] bg-[#2a2a2c] overflow-hidden mb-3">
           <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80" alt="Teddy" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-105 will-change-transform" draggable="false" />
         </div>
@@ -376,14 +376,14 @@ const ArtistStage = () => {
       </div>
 
       {/* Bottom Huge Text */}
-      <div className="absolute bottom-8 md:bottom-12 left-6 md:left-12 lg:left-24 right-6 md:right-12 lg:right-24 flex flex-col md:flex-row justify-between items-start md:items-end z-10 pointer-events-none">
+      <div className="absolute bottom-8 md:bottom-12 left-6 md:left-12 lg:left-32 right-6 md:right-12 lg:right-32 flex flex-col md:flex-row justify-between items-start md:items-end z-10 pointer-events-none">
         <div className="flex items-baseline gap-4 md:gap-6">
-          <h2 className="text-[#f5f5f5] font-bebas text-[28vw] md:text-[14vw] lg:text-[12vw] leading-[0.75] tracking-normal m-0 p-0">MEET</h2>
+          <h2 className="text-[#f5f5f5] font-bebas text-[28vw] md:text-[14vw] lg:text-[10.5vw] leading-[0.75] tracking-normal m-0 p-0">MEET</h2>
           <span className="font-inter-tight text-[10px] md:text-xs tracking-widest uppercase mb-[1vw] md:mb-[0.5vw]">
             <span className="text-[#d92323]">ABOUT</span> <span className="text-[#f5f5f5]">/ SEE ALL</span>
           </span>
         </div>
-        <h2 className="text-[#f5f5f5] font-bebas text-[28vw] md:text-[14vw] lg:text-[12vw] leading-[0.75] tracking-normal m-0 p-0">ARTISTS(OUR)</h2>
+        <h2 className="text-[#f5f5f5] font-bebas text-[28vw] md:text-[14vw] lg:text-[10.5vw] leading-[0.75] tracking-normal m-0 p-0">ARTISTS(OUR)</h2>
       </div>
 
     </div>
