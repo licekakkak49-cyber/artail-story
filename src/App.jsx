@@ -502,7 +502,7 @@ export default function App() {
   const dropHideX = useTransform(scrollYProgress, (v) => v > 0.20 ? -9999 : 0);
 
   // เปลี่ยนเฉพาะสีหยดน้ำเป็นสีไวน์แดง โดยเริ่มเปลี่ยนตอนที่หลุดออกจากตัวอักษร
-  const dropColor = useTransform(scrollYProgress, [0.13, 0.16], ["#111111", "#8B0000"]); 
+  const dropColor = useTransform(scrollYProgress, [0.13, 0.16], ["#000000", "#8B0000"]); 
 
   // เลื่อนการหายไปของเลเยอร์หลัก เพื่อให้เห็นฉากหมึกกระจายก่อน
   const textLayerMasterOpacity = useTransform(scrollYProgress, [0.21, 0.22], [1, 0]); 
@@ -612,7 +612,7 @@ export default function App() {
                     <motion.div className="absolute rounded-full z-0" style={{ backgroundColor: dropColor, width: '40px', height: '40px', top: '50%', marginTop: '-20px', left: '49%', marginLeft: '-20px', y: dropY, x: dropHideX, scaleY: dropScaleY, opacity: dropOpacity, originY: 0.5 }} />
                     
                     {/* อัปเดตระยะ mt-[0.36em] ให้ตรงกับค่า line1Y/line2Y ด้านบน เพื่อรักษาสมดุล */}
-                    <motion.div style={{ color: '#111111', opacity: logoOpacity, y: logoHideY, WebkitTransform: 'translateZ(0)', transform: 'translateZ(0)' }} className="relative flex items-center justify-center w-full z-10 text-[22vw] md:text-[18vw] lg:text-[16vw] font-bebas leading-[0.75] tracking-normal text-[#111111] whitespace-nowrap h-0 mt-[0.36em]">
+                    <motion.div style={{ opacity: logoOpacity, y: logoHideY, WebkitTransform: 'translateZ(0)', transform: 'translateZ(0)' }} className="relative flex items-center justify-center w-full z-10 text-[22vw] md:text-[18vw] lg:text-[16vw] font-bebas leading-[0.75] tracking-normal text-black whitespace-nowrap h-0 mt-[0.36em]">
                       
                       {/* --- บรรทัดที่ 1 (WHAT ARE YOU) --- */}
                       <motion.div style={{ y: line1Y, x: line1X }} className="absolute flex justify-center items-baseline w-full">
