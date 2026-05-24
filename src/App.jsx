@@ -691,8 +691,8 @@ export default function App() {
                     emotions, moments held briefly in a glass.
                 </motion.div>
 
-                {/* พิกัดแนวตั้ง -> ดึง right เข้ามาให้ตรงกับหมึกขวาสุดของตัว "U" และดึง top ลงมาให้เริ่มใต้ตัว U พอดี */}
-                <div className="absolute top-[32vh] md:top-[38vh] z-30 flex items-start justify-end right-[6vw] md:right-[10vw] lg:right-[12vw]">
+                {/* พิกัดแนวตั้ง -> ดึง right เข้ามาให้ตรงกับหมึกขวาสุดของตัว "U" และดึง top ขึ้นไปให้เริ่มใต้ตัว U (ตรงกับบรรทัด DRINKING) */}
+                <div className="absolute top-[28vh] md:top-[33vh] z-30 flex items-start justify-end right-[12vw] md:right-[16vw] lg:right-[18vw]">
                   <motion.div style={{ y: coordY, opacity: cornerOpacity, writingMode: 'vertical-rl', transform: 'rotate(180deg)' }} className="font-inter-tight font-bold text-[8px] md:text-[9px] uppercase tracking-widest text-[#111111]">
                       40.7128° N, 74.0060° W
                   </motion.div>
