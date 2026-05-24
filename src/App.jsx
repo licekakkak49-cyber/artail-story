@@ -290,7 +290,7 @@ const ContentStage = () => {
         </div>
       </div>
       <div className="flex-1 flex items-center w-full overflow-hidden">
-        <motion.div animate={{ x: ["0%", "-50%"] }} transition={{ ease: "linear", duration: 45, repeat: Infinity }} className="flex w-max">
+        <motion.div animate={{ x: ["0%", "-50%"] }} transition={{ ease: "linear", duration: 45, repeat: Infinity }} style={{ willChange: "transform" }} className="flex w-max">
           <div className="flex items-start gap-2 md:gap-4 pr-2 md:pr-4">
             {cocktailMenuData.map((item, i) => (
               <div key={`set1-${i}`} className="w-[45vw] sm:w-[35vw] md:w-[28vw] lg:w-[22vw] flex flex-col flex-shrink-0 cursor-pointer group">
@@ -343,7 +343,7 @@ const ArtistStage = () => {
           <div className="flex flex-col items-center group w-full md:w-[400px]">
             <div className="w-full flex flex-col items-start">
               <div className="w-full aspect-square bg-[#2a2a2c] overflow-hidden mb-4 md:mb-6">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" alt="Mimi" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-105" draggable="false" />
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" alt="Mimi" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-105 will-change-transform" draggable="false" />
               </div>
               <h3 className="text-[#f5f5f5] font-inter-tight text-2xl md:text-3xl font-normal tracking-tight">Mimi</h3>
               <p className="text-[#a0a0a0] font-inter-tight text-[10px] md:text-xs tracking-[0.15em] mt-2 uppercase font-normal">7 Signatures</p>
@@ -352,7 +352,7 @@ const ArtistStage = () => {
           <div className="flex flex-col items-center group w-full md:w-[400px]">
             <div className="w-full flex flex-col items-start">
               <div className="w-full aspect-square bg-[#2a2a2c] overflow-hidden mb-4 md:mb-6">
-                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80" alt="Teddy" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-105" draggable="false" />
+                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80" alt="Teddy" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-105 will-change-transform" draggable="false" />
               </div>
               <h3 className="text-[#f5f5f5] font-inter-tight text-2xl md:text-3xl font-normal tracking-tight">Teddy</h3>
               <p className="text-[#a0a0a0] font-inter-tight text-[10px] md:text-xs tracking-[0.15em] mt-2 uppercase font-normal">5 Signatures</p>
@@ -585,7 +585,7 @@ export default function App() {
           
           {/* ฉากหลังสุด: ข้อมูลเนื้อหา */}
           <div className="absolute inset-0 z-0 pointer-events-auto bg-[#F5F5F5]">
-            <motion.div style={{ y: stageY }} className="w-full flex flex-col">
+            <motion.div style={{ y: stageY, willChange: "transform" }} className="w-full flex flex-col">
               <ContentStage />
               <ArtistStage />
               <JourneyStage />
