@@ -477,7 +477,7 @@ export default function App() {
   const mw1 = useTransform(scrollYProgress, [0.04, 0.09], ["25vw", "0vw"]);
   const mw2 = useTransform(scrollYProgress, [0.04, 0.09], ["20vw", "0vw"]);
   const mw3 = useTransform(scrollYProgress, [0.04, 0.09], ["15vw", "0vw"]);
-  const mw4 = useTransform(scrollYProgress, [0.04, 0.09], ["45vw", "0vw"]);
+  const mw4 = useTransform(scrollYProgress, [0.04, 0.09], ["45vw", "1vw"]);
   
   const smallOpacity = useTransform(scrollYProgress, [0.04, 0.07], [1, 0]);
   const smallTextHideY = useTransform(scrollYProgress, (v) => v > 0.075 ? -9999 : 0);
