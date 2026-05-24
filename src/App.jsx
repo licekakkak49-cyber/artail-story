@@ -516,7 +516,8 @@ export default function App() {
   const textLayerMasterOpacity = useTransform(scrollYProgress, [0.21, 0.22], [1, 1]); 
 
   // --- 4. The Ink Bleed (หมึกกระจายลง Canvas) ---
-  const bleedMaskSize = useTransform(scrollYProgress, [0.17, 0.21], ["0vmax 0vmax", "140vmax 140vmax"]);
+  // จำกัดขนาดการกระจายของหมึกไว้ที่ 70vmax เพื่อไม่ให้แดงเต็มจอตอนเปิดม่าน
+  const bleedMaskSize = useTransform(scrollYProgress, [0.17, 0.21], ["0vmax 0vmax", "70vmax 70vmax"]);
   const bleedOpacity = useTransform(scrollYProgress, [0.17, 0.18], [0, 1]);
 
   // --- States หลัก ---
