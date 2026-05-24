@@ -472,7 +472,7 @@ export default function App() {
 
   // --- 2. The Text Fold (WHAT ARE YOU -> WAYD?) ---
   // NEW: แอนิเมชันสไลด์ข้อความจากใต้ Nav ลงมาอยู่กลางจอ 
-  const mainTextY = useTransform(scrollYProgress, [0.04, 0.09], ["0vh", "35vh"]); 
+  const mainTextY = useTransform(scrollYProgress, [0.04, 0.09], ["0vh", "22vh"]); 
 
   const mw1 = useTransform(scrollYProgress, [0.04, 0.09], ["25vw", "0vw"]);
   const mw2 = useTransform(scrollYProgress, [0.04, 0.09], ["20vw", "0vw"]);
