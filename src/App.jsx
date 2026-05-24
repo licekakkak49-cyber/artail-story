@@ -501,8 +501,8 @@ export default function App() {
   const logoBlur = useTransform(scrollYProgress, [0.10, 0.13], ["blur(0px)", "blur(5px)"]);
   
   const meltScaleY = useTransform(scrollYProgress, [0.10, 0.14], [1, 1.6]); 
-  const logoOpacity = useTransform(scrollYProgress, [0.12, 0.14], [1, 0]); 
-  const logoHideY = useTransform(scrollYProgress, (v) => v > 0.15 ? -9999 : 0);
+  const logoOpacity = useTransform(scrollYProgress, [0.12, 0.15], [1, 0]); 
+  const logoHideY = useTransform(scrollYProgress, (v) => v > 0.16 ? -9999 : 0);
 
   const dropOpacity = useTransform(scrollYProgress, [0.09, 0.11, 0.17, 0.19], [0, 1, 1, 0]); 
   const dropY = useTransform(scrollYProgress, [0.11, 0.17], ["0vh", "60vh"]);
