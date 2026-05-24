@@ -500,7 +500,7 @@ export default function App() {
   const gooeyFilter = useTransform(scrollYProgress, (v) => v >= 0.08 ? "url(#goo)" : "none");
   const logoBlur = useTransform(scrollYProgress, [0.10, 0.13], ["blur(0px)", "blur(5px)"]);
   
-  const meltScaleY = useTransform(scrollYProgress, [0.10, 0.14], [1, 1.8]); 
+  const meltScaleY = useTransform(scrollYProgress, [0.10, 0.14], [1, 1.6]); 
   const logoOpacity = useTransform(scrollYProgress, [0.13, 0.15], [1, 0]); 
   const logoHideY = useTransform(scrollYProgress, (v) => v > 0.16 ? -9999 : 0);
 
