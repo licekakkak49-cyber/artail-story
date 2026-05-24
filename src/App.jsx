@@ -353,9 +353,9 @@ const ArtistStage = () => {
         <p className="text-[#f5f5f5] font-inter-tight text-[9px] md:text-[11px] tracking-[0.05em] uppercase font-normal">by NEW YORK BARTENDER WEEK 2025</p>
       </div>
 
-      {/* Mimi (Left) */}
-      <div className="absolute top-[15%] md:top-[20%] left-6 md:left-12 lg:left-24 w-[45vw] md:w-[28vw] lg:w-[22vw] flex flex-col group z-20">
-        <div className="w-full aspect-[3/4] bg-[#2a2a2c] overflow-hidden mb-3">
+      {/* Mimi (Left - ติดบน) */}
+      <div className="absolute top-0 left-6 md:left-12 lg:left-24 w-[35vw] md:w-[22vw] lg:w-[16vw] flex flex-col group z-20">
+        <div className="w-full aspect-[2/3] bg-[#2a2a2c] overflow-hidden mb-3">
           <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" alt="Mimi" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-105 will-change-transform" draggable="false" />
         </div>
         <div className="flex justify-between items-baseline w-full">
@@ -364,9 +364,9 @@ const ArtistStage = () => {
         </div>
       </div>
 
-      {/* Teddy (Right) */}
-      <div className="absolute top-[40%] md:top-[35%] right-6 md:right-12 lg:right-24 w-[45vw] md:w-[28vw] lg:w-[22vw] flex flex-col group z-20">
-        <div className="w-full aspect-[3/4] bg-[#2a2a2c] overflow-hidden mb-3">
+      {/* Teddy (Right - เยื้องล่าง) */}
+      <div className="absolute top-[40%] md:top-[45%] right-6 md:right-12 lg:right-24 w-[35vw] md:w-[22vw] lg:w-[16vw] flex flex-col group z-20">
+        <div className="w-full aspect-[2/3] bg-[#2a2a2c] overflow-hidden mb-3">
           <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80" alt="Teddy" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-105 will-change-transform" draggable="false" />
         </div>
         <div className="flex justify-between items-baseline w-full">
