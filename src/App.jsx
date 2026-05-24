@@ -290,7 +290,7 @@ const ContentStage = () => {
         </div>
       </div>
       <div className="flex-1 flex items-center w-full overflow-hidden">
-        <motion.div animate={{ x: ["0%", "-50%"] }} transition={{ ease: "linear", duration: 45, repeat: Infinity }} style={{ willChange: "transform" }} className="flex w-max">
+        <div className="flex w-max animate-marquee">
           <div className="flex items-start gap-2 md:gap-4 pr-2 md:pr-4">
             {cocktailMenuData.map((item, i) => (
               <div key={`set1-${i}`} className="w-[45vw] sm:w-[35vw] md:w-[28vw] lg:w-[22vw] flex flex-col flex-shrink-0 cursor-pointer group">
@@ -319,7 +319,7 @@ const ContentStage = () => {
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </div>
   );
@@ -452,10 +452,13 @@ const FooterStage = () => {
 
 export default function App() {
   const scrollSequenceRef = useRef(null);
-  const { scrollYProgress } = useScroll({
+  const { scrollYProgress: rawProgress } = useScroll({
     target: scrollSequenceRef,
     offset: ["start start", "end end"]
   });
+  
+  // แปลงค่า Progress จาก 0-1 (ของความสูง 200vh) ให้เป็น 0-0.222 เพื่อให้ตรงกับ Timeline เดิมเป๊ะๆ
+  const scrollYProgress = useTransform(rawProgress, [0, 1], [0, 0.222]);
 
   // --- 1. Cinematic Exit (ซูมทะลุแก้ว และ แหวกข้อความออกด้านข้าง) ---
   const wineScale = useTransform(scrollYProgress, [0.03, 0.08], [1, 4]);
@@ -500,11 +503,6 @@ export default function App() {
 
   const textLayerMasterOpacity = useTransform(scrollYProgress, [0.16, 0.18], [1, 0]); 
 
-  // --- 4. Transition เข้าสู่เนื้อหาแกลลอรี ---
-  const curtainY = useTransform(scrollYProgress, [0.18, 0.25], ["0vh", "-100vh"]);
-  const galleryInitY = useTransform(scrollYProgress, [0, 1], ["0vh", "-400vh"]);
-  const stageY = useTransform(scrollYProgress, [0.30, 0.45, 0.55, 0.65, 0.75, 1], ["0vh", "-100vh", "-100vh", "-155vh", "-155vh", "-280vh"]);
-
   // --- States หลัก ---
   const [view, setView] = useState('home');
   const [overlayView, setOverlayView] = useState('grid');
@@ -538,6 +536,15 @@ export default function App() {
         .font-inter { font-family: "Inter", sans-serif; }
         .font-helvetica { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
         .font-inter-tight { font-family: "Inter Tight", "Inter Tight Placeholder", sans-serif; }
+        
+        @keyframes marquee {
+          0% { transform: translateX(0%); }
+          100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+          animation: marquee 45s linear infinite;
+          will-change: transform;
+        }
         
         ::-webkit-scrollbar { display: none; }
       `}} />
@@ -580,38 +587,12 @@ export default function App() {
         </defs>
       </svg>
 
-      <div ref={scrollSequenceRef} className="h-[900vh] w-full relative z-20">
-        <div className="sticky top-0 h-screen w-full overflow-hidden pointer-events-none">
+      {/* Cinematic Sticky Section (200vh) */}
+      <div ref={scrollSequenceRef} className="h-[200vh] w-full relative z-20">
+        <div className="sticky top-0 h-screen w-full overflow-hidden pointer-events-none bg-[#F5F5F5]">
           
-          {/* ฉากหลังสุด: ข้อมูลเนื้อหา */}
-          <div className="absolute inset-0 z-0 pointer-events-auto bg-[#F5F5F5]">
-            <motion.div style={{ y: stageY, willChange: "transform" }} className="w-full flex flex-col">
-              <ContentStage />
-              <ArtistStage />
-              <JourneyStage />
-              <StoryQuoteStage />
-              <FooterStage />
-            </motion.div>
-          </div>
-
-          {/* ม่านเปิด (Curtain) ซ่อนเนื้อหาและแกลลอรี */}
-          <motion.div style={{ y: curtainY }} className="absolute inset-0 z-10 bg-[#F5F5F5]">
-            <motion.div style={{ y: galleryInitY }} className="absolute inset-0 pt-16 md:pt-24 flex flex-col items-center w-full z-10 pointer-events-auto">
-              <div className="w-full max-w-[90vw] xl:max-w-6xl mx-auto flex justify-center items-center gap-6 md:gap-10 lg:gap-16 h-[18vh] sm:h-[22vh] md:h-[28vh] lg:h-[32vh]">
-                <motion.div className="h-full aspect-[3/4] overflow-hidden" whileHover={{ scale: 1.05 }}>
-                  <img src="https://i.ibb.co/sdH3XHVd/main-3-0-5x.png" loading="eager" fetchpriority="high" className="w-full h-full object-cover grayscale shadow-sm" draggable="false" />
-                </motion.div>
-                <motion.div className="h-full aspect-[4/3] overflow-hidden" whileHover={{ scale: 1.05 }}>
-                  <img src="https://i.ibb.co/bjV9cNG8/Artboard-1-0-5x.png" loading="eager" fetchpriority="high" className="w-full h-full object-cover grayscale shadow-sm" draggable="false" />
-                </motion.div>
-                <motion.div className="h-full aspect-[3/4] overflow-hidden" whileHover={{ scale: 1.05 }}>
-                  <img src="https://i.ibb.co/Y79gLfW0/main-2-0-5x.png" loading="eager" fetchpriority="high" className="w-full h-full object-cover grayscale shadow-sm" draggable="false" />
-                </motion.div>
-              </div>
-            </motion.div>
-
-            {/* 🌟 NEW EDITORIAL HERO SECTION 🌟 */}
-            <motion.div style={{ opacity: textLayerMasterOpacity }} className="absolute inset-0 w-full h-screen bg-[#F5F5F5] z-50 pointer-events-none">
+          {/* 🌟 NEW EDITORIAL HERO SECTION 🌟 */}
+          <motion.div style={{ opacity: textLayerMasterOpacity }} className="absolute inset-0 w-full h-screen z-50 pointer-events-none">
                 
                 {/* 1. ตัวอักษรใหญ่สุด - เพิ่ม pt ให้มากขึ้นเพื่อชดเชยแอนิเมชันที่ดันข้อความพุ่งขึ้นไป ให้มาหยุดพอดีใต้ Nav (ประมาณ 110px - 130px) */}
                 <motion.div style={{ filter: logoBlur, WebkitFilter: logoBlur, y: mainTextY }} className="absolute top-0 left-0 w-full flex flex-col items-center justify-start pt-[110px] md:pt-[130px] z-10">
@@ -696,10 +677,34 @@ export default function App() {
                   </motion.div>
                 </div>
 
-            </motion.div>
-          </motion.div>
+              </motion.div>
+            </div>
+          </div>
+
+          {/* Natural Scroll Content */}
+          <div className="w-full flex flex-col relative z-30 bg-[#F5F5F5] pointer-events-auto">
+            {/* Gallery Images */}
+            <div className="w-full pt-16 md:pt-24 pb-16 flex flex-col items-center w-full">
+              <div className="w-full max-w-[90vw] xl:max-w-6xl mx-auto flex justify-center items-center gap-6 md:gap-10 lg:gap-16 h-[18vh] sm:h-[22vh] md:h-[28vh] lg:h-[32vh]">
+                <motion.div className="h-full aspect-[3/4] overflow-hidden" whileHover={{ scale: 1.05 }}>
+                  <img src="https://i.ibb.co/sdH3XHVd/main-3-0-5x.png" loading="lazy" className="w-full h-full object-cover grayscale shadow-sm" draggable="false" />
+                </motion.div>
+                <motion.div className="h-full aspect-[4/3] overflow-hidden" whileHover={{ scale: 1.05 }}>
+                  <img src="https://i.ibb.co/bjV9cNG8/Artboard-1-0-5x.png" loading="lazy" className="w-full h-full object-cover grayscale shadow-sm" draggable="false" />
+                </motion.div>
+                <motion.div className="h-full aspect-[3/4] overflow-hidden" whileHover={{ scale: 1.05 }}>
+                  <img src="https://i.ibb.co/Y79gLfW0/main-2-0-5x.png" loading="lazy" className="w-full h-full object-cover grayscale shadow-sm" draggable="false" />
+                </motion.div>
+              </div>
+            </div>
+
+            <ContentStage />
+            <ArtistStage />
+            <JourneyStage />
+            <StoryQuoteStage />
+            <FooterStage />
+          </div>
+
         </div>
-      </div>
-    </div>
   );
 }
