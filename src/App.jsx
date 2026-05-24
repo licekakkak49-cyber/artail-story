@@ -365,7 +365,7 @@ const ArtistStage = () => {
       </div>
 
       {/* Teddy (Right - เยื้องล่าง แต่พ้นตัวอักษร) */}
-      <div className="absolute top-[25%] md:top-[30%] right-6 md:right-12 lg:right-24 w-[35vw] md:w-[22vw] lg:w-[16vw] flex flex-col group z-20">
+      <div className="absolute top-[20%] md:top-[25%] right-6 md:right-12 lg:right-24 w-[35vw] md:w-[22vw] lg:w-[16vw] flex flex-col group z-20">
         <div className="w-full aspect-[2/3] bg-[#2a2a2c] overflow-hidden mb-3">
           <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80" alt="Teddy" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-105 will-change-transform" draggable="false" />
         </div>
