@@ -280,7 +280,7 @@ const ContentStage = () => {
   return (
     <div className="w-full h-screen bg-[#F5F5F5] flex flex-col justify-center items-center relative overflow-hidden select-none py-20">
       
-      <div className="w-full flex flex-col items-center justify-center mb-12 md:mb-16 px-4 relative z-10">
+      <div className="w-full flex flex-col items-center justify-center mt-10 md:mt-16 mb-6 md:mb-8 px-4 relative z-10">
         <div className="relative inline-block text-center">
           {/* จุดสีแดงหลังตัว T */}
           <div className="absolute -left-2 md:-left-4 top-0 md:-top-1 w-8 h-8 md:w-12 md:h-12 bg-[#d92323] rounded-full -z-10"></div>
