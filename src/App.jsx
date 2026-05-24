@@ -504,8 +504,8 @@ export default function App() {
   // เปลี่ยนเฉพาะสีหยดน้ำเป็นสีไวน์แดง โดยเริ่มเปลี่ยนตอนที่หลุดออกจากตัวอักษร
   const dropColor = useTransform(scrollYProgress, [0.13, 0.16], ["#000000", "#8B0000"]); 
 
-  // เลื่อนการหายไปของเลเยอร์หลัก เพื่อให้เห็นฉากหมึกกระจายก่อน
-  const textLayerMasterOpacity = useTransform(scrollYProgress, [0.21, 0.22], [1, 0]); 
+  // ยกเลิกการ fade out เพื่อให้ฉากหมึกแคนวาสเลื่อนขึ้นด้านบนตามธรรมชาติเมื่อ Scroll (เหมือนเปิดม่าน)
+  const textLayerMasterOpacity = useTransform(scrollYProgress, [0.21, 0.22], [1, 1]); 
 
   // --- 4. The Ink Bleed (หมึกกระจายลง Canvas) ---
   const bleedMaskSize = useTransform(scrollYProgress, [0.17, 0.21], ["0vmax 0vmax", "140vmax 140vmax"]);
