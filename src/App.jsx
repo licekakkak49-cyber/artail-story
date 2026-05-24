@@ -599,7 +599,7 @@ export default function App() {
                   <motion.div style={{ filter: gooeyFilter, WebkitFilter: gooeyFilter }} className="relative w-full mx-auto flex items-center justify-center">
                     
                     {/* ลูกปัดหยดน้ำ (ขยับซ้ายให้อยู่ระหว่าง A กับ Y) */}
-                    <motion.div className="absolute bg-[#111111] rounded-full z-0" style={{ width: '40px', height: '40px', top: '50%', marginTop: '-20px', left: '48%', marginLeft: '-20px', y: dropY, x: dropHideX, scaleY: dropScaleY, opacity: dropOpacity, originY: 0.5 }} />
+                    <motion.div className="absolute bg-[#111111] rounded-full z-0" style={{ width: '40px', height: '40px', top: '50%', marginTop: '-20px', left: '49%', marginLeft: '-20px', y: dropY, x: dropHideX, scaleY: dropScaleY, opacity: dropOpacity, originY: 0.5 }} />
                     
                     {/* อัปเดตระยะ mt-[0.36em] ให้ตรงกับค่า line1Y/line2Y ด้านบน เพื่อรักษาสมดุล */}
                     <motion.div style={{ opacity: logoOpacity, y: logoHideY, WebkitTransform: 'translateZ(0)', transform: 'translateZ(0)' }} className="relative flex items-center justify-center w-full z-10 text-[22vw] md:text-[18vw] lg:text-[16vw] font-bebas leading-[0.75] tracking-normal text-[#111111] whitespace-nowrap h-0 mt-[0.36em]">
