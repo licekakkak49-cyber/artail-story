@@ -612,7 +612,7 @@ export default function App() {
                     <motion.div className="absolute rounded-full z-0" style={{ backgroundColor: dropColor, width: '40px', height: '40px', top: '50%', marginTop: '-20px', left: '49%', marginLeft: '-20px', y: dropY, x: dropHideX, scaleY: dropScaleY, opacity: dropOpacity, originY: 0.5 }} />
                     
                     {/* อัปเดตระยะ mt-[0.36em] ให้ตรงกับค่า line1Y/line2Y ด้านบน เพื่อรักษาสมดุล */}
-                    <motion.div style={{ opacity: logoOpacity, y: logoHideY, WebkitTransform: 'translateZ(0)', transform: 'translateZ(0)' }} className="relative flex items-center justify-center w-full z-10 text-[22vw] md:text-[18vw] lg:text-[16vw] font-bebas leading-[0.75] tracking-normal text-[#111111] whitespace-nowrap h-0 mt-[0.36em]">
+                    <motion.div style={{ color: '#111111', opacity: logoOpacity, y: logoHideY, WebkitTransform: 'translateZ(0)', transform: 'translateZ(0)' }} className="relative flex items-center justify-center w-full z-10 text-[22vw] md:text-[18vw] lg:text-[16vw] font-bebas leading-[0.75] tracking-normal text-[#111111] whitespace-nowrap h-0 mt-[0.36em]">
                       
                       {/* --- บรรทัดที่ 1 (WHAT ARE YOU) --- */}
                       <motion.div style={{ y: line1Y, x: line1X }} className="absolute flex justify-center items-baseline w-full">
