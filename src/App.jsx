@@ -279,17 +279,21 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
 const ContentStage = () => {
   return (
     <div className="w-full h-screen bg-[#F5F5F5] flex flex-col justify-center items-center relative overflow-hidden select-none py-20">
-      <div className="w-full flex flex-col items-center justify-center mb-16 md:mb-20 px-4">
-        <h3 className="font-helvetica font-normal text-[5.5vw] sm:text-[4.5vw] md:text-[3vw] lg:text-[2.5vw] text-[#111111] text-center leading-[1.3] tracking-tight">
-          “The bar becomes a canvas.<br />The drinks are the work.”
-        </h3>
-        <div className="flex items-center gap-4 mt-6 md:mt-8 text-[8px] md:text-[10px] font-inter-tight font-normal uppercase tracking-[0.2em] text-[#111111]">
-          <span>Experience them as you would</span>
-          <div className="w-12 md:w-20 h-[1px] bg-[#111111]"></div>
-          <span>Art</span>
+      
+      <div className="w-full flex flex-col items-center justify-center mb-12 md:mb-16 px-4 relative z-10">
+        <div className="relative inline-block text-center">
+          {/* จุดสีแดงหลังตัว T */}
+          <div className="absolute -left-2 md:-left-4 top-0 md:-top-1 w-8 h-8 md:w-12 md:h-12 bg-[#d92323] rounded-full -z-10"></div>
+          <h3 className="font-helvetica font-normal text-[6vw] sm:text-[5vw] md:text-[3.5vw] lg:text-[3vw] text-[#111111] leading-[1.1] tracking-tight uppercase">
+            The bar becomes a<br />
+            (canvas)<br />
+            The drinks are<br />
+            the work
+          </h3>
         </div>
       </div>
-      <div className="flex-1 flex items-center w-full overflow-hidden">
+
+      <div className="flex-1 flex items-center w-full overflow-hidden z-10">
         <motion.div 
           animate={{ x: ["0%", "-50%"] }} 
           transition={{ ease: "linear", duration: 45, repeat: Infinity }} 
@@ -303,8 +307,8 @@ const ContentStage = () => {
                   <img src={item.src} alt={item.name} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover grayscale transition-all duration-700 ease-in-out opacity-100 group-hover:opacity-0" draggable="false" />
                   <img src={item.hoverSrc} alt={`${item.name} cocktail`} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out opacity-0 group-hover:opacity-100 scale-100 group-hover:scale-105" draggable="false" />
                 </div>
-                <div className="flex justify-between items-baseline w-full text-[10px] md:text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <span className="font-inter-tight font-normal text-[#111111]">“{item.name}”</span>
+                <div className="flex justify-between items-baseline w-full text-[10px] md:text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-500 mt-1">
+                  <span className="font-inter-tight font-bold text-[#111111]">“{item.name}”</span>
                   <span className="font-inter-tight font-normal text-zinc-400">{item.artist}</span>
                 </div>
               </div>
@@ -317,14 +321,22 @@ const ContentStage = () => {
                   <img src={item.src} alt={item.name} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover grayscale transition-all duration-700 ease-in-out opacity-100 group-hover:opacity-0" draggable="false" />
                   <img src={item.hoverSrc} alt={`${item.name} cocktail`} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out opacity-0 group-hover:opacity-100 scale-100 group-hover:scale-105" draggable="false" />
                 </div>
-                <div className="flex justify-between items-baseline w-full text-[10px] md:text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                  <span className="font-inter-tight font-normal text-[#111111]">“{item.name}”</span>
+                <div className="flex justify-between items-baseline w-full text-[10px] md:text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-500 mt-1">
+                  <span className="font-inter-tight font-bold text-[#111111]">“{item.name}”</span>
                   <span className="font-inter-tight font-normal text-zinc-400">{item.artist}</span>
                 </div>
               </div>
             ))}
           </div>
         </motion.div>
+      </div>
+
+      {/* ปุ่ม Previous / Next ด้านล่าง */}
+      <div className="absolute bottom-8 left-6 md:left-12 font-inter-tight font-bold text-[10px] md:text-xs uppercase tracking-widest text-[#111111] cursor-pointer z-20 hover:text-zinc-500 transition-colors">
+        Previous
+      </div>
+      <div className="absolute bottom-8 right-6 md:right-12 font-inter-tight font-bold text-[10px] md:text-xs uppercase tracking-widest text-[#111111] cursor-pointer z-20 hover:text-zinc-500 transition-colors">
+        Next
       </div>
     </div>
   );
