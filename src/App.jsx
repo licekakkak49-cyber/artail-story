@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
 
 // --- Configuration & Data ---
 const cocktailMenuData = [
@@ -521,13 +521,11 @@ export default function App() {
     }
   }, [view]);
 
-  useEffect(() => {
-    const handleMainScroll = () => {
-      setIsMainScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleMainScroll);
-    return () => window.removeEventListener('scroll', handleMainScroll);
-  }, []);
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    // เปลี่ยนให้ Nav ทำงานหลังจากแอนิเมชันหยดหมึกจบลง (เลยช่วง 0.20 ไปแล้ว)
+    // เพื่อไม่ให้แย่งทรัพยากรการคำนวณในช่วงเริ่มต้น
+    setIsMainScrolled(latest > 0.22);
+  });
 
   return (
     <div className="bg-[#F5F5F5] text-[#111111] selection:bg-[#111111] selection:text-[#F5F5F5] relative">
