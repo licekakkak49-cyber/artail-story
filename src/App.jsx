@@ -290,7 +290,12 @@ const ContentStage = () => {
         </div>
       </div>
       <div className="flex-1 flex items-center w-full overflow-hidden">
-        <div className="flex w-max animate-marquee">
+        <motion.div 
+          animate={{ x: ["0%", "-50%"] }} 
+          transition={{ ease: "linear", duration: 45, repeat: Infinity }} 
+          style={{ willChange: "transform" }} 
+          className="flex w-max"
+        >
           <div className="flex items-start gap-2 md:gap-4 pr-2 md:pr-4">
             {cocktailMenuData.map((item, i) => (
               <div key={`set1-${i}`} className="w-[45vw] sm:w-[35vw] md:w-[28vw] lg:w-[22vw] flex flex-col flex-shrink-0 cursor-pointer group">
@@ -319,7 +324,7 @@ const ContentStage = () => {
               </div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
@@ -550,15 +555,6 @@ export default function App() {
         .font-inter { font-family: "Inter", sans-serif; }
         .font-helvetica { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
         .font-inter-tight { font-family: "Inter Tight", "Inter Tight Placeholder", sans-serif; }
-        
-        @keyframes marquee {
-          0% { transform: translateX(0%); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-          animation: marquee 45s linear infinite;
-          will-change: transform;
-        }
         
         ::-webkit-scrollbar { display: none; }
       `}} />
