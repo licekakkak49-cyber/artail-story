@@ -345,38 +345,47 @@ const ContentStage = () => {
 // --- ฉาก 2: Artists พร้อมข้อมูลจริง ---
 const ArtistStage = () => {
   return (
-    <div className="w-full bg-[#1c1c1e] py-12 md:py-16 flex flex-col justify-center items-center px-6 md:px-12 lg:px-24">
-      <div className="w-full max-w-[1200px] flex flex-col">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end w-full mb-8 md:mb-12 gap-6 md:gap-8">
-          <h2 className="text-[#f5f5f5] font-helvetica text-3xl md:text-4xl lg:text-[3.5vw] font-normal leading-[1.1] tracking-tight uppercase">
-            Meet Our<br />Artists
-          </h2>
-          <div className="text-left md:text-right border-l md:border-l-0 md:border-r border-[#f5f5f5]/20 pl-4 md:pl-0 md:pr-4">
-            <p className="text-[#f5f5f5] font-inter-tight text-xs md:text-sm tracking-[0.15em] font-normal uppercase mb-1.5">Winner "Bar Star Awards"</p>
-            <p className="text-[#888888] font-inter-tight text-[9px] md:text-[10px] tracking-[0.2em] uppercase font-normal">by New York Bartender Week 2025</p>
-          </div>
+    <div className="w-full h-[100vh] md:h-[120vh] bg-[#1c1c1e] relative overflow-hidden">
+      
+      {/* Top Right Text */}
+      <div className="absolute top-12 md:top-16 right-6 md:right-12 lg:right-24 text-right z-20">
+        <p className="text-[#f5f5f5] font-inter-tight text-[9px] md:text-[11px] tracking-[0.05em] font-normal uppercase mb-1">WINNER "BARSTAR AWARDS"</p>
+        <p className="text-[#f5f5f5] font-inter-tight text-[9px] md:text-[11px] tracking-[0.05em] uppercase font-normal">by NEW YORK BARTENDER WEEK 2025</p>
+      </div>
+
+      {/* Mimi (Left) */}
+      <div className="absolute top-[15%] md:top-[20%] left-6 md:left-12 lg:left-24 w-[45vw] md:w-[28vw] lg:w-[22vw] flex flex-col group z-20">
+        <div className="w-full aspect-[3/4] bg-[#2a2a2c] overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" alt="Mimi" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-105 will-change-transform" draggable="false" />
         </div>
-        <div className="flex flex-col md:flex-row justify-center gap-6 md:gap-5 w-full mx-auto">
-          <div className="flex flex-col items-center group w-full md:w-[400px]">
-            <div className="w-full flex flex-col items-start">
-              <div className="w-full aspect-square bg-[#2a2a2c] overflow-hidden mb-4 md:mb-6">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" alt="Mimi" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-105 will-change-transform" draggable="false" />
-              </div>
-              <h3 className="text-[#f5f5f5] font-inter-tight text-2xl md:text-3xl font-normal tracking-tight">Mimi</h3>
-              <p className="text-[#a0a0a0] font-inter-tight text-[10px] md:text-xs tracking-[0.15em] mt-2 uppercase font-normal">7 Signatures</p>
-            </div>
-          </div>
-          <div className="flex flex-col items-center group w-full md:w-[400px]">
-            <div className="w-full flex flex-col items-start">
-              <div className="w-full aspect-square bg-[#2a2a2c] overflow-hidden mb-4 md:mb-6">
-                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80" alt="Teddy" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-105 will-change-transform" draggable="false" />
-              </div>
-              <h3 className="text-[#f5f5f5] font-inter-tight text-2xl md:text-3xl font-normal tracking-tight">Teddy</h3>
-              <p className="text-[#a0a0a0] font-inter-tight text-[10px] md:text-xs tracking-[0.15em] mt-2 uppercase font-normal">5 Signatures</p>
-            </div>
-          </div>
+        <div className="flex justify-between items-baseline w-full">
+          <span className="text-[#f5f5f5] font-inter-tight text-sm md:text-base font-normal">Mimi</span>
+          <span className="text-[#f5f5f5] font-inter-tight text-sm md:text-base font-normal">7 Signature</span>
         </div>
       </div>
+
+      {/* Teddy (Right) */}
+      <div className="absolute top-[40%] md:top-[35%] right-6 md:right-12 lg:right-24 w-[45vw] md:w-[28vw] lg:w-[22vw] flex flex-col group z-20">
+        <div className="w-full aspect-[3/4] bg-[#2a2a2c] overflow-hidden mb-3">
+          <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80" alt="Teddy" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-105 will-change-transform" draggable="false" />
+        </div>
+        <div className="flex justify-between items-baseline w-full">
+          <span className="text-[#f5f5f5] font-inter-tight text-sm md:text-base font-normal">Teddy</span>
+          <span className="text-[#f5f5f5] font-inter-tight text-sm md:text-base font-normal">7 Signature</span>
+        </div>
+      </div>
+
+      {/* Bottom Huge Text */}
+      <div className="absolute bottom-8 md:bottom-12 left-6 md:left-12 lg:left-24 right-6 md:right-12 lg:right-24 flex flex-col md:flex-row justify-between items-start md:items-end z-10 pointer-events-none">
+        <div className="flex items-baseline gap-4 md:gap-6">
+          <h2 className="text-[#f5f5f5] font-bebas text-[28vw] md:text-[14vw] lg:text-[12vw] leading-[0.75] tracking-normal m-0 p-0">MEET</h2>
+          <span className="font-inter-tight text-[10px] md:text-xs tracking-widest uppercase mb-[1vw] md:mb-[0.5vw]">
+            <span className="text-[#d92323]">ABOUT</span> <span className="text-[#f5f5f5]">/ SEE ALL</span>
+          </span>
+        </div>
+        <h2 className="text-[#f5f5f5] font-bebas text-[28vw] md:text-[14vw] lg:text-[12vw] leading-[0.75] tracking-normal m-0 p-0">ARTISTS(OUR)</h2>
+      </div>
+
     </div>
   );
 };
