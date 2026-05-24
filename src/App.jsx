@@ -465,9 +465,8 @@ export default function App() {
   // แปลงค่า Progress จาก 0-0.5 (ของความสูง 300vh) ให้เป็น 0-0.222 เพื่อให้ตรงกับ Timeline เดิมเป๊ะๆ
   const scrollYProgress = useTransform(rawProgress, [0, 0.5], [0, 0.222]);
   
-  // แอนิเมชันเปิดม่าน: ให้ฉาก Hero สไลด์ขึ้น และล็อกหน้า Content ให้อยู่กับที่
+  // แอนิเมชันเปิดม่าน: ให้ฉาก Hero สไลด์ขึ้น
   const curtainY = useTransform(rawProgress, [0.5, 1], ["0vh", "-100vh"]);
-  const contentY = useTransform(rawProgress, [0.5, 1], ["-100vh", "0vh"]);
 
   // --- 1. Cinematic Exit (ซูมทะลุแก้ว และ แหวกข้อความออกด้านข้าง) ---
   const wineScale = useTransform(scrollYProgress, [0.03, 0.08], [1, 4]);
@@ -601,6 +600,11 @@ export default function App() {
       <div ref={scrollSequenceRef} className="h-[300vh] w-full relative z-30">
         <div className="sticky top-0 h-screen w-full overflow-hidden pointer-events-none">
           
+          {/* หน้าเมนู (ContentStage) ซ่อนอยู่หลังม่าน ใช้ Sticky ล็อกไว้เลยไม่กระตุก 100% */}
+          <div className="absolute inset-0 w-full h-screen z-10 pointer-events-auto bg-[#F5F5F5]">
+            <ContentStage />
+          </div>
+
           {/* 🌟 NEW EDITORIAL HERO SECTION 🌟 */}
           <motion.div style={{ opacity: textLayerMasterOpacity, y: curtainY }} className="absolute inset-0 w-full h-screen z-50 pointer-events-none bg-[#F5F5F5]">
                 
@@ -704,14 +708,13 @@ export default function App() {
             </div>
           </div>
 
-          {/* Natural Scroll Content (ดึงขึ้นมาซ้อนหลังม่าน 100vh และล็อกให้อยู่กับที่ตอนเปิดม่าน) */}
-          <motion.div style={{ y: contentY }} className="w-full flex flex-col relative z-20 bg-[#F5F5F5] pointer-events-auto mt-[-100vh]">
-            <ContentStage />
+          {/* Natural Scroll Content (ส่วนที่เหลือเลื่อนตามธรรมชาติ) */}
+          <div className="w-full flex flex-col relative z-20 bg-[#F5F5F5] pointer-events-auto">
             <ArtistStage />
             <JourneyStage />
             <StoryQuoteStage />
             <FooterStage />
-          </motion.div>
+          </div>
 
         </div>
   );
