@@ -501,7 +501,17 @@ export default function App() {
   const dropScaleY = useTransform(scrollYProgress, [0.11, 0.14, 0.17], [1, 3.5, 1]); 
   const dropHideX = useTransform(scrollYProgress, (v) => v > 0.20 ? -9999 : 0);
 
-  const textLayerMasterOpacity = useTransform(scrollYProgress, [0.16, 0.18], [1, 0]); 
+  // เปลี่ยนสีตัวอักษรและหยดน้ำเป็นสีไวน์แดง
+  const dropColor = useTransform(scrollYProgress, [0.08, 0.14], ["#111111", "#8B0000"]); 
+
+  // เลื่อนการหายไปของเลเยอร์หลัก เพื่อให้เห็นฉากหมึกกระจายก่อน
+  const textLayerMasterOpacity = useTransform(scrollYProgress, [0.21, 0.22], [1, 0]); 
+
+  // --- 4. The Ink Bleed (หมึกกระจายลง Canvas) ---
+  const bleedMaskSize = useTransform(scrollYProgress, [0.17, 0.21], ["0vmax 0vmax", "140vmax 140vmax"]);
+  const bleedOpacity = useTransform(scrollYProgress, [0.17, 0.18], [0, 1]);
+  const s1_y = useTransform(scrollYProgress, [0.18, 0.21], ["50px", "0px"]);
+  const s1_op = useTransform(scrollYProgress, [0.18, 0.21], [0, 1]);
 
   // --- States หลัก ---
   const [view, setView] = useState('home');
@@ -599,10 +609,10 @@ export default function App() {
                   <motion.div style={{ filter: gooeyFilter, WebkitFilter: gooeyFilter }} className="relative w-full mx-auto flex items-center justify-center">
                     
                     {/* ลูกปัดหยดน้ำ (ขยับซ้ายให้อยู่ระหว่าง A กับ Y) */}
-                    <motion.div className="absolute bg-[#111111] rounded-full z-0" style={{ width: '40px', height: '40px', top: '50%', marginTop: '-20px', left: '49%', marginLeft: '-20px', y: dropY, x: dropHideX, scaleY: dropScaleY, opacity: dropOpacity, originY: 0.5 }} />
+                    <motion.div className="absolute rounded-full z-0" style={{ backgroundColor: dropColor, width: '40px', height: '40px', top: '50%', marginTop: '-20px', left: '49%', marginLeft: '-20px', y: dropY, x: dropHideX, scaleY: dropScaleY, opacity: dropOpacity, originY: 0.5 }} />
                     
                     {/* อัปเดตระยะ mt-[0.36em] ให้ตรงกับค่า line1Y/line2Y ด้านบน เพื่อรักษาสมดุล */}
-                    <motion.div style={{ opacity: logoOpacity, y: logoHideY, WebkitTransform: 'translateZ(0)', transform: 'translateZ(0)' }} className="relative flex items-center justify-center w-full z-10 text-[22vw] md:text-[18vw] lg:text-[16vw] font-bebas leading-[0.75] tracking-normal text-[#111111] whitespace-nowrap h-0 mt-[0.36em]">
+                    <motion.div style={{ color: dropColor, opacity: logoOpacity, y: logoHideY, WebkitTransform: 'translateZ(0)', transform: 'translateZ(0)' }} className="relative flex items-center justify-center w-full z-10 text-[22vw] md:text-[18vw] lg:text-[16vw] font-bebas leading-[0.75] tracking-normal whitespace-nowrap h-0 mt-[0.36em]">
                       
                       {/* --- บรรทัดที่ 1 (WHAT ARE YOU) --- */}
                       <motion.div style={{ y: line1Y, x: line1X }} className="absolute flex justify-center items-baseline w-full">
@@ -677,27 +687,25 @@ export default function App() {
                   </motion.div>
                 </div>
 
+                {/* ฉากหมึกกระจาย (Ink Bleed) */}
+                <motion.div className="absolute inset-0 bg-[#8B0000] z-40 ink-bleed-mask flex items-center justify-center pointer-events-none" style={{ WebkitMaskSize: bleedMaskSize, maskSize: bleedMaskSize, opacity: bleedOpacity }}>
+                  <div className="relative w-full max-w-[1200px] h-full px-6 md:px-12 flex flex-col items-center">
+                    <motion.div className="absolute inset-x-0 top-[45%] text-center px-4 flex flex-col items-center w-full" style={{ y: s1_y, opacity: s1_op }}>
+                      <h2 className="text-[#F5F5F5] tracking-tight whitespace-nowrap text-[clamp(28px,6vw,100px)] flex gap-3 items-baseline justify-center">
+                        <span className="font-inter-tight font-normal">Where</span> 
+                        <span className="font-helvetica font-bold">Imagination</span> 
+                        <span className="font-inter-tight font-normal">Meets Art</span>
+                      </h2>
+                    </motion.div>
+                  </div>
+                </motion.div>
+
               </motion.div>
             </div>
           </div>
 
           {/* Natural Scroll Content */}
           <div className="w-full flex flex-col relative z-30 bg-[#F5F5F5] pointer-events-auto">
-            {/* Gallery Images */}
-            <div className="w-full pt-16 md:pt-24 pb-16 flex flex-col items-center w-full">
-              <div className="w-full max-w-[90vw] xl:max-w-6xl mx-auto flex justify-center items-center gap-6 md:gap-10 lg:gap-16 h-[18vh] sm:h-[22vh] md:h-[28vh] lg:h-[32vh]">
-                <motion.div className="h-full aspect-[3/4] overflow-hidden" whileHover={{ scale: 1.05 }}>
-                  <img src="https://i.ibb.co/sdH3XHVd/main-3-0-5x.png" loading="lazy" className="w-full h-full object-cover grayscale shadow-sm" draggable="false" />
-                </motion.div>
-                <motion.div className="h-full aspect-[4/3] overflow-hidden" whileHover={{ scale: 1.05 }}>
-                  <img src="https://i.ibb.co/bjV9cNG8/Artboard-1-0-5x.png" loading="lazy" className="w-full h-full object-cover grayscale shadow-sm" draggable="false" />
-                </motion.div>
-                <motion.div className="h-full aspect-[3/4] overflow-hidden" whileHover={{ scale: 1.05 }}>
-                  <img src="https://i.ibb.co/Y79gLfW0/main-2-0-5x.png" loading="lazy" className="w-full h-full object-cover grayscale shadow-sm" draggable="false" />
-                </motion.div>
-              </div>
-            </div>
-
             <ContentStage />
             <ArtistStage />
             <JourneyStage />
