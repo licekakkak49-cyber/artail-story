@@ -465,8 +465,8 @@ export default function App() {
   // แปลงค่า Progress จาก 0-0.5 (ของความสูง 300vh) ให้เป็น 0-0.222 เพื่อให้ตรงกับ Timeline เดิมเป๊ะๆ
   const scrollYProgress = useTransform(rawProgress, [0, 0.5], [0, 0.222]);
   
-  // แอนิเมชันเปิดม่าน: ให้ฉาก Hero สไลด์ขึ้น
-  const curtainY = useTransform(rawProgress, [0.5, 1], ["0vh", "-100vh"]);
+  // แอนิเมชันเปิดม่าน: ให้ฉาก Hero สไลด์ขึ้น (เริ่มเร็วขึ้นตอนที่หมึกแดงกระจายได้ประมาณครึ่งนึง)
+  const curtainY = useTransform(rawProgress, [0.42, 1], ["0vh", "-100vh"]);
 
   // --- 1. Cinematic Exit (ซูมทะลุแก้ว และ แหวกข้อความออกด้านข้าง) ---
   const wineScale = useTransform(scrollYProgress, [0.03, 0.08], [1, 4]);
@@ -518,8 +518,6 @@ export default function App() {
   // --- 4. The Ink Bleed (หมึกกระจายลง Canvas) ---
   const bleedMaskSize = useTransform(scrollYProgress, [0.17, 0.21], ["0vmax 0vmax", "140vmax 140vmax"]);
   const bleedOpacity = useTransform(scrollYProgress, [0.17, 0.18], [0, 1]);
-  const s1_y = useTransform(scrollYProgress, [0.18, 0.21], ["50px", "0px"]);
-  const s1_op = useTransform(scrollYProgress, [0.18, 0.21], [0, 1]);
 
   // --- States หลัก ---
   const [view, setView] = useState('home');
@@ -692,16 +690,8 @@ export default function App() {
                 </div>
 
                 {/* ฉากหมึกกระจาย (Ink Bleed) */}
-                <motion.div className="absolute inset-0 bg-[#8B0000] z-40 ink-bleed-mask flex items-center justify-center pointer-events-none" style={{ WebkitMaskSize: bleedMaskSize, maskSize: bleedMaskSize, opacity: bleedOpacity }}>
-                  <div className="relative w-full max-w-[1200px] h-full px-6 md:px-12 flex flex-col items-center">
-                    <motion.div className="absolute inset-x-0 top-[45%] text-center px-4 flex flex-col items-center w-full" style={{ y: s1_y, opacity: s1_op }}>
-                      <h2 className="text-[#F5F5F5] tracking-tight whitespace-nowrap text-[clamp(28px,6vw,100px)] flex gap-3 items-baseline justify-center">
-                        <span className="font-inter-tight font-normal">Where</span> 
-                        <span className="font-helvetica font-bold">Imagination</span> 
-                        <span className="font-inter-tight font-normal">Meets Art</span>
-                      </h2>
-                    </motion.div>
-                  </div>
+                <motion.div className="absolute inset-0 bg-[#8B0000] z-40 ink-bleed-mask pointer-events-none" style={{ WebkitMaskSize: bleedMaskSize, maskSize: bleedMaskSize, opacity: bleedOpacity }}>
+                  {/* ลบข้อความออกตามที่ต้องการ เหลือแค่พื้นสีแดงกระจาย */}
                 </motion.div>
 
               </motion.div>
