@@ -498,9 +498,9 @@ export default function App() {
 
   // --- 3. The Melt (ละลาย WAYD? เป็นหยดน้ำ) ---
   const gooeyFilter = useTransform(scrollYProgress, (v) => v >= 0.08 ? "url(#goo)" : "none");
-  const logoBlur = useTransform(scrollYProgress, [0.10, 0.13], ["blur(0px)", "blur(3px)"]);
+  const logoBlur = useTransform(scrollYProgress, [0.10, 0.13], ["blur(0px)", "blur(5px)"]);
   
-  const meltScaleY = useTransform(scrollYProgress, [0.10, 0.14], [1, 1.15]); 
+  const meltScaleY = useTransform(scrollYProgress, [0.10, 0.14], [1, 1.8]); 
   const logoOpacity = useTransform(scrollYProgress, [0.13, 0.15], [1, 0]); 
   const logoHideY = useTransform(scrollYProgress, (v) => v > 0.16 ? -9999 : 0);
 
@@ -588,7 +588,7 @@ export default function App() {
       <svg style={{ position: 'absolute', width: 0, height: 0, pointerEvents: 'none' }}>
         <defs>
           <filter id="goo" x="-20%" y="-40%" width="140%" height="180%">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="6" result="blur" />
+            <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur" />
             <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 25 -10" result="goo" />
             <feBlend in="SourceGraphic" in2="goo" />
           </filter>
