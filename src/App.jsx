@@ -349,8 +349,8 @@ const ArtistStage = () => {
       
       {/* Top Right Text */}
       <div className="absolute top-12 md:top-16 right-6 md:right-12 lg:right-48 text-right z-20">
-        <p className="text-[#f5f5f5] font-inter-tight text-[9px] md:text-[11px] tracking-[0.05em] font-normal uppercase mb-1">WINNER "BARSTAR AWARDS"</p>
-        <p className="text-[#f5f5f5] font-inter-tight text-[9px] md:text-[11px] tracking-[0.05em] uppercase font-normal">by NEW YORK BARTENDER WEEK 2025</p>
+        <p className="text-[#f5f5f5] font-inter-tight text-[11px] md:text-[13px] tracking-[0.05em] font-normal uppercase mb-1">WINNER "BARSTAR AWARDS"</p>
+        <p className="text-[#f5f5f5] font-inter-tight text-[11px] md:text-[13px] tracking-[0.05em] uppercase font-normal">by NEW YORK BARTENDER WEEK 2025</p>
       </div>
 
       {/* Mimi (Left - เว้นบนนิดเดียว) */}
@@ -379,7 +379,7 @@ const ArtistStage = () => {
       <div className="absolute bottom-8 md:bottom-12 left-6 md:left-12 lg:left-48 right-6 md:right-12 lg:right-48 flex flex-col md:flex-row justify-between items-start md:items-end z-10 pointer-events-none">
         <div className="flex items-baseline gap-4 md:gap-6">
           <h2 className="text-[#f5f5f5] font-bebas text-[28vw] md:text-[14vw] lg:text-[8.5vw] leading-[0.75] tracking-normal m-0 p-0">MEET</h2>
-          <span className="font-inter-tight text-[10px] md:text-xs tracking-widest uppercase mb-[1vw] md:mb-[0.5vw]">
+          <span className="font-inter-tight text-xs md:text-sm tracking-widest uppercase mb-[1vw] md:mb-[0.5vw]">
             <span className="text-[#d92323]">ABOUT</span> <span className="text-[#f5f5f5]">/ SEE ALL</span>
           </span>
         </div>
