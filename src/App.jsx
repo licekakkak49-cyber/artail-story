@@ -691,8 +691,8 @@ export default function App() {
                     emotions, moments held briefly in a glass.
                 </motion.div>
 
-                {/* พิกัดแนวตั้ง -> ขอบบนตรงกับบรรทัด DRINKING และชิดขวาสุดของตัวอักษร U */}
-                <div className="absolute top-[24vh] md:top-[28vh] z-30 flex items-start justify-end right-[8vw] md:right-[12vw] lg:right-[14vw]">
+                {/* พิกัดแนวตั้ง -> ขอบบนตรงกับบรรทัด DRINKING และชิดขวาสุดของตัวอักษร U (ขยับซ้ายนิดนึง) */}
+                <div className="absolute top-[24vh] md:top-[28vh] z-30 flex items-start justify-end right-[9vw] md:right-[13vw] lg:right-[15vw]">
                   <motion.div style={{ y: coordY, opacity: cornerOpacity, writingMode: 'vertical-rl', transform: 'rotate(180deg)' }} className="font-inter-tight font-bold text-[8px] md:text-[9px] uppercase tracking-widest text-[#111111]">
                       40.7128° N, 74.0060° W
                   </motion.div>
