@@ -457,8 +457,12 @@ export default function App() {
     offset: ["start start", "end end"]
   });
   
-  // แปลงค่า Progress จาก 0-1 (ของความสูง 200vh) ให้เป็น 0-0.222 เพื่อให้ตรงกับ Timeline เดิมเป๊ะๆ
-  const scrollYProgress = useTransform(rawProgress, [0, 1], [0, 0.222]);
+  // แปลงค่า Progress จาก 0-0.5 (ของความสูง 300vh) ให้เป็น 0-0.222 เพื่อให้ตรงกับ Timeline เดิมเป๊ะๆ
+  const scrollYProgress = useTransform(rawProgress, [0, 0.5], [0, 0.222]);
+  
+  // แอนิเมชันเปิดม่าน: ให้ฉาก Hero สไลด์ขึ้น และล็อกหน้า Content ให้อยู่กับที่
+  const curtainY = useTransform(rawProgress, [0.5, 1], ["0vh", "-100vh"]);
+  const contentY = useTransform(rawProgress, [0.5, 1], ["-100vh", "0vh"]);
 
   // --- 1. Cinematic Exit (ซูมทะลุแก้ว และ แหวกข้อความออกด้านข้าง) ---
   const wineScale = useTransform(scrollYProgress, [0.03, 0.08], [1, 4]);
@@ -597,12 +601,12 @@ export default function App() {
         </defs>
       </svg>
 
-      {/* Cinematic Sticky Section (200vh) */}
-      <div ref={scrollSequenceRef} className="h-[200vh] w-full relative z-20">
-        <div className="sticky top-0 h-screen w-full overflow-hidden pointer-events-none bg-[#F5F5F5]">
+      {/* Cinematic Sticky Section (300vh) */}
+      <div ref={scrollSequenceRef} className="h-[300vh] w-full relative z-30">
+        <div className="sticky top-0 h-screen w-full overflow-hidden pointer-events-none">
           
           {/* 🌟 NEW EDITORIAL HERO SECTION 🌟 */}
-          <motion.div style={{ opacity: textLayerMasterOpacity }} className="absolute inset-0 w-full h-screen z-50 pointer-events-none">
+          <motion.div style={{ opacity: textLayerMasterOpacity, y: curtainY }} className="absolute inset-0 w-full h-screen z-50 pointer-events-none bg-[#F5F5F5]">
                 
                 {/* 1. ตัวอักษรใหญ่สุด - เพิ่ม pt ให้มากขึ้นเพื่อชดเชยแอนิเมชันที่ดันข้อความพุ่งขึ้นไป ให้มาหยุดพอดีใต้ Nav (ประมาณ 110px - 130px) */}
                 <motion.div style={{ filter: logoBlur, WebkitFilter: logoBlur, y: mainTextY }} className="absolute top-0 left-0 w-full flex flex-col items-center justify-start pt-[110px] md:pt-[130px] z-10">
@@ -704,8 +708,8 @@ export default function App() {
             </div>
           </div>
 
-          {/* Natural Scroll Content */}
-          <div className="w-full flex flex-col relative z-30 bg-[#F5F5F5] pointer-events-auto">
+          {/* Natural Scroll Content (ดึงขึ้นมาซ้อนหลังม่าน 100vh และล็อกให้อยู่กับที่ตอนเปิดม่าน) */}
+          <motion.div style={{ y: contentY }} className="w-full flex flex-col relative z-20 bg-[#F5F5F5] pointer-events-auto mt-[-100vh]">
             <ContentStage />
             <ArtistStage />
             <JourneyStage />
