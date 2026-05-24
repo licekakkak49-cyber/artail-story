@@ -715,7 +715,7 @@ export default function App() {
             <JourneyStage />
             <StoryQuoteStage />
             <FooterStage />
-          </div>
+          </motion.div>
 
         </div>
   );
