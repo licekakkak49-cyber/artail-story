@@ -401,8 +401,8 @@ const JourneyStage = () => {
   ];
 
   return (
-    <div className="w-full bg-[#F5F5F5] py-20 md:py-28 lg:py-32 flex justify-center items-start px-6 md:px-12 lg:px-24">
-      <div className="w-full max-w-[1300px] grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-start pt-8 md:pt-10">
+    <div className="w-full bg-[#F5F5F5] py-20 md:py-28 lg:py-32 flex justify-center items-start px-6 md:px-12 lg:px-48">
+      <div className="w-full max-w-none grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-start pt-8 md:pt-10">
         <div className="md:col-span-4 flex flex-col items-start pr-0 md:pr-12">
           <h2 className="text-[#111111] font-helvetica text-3xl md:text-4xl lg:text-[3.5vw] font-normal leading-[1.1] tracking-tight uppercase">
             Our<br />Journey
