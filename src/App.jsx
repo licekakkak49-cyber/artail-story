@@ -477,16 +477,16 @@ export default function App() {
   const mw1 = useTransform(scrollYProgress, [0.04, 0.09], ["25vw", "0vw"]);
   const mw2 = useTransform(scrollYProgress, [0.04, 0.09], ["20vw", "0vw"]);
   const mw3 = useTransform(scrollYProgress, [0.04, 0.09], ["15vw", "0vw"]);
-  const mw4 = useTransform(scrollYProgress, [0.04, 0.09], ["45vw", "1vw"]);
+  const mw4 = useTransform(scrollYProgress, [0.04, 0.09], ["45vw", "0vw"]);
   
   const smallOpacity = useTransform(scrollYProgress, [0.04, 0.07], [1, 0]);
   const smallTextHideY = useTransform(scrollYProgress, (v) => v > 0.075 ? -9999 : 0);
 
   // ปรับระยะห่างบรรทัดให้แคบลง หาจุดสมดุลระหว่าง 0.34 (ทับ) และ 0.38 (ห่างไป 10px) จะได้เส้นบางๆ พอดี
   const line1Y = useTransform(scrollYProgress, [0.04, 0.09], ["-0.36em", "0em"]);
-  const line1X = useTransform(scrollYProgress, [0.04, 0.09], ["0em", "-0.4em"]); 
+  const line1X = useTransform(scrollYProgress, [0.04, 0.09], ["0em", "-0.45em"]); 
   const line2Y = useTransform(scrollYProgress, [0.04, 0.09], ["0.36em", "0em"]);
-  const line2X = useTransform(scrollYProgress, [0.04, 0.09], ["0em", "0.5em"]); 
+  const line2X = useTransform(scrollYProgress, [0.04, 0.09], ["0em", "0.65em"]); 
 
   // --- 3. The Melt (ละลาย WAYD? เป็นหยดน้ำ) ---
   const gooeyFilter = useTransform(scrollYProgress, (v) => v >= 0.08 ? "url(#goo)" : "none");
