@@ -284,7 +284,7 @@ const ContentStage = () => {
         <div className="relative inline-block text-center">
           {/* จุดสีแดงหลังตัว T */}
           <div className="absolute -left-2 md:-left-4 top-0 md:-top-1 w-8 h-8 md:w-12 md:h-12 bg-[#d92323] rounded-full -z-10"></div>
-          <h3 className="font-inter font-normal text-[5vw] sm:text-[4vw] md:text-[2.5vw] lg:text-[2vw] text-[#111111] leading-[1.1] tracking-tight uppercase">
+          <h3 className="font-inter font-normal text-[6vw] sm:text-[5vw] md:text-[3vw] lg:text-[2.5vw] text-[#111111] leading-[1.1] tracking-tight uppercase">
             The bar becomes a<br />
             (canvas)<br />
             The drinks are<br />
@@ -302,7 +302,7 @@ const ContentStage = () => {
         >
           <div className="flex items-start gap-2 md:gap-4 pr-2 md:pr-4">
             {cocktailMenuData.map((item, i) => (
-              <div key={`set1-${i}`} className="w-[35vw] sm:w-[25vw] md:w-[20vw] lg:w-[16vw] flex flex-col flex-shrink-0 cursor-pointer group">
+              <div key={`set1-${i}`} className="w-[40vw] sm:w-[30vw] md:w-[24vw] lg:w-[18vw] flex flex-col flex-shrink-0 cursor-pointer group">
                 <div className="relative w-full aspect-square bg-[#EAEAEA] overflow-hidden mb-3">
                   <img src={item.src} alt={item.name} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover grayscale transition-all duration-700 ease-in-out opacity-100 group-hover:opacity-0" draggable="false" />
                   <img src={item.hoverSrc} alt={`${item.name} cocktail`} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out opacity-0 group-hover:opacity-100 scale-100 group-hover:scale-105" draggable="false" />
@@ -316,7 +316,7 @@ const ContentStage = () => {
           </div>
           <div className="flex items-start gap-2 md:gap-4 pr-2 md:pr-4">
             {cocktailMenuData.map((item, i) => (
-              <div key={`set2-${i}`} className="w-[35vw] sm:w-[25vw] md:w-[20vw] lg:w-[16vw] flex flex-col flex-shrink-0 cursor-pointer group">
+              <div key={`set2-${i}`} className="w-[40vw] sm:w-[30vw] md:w-[24vw] lg:w-[18vw] flex flex-col flex-shrink-0 cursor-pointer group">
                 <div className="relative w-full aspect-square bg-[#EAEAEA] overflow-hidden mb-3">
                   <img src={item.src} alt={item.name} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover grayscale transition-all duration-700 ease-in-out opacity-100 group-hover:opacity-0" draggable="false" />
                   <img src={item.hoverSrc} alt={`${item.name} cocktail`} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out opacity-0 group-hover:opacity-100 scale-100 group-hover:scale-105" draggable="false" />
