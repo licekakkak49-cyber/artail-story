@@ -484,9 +484,9 @@ export default function App() {
 
   // ปรับระยะห่างบรรทัดให้แคบลง หาจุดสมดุลระหว่าง 0.34 (ทับ) และ 0.38 (ห่างไป 10px) จะได้เส้นบางๆ พอดี
   const line1Y = useTransform(scrollYProgress, [0.04, 0.09], ["-0.36em", "0em"]);
-  const line1X = useTransform(scrollYProgress, [0.04, 0.09], ["0em", "-0.55em"]); 
+  const line1X = useTransform(scrollYProgress, [0.04, 0.09], ["0em", "-0.4em"]); 
   const line2Y = useTransform(scrollYProgress, [0.04, 0.09], ["0.36em", "0em"]);
-  const line2X = useTransform(scrollYProgress, [0.04, 0.09], ["0em", "0.75em"]); 
+  const line2X = useTransform(scrollYProgress, [0.04, 0.09], ["0em", "0.5em"]); 
 
   // --- 3. The Melt (ละลาย WAYD? เป็นหยดน้ำ) ---
   const gooeyFilter = useTransform(scrollYProgress, (v) => v >= 0.08 ? "url(#goo)" : "none");
