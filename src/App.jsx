@@ -280,13 +280,14 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
 
 // --- ฉาก 1: นิทรรศการเมนู (Exhibition Marquee) รวมกับคำคม ---
 const ContentStage = ({ rawProgress }) => {
-  // ผูกแอนิเมชันกับการเลื่อน (Scroll) แทนการใช้ whileInView เพื่อแก้กระตุก
-  // ให้เริ่มแสดงผลตอนที่ม่าน (Hero) เลื่อนขึ้นไปเกือบสุดแล้ว เพื่อให้เห็นแอนิเมชันชัดเจน
-  const dotScale = useTransform(rawProgress, [0.7, 0.75], [0, 1]);
-  const dotOpacity = useTransform(rawProgress, [0.7, 0.75], [0, 1]);
-  
-  const textOpacity = useTransform(rawProgress, [0.75, 0.85], [0, 1]);
-  const textY = useTransform(rawProgress, [0.75, 0.85], [30, 0]);
+  const [isRevealed, setIsRevealed] = useState(false);
+
+  // จับจังหวะการเลื่อน ถ้าม่านเปิดไปเกิน 75% ให้แสดงข้อความและค้างไว้ตลอดไป
+  useMotionValueEvent(rawProgress, "change", (latest) => {
+    if (latest > 0.75 && !isRevealed) {
+      setIsRevealed(true);
+    }
+  });
 
   return (
     <div className="w-full h-screen bg-[#F5F5F5] flex flex-col justify-center items-center relative overflow-hidden select-none py-20">
@@ -295,11 +296,15 @@ const ContentStage = ({ rawProgress }) => {
         <div className="relative inline-block text-center">
           {/* จุดสีแดงหลังตัว T */}
           <motion.div 
-            style={{ scale: dotScale, opacity: dotOpacity }}
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: isRevealed ? 1 : 0, opacity: isRevealed ? 1 : 0 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
             className="absolute -left-2 md:-left-4 top-0 md:-top-1 w-8 h-8 md:w-12 md:h-12 bg-[#d92323] rounded-full -z-10 transform-gpu will-change-transform"
           ></motion.div>
           <motion.h3 
-            style={{ opacity: textOpacity, y: textY }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: isRevealed ? 1 : 0, y: isRevealed ? 0 : 30 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
             className="font-inter font-normal text-[6vw] sm:text-[5vw] md:text-[3vw] lg:text-[2.5vw] text-[#111111] leading-[1.1] tracking-tight uppercase transform-gpu will-change-[opacity,transform]"
           >
             The bar becomes a<br />
