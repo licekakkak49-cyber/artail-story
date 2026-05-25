@@ -299,7 +299,7 @@ const ContentStage = () => {
       <div className="flex-1 flex items-center w-full overflow-hidden z-10">
         <motion.div 
           animate={{ x: ["0%", "-50%"] }} 
-          transition={{ ease: "linear", duration: 45, repeat: Infinity }} 
+          transition={{ ease: "linear", duration: 90, repeat: Infinity }} 
           style={{ willChange: "transform" }} 
           className="flex w-max"
         >
