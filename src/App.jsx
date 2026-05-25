@@ -582,11 +582,11 @@ export default function App() {
   const wineBlur = useTransform(scrollYProgress, [0.02, 0.12], ["blur(0px)", "blur(15px)"]);
   const wineOpacity = useTransform(scrollYProgress, [0.02, 0.12], [0.85, 0]);
 
-  const cornerOpacity = useTransform(scrollYProgress, [0.00, 0.08], [1, 0]);
-  const cornerLeftX = useTransform(scrollYProgress, [0.00, 0.08], ["0vw", "-10vw"]); 
-  const cornerRightX = useTransform(scrollYProgress, [0.00, 0.08], ["0vw", "10vw"]); 
-  const cornerBottomY = useTransform(scrollYProgress, [0.00, 0.08], ["0vh", "15vh"]); 
-  const coordY = useTransform(scrollYProgress, [0.00, 0.08], ["0vh", "-25vh"]); 
+  const cornerOpacity = useTransform(scrollYProgress, [0.00, 0.04], [1, 0]);
+  const cornerLeftX = useTransform(scrollYProgress, [0.00, 0.04], ["0vw", "-10vw"]); 
+  const cornerRightX = useTransform(scrollYProgress, [0.00, 0.04], ["0vw", "10vw"]); 
+  const cornerBottomY = useTransform(scrollYProgress, [0.00, 0.04], ["0vh", "15vh"]); 
+  const coordY = useTransform(scrollYProgress, [0.00, 0.04], ["0vh", "-25vh"]); 
 
   // --- 2. The Text Fold (WHAT ARE YOU -> WAYD?) ---
   const mainTextY = useTransform(scrollYProgress, [0.02, 0.12], ["0vh", "22vh"]); 
