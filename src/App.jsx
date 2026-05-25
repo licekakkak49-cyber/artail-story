@@ -301,7 +301,7 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick }) => {
   return (
     <div ref={overlayRef} className="fixed inset-0 bg-[#F5F5F5] z-[9999] overflow-y-auto" onScroll={handleScroll}>
       {/* Nav Bar สำหรับหน้า Detail */}
-      <div className={`sticky top-0 w-full z-50 px-6 py-5 md:py-6 transition-all duration-300 ${isSticky ? 'bg-[#F5F5F5]/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
+      <div className={`sticky top-0 w-full z-50 px-6 py-5 transition-all duration-300 ${isSticky ? 'bg-[#F5F5F5]/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
         <div className="grid grid-cols-3 items-center w-full gap-4">
           <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] justify-start">
             <span onClick={onClose} className="cursor-pointer hover:text-zinc-500 transition-colors">COCKTAILS</span>
@@ -310,20 +310,19 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick }) => {
             <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">ARCHIVE</span>
             <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">EDITORIAL</span>
           </div>
-          <div className="flex justify-center items-center">
-            <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/logo3.svg" alt="WAYD Logo" className="h-5 sm:h-6 md:h-7 cursor-pointer" onClick={onClose} />
-          </div>
-          <div className="flex justify-end items-center gap-4 md:gap-6 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
+          <div className="flex justify-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
             <span className="cursor-pointer hover:text-zinc-500 transition-colors">BAG</span>
-            <span className="hidden md:block">NEW YORK, NY {nyTime}</span>
+          </div>
+          <div className="flex justify-end items-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
+            <span>NEW YORK, NY {nyTime}</span>
           </div>
         </div>
       </div>
 
-      <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 pt-8 md:pt-12 pb-24">
+      <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 pt-4 md:pt-6 pb-24">
         {/* หัวข้อผลงาน */}
         <div ref={headerRef}>
-          <h1 className="font-helvetica font-normal text-3xl md:text-4xl lg:text-5xl leading-[1.1] tracking-tight text-[#111111] mb-4 md:mb-6">
+          <h1 className="font-helvetica font-normal text-3xl md:text-4xl lg:text-5xl leading-[1.1] tracking-tight text-[#111111] mb-2 md:mb-4">
             {item.name}
           </h1>
         </div>
