@@ -350,11 +350,17 @@ const ArtistStage = () => {
   return (
     <div className="w-full h-[100vh] md:h-[120vh] bg-[#1c1c1e] relative overflow-hidden">
       
-      {/* Top Right Text */}
-      <div className="absolute top-12 md:top-16 right-6 md:right-12 lg:right-48 text-right z-20">
+      {/* Top Right Text (Aligned left with Teddy) */}
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+        className="absolute top-12 md:top-16 right-6 md:right-12 lg:right-48 w-[35vw] md:w-[22vw] lg:w-[16vw] text-left z-20"
+      >
         <p className="text-[#f5f5f5] font-inter-tight text-[11px] md:text-[13px] tracking-[0.05em] font-normal uppercase mb-1">WINNER "BARSTAR AWARDS"</p>
-        <p className="text-[#f5f5f5] font-inter-tight text-[11px] md:text-[13px] tracking-[0.05em] uppercase font-normal">by NEW YORK BARTENDER WEEK 2025</p>
-      </div>
+        <p className="text-zinc-400 font-inter-tight text-[11px] md:text-[13px] tracking-[0.05em] uppercase font-normal">by NEW YORK BARTENDER WEEK 2025</p>
+      </motion.div>
 
       {/* Mimi (Left - เว้นบนนิดเดียว) */}
       <div className="absolute top-4 md:top-6 left-6 md:left-12 lg:left-48 w-[35vw] md:w-[22vw] lg:w-[16vw] flex flex-col group z-20">
