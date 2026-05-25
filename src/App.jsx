@@ -3,13 +3,14 @@ import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-mot
 
 // --- Configuration & Data ---
 const cocktailMenuData = [
-  { name: "Sunflowers", artist: "Teddy", src: "https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?auto=format&fit=crop&w=800&q=80", hoverSrc: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=800&q=80" },
-  { name: "Starry Night", artist: "Mimi", src: "https://images.unsplash.com/photo-1578301978018-3005759f48f7?auto=format&fit=crop&w=800&q=80", hoverSrc: "https://images.unsplash.com/photo-1556679343-c7306c1976bc?auto=format&fit=crop&w=800&q=80" },
-  { name: "Almond Blossom", artist: "Teddy", src: "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?auto=format&fit=crop&w=800&q=80", hoverSrc: "https://images.unsplash.com/photo-1536935338788-846bb9981813?auto=format&fit=crop&w=800&q=80" },
-  { name: "Self Portrait", artist: "Mimi", src: "https://images.unsplash.com/photo-1580136608260-4eb11f4b24fe?auto=format&fit=crop&w=800&q=80", hoverSrc: "https://images.unsplash.com/photo-1609345265499-2244bb6a6198?auto=format&fit=crop&w=800&q=80" },
-  { name: "Cafe Terrace", artist: "Teddy", src: "https://images.unsplash.com/photo-1577083552431-6e5fd01988ec?auto=format&fit=crop&w=800&q=80", hoverSrc: "https://images.unsplash.com/photo-1551538827-9c037cb4f32a?auto=format&fit=crop&w=800&q=80" },
-  { name: "Water Lilies", artist: "Mimi", src: "https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80", hoverSrc: "https://images.unsplash.com/photo-1525610553991-2bede1a236e2?auto=format&fit=crop&w=800&q=80" },
-  { name: "The Kiss", artist: "Teddy", src: "https://images.unsplash.com/photo-1580136579312-94651dfd596d?auto=format&fit=crop&w=800&q=80", hoverSrc: "https://images.unsplash.com/photo-1560512823-829485b8bf24?auto=format&fit=crop&w=800&q=80" }
+  { name: "Abstract Illusion", artist: "Teddy", src: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu1.webp", hoverSrc: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu1ct.webp" },
+  { name: "Golden Hour", artist: "Mimi", src: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_2.webp", hoverSrc: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_2ct.webp" },
+  { name: "Velvet Night", artist: "Teddy", src: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_3.webp", hoverSrc: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_3ct.webp" },
+  { name: "Crimson Tide", artist: "Mimi", src: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_4.webp", hoverSrc: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_4ct.webp" },
+  { name: "Emerald Dream", artist: "Teddy", src: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_5.webp", hoverSrc: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_5ct.webp" },
+  { name: "Sapphire Soul", artist: "Mimi", src: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_6.webp", hoverSrc: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_6ct.webp" },
+  { name: "Amber Glow", artist: "Teddy", src: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_7.webp", hoverSrc: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_7ct.webp" },
+  { name: "Obsidian Whisper", artist: "Mimi", src: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_8.webp", hoverSrc: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_8ct.webp" }
 ];
 
 const catalogueItems = [
@@ -303,7 +304,7 @@ const ContentStage = () => {
           <div className="flex items-start gap-2 md:gap-4 pr-2 md:pr-4">
             {cocktailMenuData.map((item, i) => (
               <div key={`set1-${i}`} className="w-[40vw] sm:w-[30vw] md:w-[24vw] lg:w-[18vw] flex flex-col flex-shrink-0 cursor-pointer group">
-                <div className="relative w-full aspect-square bg-[#EAEAEA] overflow-hidden mb-3">
+                <div className="relative w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden mb-3">
                   <img src={item.src} alt={item.name} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover grayscale transition-all duration-700 ease-in-out opacity-100 group-hover:opacity-0" draggable="false" />
                   <img src={item.hoverSrc} alt={`${item.name} cocktail`} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out opacity-0 group-hover:opacity-100 scale-100 group-hover:scale-105" draggable="false" />
                 </div>
@@ -317,7 +318,7 @@ const ContentStage = () => {
           <div className="flex items-start gap-2 md:gap-4 pr-2 md:pr-4">
             {cocktailMenuData.map((item, i) => (
               <div key={`set2-${i}`} className="w-[40vw] sm:w-[30vw] md:w-[24vw] lg:w-[18vw] flex flex-col flex-shrink-0 cursor-pointer group">
-                <div className="relative w-full aspect-square bg-[#EAEAEA] overflow-hidden mb-3">
+                <div className="relative w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden mb-3">
                   <img src={item.src} alt={item.name} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover grayscale transition-all duration-700 ease-in-out opacity-100 group-hover:opacity-0" draggable="false" />
                   <img src={item.hoverSrc} alt={`${item.name} cocktail`} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out opacity-0 group-hover:opacity-100 scale-100 group-hover:scale-105" draggable="false" />
                 </div>
