@@ -718,21 +718,21 @@ export default function App() {
 
       {view !== 'catalogue' && (
         <nav className={`left-0 w-full z-[999] px-6 py-5 grid grid-cols-3 items-center ${navMode === 'prep' || navMode === 'hidden' ? 'pointer-events-none' : 'pointer-events-auto'} ${navMode === 'top' ? 'absolute top-0 opacity-100 bg-transparent transition-none' : navMode === 'prep' ? 'fixed top-0 opacity-0 bg-transparent transition-none' : navMode === 'hidden' ? 'fixed top-0 opacity-0 bg-transparent transition-opacity duration-500' : navMode === 'menu-top' ? 'fixed top-0 opacity-100 bg-transparent transition-all duration-500' : 'fixed top-0 opacity-100 bg-[#F5F5F5]/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)] transition-all duration-500'}`}>
-          <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] justify-start">
+          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 1.5, ease: "easeOut" }} className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] justify-start">
             <span onClick={scrollToMenu} className="cursor-pointer hover:text-zinc-500 transition-colors">COCKTAILS</span>
             <span onClick={() => { setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
             <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">INFO</span>
             <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">ARCHIVE</span>
             <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">EDITORIAL</span>
-          </div>
-          <div className="flex justify-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
+          </motion.div>
+          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 1.6, ease: "easeOut" }} className="flex justify-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
             <span onClick={() => { setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">
               BAG ({cartCount})
             </span>
-          </div>
-          <div className="flex justify-end items-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
+          </motion.div>
+          <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 1.7, ease: "easeOut" }} className="flex justify-end items-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
             <span>NEW YORK, NY {nyTime}</span>
-          </div>
+          </motion.div>
         </nav>
       )}
 
@@ -769,6 +769,7 @@ export default function App() {
                     {/* อัปเดตระยะ mt-[0.36em] ให้ตรงกับค่า line1Y/line2Y ด้านบน เพื่อรักษาสมดุล */}
                     <motion.div style={{ opacity: logoOpacity, y: logoHideY, WebkitTransform: 'translateZ(0)', transform: 'translateZ(0)' }} className="relative flex items-center justify-center w-full z-10 text-[22vw] md:text-[18vw] lg:text-[16vw] font-bebas leading-[0.75] tracking-normal text-black whitespace-nowrap h-0 mt-[0.36em]">
                       
+                      <motion.div initial={{ opacity: 0, y: 50 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.5, delay: 0.5, ease: "easeOut" }} className="absolute flex justify-center items-center w-full h-full">
                       {/* --- บรรทัดที่ 1 (WHAT ARE YOU) --- */}
                       <motion.div style={{ y: line1Y, x: line1X }} className="absolute flex justify-center items-baseline w-full">
                         <motion.span style={{ scaleY: meltScaleY }} className="flex-shrink-0 inline-block origin-top">W</motion.span>
@@ -798,6 +799,7 @@ export default function App() {
                         
                         <motion.span style={{ scaleY: meltScaleY }} className="flex-shrink-0 inline-block origin-top">?</motion.span>
                       </motion.div>
+                      </motion.div>
 
                     </motion.div>
                   </motion.div>
@@ -805,40 +807,53 @@ export default function App() {
 
                 {/* 2. รูปแก้วไวน์ (Zoom & Blur Out) */}
                 <motion.div className="absolute inset-0 flex justify-center items-center pointer-events-none z-20 overflow-hidden">
-                  <motion.img
-                      src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/hero.webp"
-                      alt="Wine Splashing"
-                      className="h-[100vh] w-auto object-cover"
-                      style={{ 
-                        opacity: wineOpacity, 
-                        scale: wineScale, 
-                        filter: wineBlur, 
-                        WebkitFilter: wineBlur,
-                        mixBlendMode: 'multiply' 
-                      }}
-                  />
+                  <motion.div 
+                    initial={{ opacity: 0, filter: "blur(20px)", scale: 1.1 }}
+                    animate={{ opacity: 1, filter: "blur(0px)", scale: 1 }}
+                    transition={{ duration: 2, ease: "easeOut" }}
+                    className="w-full h-full flex justify-center items-center"
+                  >
+                    <motion.img
+                        src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/hero.webp"
+                        alt="Wine Splashing"
+                        className="h-[100vh] w-auto object-cover"
+                        style={{ 
+                          opacity: wineOpacity, 
+                          scale: wineScale, 
+                          filter: wineBlur, 
+                          WebkitFilter: wineBlur,
+                          mixBlendMode: 'multiply' 
+                        }}
+                    />
+                  </motion.div>
                 </motion.div>
 
                 {/* 3. รายละเอียดมุมจอ (จัดพิกัดให้เป๊ะระดับ Pixel กับเส้นขอบตัวอักษร) */}
                 
                 {/* ที่อยู่ -> ขอบซ้ายตรงกับตัว "D" พอดี | เปลี่ยนจาก bottom เป็น top-[55vh] md:top-[60vh] และเพิ่มขนาดฟอนต์ */}
                 <motion.div style={{ x: cornerLeftX, opacity: cornerOpacity }} className="absolute top-[55vh] md:top-[60vh] z-30 font-inter font-medium text-[13px] md:text-[15px] text-[#111111] leading-[1.4] left-[15vw] md:left-[18vw] lg:left-[25vw]">
-                    <span>254 10th Avenue</span><br/>
-                    <span>Chelsea – New York<br/>NY 10001</span>
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 1.5, ease: "easeOut" }}>
+                      <span>254 10th Avenue</span><br/>
+                      <span>Chelsea – New York<br/>NY 10001</span>
+                    </motion.div>
                 </motion.div>
 
                 {/* คำคม -> ขอบขวาตรงกับจุดของ "?" พอดี | ใช้ top-[55vh] md:top-[60vh] ตัวเลขเดียวกับฝั่งซ้ายเป๊ะ เพื่อให้ Top-Align ตรงกัน */}
                 <motion.div style={{ x: cornerRightX, opacity: cornerOpacity }} className="absolute top-[55vh] md:top-[60vh] z-30 font-inter font-medium text-[9px] md:text-[11px] text-[#111111] leading-[1.4] text-right max-w-[200px] md:max-w-[260px] right-[15vw] md:right-[18vw] lg:right-[25vw]">
-                    We began with a shared belief:<br/>
-                    that cocktails can be more than recipes.<br/>
-                    They can be stories, memories,<br/>
-                    emotions, moments held briefly in a glass.
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 1.6, ease: "easeOut" }}>
+                      We began with a shared belief:<br/>
+                      that cocktails can be more than recipes.<br/>
+                      They can be stories, memories,<br/>
+                      emotions, moments held briefly in a glass.
+                    </motion.div>
                 </motion.div>
 
                 {/* พิกัดแนวตั้ง -> ขอบบนตรงกับบรรทัด DRINKING และชิดขวาสุดของตัวอักษร U (ขยับซ้ายนิดนึง) */}
                 <div className="absolute top-[24vh] md:top-[28vh] z-30 flex items-start justify-end right-[9vw] md:right-[13vw] lg:right-[15vw]">
                   <motion.div style={{ y: coordY, opacity: cornerOpacity, writingMode: 'vertical-rl', transform: 'rotate(180deg)' }} className="font-inter-tight font-bold text-[8px] md:text-[9px] uppercase tracking-widest text-[#111111]">
-                      40.7128° N, 74.0060° W
+                      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 1.7, ease: "easeOut" }}>
+                        40.7128° N, 74.0060° W
+                      </motion.div>
                   </motion.div>
                 </div>
 
