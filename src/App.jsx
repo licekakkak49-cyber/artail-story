@@ -361,7 +361,7 @@ const ArtistStage = () => {
         initial={{ opacity: 0, y: 100 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
         className="absolute top-4 md:top-6 left-6 md:left-12 lg:left-48 w-[35vw] md:w-[22vw] lg:w-[16vw] flex flex-col group z-20"
       >
         <div className="w-full aspect-[2/3] bg-[#2a2a2c] overflow-hidden mb-3">
@@ -378,7 +378,7 @@ const ArtistStage = () => {
         initial={{ opacity: 0, y: -100 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 1.2, ease: "easeOut" }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
         className="absolute top-[20%] md:top-[25%] right-6 md:right-12 lg:right-48 w-[35vw] md:w-[22vw] lg:w-[16vw] flex flex-col group z-20"
       >
         <div className="w-full aspect-[2/3] bg-[#2a2a2c] overflow-hidden mb-3">
