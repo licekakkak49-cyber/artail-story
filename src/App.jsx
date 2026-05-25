@@ -324,23 +324,10 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick }) => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
-          {/* ฝั่งซ้าย: งานศิลปะ (Artwork) และ รูปค็อกเทล */}
+          {/* ฝั่งซ้าย: งานศิลปะ (Artwork) */}
           <div className="md:col-span-7 lg:col-span-8 flex flex-col">
-            <div className="w-full bg-[#EAEAEA] overflow-hidden shadow-sm mb-4 md:mb-6">
+            <div className="w-full bg-[#EAEAEA] overflow-hidden shadow-sm">
               <img src={item.src} alt={item.name} className="w-full h-auto object-cover" />
-            </div>
-            
-            {/* รูปค็อกเทล (The Drink) - 3 คอลัมน์ ย้ายมาอยู่ใต้รูปศิลปะ */}
-            <div className="grid grid-cols-3 gap-4 md:gap-6 w-full">
-              <div className="w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden shadow-sm">
-                <img src={item.hoverSrc} alt={`${item.name} Cocktail 1`} className="w-full h-full object-cover" />
-              </div>
-              <div className="w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden shadow-sm">
-                <img src={item.hoverSrc} alt={`${item.name} Cocktail 2`} className="w-full h-full object-cover" />
-              </div>
-              <div className="w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden shadow-sm">
-                <img src={item.hoverSrc} alt={`${item.name} Cocktail 3`} className="w-full h-full object-cover" />
-              </div>
             </div>
           </div>
 
@@ -364,6 +351,22 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick }) => {
               </div>
             </div>
           </div>
+        </div>
+
+        {/* รูปค็อกเทล (The Drink) - 3 คอลัมน์ เต็มความกว้าง */}
+        <div className="w-full mt-16 md:mt-24">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 w-full">
+            <div className="w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden shadow-sm">
+              <img src={item.hoverSrc} alt={`${item.name} Cocktail 1`} className="w-full h-full object-cover" />
+            </div>
+            <div className="w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden shadow-sm">
+              <img src={item.hoverSrc} alt={`${item.name} Cocktail 2`} className="w-full h-full object-cover" />
+            </div>
+            <div className="w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden shadow-sm">
+              <img src={item.hoverSrc} alt={`${item.name} Cocktail 3`} className="w-full h-full object-cover" />
+            </div>
+          </div>
+          <span className="block font-inter-tight text-[10px] text-zinc-500 uppercase tracking-widest mt-4">The Cocktail Interpretation</span>
         </div>
 
         {/* More by Artist Section */}
