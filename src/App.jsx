@@ -670,7 +670,7 @@ export default function App() {
       setNavMode('top'); // อยู่บนสุด เลื่อนหายไปตามธรรมชาติ
     } else if (latest >= 0.05 && latest < 0.1) {
       setNavMode('prep'); // แอบเปลี่ยนเป็น fixed โดยไม่มีแอนิเมชัน (กันเด้ง)
-    } else if (latest >= 0.1 && latest < 0.85) {
+    } else if (latest >= 0.1 && latest < 0.75) {
       setNavMode('hidden'); // ซ่อนรอไว้ด้านบน พร้อมแอนิเมชัน
     } else {
       setNavMode('fixed'); // เลื่อนลงมาแสดงเป็นกระจกเมื่อถึงหน้าเมนู
