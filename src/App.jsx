@@ -317,7 +317,7 @@ const ContentStage = ({ rawProgress }) => {
 
       <div className="flex-1 flex items-center w-full overflow-hidden z-10">
         <div className="flex w-max animate-marquee">
-          <div className="flex items-start gap-2 md:gap-4 pr-2 md:pr-4">
+          <div className="flex items-start gap-2 pr-2">
             {cocktailMenuData.map((item, i) => (
               <div key={`set1-${i}`} className="w-[28vw] sm:w-[20vw] md:w-[16vw] lg:w-[12vw] flex flex-col flex-shrink-0 cursor-pointer group">
                 <div className="relative w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden mb-3 transform-gpu">
@@ -331,7 +331,7 @@ const ContentStage = ({ rawProgress }) => {
               </div>
             ))}
           </div>
-          <div className="flex items-start gap-2 md:gap-4 pr-2 md:pr-4">
+          <div className="flex items-start gap-2 pr-2">
             {cocktailMenuData.map((item, i) => (
               <div key={`set2-${i}`} className="w-[28vw] sm:w-[20vw] md:w-[16vw] lg:w-[12vw] flex flex-col flex-shrink-0 cursor-pointer group" style={{ contain: 'layout paint' }}>
                 <div className="relative w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden mb-3 transform-gpu">
