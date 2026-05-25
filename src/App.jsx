@@ -324,14 +324,27 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick }) => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
-          {/* ฝั่งซ้าย: งานศิลปะ (Artwork) */}
+          {/* ฝั่งซ้าย: งานศิลปะ (Artwork) และ รูปค็อกเทล */}
           <div className="md:col-span-7 lg:col-span-8 flex flex-col">
-            <div className="w-full bg-[#EAEAEA] overflow-hidden shadow-sm">
+            <div className="w-full bg-[#EAEAEA] overflow-hidden shadow-sm mb-4 md:mb-6">
               <img src={item.src} alt={item.name} className="w-full h-auto object-cover" />
+            </div>
+            
+            {/* รูปค็อกเทล (The Drink) - 3 คอลัมน์ ย้ายมาอยู่ใต้รูปศิลปะ */}
+            <div className="grid grid-cols-3 gap-4 md:gap-6 w-full">
+              <div className="w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden shadow-sm">
+                <img src={item.hoverSrc} alt={`${item.name} Cocktail 1`} className="w-full h-full object-cover" />
+              </div>
+              <div className="w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden shadow-sm">
+                <img src={item.hoverSrc} alt={`${item.name} Cocktail 2`} className="w-full h-full object-cover" />
+              </div>
+              <div className="w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden shadow-sm">
+                <img src={item.hoverSrc} alt={`${item.name} Cocktail 3`} className="w-full h-full object-cover" />
+              </div>
             </div>
           </div>
 
-          {/* ฝั่งขวา: ข้อมูล & รูปค็อกเทล */}
+          {/* ฝั่งขวา: ข้อมูล */}
           <div className="md:col-span-5 lg:col-span-4 flex flex-col">
             <p className="font-inter text-sm md:text-base text-[#111111] leading-relaxed mb-10">
               "{item.name}" captures the essence of {item.artist}'s vision through abstract forms and vibrant flavor profiles. The cocktail uses a palette of deep, rich spirits, swirling them into a sensory experience that evokes the natural beauty of its inspiration. The texture of the drink, layered with expressive notes, adds depth and intensity to the tasting experience.
@@ -350,27 +363,13 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick }) => {
                 <span className="font-inter-tight text-[10px] md:text-xs text-[#111111] uppercase tracking-widest mt-1 cursor-pointer hover:text-[#d92323] transition-colors">+ About Artist</span>
               </div>
             </div>
-
-            {/* รูปค็อกเทล (The Drink) - 3 คอลัมน์ */}
-            <div className="grid grid-cols-3 gap-2 md:gap-3 w-full mt-4">
-              <div className="w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden shadow-sm">
-                <img src={item.hoverSrc} alt={`${item.name} Cocktail 1`} className="w-full h-full object-cover" />
-              </div>
-              <div className="w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden shadow-sm">
-                <img src={item.hoverSrc} alt={`${item.name} Cocktail 2`} className="w-full h-full object-cover" />
-              </div>
-              <div className="w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden shadow-sm">
-                <img src={item.hoverSrc} alt={`${item.name} Cocktail 3`} className="w-full h-full object-cover" />
-              </div>
-            </div>
-            <span className="font-inter-tight text-[10px] text-zinc-500 uppercase tracking-widest mt-3">The Cocktail Interpretation</span>
           </div>
         </div>
 
         {/* More by Artist Section */}
         {moreItems.length > 0 && (
           <div className="w-full mt-24 md:mt-32 pt-12 border-t border-[#111111]/20">
-            <h3 className="font-helvetica text-2xl md:text-3xl text-[#111111] mb-8 tracking-tight">More by {item.artist}</h3>
+            <h3 className="font-helvetica text-3xl md:text-4xl lg:text-5xl text-[#111111] mb-8 md:mb-12 tracking-tight">More by {item.artist}</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
               {moreItems.slice(0, 4).map((moreItem, idx) => (
                 <div key={idx} onClick={() => onMenuClick(moreItem)} className="flex flex-col cursor-pointer group">
