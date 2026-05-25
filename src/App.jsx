@@ -227,7 +227,7 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
       <div className="w-full flex flex-col pt-8 md:pt-12 px-2 md:px-4">
         <div ref={headerRef}>
           <h1 className="font-helvetica font-black text-[13vw] md:text-[11vw] leading-[0.8] tracking-tighter uppercase text-[#111111] mb-6 md:mb-10">
-            ART & OBJECTS
+            ART &amp; OBJECTS
           </h1>
         </div>
         <div className={`sticky top-0 w-full z-50 px-2 md:px-4 py-4 transition-all duration-300 ${isSticky ? 'bg-white/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
