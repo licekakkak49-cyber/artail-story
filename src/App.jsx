@@ -731,7 +731,7 @@ export default function App() {
           
           {/* หน้าเมนู (ContentStage) ซ่อนอยู่หลังม่าน ใช้ Sticky ล็อกไว้เลยไม่กระตุก 100% */}
           <div className="absolute inset-0 w-full h-screen z-10 pointer-events-auto bg-[#F5F5F5]">
-            <ContentStage />
+            <ContentStage rawProgress={rawProgress} />
           </div>
 
           {/* 🌟 NEW EDITORIAL HERO SECTION 🌟 */}
