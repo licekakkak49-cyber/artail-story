@@ -662,8 +662,8 @@ export default function App() {
 
   const scrollToMenu = () => {
     if (scrollSequenceRef.current) {
-      // เลื่อนไปที่ระยะ 1.75 เท่าของหน้าจอ (rawProgress ~0.875) เพื่อให้พ้นขอบม่านสีแดงอย่างเด็ดขาด
-      const targetY = scrollSequenceRef.current.offsetTop + (window.innerHeight * 1.75);
+      // เลื่อนไปที่ระยะ 4.5 เท่าของหน้าจอ (rawProgress = 0.90) เพื่อให้ม่านเปิดสุดพอดี
+      const targetY = scrollSequenceRef.current.offsetTop + (window.innerHeight * 4.5);
       window.scrollTo({ top: targetY, behavior: 'smooth' });
     }
   };
@@ -679,12 +679,12 @@ export default function App() {
   useMotionValueEvent(rawProgress, "change", (latest) => {
     if (latest < 0.01) {
       setNavMode('top'); // แสดงตอนอยู่บนสุด
-    } else if (latest >= 0.01 && latest < 0.85) {
+    } else if (latest >= 0.01 && latest < 0.88) {
       setNavMode('hidden'); // เฟดหายไปทันทีที่เริ่ม Scroll (หายก่อนเพื่อน)
-    } else if (latest >= 0.85 && latest < 0.89) {
-      setNavMode('menu-top'); // ถึงหน้าเมนูพอดี -> เฟดขึ้นมาแบบโปร่งใส กลืนกับพื้นหลัง
+    } else if (latest >= 0.88 && latest <= 0.91) {
+      setNavMode('menu-top'); // ถึงหน้าเมนูพอดี (0.90) -> เฟดขึ้นมาแบบโปร่งใส กลืนกับพื้นหลัง
     } else {
-      setNavMode('glass'); // เลื่อนเลยหน้าเมนูลงมา -> กลายเป็นกระจก
+      setNavMode('glass'); // เลื่อนเลยหน้าเมนูลงมา (> 0.91) -> กลายเป็นกระจก
     }
   });
 
