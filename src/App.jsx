@@ -405,12 +405,34 @@ const ArtistStage = () => {
       {/* Bottom Huge Text */}
       <div className="absolute bottom-8 md:bottom-12 left-6 md:left-12 lg:left-48 right-6 md:right-12 lg:right-48 flex flex-col md:flex-row justify-between items-start md:items-end z-10 pointer-events-none">
         <div className="flex items-baseline gap-4 md:gap-6">
-          <h2 className="text-[#f5f5f5] font-bebas text-[28vw] md:text-[14vw] lg:text-[8.5vw] leading-[0.75] tracking-normal m-0 p-0">MEET</h2>
-          <span className="font-inter-tight text-xs md:text-sm tracking-widest uppercase mb-[1vw] md:mb-[0.5vw]">
+          <motion.h2 
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="text-[#f5f5f5] font-bebas text-[28vw] md:text-[14vw] lg:text-[8.5vw] leading-[0.75] tracking-normal m-0 p-0"
+          >
+            MEET
+          </motion.h2>
+          <motion.span 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            className="font-inter-tight text-xs md:text-sm tracking-widest uppercase mb-[1vw] md:mb-[0.5vw]"
+          >
             <span className="text-[#d92323]">ABOUT</span> <span className="text-[#f5f5f5]">/ SEE ALL</span>
-          </span>
+          </motion.span>
         </div>
-        <h2 className="text-[#f5f5f5] font-bebas text-[28vw] md:text-[14vw] lg:text-[8.5vw] leading-[0.75] tracking-normal m-0 p-0">ARTISTS(OUR)</h2>
+        <motion.h2 
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+          className="text-[#f5f5f5] font-bebas text-[28vw] md:text-[14vw] lg:text-[8.5vw] leading-[0.75] tracking-normal m-0 p-0"
+        >
+          ARTISTS(OUR)
+        </motion.h2>
       </div>
 
     </div>
