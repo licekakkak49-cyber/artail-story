@@ -304,8 +304,8 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick }) => {
       <div className={`sticky top-0 w-full z-50 px-6 py-5 md:py-6 transition-all duration-300 ${isSticky ? 'bg-[#F5F5F5]/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
         <div className="grid grid-cols-3 items-center w-full gap-4">
           <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] justify-start">
-            <span onClick={onClose} className="cursor-pointer hover:text-zinc-500 transition-colors">CLOSE</span>
-            <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">CATALOGUE</span>
+            <span onClick={onClose} className="cursor-pointer hover:text-zinc-500 transition-colors">COCKTAILS</span>
+            <span className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
             <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">INFO</span>
             <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">ARCHIVE</span>
             <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">EDITORIAL</span>
@@ -323,7 +323,7 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick }) => {
       <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 pt-8 md:pt-12 pb-24">
         {/* หัวข้อผลงาน */}
         <div ref={headerRef}>
-          <h1 className="font-helvetica font-normal text-3xl md:text-4xl lg:text-5xl leading-[1.1] tracking-tight text-[#111111] mb-8 md:mb-12">
+          <h1 className="font-helvetica font-normal text-3xl md:text-4xl lg:text-5xl leading-[1.1] tracking-tight text-[#111111] mb-4 md:mb-6">
             {item.name}
           </h1>
         </div>
