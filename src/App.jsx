@@ -427,32 +427,32 @@ const JourneyStage = () => {
 // --- ฉาก 4: Footer ---
 const FooterStage = () => {
   return (
-    <div className="w-full bg-[#1c1c1e] py-20 md:py-32 flex justify-center items-start px-6 md:px-12 lg:px-24">
-      <div className="w-full max-w-[1300px] grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 items-start">
+    <div className="w-full bg-[#F5F5F5] pt-0 pb-20 md:pt-0 md:pb-32 lg:pt-0 lg:pb-40 flex justify-center items-start px-6 md:px-12 lg:px-48">
+      <div className="w-full max-w-none grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 items-start">
         <div className="md:col-span-7 flex flex-col items-start pr-0 md:pr-12">
-          <h2 className="text-[#f5f5f5] font-helvetica text-3xl md:text-4xl lg:text-[3.5vw] font-normal leading-[1.1] tracking-tight uppercase mb-12 md:mb-20">Artail Story<br />New York</h2>
-          <div className="text-[#f5f5f5] font-inter-tight text-sm md:text-base leading-relaxed tracking-wide">254 10th Avenue<br />Chelsea – New York<br />NY 10001</div>
+          <h2 className="text-[#111111] font-helvetica text-3xl md:text-4xl lg:text-[3.5vw] font-normal leading-[1.1] tracking-tight uppercase mb-12 md:mb-20">Artail Story<br />New York</h2>
+          <div className="text-[#111111] font-inter-tight text-sm md:text-base leading-relaxed tracking-wide">254 10th Avenue<br />Chelsea – New York<br />NY 10001</div>
         </div>
         <div className="md:col-span-5 grid grid-cols-2 sm:grid-cols-3 gap-6 md:gap-8 mt-2 md:mt-2">
           <div className="flex flex-col gap-3 md:gap-4">
-            <a href="#" className="text-[#f5f5f5] hover:text-zinc-400 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Home</a>
-            <a href="#" className="text-[#f5f5f5] hover:text-zinc-400 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Artists</a>
-            <a href="#" className="text-[#f5f5f5] hover:text-zinc-400 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Collections</a>
-            <a href="#" className="text-[#f5f5f5] hover:text-zinc-400 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Menus</a>
-            <a href="#" className="text-[#f5f5f5] hover:text-zinc-400 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Pop-ups</a>
+            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Home</a>
+            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Artists</a>
+            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Collections</a>
+            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Menus</a>
+            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Pop-ups</a>
           </div>
           <div className="flex flex-col gap-3 md:gap-4">
-            <a href="#" className="text-[#f5f5f5] hover:text-zinc-400 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">News</a>
-            <a href="#" className="text-[#f5f5f5] hover:text-zinc-400 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Videos</a>
-            <a href="#" className="text-[#f5f5f5] hover:text-zinc-400 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">About</a>
-            <a href="#" className="text-[#f5f5f5] hover:text-zinc-400 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Contact</a>
-            <a href="#" className="text-[#f5f5f5] hover:text-zinc-400 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Reservations</a>
+            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">News</a>
+            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Videos</a>
+            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">About</a>
+            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Contact</a>
+            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Reservations</a>
           </div>
           <div className="flex flex-col gap-3 md:gap-4">
-            <a href="#" className="text-[#f5f5f5] hover:text-zinc-400 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Insta</a>
-            <a href="#" className="text-[#f5f5f5] hover:text-zinc-400 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">X (Twitter)</a>
-            <a href="#" className="text-[#f5f5f5] hover:text-zinc-400 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">YouTube</a>
-            <a href="#" className="text-[#f5f5f5] hover:text-zinc-400 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Spotify</a>
+            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Insta</a>
+            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">X (Twitter)</a>
+            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">YouTube</a>
+            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Spotify</a>
           </div>
         </div>
       </div>
