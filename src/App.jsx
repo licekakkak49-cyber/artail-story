@@ -375,10 +375,10 @@ const ArtistStage = () => {
 
       {/* Teddy (Right - เยื้องล่าง แต่พ้นตัวอักษร) */}
       <motion.div 
-        initial={{ opacity: 0, y: 100 }}
+        initial={{ opacity: 0, y: -100 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 1.2, delay: 0.4, ease: "easeOut" }}
+        transition={{ duration: 1.2, ease: "easeOut" }}
         className="absolute top-[20%] md:top-[25%] right-6 md:right-12 lg:right-48 w-[35vw] md:w-[22vw] lg:w-[16vw] flex flex-col group z-20"
       >
         <div className="w-full aspect-[2/3] bg-[#2a2a2c] overflow-hidden mb-3">
