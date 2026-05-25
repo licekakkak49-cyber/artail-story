@@ -578,56 +578,57 @@ export default function App() {
   const curtainY = useTransform(rawProgress, [0.42, 0.85], ["0vh", "-100vh"]);
 
   // --- 1. Cinematic Exit (ซูมทะลุแก้ว และ แหวกข้อความออกด้านข้าง) ---
-  const wineScale = useTransform(scrollYProgress, [0.03, 0.08], [1, 4]);
-  const wineBlur = useTransform(scrollYProgress, [0.03, 0.08], ["blur(0px)", "blur(15px)"]);
-  const wineOpacity = useTransform(scrollYProgress, [0.03, 0.08], [0.85, 0]);
+  const wineScale = useTransform(scrollYProgress, [0.02, 0.06], [1, 4]);
+  const wineBlur = useTransform(scrollYProgress, [0.02, 0.06], ["blur(0px)", "blur(15px)"]);
+  const wineOpacity = useTransform(scrollYProgress, [0.02, 0.06], [0.85, 0]);
 
-  const cornerOpacity = useTransform(scrollYProgress, [0.03, 0.07], [1, 0]);
-  const cornerLeftX = useTransform(scrollYProgress, [0.03, 0.07], ["0vw", "-10vw"]); // แหวกซ้าย
-  const cornerRightX = useTransform(scrollYProgress, [0.03, 0.07], ["0vw", "10vw"]); // แหวกขวา
-  const coordY = useTransform(scrollYProgress, [0.03, 0.07], ["0vh", "-15vh"]); // พุ่งขึ้นบน
+  const cornerOpacity = useTransform(scrollYProgress, [0.02, 0.06], [1, 0]);
+  const cornerLeftX = useTransform(scrollYProgress, [0.02, 0.06], ["0vw", "-10vw"]); // แหวกซ้าย
+  const cornerRightX = useTransform(scrollYProgress, [0.02, 0.06], ["0vw", "10vw"]); // แหวกขวา
+  const coordY = useTransform(scrollYProgress, [0.02, 0.06], ["0vh", "-15vh"]); // พุ่งขึ้นบน
 
   // --- 2. The Text Fold (WHAT ARE YOU -> WAYD?) ---
-  // NEW: แอนิเมชันสไลด์ข้อความจากใต้ Nav ลงมาอยู่กลางจอ 
-  const mainTextY = useTransform(scrollYProgress, [0.04, 0.09], ["0vh", "22vh"]); 
+  // NEW: แอนิเมชันสไลด์ข้อความจากใต้ Nav ลงมาอยู่กลางจอ (เกิดพร้อม Phase 1)
+  const mainTextY = useTransform(scrollYProgress, [0.02, 0.06], ["0vh", "22vh"]); 
 
-  const mw1 = useTransform(scrollYProgress, [0.04, 0.09], ["25vw", "0vw"]);
-  const mw2 = useTransform(scrollYProgress, [0.04, 0.09], ["20vw", "0vw"]);
-  const mw3 = useTransform(scrollYProgress, [0.04, 0.09], ["15vw", "0vw"]);
-  const mw4 = useTransform(scrollYProgress, [0.04, 0.09], ["45vw", "0vw"]);
+  // การพับข้อความ (เกิดหลังจาก Phase 1 จบแล้ว)
+  const mw1 = useTransform(scrollYProgress, [0.07, 0.11], ["25vw", "0vw"]);
+  const mw2 = useTransform(scrollYProgress, [0.07, 0.11], ["20vw", "0vw"]);
+  const mw3 = useTransform(scrollYProgress, [0.07, 0.11], ["15vw", "0vw"]);
+  const mw4 = useTransform(scrollYProgress, [0.07, 0.11], ["45vw", "0vw"]);
   
-  const smallOpacity = useTransform(scrollYProgress, [0.04, 0.07], [1, 0]);
-  const smallTextHideY = useTransform(scrollYProgress, (v) => v > 0.075 ? -9999 : 0);
+  const smallOpacity = useTransform(scrollYProgress, [0.07, 0.10], [1, 0]);
+  const smallTextHideY = useTransform(scrollYProgress, (v) => v > 0.105 ? -9999 : 0);
 
   // ปรับระยะห่างบรรทัดให้แคบลง หาจุดสมดุลระหว่าง 0.34 (ทับ) และ 0.38 (ห่างไป 10px) จะได้เส้นบางๆ พอดี
-  const line1Y = useTransform(scrollYProgress, [0.04, 0.09], ["-0.36em", "0em"]);
-  const line1X = useTransform(scrollYProgress, [0.04, 0.09], ["0em", "-0.45em"]); 
-  const line2Y = useTransform(scrollYProgress, [0.04, 0.09], ["0.36em", "0em"]);
-  const line2X = useTransform(scrollYProgress, [0.04, 0.09], ["0em", "0.65em"]); 
+  const line1Y = useTransform(scrollYProgress, [0.07, 0.11], ["-0.36em", "0em"]);
+  const line1X = useTransform(scrollYProgress, [0.07, 0.11], ["0em", "-0.45em"]); 
+  const line2Y = useTransform(scrollYProgress, [0.07, 0.11], ["0.36em", "0em"]);
+  const line2X = useTransform(scrollYProgress, [0.07, 0.11], ["0em", "0.65em"]); 
 
   // --- 3. The Melt (ละลาย WAYD? เป็นหยดน้ำ) ---
-  const gooeyFilter = useTransform(scrollYProgress, (v) => v >= 0.08 ? "url(#goo)" : "none");
-  const logoBlur = useTransform(scrollYProgress, [0.10, 0.13], ["blur(0px)", "blur(5px)"]);
+  const gooeyFilter = useTransform(scrollYProgress, (v) => v >= 0.11 ? "url(#goo)" : "none");
+  const logoBlur = useTransform(scrollYProgress, [0.11, 0.14], ["blur(0px)", "blur(5px)"]);
   
-  const meltScaleY = useTransform(scrollYProgress, [0.10, 0.14], [1, 1.6]); 
-  const logoOpacity = useTransform(scrollYProgress, [0.12, 0.15], [1, 0]); 
-  const logoHideY = useTransform(scrollYProgress, (v) => v > 0.16 ? -9999 : 0);
+  const meltScaleY = useTransform(scrollYProgress, [0.11, 0.15], [1, 1.6]); 
+  const logoOpacity = useTransform(scrollYProgress, [0.13, 0.16], [1, 0]); 
+  const logoHideY = useTransform(scrollYProgress, (v) => v > 0.17 ? -9999 : 0);
 
-  const dropOpacity = useTransform(scrollYProgress, [0.09, 0.11, 0.17, 0.19], [0, 1, 1, 0]); 
-  const dropY = useTransform(scrollYProgress, [0.11, 0.17], ["0vh", "60vh"]);
-  const dropScaleY = useTransform(scrollYProgress, [0.11, 0.14, 0.17], [1, 3.5, 1]); 
-  const dropHideX = useTransform(scrollYProgress, (v) => v > 0.20 ? -9999 : 0);
+  const dropOpacity = useTransform(scrollYProgress, [0.11, 0.13, 0.18, 0.20], [0, 1, 1, 0]); 
+  const dropY = useTransform(scrollYProgress, [0.13, 0.18], ["0vh", "60vh"]);
+  const dropScaleY = useTransform(scrollYProgress, [0.13, 0.15, 0.18], [1, 3.5, 1]); 
+  const dropHideX = useTransform(scrollYProgress, (v) => v > 0.21 ? -9999 : 0);
 
   // เปลี่ยนเฉพาะสีหยดน้ำเป็นสีไวน์แดง โดยเริ่มเปลี่ยนตอนที่หลุดออกจากตัวอักษร
-  const dropColor = useTransform(scrollYProgress, [0.13, 0.16], ["#000000", "#8B0000"]); 
+  const dropColor = useTransform(scrollYProgress, [0.14, 0.17], ["#000000", "#8B0000"]); 
 
   // ยกเลิกการ fade out เพื่อให้ฉากหมึกแคนวาสเลื่อนขึ้นด้านบนตามธรรมชาติเมื่อ Scroll (เหมือนเปิดม่าน)
   const textLayerMasterOpacity = useTransform(scrollYProgress, [0.21, 0.22], [1, 1]); 
 
   // --- 4. The Ink Bleed (หมึกกระจายลง Canvas) ---
   // จำกัดขนาดการกระจายของหมึกไว้ที่ 70vmax เพื่อไม่ให้แดงเต็มจอตอนเปิดม่าน
-  const bleedMaskSize = useTransform(scrollYProgress, [0.17, 0.21], ["0vmax 0vmax", "70vmax 70vmax"]);
-  const bleedOpacity = useTransform(scrollYProgress, [0.17, 0.18], [0, 1]);
+  const bleedMaskSize = useTransform(scrollYProgress, [0.18, 0.22], ["0vmax 0vmax", "70vmax 70vmax"]);
+  const bleedOpacity = useTransform(scrollYProgress, [0.18, 0.19], [0, 1]);
 
   // --- States หลัก ---
   const [view, setView] = useState('home');
