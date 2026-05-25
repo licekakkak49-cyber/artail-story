@@ -446,10 +446,32 @@ const FooterStage = () => {
     <div className="w-full bg-[#F5F5F5] pt-0 pb-20 md:pt-0 md:pb-32 lg:pt-0 lg:pb-40 flex justify-center items-start px-6 md:px-12">
       <div className="w-full max-w-[950px] grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 items-start">
         <div className="md:col-span-7 flex flex-col items-start pr-0 md:pr-12">
-          <h2 className="text-[#111111] font-helvetica text-3xl md:text-4xl lg:text-[3.5vw] font-normal leading-[1.1] tracking-tight uppercase mb-12 md:mb-20">Artail Story<br />New York</h2>
-          <div className="text-[#111111] font-inter-tight text-sm md:text-base leading-relaxed tracking-wide">254 10th Avenue<br />Chelsea – New York<br />NY 10001</div>
+          <motion.h2 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 1.2, delay: 0.5, ease: "easeOut" }}
+            className="text-[#111111] font-helvetica text-3xl md:text-4xl lg:text-[3.5vw] font-normal leading-[1.1] tracking-tight uppercase mb-12 md:mb-20"
+          >
+            Artail Story<br />New York
+          </motion.h2>
+          <motion.div 
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.9, ease: "easeOut" }}
+            className="text-[#111111] font-inter-tight text-sm md:text-base leading-relaxed tracking-wide"
+          >
+            254 10th Avenue<br />Chelsea – New York<br />NY 10001
+          </motion.div>
         </div>
-        <div className="md:col-span-5 grid grid-cols-2 sm:grid-cols-3 gap-6 md:gap-8 mt-2 md:mt-2">
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.9, ease: "easeOut" }}
+          className="md:col-span-5 grid grid-cols-2 sm:grid-cols-3 gap-6 md:gap-8 mt-2 md:mt-2"
+        >
           <div className="flex flex-col gap-3 md:gap-4">
             <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Home</a>
             <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Artists</a>
@@ -470,7 +492,7 @@ const FooterStage = () => {
             <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">YouTube</a>
             <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Spotify</a>
           </div>
-        </div>
+        </motion.div>
       </div>
     </div>
   );
