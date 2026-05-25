@@ -582,11 +582,11 @@ export default function App() {
   const wineBlur = useTransform(scrollYProgress, [0.02, 0.06], ["blur(0px)", "blur(15px)"]);
   const wineOpacity = useTransform(scrollYProgress, [0.02, 0.06], [0.85, 0]);
 
-  const cornerOpacity = useTransform(scrollYProgress, [0.02, 0.06], [1, 0]);
-  const cornerLeftX = useTransform(scrollYProgress, [0.02, 0.06], ["0vw", "-10vw"]); // แหวกซ้าย
-  const cornerRightX = useTransform(scrollYProgress, [0.02, 0.06], ["0vw", "10vw"]); // แหวกขวา
-  const cornerBottomY = useTransform(scrollYProgress, [0.02, 0.06], ["0vh", "15vh"]); // เลื่อนหนีลงล่าง
-  const coordY = useTransform(scrollYProgress, [0.02, 0.06], ["0vh", "-25vh"]); // พุ่งขึ้นบนเร็วขึ้น
+  const cornerOpacity = useTransform(scrollYProgress, [0.00, 0.03], [1, 0]);
+  const cornerLeftX = useTransform(scrollYProgress, [0.00, 0.03], ["0vw", "-10vw"]); // แหวกซ้าย
+  const cornerRightX = useTransform(scrollYProgress, [0.00, 0.03], ["0vw", "10vw"]); // แหวกขวา
+  const cornerBottomY = useTransform(scrollYProgress, [0.00, 0.03], ["0vh", "15vh"]); // เลื่อนหนีลงล่าง
+  const coordY = useTransform(scrollYProgress, [0.00, 0.03], ["0vh", "-25vh"]); // พุ่งขึ้นบนเร็วขึ้น
 
   // --- 2. The Text Fold (WHAT ARE YOU -> WAYD?) ---
   // NEW: แอนิเมชันสไลด์ข้อความจากใต้ Nav ลงมาอยู่กลางจอ (เกิดพร้อม Phase 1)
