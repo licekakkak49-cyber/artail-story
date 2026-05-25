@@ -715,7 +715,7 @@ export default function App() {
       )}
 
       {view !== 'catalogue' && (
-        <nav className={`left-0 w-full z-[999] px-6 py-5 grid grid-cols-3 items-center pointer-events-auto ${navMode === 'top' ? 'absolute top-0 translate-y-0 bg-transparent transition-none' : navMode === 'prep' ? 'fixed top-0 -translate-y-full bg-transparent transition-none' : navMode === 'hidden' ? 'fixed top-0 -translate-y-full bg-transparent transition-transform duration-500' : 'fixed top-0 translate-y-0 bg-[#F5F5F5]/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)] transition-all duration-500'}`}>
+        <nav className={`left-0 w-full z-[999] px-6 py-5 grid grid-cols-3 items-center ${navMode === 'prep' || navMode === 'hidden' ? 'pointer-events-none' : 'pointer-events-auto'} ${navMode === 'top' ? 'absolute top-0 opacity-100 bg-transparent transition-none' : navMode === 'prep' ? 'fixed top-0 opacity-0 bg-transparent transition-none' : navMode === 'hidden' ? 'fixed top-0 opacity-0 bg-transparent transition-opacity duration-500' : navMode === 'menu-top' ? 'fixed top-0 opacity-100 bg-transparent transition-all duration-500' : 'fixed top-0 opacity-100 bg-[#F5F5F5]/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)] transition-all duration-500'}`}>
           <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] justify-start">
             <span onClick={scrollToMenu} className="cursor-pointer hover:text-zinc-500 transition-colors">COCKTAILS</span>
             <span onClick={() => { setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
