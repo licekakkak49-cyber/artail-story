@@ -675,7 +675,7 @@ export default function App() {
                 {/* 3. รายละเอียดมุมจอ (จัดพิกัดให้เป๊ะระดับ Pixel กับเส้นขอบตัวอักษร) */}
                 
                 {/* ที่อยู่ -> ขอบซ้ายตรงกับตัว "D" พอดี | เปลี่ยนจาก bottom เป็น top-[55vh] md:top-[60vh] และเพิ่มขนาดฟอนต์ */}
-                <motion.div style={{ x: cornerLeftX, opacity: cornerOpacity }} className="absolute top-[55vh] md:top-[60vh] z-30 font-inter font-medium text-[11px] md:text-[13px] text-[#111111] leading-[1.4] left-[15vw] md:left-[18vw] lg:left-[25vw]">
+                <motion.div style={{ x: cornerLeftX, opacity: cornerOpacity }} className="absolute top-[55vh] md:top-[60vh] z-30 font-inter font-medium text-[13px] md:text-[15px] text-[#111111] leading-[1.4] left-[15vw] md:left-[18vw] lg:left-[25vw]">
                     <span>254 10th Avenue</span><br/>
                     <span>Chelsea – New York<br/>NY 10001</span>
                 </motion.div>
