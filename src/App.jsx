@@ -279,9 +279,18 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
 };
 
 // --- ฉากแทรก: หน้า Menu Detail (แสดงรายละเอียดค็อกเทลและงานศิลปะ) ---
-const MenuDetailOverlay = ({ item, onClose, nyTime }) => {
+const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick }) => {
   const [isSticky, setIsSticky] = useState(false);
   const headerRef = useRef(null);
+  const overlayRef = useRef(null);
+
+  const moreItems = cocktailMenuData.filter(menu => menu.artist === item.artist && menu.name !== item.name);
+
+  useEffect(() => {
+    if (overlayRef.current) {
+      overlayRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [item]);
 
   const handleScroll = (e) => {
     if (headerRef.current) {
@@ -290,7 +299,7 @@ const MenuDetailOverlay = ({ item, onClose, nyTime }) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-[#F5F5F5] z-[9999] overflow-y-auto" onScroll={handleScroll}>
+    <div ref={overlayRef} className="fixed inset-0 bg-[#F5F5F5] z-[9999] overflow-y-auto" onScroll={handleScroll}>
       {/* Nav Bar สำหรับหน้า Detail */}
       <div className={`sticky top-0 w-full z-50 px-6 py-5 md:py-6 transition-all duration-300 ${isSticky ? 'bg-[#F5F5F5]/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
         <div className="grid grid-cols-3 items-center w-full gap-4">
@@ -314,7 +323,7 @@ const MenuDetailOverlay = ({ item, onClose, nyTime }) => {
           </h1>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
           {/* ฝั่งซ้าย: งานศิลปะ (Artwork) */}
           <div className="md:col-span-7 lg:col-span-8 flex flex-col">
             <div className="w-full bg-[#EAEAEA] overflow-hidden shadow-sm">
@@ -342,13 +351,39 @@ const MenuDetailOverlay = ({ item, onClose, nyTime }) => {
               </div>
             </div>
 
-            {/* รูปค็อกเทล (The Drink) */}
-            <div className="w-full max-w-[260px] aspect-[3/4] bg-[#EAEAEA] overflow-hidden shadow-sm">
-              <img src={item.hoverSrc} alt={`${item.name} Cocktail`} className="w-full h-full object-cover" />
+            {/* รูปค็อกเทล (The Drink) - 3 คอลัมน์ */}
+            <div className="grid grid-cols-3 gap-2 md:gap-3 w-full mt-4">
+              <div className="w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden shadow-sm">
+                <img src={item.hoverSrc} alt={`${item.name} Cocktail 1`} className="w-full h-full object-cover" />
+              </div>
+              <div className="w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden shadow-sm">
+                <img src={item.hoverSrc} alt={`${item.name} Cocktail 2`} className="w-full h-full object-cover" />
+              </div>
+              <div className="w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden shadow-sm">
+                <img src={item.hoverSrc} alt={`${item.name} Cocktail 3`} className="w-full h-full object-cover" />
+              </div>
             </div>
             <span className="font-inter-tight text-[10px] text-zinc-500 uppercase tracking-widest mt-3">The Cocktail Interpretation</span>
           </div>
         </div>
+
+        {/* More by Artist Section */}
+        {moreItems.length > 0 && (
+          <div className="w-full mt-24 md:mt-32 pt-12 border-t border-[#111111]/20">
+            <h3 className="font-helvetica text-2xl md:text-3xl text-[#111111] mb-8 tracking-tight">More by {item.artist}</h3>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+              {moreItems.slice(0, 4).map((moreItem, idx) => (
+                <div key={idx} onClick={() => onMenuClick(moreItem)} className="flex flex-col cursor-pointer group">
+                  <div className="w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden mb-3">
+                    <img src={moreItem.src} alt={moreItem.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  </div>
+                  <span className="font-inter-tight font-bold text-[11px] md:text-xs text-[#111111]">"{moreItem.name}"</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
       </div>
     </div>
   );
@@ -825,6 +860,7 @@ export default function App() {
           item={selectedMenu} 
           onClose={() => setSelectedMenu(null)} 
           nyTime={nyTime} 
+          onMenuClick={setSelectedMenu}
         />
       )}
 
