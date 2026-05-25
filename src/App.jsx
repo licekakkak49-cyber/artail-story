@@ -581,12 +581,14 @@ export default function App() {
   const wineScale = useTransform(scrollYProgress, [0.02, 0.12], [1, 4]);
   const wineBlur = useTransform(scrollYProgress, [0.02, 0.12], ["blur(0px)", "blur(15px)"]);
   const wineOpacity = useTransform(scrollYProgress, [0.02, 0.12], [0.85, 0]);
+  const wineHideY = useTransform(scrollYProgress, (v) => v > 0.13 ? -9999 : 0);
 
   const cornerOpacity = useTransform(scrollYProgress, [0.00, 0.04], [1, 0]);
   const cornerLeftX = useTransform(scrollYProgress, [0.00, 0.04], ["0vw", "-10vw"]); 
   const cornerRightX = useTransform(scrollYProgress, [0.00, 0.04], ["0vw", "10vw"]); 
   const cornerBottomY = useTransform(scrollYProgress, [0.00, 0.04], ["0vh", "15vh"]); 
   const coordY = useTransform(scrollYProgress, [0.00, 0.04], ["0vh", "-25vh"]); 
+  const cornerHideY = useTransform(scrollYProgress, (v) => v > 0.05 ? -9999 : 0);
 
   // --- 2. The Text Fold (WHAT ARE YOU -> WAYD?) ---
   const mainTextY = useTransform(scrollYProgress, [0.02, 0.12], ["0vh", "22vh"]); 
@@ -802,7 +804,7 @@ export default function App() {
 
                 {/* 2. รูปแก้วไวน์ (Zoom & Blur Out) */}
                 <motion.div className="absolute inset-0 flex justify-center items-center pointer-events-none z-20 overflow-hidden">
-                  <motion.div className="w-full h-full flex justify-center items-center">
+                  <motion.div style={{ y: wineHideY }} className="w-full h-full flex justify-center items-center">
                     <motion.img
                         src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/hero.webp"
                         alt="Wine Splashing"
@@ -819,33 +821,34 @@ export default function App() {
                 </motion.div>
 
                 {/* 3. รายละเอียดมุมจอ (จัดพิกัดให้เป๊ะระดับ Pixel กับเส้นขอบตัวอักษร) */}
-                
-                {/* ที่อยู่ -> ขอบซ้ายตรงกับตัว "D" พอดี | เปลี่ยนจาก bottom เป็น top-[55vh] md:top-[60vh] และเพิ่มขนาดฟอนต์ */}
-                <motion.div style={{ x: cornerLeftX, y: cornerBottomY, opacity: cornerOpacity }} className="absolute top-[55vh] md:top-[60vh] z-30 font-inter font-medium text-[13px] md:text-[15px] text-[#111111] leading-[1.4] left-[15vw] md:left-[18vw] lg:left-[25vw]">
-                    <motion.div>
-                      <span>254 10th Avenue</span><br/>
-                      <span>Chelsea – New York<br/>NY 10001</span>
-                    </motion.div>
-                </motion.div>
-
-                {/* คำคม -> ขอบขวาตรงกับจุดของ "?" พอดี | ใช้ top-[55vh] md:top-[60vh] ตัวเลขเดียวกับฝั่งซ้ายเป๊ะ เพื่อให้ Top-Align ตรงกัน */}
-                <motion.div style={{ x: cornerRightX, y: cornerBottomY, opacity: cornerOpacity }} className="absolute top-[55vh] md:top-[60vh] z-30 font-inter font-medium text-[9px] md:text-[11px] text-[#111111] leading-[1.4] text-right max-w-[200px] md:max-w-[260px] right-[15vw] md:right-[18vw] lg:right-[25vw]">
-                    <motion.div>
-                      We began with a shared belief:<br/>
-                      that cocktails can be more than recipes.<br/>
-                      They can be stories, memories,<br/>
-                      emotions, moments held briefly in a glass.
-                    </motion.div>
-                </motion.div>
-
-                {/* พิกัดแนวตั้ง -> ขอบบนตรงกับบรรทัด DRINKING และชิดขวาสุดของตัวอักษร U (ขยับซ้ายนิดนึง) */}
-                <div className="absolute top-[24vh] md:top-[28vh] z-30 flex items-start justify-end right-[9vw] md:right-[13vw] lg:right-[15vw]">
-                  <motion.div style={{ y: coordY, opacity: cornerOpacity, writingMode: 'vertical-rl', transform: 'rotate(180deg)' }} className="font-inter-tight font-bold text-[8px] md:text-[9px] uppercase tracking-widest text-[#111111]">
+                <motion.div style={{ y: cornerHideY }} className="absolute inset-0 pointer-events-none z-30">
+                  {/* ที่อยู่ -> ขอบซ้ายตรงกับตัว "D" พอดี | เปลี่ยนจาก bottom เป็น top-[55vh] md:top-[60vh] และเพิ่มขนาดฟอนต์ */}
+                  <motion.div style={{ x: cornerLeftX, y: cornerBottomY, opacity: cornerOpacity }} className="absolute top-[55vh] md:top-[60vh] font-inter font-medium text-[13px] md:text-[15px] text-[#111111] leading-[1.4] left-[15vw] md:left-[18vw] lg:left-[25vw]">
                       <motion.div>
-                        40.7128° N, 74.0060° W
+                        <span>254 10th Avenue</span><br/>
+                        <span>Chelsea – New York<br/>NY 10001</span>
                       </motion.div>
                   </motion.div>
-                </div>
+
+                  {/* คำคม -> ขอบขวาตรงกับจุดของ "?" พอดี | ใช้ top-[55vh] md:top-[60vh] ตัวเลขเดียวกับฝั่งซ้ายเป๊ะ เพื่อให้ Top-Align ตรงกัน */}
+                  <motion.div style={{ x: cornerRightX, y: cornerBottomY, opacity: cornerOpacity }} className="absolute top-[55vh] md:top-[60vh] font-inter font-medium text-[9px] md:text-[11px] text-[#111111] leading-[1.4] text-right max-w-[200px] md:max-w-[260px] right-[15vw] md:right-[18vw] lg:right-[25vw]">
+                      <motion.div>
+                        We began with a shared belief:<br/>
+                        that cocktails can be more than recipes.<br/>
+                        They can be stories, memories,<br/>
+                        emotions, moments held briefly in a glass.
+                      </motion.div>
+                  </motion.div>
+
+                  {/* พิกัดแนวตั้ง -> ขอบบนตรงกับบรรทัด DRINKING และชิดขวาสุดของตัวอักษร U (ขยับซ้ายนิดนึง) */}
+                  <div className="absolute top-[24vh] md:top-[28vh] flex items-start justify-end right-[9vw] md:right-[13vw] lg:right-[15vw]">
+                    <motion.div style={{ y: coordY, opacity: cornerOpacity, writingMode: 'vertical-rl', transform: 'rotate(180deg)' }} className="font-inter-tight font-bold text-[8px] md:text-[9px] uppercase tracking-widest text-[#111111]">
+                        <motion.div>
+                          40.7128° N, 74.0060° W
+                        </motion.div>
+                    </motion.div>
+                  </div>
+                </motion.div>
 
                 {/* ฉากหมึกกระจาย (Ink Bleed) */}
                 <motion.div className="absolute inset-0 bg-[#8B0000] z-40 ink-bleed-mask pointer-events-none" style={{ WebkitMaskSize: bleedMaskSize, maskSize: bleedMaskSize, opacity: bleedOpacity }}>
