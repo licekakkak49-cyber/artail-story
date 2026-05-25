@@ -649,6 +649,14 @@ export default function App() {
 
   const cartCount = cartItems.reduce((sum, item) => sum + item.qty, 0);
 
+  const scrollToMenu = () => {
+    if (scrollSequenceRef.current) {
+      // เลื่อนไปที่ระยะ 1.8 เท่าของหน้าจอ (rawProgress ~0.9) ซึ่งเป็นจุดที่ม่านเปิดสุดและเห็นเมนูพอดี
+      const targetY = scrollSequenceRef.current.offsetTop + (window.innerHeight * 1.8);
+      window.scrollTo({ top: targetY, behavior: 'smooth' });
+    }
+  };
+
   useEffect(() => {
     if (view === 'catalogue') {
       document.body.style.overflow = 'hidden';
@@ -657,10 +665,9 @@ export default function App() {
     }
   }, [view]);
 
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    // เปลี่ยนให้ Nav ทำงานหลังจากแอนิเมชันหยดหมึกจบลง (เลยช่วง 0.20 ไปแล้ว)
-    // เพื่อไม่ให้แย่งทรัพยากรการคำนวณในช่วงเริ่มต้น
-    setIsMainScrolled(latest > 0.22);
+  useMotionValueEvent(rawProgress, "change", (latest) => {
+    // ให้ Nav กลายเป็นกระจก (Glassmorphism) ทันทีที่เริ่ม Scroll ลงมานิดหน่อย
+    setIsMainScrolled(latest > 0.02);
   });
 
   return (
@@ -703,6 +710,7 @@ export default function App() {
       {view !== 'catalogue' && (
         <nav className={`fixed top-0 left-0 w-full z-[999] px-6 py-5 grid grid-cols-3 items-center transition-all duration-300 pointer-events-auto ${isMainScrolled ? 'bg-[#F5F5F5]/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
           <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] justify-start">
+            <span onClick={scrollToMenu} className="cursor-pointer hover:text-zinc-500 transition-colors">COCKTAILS</span>
             <span onClick={() => { setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
             <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">INFO</span>
             <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">ARCHIVE</span>
