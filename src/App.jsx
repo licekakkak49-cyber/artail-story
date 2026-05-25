@@ -638,10 +638,10 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // หน่วงเวลาให้ Preloader แสดงผล 2.8 วินาที เพื่อให้กระพริบเสร็จก่อนเฟดหายไป
+    // หน่วงเวลาให้ Preloader แสดงผล 2 วินาที (สไตล์ Premium: โชว์โลโก้นิ่งๆ แล้วเฟดออก)
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 2800);
+    }, 2000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -693,13 +693,13 @@ export default function App() {
       <motion.div 
         initial={{ opacity: 1 }}
         animate={{ opacity: isLoading ? 1 : 0, pointerEvents: isLoading ? 'auto' : 'none' }}
-        transition={{ duration: 1, ease: "easeInOut" }}
+        transition={{ duration: 0.8, ease: "easeInOut" }}
         className="fixed inset-0 z-[99999] bg-[#F5F5F5] flex justify-center items-center"
       >
         <motion.img 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: [0, 1, 0.2, 1, 0.2, 1], scale: 1 }}
-          transition={{ duration: 2.2, ease: "easeInOut" }}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
           src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/logo3.svg" 
           alt="WAYD Logo" 
           className="h-20 sm:h-24 md:h-32 lg:h-40" 
