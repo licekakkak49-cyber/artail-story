@@ -318,12 +318,12 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick }) => {
       <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 pt-8 md:pt-12 pb-24">
         {/* หัวข้อผลงาน */}
         <div ref={headerRef}>
-          <h1 className="font-helvetica font-normal text-3xl md:text-4xl lg:text-[3.5vw] leading-[1.1] tracking-tight text-[#111111] mb-8 md:mb-12">
+          <h1 className="font-helvetica font-normal text-2xl md:text-3xl lg:text-4xl leading-[1.1] tracking-tight text-[#111111] mb-6 md:mb-8">
             {item.name}
           </h1>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-start">
           {/* ฝั่งซ้าย: งานศิลปะ (Artwork) */}
           <div className="md:col-span-7 lg:col-span-8 flex flex-col">
             <div className="w-full bg-[#EAEAEA] overflow-hidden shadow-sm">
@@ -354,8 +354,8 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick }) => {
         </div>
 
         {/* รูปค็อกเทล (The Drink) - 3 คอลัมน์ เต็มความกว้าง */}
-        <div className="w-full mt-16 md:mt-24">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 w-full">
+        <div className="w-full mt-12 md:mt-16">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full">
             <div className="w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden shadow-sm">
               <img src={item.hoverSrc} alt={`${item.name} Cocktail 1`} className="w-full h-full object-cover" />
             </div>
