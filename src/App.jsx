@@ -284,6 +284,10 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick }) => {
   const headerRef = useRef(null);
   const overlayRef = useRef(null);
 
+  const { scrollYProgress } = useScroll({ container: overlayRef });
+  // เมื่อ Scroll ลงมา (0 ถึง 30% ของหน้า) รูปจะค่อยๆ ซูมออกจาก 1 เป็น 0.85
+  const imageScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.85]);
+
   const moreItems = cocktailMenuData.filter(menu => menu.artist === item.artist && menu.name !== item.name);
 
   useEffect(() => {
@@ -331,7 +335,12 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick }) => {
           {/* ฝั่งซ้าย: งานศิลปะ (Artwork) */}
           <div className="md:col-span-7 lg:col-span-8 flex flex-col">
             <div className="w-full bg-[#EAEAEA] overflow-hidden shadow-sm">
-              <img src={item.src} alt={item.name} className="w-full h-auto object-cover" />
+              <motion.img 
+                style={{ scale: imageScale }} 
+                src={item.src} 
+                alt={item.name} 
+                className="w-full h-auto object-cover origin-top transform-gpu" 
+              />
             </div>
           </div>
 
