@@ -401,7 +401,7 @@ const JourneyStage = () => {
   ];
 
   return (
-    <div className="w-full bg-[#F5F5F5] pt-12 pb-20 md:pt-20 md:pb-28 lg:pt-24 lg:pb-32 flex justify-center items-start px-6 md:px-12 lg:px-48">
+    <div className="w-full bg-[#F5F5F5] pt-12 pb-24 md:pt-20 md:pb-32 lg:pt-24 lg:pb-40 flex justify-center items-start px-6 md:px-12 lg:px-48">
       <div className="w-full max-w-none grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-start pt-4 md:pt-6">
         <div className="md:col-span-4 flex flex-col items-start pr-0 md:pr-12">
           <h2 className="text-[#111111] font-helvetica text-3xl md:text-4xl lg:text-[3.5vw] font-normal leading-[1.1] tracking-tight uppercase">
@@ -419,22 +419,6 @@ const JourneyStage = () => {
             </div>
           ))}
         </div>
-      </div>
-    </div>
-  );
-};
-
-// --- ฉากแทรก: บทสรุปปรัชญาของร้าน (Story Quote) ---
-const StoryQuoteStage = () => {
-  return (
-    <div className="w-full bg-[#F5F5F5] pt-16 md:pt-24 lg:pt-32 pb-32 md:pb-48 lg:pb-64 flex flex-col justify-center items-center relative overflow-hidden select-none px-6 md:px-12">
-      <div className="w-full flex flex-col items-center justify-center max-w-[1200px]">
-        <h3 className="font-helvetica font-normal text-[5vw] sm:text-[4vw] md:text-[2.5vw] lg:text-[1.8vw] text-[#111111] text-center leading-[1.5] tracking-tight">
-          “We began with a shared belief:<br className="hidden md:block"/>
-          that cocktails can be more than recipes.<br className="hidden md:block"/>
-          They can be stories, memories, emotions,<br className="hidden md:block"/>
-          moments held briefly in a glass.”
-        </h3>
       </div>
     </div>
   );
@@ -724,7 +708,6 @@ export default function App() {
           <div className="w-full flex flex-col relative z-20 bg-[#F5F5F5] pointer-events-auto">
             <ArtistStage />
             <JourneyStage />
-            <StoryQuoteStage />
             <FooterStage />
           </div>
 
