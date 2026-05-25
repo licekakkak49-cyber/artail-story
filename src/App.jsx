@@ -651,8 +651,8 @@ export default function App() {
 
   const scrollToMenu = () => {
     if (scrollSequenceRef.current) {
-      // เลื่อนไปที่ระยะ 1.6 เท่าของหน้าจอ (rawProgress ~0.8) เพื่อให้เห็นจังหวะม่านเปิดเสร็จและข้อความเด้งขึ้นมาพอดี
-      const targetY = scrollSequenceRef.current.offsetTop + (window.innerHeight * 1.6);
+      // เลื่อนไปที่ระยะ 1.75 เท่าของหน้าจอ (rawProgress ~0.875) เพื่อให้พ้นขอบม่านสีแดงอย่างเด็ดขาด
+      const targetY = scrollSequenceRef.current.offsetTop + (window.innerHeight * 1.75);
       window.scrollTo({ top: targetY, behavior: 'smooth' });
     }
   };
@@ -669,11 +669,13 @@ export default function App() {
     if (latest < 0.05) {
       setNavMode('top'); // อยู่บนสุด เลื่อนหายไปตามธรรมชาติ
     } else if (latest >= 0.05 && latest < 0.1) {
-      setNavMode('prep'); // แอบเปลี่ยนเป็น fixed โดยไม่มีแอนิเมชัน (กันเด้ง)
-    } else if (latest >= 0.1 && latest < 0.75) {
-      setNavMode('hidden'); // ซ่อนรอไว้ด้านบน พร้อมแอนิเมชัน
+      setNavMode('prep'); // แอบเปลี่ยนเป็น fixed แบบโปร่งใส (กันเด้ง)
+    } else if (latest >= 0.1 && latest < 0.85) {
+      setNavMode('hidden'); // ซ่อนรอไว้ (opacity-0)
+    } else if (latest >= 0.85 && latest < 0.89) {
+      setNavMode('menu-top'); // ถึงหน้าเมนูพอดี -> เฟดขึ้นมาแบบโปร่งใส กลืนกับพื้นหลัง
     } else {
-      setNavMode('fixed'); // เลื่อนลงมาแสดงเป็นกระจกเมื่อถึงหน้าเมนู
+      setNavMode('glass'); // เลื่อนเลยหน้าเมนูลงมา -> กลายเป็นกระจก
     }
   });
 
