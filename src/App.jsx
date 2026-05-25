@@ -566,7 +566,7 @@ const FooterStage = () => {
 
 export default function App() {
   const scrollSequenceRef = useRef(null);
-  const { scrollYProgress: rawProgress } = useScroll({
+  const { scrollYProgress: rawProgress, scrollY } = useScroll({
     target: scrollSequenceRef,
     offset: ["start start", "end end"]
   });
@@ -665,9 +665,16 @@ export default function App() {
     }
   }, [view]);
 
-  useMotionValueEvent(rawProgress, "change", (latest) => {
-    // ให้ Nav กลายเป็นกระจก (Glassmorphism) ทันทีที่เริ่ม Scroll ลงมานิดหน่อย
-    setIsMainScrolled(latest > 0.02);
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    // คำนวณตำแหน่งของหน้าเมนู (จุดที่ปุ่ม COCKTAILS เลื่อนไป)
+    const menuTarget = scrollSequenceRef.current ? scrollSequenceRef.current.offsetTop + (window.innerHeight * 1.8) : 0;
+    
+    // เช็คว่าอยู่บนสุดของเว็บ หรือ อยู่ตรงจุดเริ่มต้นของหน้าเมนูพอดี (เผื่อระยะ +- 50px)
+    const isAtTop = latest < 50;
+    const isAtMenu = menuTarget > 0 && Math.abs(latest - menuTarget) < 50;
+    
+    // ถ้าไม่ได้อยู่จุดเริ่มต้นของทั้งสองหน้า ให้ Nav เป็นกระจก
+    setIsMainScrolled(!(isAtTop || isAtMenu));
   });
 
   return (
