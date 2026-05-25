@@ -304,9 +304,9 @@ const ContentStage = () => {
           <div className="flex items-start gap-2 md:gap-4 pr-2 md:pr-4">
             {cocktailMenuData.map((item, i) => (
               <div key={`set1-${i}`} className="w-[30vw] sm:w-[22vw] md:w-[18vw] lg:w-[14vw] flex flex-col flex-shrink-0 cursor-pointer group">
-                <div className="relative w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden mb-3">
-                  <img src={item.src} alt={item.name} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover grayscale transition-all duration-700 ease-in-out opacity-100 group-hover:opacity-0" draggable="false" />
-                  <img src={item.hoverSrc} alt={`${item.name} cocktail`} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out opacity-0 group-hover:opacity-100 scale-100 group-hover:scale-105" draggable="false" />
+                <div className="relative w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden mb-3 transform-gpu">
+                  <img src={item.src} alt={item.name} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover grayscale transition-all duration-700 ease-in-out opacity-100 group-hover:opacity-0 transform-gpu will-change-[opacity,transform]" draggable="false" />
+                  <img src={item.hoverSrc} alt={`${item.name} cocktail`} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out opacity-0 group-hover:opacity-100 scale-100 group-hover:scale-105 transform-gpu will-change-[opacity,transform]" draggable="false" />
                 </div>
                 <div className="flex justify-between items-baseline w-full text-[10px] md:text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-500 mt-1">
                   <span className="font-inter-tight font-bold text-[#111111]">“{item.name}”</span>
@@ -318,9 +318,9 @@ const ContentStage = () => {
           <div className="flex items-start gap-2 md:gap-4 pr-2 md:pr-4">
             {cocktailMenuData.map((item, i) => (
               <div key={`set2-${i}`} className="w-[30vw] sm:w-[22vw] md:w-[18vw] lg:w-[14vw] flex flex-col flex-shrink-0 cursor-pointer group">
-                <div className="relative w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden mb-3">
-                  <img src={item.src} alt={item.name} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover grayscale transition-all duration-700 ease-in-out opacity-100 group-hover:opacity-0" draggable="false" />
-                  <img src={item.hoverSrc} alt={`${item.name} cocktail`} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out opacity-0 group-hover:opacity-100 scale-100 group-hover:scale-105" draggable="false" />
+                <div className="relative w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden mb-3 transform-gpu">
+                  <img src={item.src} alt={item.name} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover grayscale transition-all duration-700 ease-in-out opacity-100 group-hover:opacity-0 transform-gpu will-change-[opacity,transform]" draggable="false" />
+                  <img src={item.hoverSrc} alt={`${item.name} cocktail`} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-in-out opacity-0 group-hover:opacity-100 scale-100 group-hover:scale-105 transform-gpu will-change-[opacity,transform]" draggable="false" />
                 </div>
                 <div className="flex justify-between items-baseline w-full text-[10px] md:text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-500 mt-1">
                   <span className="font-inter-tight font-bold text-[#111111]">“{item.name}”</span>
