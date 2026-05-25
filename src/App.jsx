@@ -357,38 +357,50 @@ const ArtistStage = () => {
       </div>
 
       {/* Mimi (Left - เว้นบนนิดเดียว) */}
-      <motion.div 
-        initial={{ opacity: 0, y: 100 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="absolute top-4 md:top-6 left-6 md:left-12 lg:left-48 w-[35vw] md:w-[22vw] lg:w-[16vw] flex flex-col group z-20"
-      >
-        <div className="w-full aspect-[2/3] bg-[#2a2a2c] overflow-hidden mb-3">
+      <div className="absolute top-4 md:top-6 left-6 md:left-12 lg:left-48 w-[35vw] md:w-[22vw] lg:w-[16vw] flex flex-col group z-20">
+        <motion.div 
+          initial={{ opacity: 0, y: 100 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="w-full aspect-[2/3] bg-[#2a2a2c] overflow-hidden mb-3"
+        >
           <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80" alt="Mimi" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-105 will-change-transform" draggable="false" />
-        </div>
-        <div className="flex justify-between items-baseline w-full">
+        </motion.div>
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5, delay: 0.8, ease: "easeOut" }}
+          className="flex justify-between items-baseline w-full"
+        >
           <span className="text-[#f5f5f5] font-inter-tight text-sm md:text-base font-normal">Mimi</span>
           <span className="text-[#f5f5f5] font-inter-tight text-sm md:text-base font-normal">7 Signature</span>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
 
       {/* Teddy (Right - เยื้องล่าง แต่พ้นตัวอักษร) */}
-      <motion.div 
-        initial={{ opacity: 0, y: -100 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="absolute top-[20%] md:top-[25%] right-6 md:right-12 lg:right-48 w-[35vw] md:w-[22vw] lg:w-[16vw] flex flex-col group z-20"
-      >
-        <div className="w-full aspect-[2/3] bg-[#2a2a2c] overflow-hidden mb-3">
+      <div className="absolute top-[20%] md:top-[25%] right-6 md:right-12 lg:right-48 w-[35vw] md:w-[22vw] lg:w-[16vw] flex flex-col group z-20">
+        <motion.div 
+          initial={{ opacity: 0, y: -100 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="w-full aspect-[2/3] bg-[#2a2a2c] overflow-hidden mb-3"
+        >
           <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80" alt="Teddy" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-105 will-change-transform" draggable="false" />
-        </div>
-        <div className="flex justify-between items-baseline w-full">
+        </motion.div>
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.5, delay: 0.8, ease: "easeOut" }}
+          className="flex justify-between items-baseline w-full"
+        >
           <span className="text-[#f5f5f5] font-inter-tight text-sm md:text-base font-normal">Teddy</span>
           <span className="text-[#f5f5f5] font-inter-tight text-sm md:text-base font-normal">7 Signature</span>
-        </div>
-      </motion.div>
+        </motion.div>
+      </div>
 
       {/* Bottom Huge Text */}
       <div className="absolute bottom-8 md:bottom-12 left-6 md:left-12 lg:left-48 right-6 md:right-12 lg:right-48 flex flex-col md:flex-row justify-between items-start md:items-end z-10 pointer-events-none">
