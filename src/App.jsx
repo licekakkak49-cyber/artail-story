@@ -328,7 +328,7 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick }) => {
           </h1>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 items-start">
           {/* ฝั่งซ้าย: งานศิลปะ (Artwork) */}
           <div className="md:col-span-7 lg:col-span-8 flex flex-col">
             <div className="w-full bg-[#EAEAEA] overflow-hidden shadow-sm">
