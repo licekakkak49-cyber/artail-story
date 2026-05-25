@@ -804,12 +804,12 @@ export default function App() {
                 </motion.div>
 
                 {/* 2. รูปแก้วไวน์ (Zoom & Blur Out) */}
-                <motion.div className="absolute inset-0 flex justify-center items-center pointer-events-none z-20 overflow-hidden">
-                  <motion.div style={{ y: wineHideY }} className="w-full h-full flex justify-center items-center">
+                <motion.div className="absolute inset-0 flex justify-center items-start pt-[110px] md:pt-[130px] pointer-events-none z-20 overflow-hidden">
+                  <motion.div style={{ y: wineHideY }} className="w-full h-full flex justify-center items-start">
                     <motion.img
                         src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/hero.webp"
                         alt="Wine Splashing"
-                        className="h-[100vh] w-auto object-cover"
+                        className="h-[75vh] md:h-[80vh] w-auto object-contain"
                         style={{ 
                           opacity: wineOpacity, 
                           scale: wineScale, 
