@@ -333,10 +333,10 @@ const ContentStage = () => {
       </div>
 
       {/* ปุ่ม Previous / Next ด้านล่าง */}
-      <div className="absolute bottom-8 left-6 md:left-12 font-inter-tight font-bold text-[10px] md:text-xs uppercase tracking-widest text-[#111111] cursor-pointer z-20 hover:text-zinc-500 transition-colors">
+      <div className="absolute bottom-4 md:bottom-6 left-4 md:left-6 font-inter-tight font-bold text-[10px] md:text-xs uppercase tracking-widest text-[#111111] cursor-pointer z-20 hover:text-zinc-500 transition-colors">
         Previous
       </div>
-      <div className="absolute bottom-8 right-6 md:right-12 font-inter-tight font-bold text-[10px] md:text-xs uppercase tracking-widest text-[#111111] cursor-pointer z-20 hover:text-zinc-500 transition-colors">
+      <div className="absolute bottom-4 md:bottom-6 right-4 md:right-6 font-inter-tight font-bold text-[10px] md:text-xs uppercase tracking-widest text-[#111111] cursor-pointer z-20 hover:text-zinc-500 transition-colors">
         Next
       </div>
     </div>
