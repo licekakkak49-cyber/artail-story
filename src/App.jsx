@@ -318,12 +318,12 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick }) => {
       <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 pt-8 md:pt-12 pb-24">
         {/* หัวข้อผลงาน */}
         <div ref={headerRef}>
-          <h1 className="font-helvetica font-normal text-4xl md:text-5xl lg:text-[4.5vw] leading-[1.1] tracking-tight text-[#111111] mb-8 md:mb-12">
+          <h1 className="font-helvetica font-normal text-3xl md:text-4xl lg:text-[3.5vw] leading-[1.1] tracking-tight text-[#111111] mb-8 md:mb-12">
             {item.name}
           </h1>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6 items-start">
           {/* ฝั่งซ้าย: งานศิลปะ (Artwork) */}
           <div className="md:col-span-7 lg:col-span-8 flex flex-col">
             <div className="w-full bg-[#EAEAEA] overflow-hidden shadow-sm">
