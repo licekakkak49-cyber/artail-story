@@ -809,7 +809,7 @@ export default function App() {
                     <motion.img
                         src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/hero.webp"
                         alt="Wine Splashing"
-                        className="h-[75vh] md:h-[80vh] w-auto object-contain"
+                        className="h-[calc(100vh-110px)] md:h-[calc(100vh-130px)] w-auto object-cover object-top"
                         style={{ 
                           opacity: wineOpacity, 
                           scale: wineScale, 
