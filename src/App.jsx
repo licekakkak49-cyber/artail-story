@@ -406,20 +406,33 @@ const JourneyStage = () => {
   return (
     <div className="w-full bg-[#F5F5F5] pt-12 pb-24 md:pt-20 md:pb-32 lg:pt-24 lg:pb-40 flex justify-center items-start px-6 md:px-12 lg:px-48">
       <div className="w-full max-w-none grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-start pt-4 md:pt-6">
-        <div className="md:col-span-4 flex flex-col items-start pr-0 md:pr-12">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-50px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="md:col-span-4 flex flex-col items-start pr-0 md:pr-12"
+        >
           <h2 className="text-[#111111] font-helvetica text-3xl md:text-4xl lg:text-[3.5vw] font-normal leading-[1.1] tracking-tight uppercase">
             Our<br />Journey
           </h2>
           <p className="text-[#111111] font-inter-tight text-xs md:text-sm font-normal tracking-normal mt-3 md:mt-4 max-w-[280px]">
             From a shared belief to a permanent canvas
           </p>
-        </div>
+        </motion.div>
         <div className="md:col-span-8 flex flex-col w-full mt-8 md:mt-0">
           {journeyTimeline.map((item, i) => (
-            <div key={i} className="w-full border-b border-[#111111]/30 flex flex-col lg:flex-row justify-between items-start lg:items-baseline py-3 md:py-4 lg:py-5 gap-2 lg:gap-4 hover:bg-zinc-100/50 transition-colors duration-300 px-2 lg:px-0">
+            <motion.div 
+              key={i} 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.6, delay: i * 0.15, ease: "easeOut" }}
+              className="w-full border-b border-[#111111]/30 flex flex-col lg:flex-row justify-between items-start lg:items-baseline py-3 md:py-4 lg:py-5 gap-2 lg:gap-4 hover:bg-zinc-100/50 transition-colors duration-300 px-2 lg:px-0"
+            >
               <span className="font-inter-tight text-xl md:text-2xl lg:text-[1.8vw] font-normal text-[#111111] tracking-[-0.03em] leading-tight">{item.name}</span>
               <span className="font-inter-tight text-sm md:text-base font-normal text-[#111111] lg:text-right whitespace-normal lg:whitespace-nowrap tracking-normal">– {item.desc}, {item.year}</span>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
