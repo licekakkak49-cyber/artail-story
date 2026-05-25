@@ -615,18 +615,19 @@ export default function App() {
   const logoOpacity = useTransform(scrollYProgress, [0.30, 0.34], [1, 0]); 
   const logoHideY = useTransform(scrollYProgress, (v) => v > 0.35 ? -9999 : 0);
 
-  const dropOpacity = useTransform(scrollYProgress, [0.25, 0.28, 0.38, 0.40], [0, 1, 1, 0]); 
-  const dropY = useTransform(scrollYProgress, [0.28, 0.38], ["0vh", "60vh"]);
+  const dropOpacity = useTransform(scrollYProgress, [0.25, 0.28, 0.38, 0.39], [0, 1, 1, 0]); 
+  const dropY = useTransform(scrollYProgress, [0.28, 0.38], ["0vh", "120vh"]); // ให้หยดทะลุจอลงไป
   const dropScaleY = useTransform(scrollYProgress, [0.28, 0.33, 0.38], [1, 3.5, 1]); 
-  const dropHideX = useTransform(scrollYProgress, (v) => v > 0.41 ? -9999 : 0);
+  const dropHideX = useTransform(scrollYProgress, (v) => v > 0.40 ? -9999 : 0);
 
   const dropColor = useTransform(scrollYProgress, [0.29, 0.34], ["#000000", "#8B0000"]); 
 
   const textLayerMasterOpacity = useTransform(scrollYProgress, [0.50, 0.52], [1, 1]); 
 
   // --- 4. The Ink Bleed (หมึกกระจายลง Canvas) ---
-  const bleedMaskSize = useTransform(scrollYProgress, [0.38, 0.50], ["0vmax 0vmax", "70vmax 70vmax"]);
-  const bleedOpacity = useTransform(scrollYProgress, [0.38, 0.40], [0, 1]);
+  // เริ่มซึมหลังจากหยดน้ำตกถึงพื้นแล้ว (0.39) และขยายวงกว้างขึ้น (140vmax) เหมือนเวอร์ชันเก่า
+  const bleedMaskSize = useTransform(scrollYProgress, [0.39, 0.55], ["0vmax 0vmax", "140vmax 140vmax"]);
+  const bleedOpacity = useTransform(scrollYProgress, [0.39, 0.41], [0, 1]);
 
   // --- States หลัก ---
   const [view, setView] = useState('home');
