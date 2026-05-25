@@ -585,7 +585,8 @@ export default function App() {
   const cornerOpacity = useTransform(scrollYProgress, [0.02, 0.06], [1, 0]);
   const cornerLeftX = useTransform(scrollYProgress, [0.02, 0.06], ["0vw", "-10vw"]); // แหวกซ้าย
   const cornerRightX = useTransform(scrollYProgress, [0.02, 0.06], ["0vw", "10vw"]); // แหวกขวา
-  const coordY = useTransform(scrollYProgress, [0.02, 0.06], ["0vh", "-15vh"]); // พุ่งขึ้นบน
+  const cornerBottomY = useTransform(scrollYProgress, [0.02, 0.06], ["0vh", "15vh"]); // เลื่อนหนีลงล่าง
+  const coordY = useTransform(scrollYProgress, [0.02, 0.06], ["0vh", "-25vh"]); // พุ่งขึ้นบนเร็วขึ้น
 
   // --- 2. The Text Fold (WHAT ARE YOU -> WAYD?) ---
   // NEW: แอนิเมชันสไลด์ข้อความจากใต้ Nav ลงมาอยู่กลางจอ (เกิดพร้อม Phase 1)
@@ -827,7 +828,7 @@ export default function App() {
                 {/* 3. รายละเอียดมุมจอ (จัดพิกัดให้เป๊ะระดับ Pixel กับเส้นขอบตัวอักษร) */}
                 
                 {/* ที่อยู่ -> ขอบซ้ายตรงกับตัว "D" พอดี | เปลี่ยนจาก bottom เป็น top-[55vh] md:top-[60vh] และเพิ่มขนาดฟอนต์ */}
-                <motion.div style={{ x: cornerLeftX, opacity: cornerOpacity }} className="absolute top-[55vh] md:top-[60vh] z-30 font-inter font-medium text-[13px] md:text-[15px] text-[#111111] leading-[1.4] left-[15vw] md:left-[18vw] lg:left-[25vw]">
+                <motion.div style={{ x: cornerLeftX, y: cornerBottomY, opacity: cornerOpacity }} className="absolute top-[55vh] md:top-[60vh] z-30 font-inter font-medium text-[13px] md:text-[15px] text-[#111111] leading-[1.4] left-[15vw] md:left-[18vw] lg:left-[25vw]">
                     <motion.div>
                       <span>254 10th Avenue</span><br/>
                       <span>Chelsea – New York<br/>NY 10001</span>
@@ -835,7 +836,7 @@ export default function App() {
                 </motion.div>
 
                 {/* คำคม -> ขอบขวาตรงกับจุดของ "?" พอดี | ใช้ top-[55vh] md:top-[60vh] ตัวเลขเดียวกับฝั่งซ้ายเป๊ะ เพื่อให้ Top-Align ตรงกัน */}
-                <motion.div style={{ x: cornerRightX, opacity: cornerOpacity }} className="absolute top-[55vh] md:top-[60vh] z-30 font-inter font-medium text-[9px] md:text-[11px] text-[#111111] leading-[1.4] text-right max-w-[200px] md:max-w-[260px] right-[15vw] md:right-[18vw] lg:right-[25vw]">
+                <motion.div style={{ x: cornerRightX, y: cornerBottomY, opacity: cornerOpacity }} className="absolute top-[55vh] md:top-[60vh] z-30 font-inter font-medium text-[9px] md:text-[11px] text-[#111111] leading-[1.4] text-right max-w-[200px] md:max-w-[260px] right-[15vw] md:right-[18vw] lg:right-[25vw]">
                     <motion.div>
                       We began with a shared belief:<br/>
                       that cocktails can be more than recipes.<br/>
