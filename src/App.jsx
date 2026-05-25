@@ -279,20 +279,34 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
 };
 
 // --- ฉาก 1: นิทรรศการเมนู (Exhibition Marquee) รวมกับคำคม ---
-const ContentStage = () => {
+const ContentStage = ({ rawProgress }) => {
+  // ผูกแอนิเมชันกับการเลื่อน (Scroll) แทนการใช้ whileInView เพื่อแก้กระตุก
+  // ให้เริ่มแสดงผลตอนที่ม่าน (Hero) เลื่อนขึ้นไปแล้วระดับหนึ่ง (rawProgress > 0.55)
+  const dotScale = useTransform(rawProgress, [0.55, 0.65], [0, 1]);
+  const dotOpacity = useTransform(rawProgress, [0.55, 0.65], [0, 1]);
+  
+  const textOpacity = useTransform(rawProgress, [0.6, 0.75], [0, 1]);
+  const textY = useTransform(rawProgress, [0.6, 0.75], [30, 0]);
+
   return (
     <div className="w-full h-screen bg-[#F5F5F5] flex flex-col justify-center items-center relative overflow-hidden select-none py-20">
       
       <div className="w-full flex flex-col items-center justify-center mt-10 md:mt-16 mb-6 md:mb-8 px-4 relative z-10">
         <div className="relative inline-block text-center">
           {/* จุดสีแดงหลังตัว T */}
-          <div className="absolute -left-2 md:-left-4 top-0 md:-top-1 w-8 h-8 md:w-12 md:h-12 bg-[#d92323] rounded-full -z-10"></div>
-          <h3 className="font-inter font-normal text-[6vw] sm:text-[5vw] md:text-[3vw] lg:text-[2.5vw] text-[#111111] leading-[1.1] tracking-tight uppercase">
+          <motion.div 
+            style={{ scale: dotScale, opacity: dotOpacity }}
+            className="absolute -left-2 md:-left-4 top-0 md:-top-1 w-8 h-8 md:w-12 md:h-12 bg-[#d92323] rounded-full -z-10 transform-gpu will-change-transform"
+          ></motion.div>
+          <motion.h3 
+            style={{ opacity: textOpacity, y: textY }}
+            className="font-inter font-normal text-[6vw] sm:text-[5vw] md:text-[3vw] lg:text-[2.5vw] text-[#111111] leading-[1.1] tracking-tight uppercase transform-gpu will-change-[opacity,transform]"
+          >
             The bar becomes a<br />
             (canvas)<br />
             The drinks are<br />
             the work
-          </h3>
+          </motion.h3>
         </div>
       </div>
 
