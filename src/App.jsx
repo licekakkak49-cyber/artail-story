@@ -633,7 +633,7 @@ export default function App() {
   const [view, setView] = useState('home');
   const [overlayView, setOverlayView] = useState('grid');
   const [cartItems, setCartItems] = useState([]);
-  const [isMainScrolled, setIsMainScrolled] = useState(false);
+  const [navMode, setNavMode] = useState('top');
   const [nyTime, setNyTime] = useState('');
 
   useEffect(() => {
@@ -665,16 +665,14 @@ export default function App() {
     }
   }, [view]);
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    // คำนวณตำแหน่งของหน้าเมนู (จุดที่ปุ่ม COCKTAILS เลื่อนไป)
-    const menuTarget = scrollSequenceRef.current ? scrollSequenceRef.current.offsetTop + (window.innerHeight * 1.8) : 0;
-    
-    // เช็คว่าอยู่บนสุดของเว็บ หรือ อยู่ตรงจุดเริ่มต้นของหน้าเมนูพอดี (เผื่อระยะ +- 50px)
-    const isAtTop = latest < 50;
-    const isAtMenu = menuTarget > 0 && Math.abs(latest - menuTarget) < 50;
-    
-    // ถ้าไม่ได้อยู่จุดเริ่มต้นของทั้งสองหน้า ให้ Nav เป็นกระจก
-    setIsMainScrolled(!(isAtTop || isAtMenu));
+  useMotionValueEvent(rawProgress, "change", (latest) => {
+    if (latest < 0.02) {
+      setNavMode('top'); // อยู่บนสุด เลื่อนหายไปตามธรรมชาติ
+    } else if (latest >= 0.02 && latest < 0.85) {
+      setNavMode('hidden'); // ซ่อนรอไว้ด้านบน
+    } else {
+      setNavMode('fixed'); // เลื่อนลงมาแสดงเป็นกระจกเมื่อถึงหน้าเมนู
+    }
   });
 
   return (
@@ -715,7 +713,7 @@ export default function App() {
       )}
 
       {view !== 'catalogue' && (
-        <nav className={`fixed top-0 left-0 w-full z-[999] px-6 py-5 grid grid-cols-3 items-center transition-all duration-300 pointer-events-auto ${isMainScrolled ? 'bg-[#F5F5F5]/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
+        <nav className={`left-0 w-full z-[999] px-6 py-5 grid grid-cols-3 items-center transition-all duration-500 pointer-events-auto ${navMode === 'top' ? 'absolute top-0 translate-y-0 bg-transparent' : navMode === 'hidden' ? 'fixed top-0 -translate-y-full bg-transparent' : 'fixed top-0 translate-y-0 bg-[#F5F5F5]/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]'}`}>
           <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] justify-start">
             <span onClick={scrollToMenu} className="cursor-pointer hover:text-zinc-500 transition-colors">COCKTAILS</span>
             <span onClick={() => { setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
