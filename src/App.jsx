@@ -574,57 +574,57 @@ export default function App() {
   // ยกเลิกการบีบอัด ใช้ rawProgress ตรงๆ เพื่อให้มีระยะ Scroll ที่สมูทขึ้น
   const scrollYProgress = rawProgress;
   
-  // แอนิเมชันเปิดม่าน: ให้ฉาก Hero สไลด์ขึ้น
-  const curtainY = useTransform(scrollYProgress, [0.45, 0.85], ["0vh", "-100vh"]);
+  // แอนิเมชันเปิดม่าน: ให้ฉาก Hero สไลด์ขึ้น (ขยับไปเริ่มตอน 0.55 เพื่อให้มีพื้นที่แอนิเมชันด้านบนเยอะๆ)
+  const curtainY = useTransform(scrollYProgress, [0.55, 0.90], ["0vh", "-100vh"]);
 
   // --- 1. Cinematic Exit (ซูมทะลุแก้ว และ แหวกข้อความออกด้านข้าง) ---
-  const wineScale = useTransform(scrollYProgress, [0.02, 0.08], [1, 4]);
-  const wineBlur = useTransform(scrollYProgress, [0.02, 0.08], ["blur(0px)", "blur(15px)"]);
-  const wineOpacity = useTransform(scrollYProgress, [0.02, 0.08], [0.85, 0]);
+  const wineScale = useTransform(scrollYProgress, [0.02, 0.12], [1, 4]);
+  const wineBlur = useTransform(scrollYProgress, [0.02, 0.12], ["blur(0px)", "blur(15px)"]);
+  const wineOpacity = useTransform(scrollYProgress, [0.02, 0.12], [0.85, 0]);
 
-  const cornerOpacity = useTransform(scrollYProgress, [0.00, 0.04], [1, 0]);
-  const cornerLeftX = useTransform(scrollYProgress, [0.00, 0.04], ["0vw", "-10vw"]); 
-  const cornerRightX = useTransform(scrollYProgress, [0.00, 0.04], ["0vw", "10vw"]); 
-  const cornerBottomY = useTransform(scrollYProgress, [0.00, 0.04], ["0vh", "15vh"]); 
-  const coordY = useTransform(scrollYProgress, [0.00, 0.04], ["0vh", "-25vh"]); 
+  const cornerOpacity = useTransform(scrollYProgress, [0.00, 0.08], [1, 0]);
+  const cornerLeftX = useTransform(scrollYProgress, [0.00, 0.08], ["0vw", "-10vw"]); 
+  const cornerRightX = useTransform(scrollYProgress, [0.00, 0.08], ["0vw", "10vw"]); 
+  const cornerBottomY = useTransform(scrollYProgress, [0.00, 0.08], ["0vh", "15vh"]); 
+  const coordY = useTransform(scrollYProgress, [0.00, 0.08], ["0vh", "-25vh"]); 
 
   // --- 2. The Text Fold (WHAT ARE YOU -> WAYD?) ---
-  const mainTextY = useTransform(scrollYProgress, [0.02, 0.08], ["0vh", "22vh"]); 
+  const mainTextY = useTransform(scrollYProgress, [0.02, 0.12], ["0vh", "22vh"]); 
 
-  // ถ่างระยะเวลาการพับข้อความให้กว้างขึ้น
-  const mw1 = useTransform(scrollYProgress, [0.10, 0.18], ["25vw", "0vw"]);
-  const mw2 = useTransform(scrollYProgress, [0.10, 0.18], ["20vw", "0vw"]);
-  const mw3 = useTransform(scrollYProgress, [0.10, 0.18], ["15vw", "0vw"]);
-  const mw4 = useTransform(scrollYProgress, [0.10, 0.18], ["45vw", "0vw"]);
+  // ถ่างระยะเวลาการพับข้อความให้กว้างขึ้นมาก เพื่อความสมูท
+  const mw1 = useTransform(scrollYProgress, [0.15, 0.25], ["25vw", "0vw"]);
+  const mw2 = useTransform(scrollYProgress, [0.15, 0.25], ["20vw", "0vw"]);
+  const mw3 = useTransform(scrollYProgress, [0.15, 0.25], ["15vw", "0vw"]);
+  const mw4 = useTransform(scrollYProgress, [0.15, 0.25], ["45vw", "0vw"]);
   
-  const smallOpacity = useTransform(scrollYProgress, [0.10, 0.15], [1, 0]);
-  const smallTextHideY = useTransform(scrollYProgress, (v) => v > 0.16 ? -9999 : 0);
+  const smallOpacity = useTransform(scrollYProgress, [0.15, 0.20], [1, 0]);
+  const smallTextHideY = useTransform(scrollYProgress, (v) => v > 0.21 ? -9999 : 0);
 
-  const line1Y = useTransform(scrollYProgress, [0.10, 0.18], ["-0.36em", "0em"]);
-  const line1X = useTransform(scrollYProgress, [0.10, 0.18], ["0em", "-0.45em"]); 
-  const line2Y = useTransform(scrollYProgress, [0.10, 0.18], ["0.36em", "0em"]);
-  const line2X = useTransform(scrollYProgress, [0.10, 0.18], ["0em", "0.65em"]); 
+  const line1Y = useTransform(scrollYProgress, [0.15, 0.25], ["-0.36em", "0em"]);
+  const line1X = useTransform(scrollYProgress, [0.15, 0.25], ["0em", "-0.45em"]); 
+  const line2Y = useTransform(scrollYProgress, [0.15, 0.25], ["0.36em", "0em"]);
+  const line2X = useTransform(scrollYProgress, [0.15, 0.25], ["0em", "0.65em"]); 
 
   // --- 3. The Melt (ละลาย WAYD? เป็นหยดน้ำ) ---
-  const gooeyFilter = useTransform(scrollYProgress, (v) => v >= 0.18 ? "url(#goo)" : "none");
-  const logoBlur = useTransform(scrollYProgress, [0.18, 0.22], ["blur(0px)", "blur(5px)"]);
+  const gooeyFilter = useTransform(scrollYProgress, (v) => v >= 0.25 ? "url(#goo)" : "none");
+  const logoBlur = useTransform(scrollYProgress, [0.25, 0.30], ["blur(0px)", "blur(5px)"]);
   
-  const meltScaleY = useTransform(scrollYProgress, [0.18, 0.25], [1, 1.6]); 
-  const logoOpacity = useTransform(scrollYProgress, [0.22, 0.26], [1, 0]); 
-  const logoHideY = useTransform(scrollYProgress, (v) => v > 0.27 ? -9999 : 0);
+  const meltScaleY = useTransform(scrollYProgress, [0.25, 0.32], [1, 1.6]); 
+  const logoOpacity = useTransform(scrollYProgress, [0.30, 0.34], [1, 0]); 
+  const logoHideY = useTransform(scrollYProgress, (v) => v > 0.35 ? -9999 : 0);
 
-  const dropOpacity = useTransform(scrollYProgress, [0.18, 0.21, 0.30, 0.32], [0, 1, 1, 0]); 
-  const dropY = useTransform(scrollYProgress, [0.21, 0.30], ["0vh", "60vh"]);
-  const dropScaleY = useTransform(scrollYProgress, [0.21, 0.25, 0.30], [1, 3.5, 1]); 
-  const dropHideX = useTransform(scrollYProgress, (v) => v > 0.33 ? -9999 : 0);
+  const dropOpacity = useTransform(scrollYProgress, [0.25, 0.28, 0.38, 0.40], [0, 1, 1, 0]); 
+  const dropY = useTransform(scrollYProgress, [0.28, 0.38], ["0vh", "60vh"]);
+  const dropScaleY = useTransform(scrollYProgress, [0.28, 0.33, 0.38], [1, 3.5, 1]); 
+  const dropHideX = useTransform(scrollYProgress, (v) => v > 0.41 ? -9999 : 0);
 
-  const dropColor = useTransform(scrollYProgress, [0.22, 0.26], ["#000000", "#8B0000"]); 
+  const dropColor = useTransform(scrollYProgress, [0.29, 0.34], ["#000000", "#8B0000"]); 
 
-  const textLayerMasterOpacity = useTransform(scrollYProgress, [0.40, 0.42], [1, 1]); 
+  const textLayerMasterOpacity = useTransform(scrollYProgress, [0.50, 0.52], [1, 1]); 
 
   // --- 4. The Ink Bleed (หมึกกระจายลง Canvas) ---
-  const bleedMaskSize = useTransform(scrollYProgress, [0.30, 0.40], ["0vmax 0vmax", "70vmax 70vmax"]);
-  const bleedOpacity = useTransform(scrollYProgress, [0.30, 0.32], [0, 1]);
+  const bleedMaskSize = useTransform(scrollYProgress, [0.38, 0.50], ["0vmax 0vmax", "70vmax 70vmax"]);
+  const bleedOpacity = useTransform(scrollYProgress, [0.38, 0.40], [0, 1]);
 
   // --- States หลัก ---
   const [view, setView] = useState('home');
