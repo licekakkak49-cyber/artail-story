@@ -278,8 +278,84 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
   );
 };
 
+// --- ฉากแทรก: หน้า Menu Detail (แสดงรายละเอียดค็อกเทลและงานศิลปะ) ---
+const MenuDetailOverlay = ({ item, onClose, nyTime }) => {
+  const [isSticky, setIsSticky] = useState(false);
+  const headerRef = useRef(null);
+
+  const handleScroll = (e) => {
+    if (headerRef.current) {
+      setIsSticky(e.target.scrollTop > headerRef.current.offsetHeight - 20);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 bg-[#F5F5F5] z-[9999] overflow-y-auto" onScroll={handleScroll}>
+      {/* Nav Bar สำหรับหน้า Detail */}
+      <div className={`sticky top-0 w-full z-50 px-6 py-5 md:py-6 transition-all duration-300 ${isSticky ? 'bg-[#F5F5F5]/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
+        <div className="grid grid-cols-3 items-center w-full gap-4">
+          <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] justify-start">
+            <span onClick={onClose} className="cursor-pointer hover:text-zinc-500 transition-colors">CLOSE</span>
+          </div>
+          <div className="flex justify-center items-center">
+            <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/logo3.svg" alt="WAYD Logo" className="h-5 sm:h-6 md:h-7 cursor-pointer" onClick={onClose} />
+          </div>
+          <div className="flex justify-end items-center gap-4 md:gap-6 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
+            <span className="hidden md:block">NEW YORK, NY {nyTime}</span>
+          </div>
+        </div>
+      </div>
+
+      <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 pt-8 md:pt-12 pb-24">
+        {/* หัวข้อผลงาน */}
+        <div ref={headerRef}>
+          <h1 className="font-helvetica font-normal text-4xl md:text-5xl lg:text-[4.5vw] leading-[1.1] tracking-tight text-[#111111] mb-8 md:mb-12">
+            {item.name}
+          </h1>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-16 items-start">
+          {/* ฝั่งซ้าย: งานศิลปะ (Artwork) */}
+          <div className="md:col-span-7 lg:col-span-8 flex flex-col">
+            <div className="w-full bg-[#EAEAEA] overflow-hidden shadow-sm">
+              <img src={item.src} alt={item.name} className="w-full h-auto object-cover" />
+            </div>
+          </div>
+
+          {/* ฝั่งขวา: ข้อมูล & รูปค็อกเทล */}
+          <div className="md:col-span-5 lg:col-span-4 flex flex-col">
+            <p className="font-inter text-sm md:text-base text-[#111111] leading-relaxed mb-10">
+              "{item.name}" captures the essence of {item.artist}'s vision through abstract forms and vibrant flavor profiles. The cocktail uses a palette of deep, rich spirits, swirling them into a sensory experience that evokes the natural beauty of its inspiration. The texture of the drink, layered with expressive notes, adds depth and intensity to the tasting experience.
+            </p>
+
+            {/* ข้อมูลศิลปิน */}
+            <div className="flex items-center gap-4 mb-12">
+              <div className="w-10 h-10 rounded-full bg-zinc-300 overflow-hidden shrink-0">
+                <img src={item.artist === 'Mimi' ? "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" : "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&q=80"} alt={item.artist} className="w-full h-full object-cover grayscale" />
+              </div>
+              <div className="flex flex-col">
+                <div className="flex items-baseline gap-2">
+                  <span className="font-helvetica text-lg md:text-xl font-normal text-[#111111]">{item.artist}</span>
+                  <span className="font-inter-tight text-[10px] text-zinc-500 uppercase tracking-widest">• New York</span>
+                </div>
+                <span className="font-inter-tight text-[10px] md:text-xs text-[#111111] uppercase tracking-widest mt-1 cursor-pointer hover:text-[#d92323] transition-colors">+ About Artist</span>
+              </div>
+            </div>
+
+            {/* รูปค็อกเทล (The Drink) */}
+            <div className="w-full max-w-[260px] aspect-[3/4] bg-[#EAEAEA] overflow-hidden shadow-sm">
+              <img src={item.hoverSrc} alt={`${item.name} Cocktail`} className="w-full h-full object-cover" />
+            </div>
+            <span className="font-inter-tight text-[10px] text-zinc-500 uppercase tracking-widest mt-3">The Cocktail Interpretation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // --- ฉาก 1: นิทรรศการเมนู (Exhibition Marquee) รวมกับคำคม ---
-const ContentStage = ({ rawProgress }) => {
+const ContentStage = ({ rawProgress, onMenuClick }) => {
   const [isRevealed, setIsRevealed] = useState(false);
 
   // จับจังหวะการเลื่อน ถ้าม่านเปิดไปเกิน 75% ให้แสดงข้อความและค้างไว้ตลอดไป
@@ -319,7 +395,7 @@ const ContentStage = ({ rawProgress }) => {
         <div className="flex w-max animate-marquee">
           <div className="flex items-start gap-3 pr-3">
             {cocktailMenuData.map((item, i) => (
-              <div key={`set1-${i}`} className="w-[28vw] sm:w-[20vw] md:w-[16vw] lg:w-[12vw] flex flex-col flex-shrink-0 cursor-pointer group">
+              <div key={`set1-${i}`} onClick={() => onMenuClick(item)} className="w-[28vw] sm:w-[20vw] md:w-[16vw] lg:w-[12vw] flex flex-col flex-shrink-0 cursor-pointer group">
                 <div className="relative w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden mb-3 transform-gpu">
                   <img src={item.src} alt={item.name} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover grayscale transition-opacity duration-700 ease-in-out opacity-100 group-hover:opacity-0 transform-gpu will-change-[opacity]" draggable="false" />
                   <img src={item.hoverSrc} alt={`${item.name} cocktail`} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out opacity-0 group-hover:opacity-100 transform-gpu will-change-[opacity]" draggable="false" />
@@ -333,7 +409,7 @@ const ContentStage = ({ rawProgress }) => {
           </div>
           <div className="flex items-start gap-3 pr-3">
             {cocktailMenuData.map((item, i) => (
-              <div key={`set2-${i}`} className="w-[28vw] sm:w-[20vw] md:w-[16vw] lg:w-[12vw] flex flex-col flex-shrink-0 cursor-pointer group" style={{ contain: 'layout paint' }}>
+              <div key={`set2-${i}`} onClick={() => onMenuClick(item)} className="w-[28vw] sm:w-[20vw] md:w-[16vw] lg:w-[12vw] flex flex-col flex-shrink-0 cursor-pointer group" style={{ contain: 'layout paint' }}>
                 <div className="relative w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden mb-3 transform-gpu">
                   <img src={item.src} alt={item.name} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover grayscale transition-opacity duration-700 ease-in-out opacity-100 group-hover:opacity-0 transform-gpu will-change-[opacity]" draggable="false" />
                   <img src={item.hoverSrc} alt={`${item.name} cocktail`} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out opacity-0 group-hover:opacity-100 transform-gpu will-change-[opacity]" draggable="false" />
@@ -638,6 +714,7 @@ export default function App() {
   const [navMode, setNavMode] = useState('top');
   const [nyTime, setNyTime] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedMenu, setSelectedMenu] = useState(null);
 
   useEffect(() => {
     // หน่วงเวลาให้ Preloader แสดงผล 2 วินาที (สไตล์ Premium: โชว์โลโก้นิ่งๆ แล้วเฟดออก)
@@ -743,7 +820,15 @@ export default function App() {
         />
       )}
 
-      {view !== 'catalogue' && (
+      {selectedMenu && (
+        <MenuDetailOverlay 
+          item={selectedMenu} 
+          onClose={() => setSelectedMenu(null)} 
+          nyTime={nyTime} 
+        />
+      )}
+
+      {view !== 'catalogue' && !selectedMenu && (
         <nav className={`left-0 w-full z-[999] px-6 py-5 grid grid-cols-3 items-center transition-all duration-700 ease-out ${navMode === 'hidden' ? 'pointer-events-none' : 'pointer-events-auto'} ${navMode === 'top' ? 'fixed top-0 opacity-100 translate-y-0 bg-transparent' : navMode === 'hidden' ? 'fixed top-0 opacity-0 -translate-y-full bg-transparent' : navMode === 'menu-top' ? 'fixed top-0 opacity-100 translate-y-0 bg-transparent' : 'fixed top-0 opacity-100 translate-y-0 bg-[#F5F5F5]/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]'}`}>
           <motion.div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] justify-start">
             <span onClick={scrollToMenu} className="cursor-pointer hover:text-zinc-500 transition-colors">COCKTAILS</span>
@@ -780,7 +865,7 @@ export default function App() {
           
           {/* หน้าเมนู (ContentStage) ซ่อนอยู่หลังม่าน ใช้ Sticky ล็อกไว้เลยไม่กระตุก 100% */}
           <div className="absolute inset-0 w-full h-screen z-10 pointer-events-auto bg-[#F5F5F5]">
-            <ContentStage rawProgress={rawProgress} />
+            <ContentStage rawProgress={rawProgress} onMenuClick={setSelectedMenu} />
           </div>
 
           {/* 🌟 NEW EDITORIAL HERO SECTION 🌟 */}
