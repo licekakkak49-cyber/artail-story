@@ -298,13 +298,13 @@ const ContentStage = ({ rawProgress }) => {
           <motion.div 
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: isRevealed ? 1 : 0, opacity: isRevealed ? 1 : 0 }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
             className="absolute -left-2 md:-left-4 top-0 md:-top-1 w-8 h-8 md:w-12 md:h-12 bg-[#d92323] rounded-full -z-10 transform-gpu will-change-transform"
           ></motion.div>
           <motion.h3 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: isRevealed ? 1 : 0, y: isRevealed ? 0 : 30 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            transition={{ duration: 0.8, delay: 0.7, ease: "easeOut" }}
             className="font-inter font-normal text-[6vw] sm:text-[5vw] md:text-[3vw] lg:text-[2.5vw] text-[#111111] leading-[1.1] tracking-tight uppercase transform-gpu will-change-[opacity,transform]"
           >
             The bar becomes a<br />
