@@ -292,7 +292,7 @@ const ContentStage = ({ rawProgress }) => {
   return (
     <div className="w-full h-screen bg-[#F5F5F5] flex flex-col justify-center items-center relative overflow-hidden select-none py-20">
       
-      <div className="w-full flex flex-col items-center justify-center mt-10 md:mt-16 mb-6 md:mb-8 px-4 relative z-10">
+      <div className="w-full flex flex-col items-center justify-center mt-2 md:mt-4 mb-6 md:mb-8 px-4 relative z-10">
         <div className="relative inline-block text-center">
           {/* จุดสีแดงหลังตัว T */}
           <motion.div 
