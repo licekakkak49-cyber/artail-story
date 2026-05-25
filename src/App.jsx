@@ -651,8 +651,8 @@ export default function App() {
 
   const scrollToMenu = () => {
     if (scrollSequenceRef.current) {
-      // เลื่อนไปที่ระยะ 1.8 เท่าของหน้าจอ (rawProgress ~0.9) ซึ่งเป็นจุดที่ม่านเปิดสุดและเห็นเมนูพอดี
-      const targetY = scrollSequenceRef.current.offsetTop + (window.innerHeight * 1.8);
+      // เลื่อนไปที่ระยะ 1.6 เท่าของหน้าจอ (rawProgress ~0.8) เพื่อให้เห็นจังหวะม่านเปิดเสร็จและข้อความเด้งขึ้นมาพอดี
+      const targetY = scrollSequenceRef.current.offsetTop + (window.innerHeight * 1.6);
       window.scrollTo({ top: targetY, behavior: 'smooth' });
     }
   };
