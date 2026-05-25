@@ -297,12 +297,7 @@ const ContentStage = () => {
       </div>
 
       <div className="flex-1 flex items-center w-full overflow-hidden z-10">
-        <motion.div 
-          animate={{ x: ["0%", "-50%"] }} 
-          transition={{ ease: "linear", duration: 90, repeat: Infinity }} 
-          style={{ willChange: "transform" }} 
-          className="flex w-max"
-        >
+        <div className="flex w-max animate-marquee">
           <div className="flex items-start gap-2 md:gap-4 pr-2 md:pr-4">
             {cocktailMenuData.map((item, i) => (
               <div key={`set1-${i}`} className="w-[35vw] sm:w-[26vw] md:w-[22vw] lg:w-[16vw] flex flex-col flex-shrink-0 cursor-pointer group">
@@ -331,7 +326,7 @@ const ContentStage = () => {
               </div>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
 
       {/* ปุ่ม Previous / Next ด้านล่าง */}
@@ -662,6 +657,17 @@ export default function App() {
         .font-inter-tight { font-family: "Inter Tight", "Inter Tight Placeholder", sans-serif; }
         
         ::-webkit-scrollbar { display: none; }
+
+        @keyframes marquee-scroll {
+          0% { transform: translate3d(0, 0, 0); }
+          100% { transform: translate3d(-50%, 0, 0); }
+        }
+        .animate-marquee {
+          animation: marquee-scroll 90s linear infinite;
+          will-change: transform;
+          backface-visibility: hidden;
+          transform-style: preserve-3d;
+        }
       `}} />
 
       {view === 'catalogue' && (
