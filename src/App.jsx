@@ -427,8 +427,8 @@ const JourneyStage = () => {
 // --- ฉาก 4: Footer ---
 const FooterStage = () => {
   return (
-    <div className="w-full bg-[#F5F5F5] pt-0 pb-20 md:pt-0 md:pb-32 lg:pt-0 lg:pb-40 flex justify-center items-start px-6 md:px-12 lg:px-48">
-      <div className="w-full max-w-none grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 items-start">
+    <div className="w-full bg-[#F5F5F5] pt-0 pb-20 md:pt-0 md:pb-32 lg:pt-0 lg:pb-40 flex justify-center items-start px-6 md:px-12">
+      <div className="w-full max-w-[950px] grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 items-start">
         <div className="md:col-span-7 flex flex-col items-start pr-0 md:pr-12">
           <h2 className="text-[#111111] font-helvetica text-3xl md:text-4xl lg:text-[3.5vw] font-normal leading-[1.1] tracking-tight uppercase mb-12 md:mb-20">Artail Story<br />New York</h2>
           <div className="text-[#111111] font-inter-tight text-sm md:text-base leading-relaxed tracking-wide">254 10th Avenue<br />Chelsea – New York<br />NY 10001</div>
