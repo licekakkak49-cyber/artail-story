@@ -281,12 +281,12 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
 // --- ฉาก 1: นิทรรศการเมนู (Exhibition Marquee) รวมกับคำคม ---
 const ContentStage = ({ rawProgress }) => {
   // ผูกแอนิเมชันกับการเลื่อน (Scroll) แทนการใช้ whileInView เพื่อแก้กระตุก
-  // ให้เริ่มแสดงผลตอนที่ม่าน (Hero) เลื่อนขึ้นไปแล้วระดับหนึ่ง (rawProgress > 0.55)
-  const dotScale = useTransform(rawProgress, [0.55, 0.65], [0, 1]);
-  const dotOpacity = useTransform(rawProgress, [0.55, 0.65], [0, 1]);
+  // ให้เริ่มแสดงผลตอนที่ม่าน (Hero) เลื่อนขึ้นไปเกือบสุดแล้ว เพื่อให้เห็นแอนิเมชันชัดเจน
+  const dotScale = useTransform(rawProgress, [0.7, 0.75], [0, 1]);
+  const dotOpacity = useTransform(rawProgress, [0.7, 0.75], [0, 1]);
   
-  const textOpacity = useTransform(rawProgress, [0.6, 0.75], [0, 1]);
-  const textY = useTransform(rawProgress, [0.6, 0.75], [30, 0]);
+  const textOpacity = useTransform(rawProgress, [0.75, 0.85], [0, 1]);
+  const textY = useTransform(rawProgress, [0.75, 0.85], [30, 0]);
 
   return (
     <div className="w-full h-screen bg-[#F5F5F5] flex flex-col justify-center items-center relative overflow-hidden select-none py-20">
@@ -570,7 +570,7 @@ export default function App() {
   const scrollYProgress = useTransform(rawProgress, [0, 0.5], [0, 0.222]);
   
   // แอนิเมชันเปิดม่าน: ให้ฉาก Hero สไลด์ขึ้น (เริ่มเร็วขึ้นตอนที่หมึกแดงกระจายได้ประมาณครึ่งนึง)
-  const curtainY = useTransform(rawProgress, [0.42, 1], ["0vh", "-100vh"]);
+  const curtainY = useTransform(rawProgress, [0.42, 0.85], ["0vh", "-100vh"]);
 
   // --- 1. Cinematic Exit (ซูมทะลุแก้ว และ แหวกข้อความออกด้านข้าง) ---
   const wineScale = useTransform(scrollYProgress, [0.03, 0.08], [1, 4]);
