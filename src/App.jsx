@@ -635,6 +635,15 @@ export default function App() {
   const [cartItems, setCartItems] = useState([]);
   const [navMode, setNavMode] = useState('top');
   const [nyTime, setNyTime] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // หน่วงเวลาให้ Preloader แสดงผล 2 วินาที ก่อนเฟดหายไป
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const updateTime = () => {
@@ -679,6 +688,24 @@ export default function App() {
 
   return (
     <div className="bg-[#F5F5F5] text-[#111111] selection:bg-[#111111] selection:text-[#F5F5F5] relative">
+      
+      {/* --- Preloader / Splash Screen --- */}
+      <motion.div 
+        initial={{ opacity: 1 }}
+        animate={{ opacity: isLoading ? 1 : 0, pointerEvents: isLoading ? 'auto' : 'none' }}
+        transition={{ duration: 1, ease: "easeInOut" }}
+        className="fixed inset-0 z-[99999] bg-[#F5F5F5] flex justify-center items-center"
+      >
+        <motion.img 
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/logo3.svg" 
+          alt="WAYD Logo" 
+          className="h-8 md:h-12" 
+        />
+      </motion.div>
+
       <style dangerouslySetInnerHTML={{__html: `
         @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
