@@ -439,9 +439,11 @@ const ArtistStage = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="font-inter-tight text-xs md:text-sm tracking-widest uppercase mb-[1vw] md:mb-[0.5vw]"
+            className="font-inter-tight text-xs md:text-sm tracking-widest uppercase mb-[1vw] md:mb-[0.5vw] text-[#f5f5f5]"
           >
-            <span className="text-[#d92323]">ABOUT</span> <span className="text-[#f5f5f5]">/ SEE ALL</span>
+            <span className="cursor-pointer pointer-events-auto hover:text-[#d92323] transition-colors">ABOUT</span> 
+            <span className="mx-1">/</span> 
+            <span className="cursor-pointer pointer-events-auto hover:text-[#d92323] transition-colors">SEE ALL</span>
           </motion.span>
         </div>
         <motion.h2 
