@@ -373,7 +373,12 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 w-full">
             {(item.cocktailImages || (item.hoverSrc ? [item.hoverSrc] : [])).map((imgUrl, idx) => (
               <div key={idx} className="w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden shadow-sm">
-                <img src={imgUrl} alt={`${item.name} Cocktail ${idx + 1}`} className="w-full h-full object-cover" />
+                <motion.img 
+                  style={{ scale: imageScale }}
+                  src={imgUrl} 
+                  alt={`${item.name} Cocktail ${idx + 1}`} 
+                  className="w-full h-full object-cover origin-top transform-gpu" 
+                />
               </div>
             ))}
           </div>
@@ -388,7 +393,12 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
               {moreItems.slice(0, 4).map((moreItem, idx) => (
                 <div key={idx} onClick={() => onMenuClick(moreItem)} className="flex flex-col cursor-pointer group">
                   <div className="w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden mb-3">
-                    <img src={moreItem.src} alt={moreItem.name} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <motion.img 
+                      style={{ scale: imageScale }}
+                      src={moreItem.src} 
+                      alt={moreItem.name} 
+                      className="w-full h-full object-cover origin-top transform-gpu" 
+                    />
                   </div>
                   <span className="font-inter-tight font-bold text-[11px] md:text-xs text-[#111111]">"{moreItem.name}"</span>
                 </div>
