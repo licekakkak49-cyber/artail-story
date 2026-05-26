@@ -370,23 +370,31 @@ const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime }) =
                 For general inquiries: <a href="mailto:hello@artailstory.com" className="underline hover:text-[#d92323] transition-colors">hello@artailstory.com</a><br />
                 Phone: <a href="tel:+12125550199" className="underline hover:text-[#d92323] transition-colors">+1 (212) 555-0199</a>
               </p>
-              <button className="w-full max-w-xs mt-4 bg-[#111111] text-[#F5F5F5] font-inter-tight font-semibold text-[11px] uppercase tracking-widest py-4 hover:bg-zinc-800 transition-colors">
-                BOOK A TABLE
-              </button>
             </div>
           </div>
 
-          {/* Right Column: Map Placeholder / Image */}
-          <div className="md:col-span-7 w-full aspect-[16/10] md:aspect-[16/11] bg-[#F5F5F5] overflow-hidden relative group">
-            <img 
-              src="https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80" 
-              alt="Artail Story Chelsea Space" 
-              className="w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:grayscale"
-            />
-            <div className="absolute inset-0 bg-black/5 flex items-center justify-center">
-              <span className="bg-white/90 backdrop-blur-sm px-6 py-3 font-inter-tight font-bold text-[10px] md:text-xs uppercase tracking-widest text-[#111111] shadow-sm cursor-pointer hover:bg-black hover:text-white transition-colors">
-                OPEN IN GOOGLE MAPS
-              </span>
+          {/* Right Column: Stacked Images (Bar Space on top, narrower Google Map on bottom, aligned right, touching) */}
+          <div className="md:col-span-7 flex flex-col items-end w-full gap-0">
+            {/* Top Image: Bar Space */}
+            <div className="w-full aspect-[16/10] bg-[#F5F5F5] overflow-hidden relative group">
+              <img 
+                src="https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80" 
+                alt="Artail Story Chelsea Space" 
+                className="w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:grayscale"
+              />
+            </div>
+            {/* Bottom Image: Google Map (Narrower width to create asymmetry, aligned right) */}
+            <div className="w-[75%] aspect-[16/10] bg-[#EAEAEA] overflow-hidden relative group cursor-pointer">
+              <img 
+                src="https://images.unsplash.com/photo-1569336415962-a4bd9f69cd83?auto=format&fit=crop&w=800&q=80" 
+                alt="Google Map Location" 
+                className="w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:grayscale"
+              />
+              <div className="absolute inset-0 bg-black/5 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span className="bg-white/90 backdrop-blur-sm px-4 py-2 font-inter-tight font-bold text-[9px] md:text-[10px] uppercase tracking-widest text-[#111111] shadow-sm">
+                  OPEN IN GOOGLE MAPS
+                </span>
+              </div>
             </div>
           </div>
         </div>
