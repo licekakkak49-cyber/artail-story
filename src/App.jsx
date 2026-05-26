@@ -346,7 +346,7 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime 
                     </h3>
                   </div>
                   <div className={`w-full ${story.aspect} bg-[#F5F5F5] overflow-hidden`}>
-                    <img src={story.src} alt={story.title} loading="lazy" decoding="async" className="w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:scale-[1.03] group-hover:grayscale" draggable="false" />
+                    <img src={story.src} alt={story.title} loading="lazy" decoding="async" className="w-full h-full object-cover transition-all duration-300 ease-in-out group-hover:scale-[1.03] group-hover:grayscale" draggable="false" />
                   </div>
                 </div>
               ))}
@@ -366,7 +366,7 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime 
                     </h3>
                   </div>
                   <div className={`w-full ${story.aspect} bg-[#F5F5F5] overflow-hidden`}>
-                    <img src={story.src} alt={story.title} loading="lazy" decoding="async" className="w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:scale-[1.03] group-hover:grayscale" draggable="false" />
+                    <img src={story.src} alt={story.title} loading="lazy" decoding="async" className="w-full h-full object-cover transition-all duration-300 ease-in-out group-hover:scale-[1.03] group-hover:grayscale" draggable="false" />
                   </div>
                 </div>
               ))}
