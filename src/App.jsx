@@ -369,15 +369,11 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick }) => {
         {/* รูปค็อกเทล (The Drink) - 3 คอลัมน์ เต็มความกว้าง */}
         <div className="w-full mt-16 md:mt-24">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 w-full">
-            <div className="w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden shadow-sm">
-              <img src={item.hoverSrc} alt={`${item.name} Cocktail 1`} className="w-full h-full object-cover" />
-            </div>
-            <div className="w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden shadow-sm">
-              <img src={item.hoverSrc} alt={`${item.name} Cocktail 2`} className="w-full h-full object-cover" />
-            </div>
-            <div className="w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden shadow-sm">
-              <img src={item.hoverSrc} alt={`${item.name} Cocktail 3`} className="w-full h-full object-cover" />
-            </div>
+            {(item.cocktailImages || (item.hoverSrc ? [item.hoverSrc] : [])).map((imgUrl, idx) => (
+              <div key={idx} className="w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden shadow-sm">
+                <img src={imgUrl} alt={`${item.name} Cocktail ${idx + 1}`} className="w-full h-full object-cover" />
+              </div>
+            ))}
           </div>
           <span className="block font-inter-tight text-[10px] text-zinc-500 uppercase tracking-widest mt-4">The Cocktail Interpretation</span>
         </div>
