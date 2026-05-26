@@ -24,7 +24,7 @@ const catalogueItems = [
   { name: "Ceramic Coaster Edition", price: "55", src: "https://images.unsplash.com/photo-1563821041920-d3aeb1d810a9?auto=format&fit=crop&w=800&q=80", designer: "Studio Narkara", year: "2025", colour: "Terracotta", size: "4.0\" diameter", material: "PORCELAIN & CORK", info: "Set of four coasters featuring abstract impressions of our signature cocktails.", stock: "08", images: ["https://images.unsplash.com/photo-1563821041920-d3aeb1d810a9?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1563821041865-fb80a6be2595?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1563821041951-248c8b4bc594?auto=format&fit=crop&w=800&q=80"] }
 ];
 
-// --- คอมโพเนนต์ย่อย: หน้าตะกร้าสินค้า ---
+// --- Sub-component: Bag View ---
 const BagView = ({ cartItems, onRemove }) => {
   const subtotal = cartItems.reduce((sum, item) => sum + (Number(item.price) * item.qty), 0);
   return (
@@ -89,7 +89,7 @@ const BagView = ({ cartItems, onRemove }) => {
   );
 };
 
-// --- คอมโพเนนต์ย่อย: รายละเอียดสินค้า ---
+// --- Sub-component: Product Detail ---
 const ProductDetail = ({ item, onNavigate, onAcquire }) => {
   const [imageIndex, setImageIndex] = useState(0);
 
@@ -189,7 +189,7 @@ const ProductDetail = ({ item, onNavigate, onAcquire }) => {
   );
 };
 
-// --- ฉากแทรก: หน้า Catalogue ขายของที่ระลึก ---
+// --- Overlay: Catalogue ---
 const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOverlayView, nyTime }) => {
   const [isSticky, setIsSticky] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
@@ -278,7 +278,7 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
   );
 };
 
-// --- ฉากแทรก: หน้า Menu Detail (แสดงรายละเอียดค็อกเทลและงานศิลปะ) ---
+// --- Overlay: Menu Detail (Cocktail & Artwork Details) ---
 const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick }) => {
   const [isSticky, setIsSticky] = useState(false);
   const headerRef = useRef(null);
@@ -404,7 +404,7 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick }) => {
   );
 };
 
-// --- ฉาก 1: นิทรรศการเมนู (Exhibition Marquee) รวมกับคำคม ---
+// --- Stage 1: Exhibition Marquee & Quotes ---
 const ContentStage = ({ rawProgress, onMenuClick }) => {
   const [isRevealed, setIsRevealed] = useState(false);
 
@@ -485,7 +485,7 @@ const ContentStage = ({ rawProgress, onMenuClick }) => {
   );
 };
 
-// --- ฉาก 2: Artists พร้อมข้อมูลจริง ---
+// --- Stage 2: Artists with Real Data ---
 const ArtistStage = () => {
   return (
     <div className="w-full h-[100vh] md:h-[120vh] bg-[#1c1c1e] relative overflow-hidden">
@@ -587,7 +587,7 @@ const ArtistStage = () => {
   );
 };
 
-// --- ฉาก 3: ไทม์ไลน์ร้าน (Our Journey Stage) ---
+// --- Stage 3: Our Journey Stage ---
 const JourneyStage = () => {
   const journeyTimeline = [
     { name: "The First Shared Belief", desc: "Concept formulation", year: "2023" },
@@ -634,7 +634,7 @@ const JourneyStage = () => {
   );
 };
 
-// --- ฉาก 4: Footer ---
+// --- Stage 4: Footer ---
 const FooterStage = () => {
   return (
     <div className="w-full bg-[#F5F5F5] pt-0 pb-20 md:pt-0 md:pb-32 lg:pt-0 lg:pb-40 flex justify-center items-start px-6 md:px-12">
