@@ -332,17 +332,14 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime 
           </div>
         </div>
 
-        <div className="w-full mt-8 md:mt-12 pb-24 flex flex-col gap-16 md:gap-24">
+        <div className="w-full mt-8 md:mt-12 pb-24 flex flex-col gap-12 md:gap-16">
           {/* Row 1: Teddy's Stories */}
-          <div className="flex flex-col gap-6">
-            <div className="flex justify-between items-baseline border-b border-[#111111]/10 pb-3">
-              <h2 className="font-bebas text-3xl md:text-4xl tracking-wide text-[#111111]">TEDDY'S DIARY</h2>
-              <span className="font-inter-tight text-[10px] md:text-xs text-zinc-400 uppercase tracking-widest">5 STORIES</span>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6 items-start">
+          <div className="flex flex-col gap-4">
+            <h2 className="font-inter font-bold text-xs md:text-sm tracking-widest text-[#111111] uppercase">TEDDY</h2>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-0 items-start">
               {editorialStories.teddy.map((story, idx) => (
                 <div key={idx} className="flex flex-col group cursor-pointer">
-                  <div className="flex flex-col gap-1 mb-3">
+                  <div className="flex flex-col gap-1 mb-3 pr-3 md:pr-4">
                     <span className="font-inter-tight text-[9px] md:text-[10px] font-bold text-zinc-400 uppercase tracking-widest">{story.category}</span>
                     <h3 className="font-helvetica font-bold text-[11px] md:text-xs text-[#111111] leading-tight group-hover:text-[#d92323] transition-colors">
                       {story.title}
@@ -357,15 +354,12 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime 
           </div>
 
           {/* Row 2: Mimi's Stories */}
-          <div className="flex flex-col gap-6">
-            <div className="flex justify-between items-baseline border-b border-[#111111]/10 pb-3">
-              <h2 className="font-bebas text-3xl md:text-4xl tracking-wide text-[#111111]">MIMI'S DIARY</h2>
-              <span className="font-inter-tight text-[10px] md:text-xs text-zinc-400 uppercase tracking-widest">5 STORIES</span>
-            </div>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 md:gap-6 items-start">
+          <div className="flex flex-col gap-4">
+            <h2 className="font-inter font-bold text-xs md:text-sm tracking-widest text-[#111111] uppercase">MIMI</h2>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-0 items-start">
               {editorialStories.mimi.map((story, idx) => (
                 <div key={idx} className="flex flex-col group cursor-pointer">
-                  <div className="flex flex-col gap-1 mb-3">
+                  <div className="flex flex-col gap-1 mb-3 pr-3 md:pr-4">
                     <span className="font-inter-tight text-[9px] md:text-[10px] font-bold text-zinc-400 uppercase tracking-widest">{story.category}</span>
                     <h3 className="font-helvetica font-bold text-[11px] md:text-xs text-[#111111] leading-tight group-hover:text-[#d92323] transition-colors">
                       {story.title}
