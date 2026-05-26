@@ -252,9 +252,8 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
             <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] justify-start">
               <span onClick={onClose} className="cursor-pointer hover:text-zinc-500 transition-colors">HOME</span>
               <span onClick={openGrid} className={`cursor-pointer transition-colors ${overlayView === 'grid' || overlayView === 'detail' ? 'underline underline-offset-4 decoration-2' : 'hover:text-zinc-500'}`}>CATALOGUE</span>
-              <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">INFO</span>
-              <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">ARCHIVE</span>
               <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">STORIES</span>
+              <span onClick={() => { onClose(); setView('visit'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
             </div>
             <div className="flex justify-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
               <span onClick={openBag} className={`cursor-pointer transition-colors ${overlayView === 'bag' ? 'underline underline-offset-4 decoration-2' : 'hover:text-zinc-500'}`}>BAG ({cartCount})</span>
@@ -295,6 +294,107 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
   );
 };
 
+// --- Overlay: Visit (Location, Hours & Contact) ---
+const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime }) => {
+  const [isSticky, setIsSticky] = useState(false);
+  const headerRef = useRef(null);
+
+  const handleScroll = (e) => {
+    if (headerRef.current) {
+      setIsSticky(e.target.scrollTop > headerRef.current.offsetHeight - 20);
+    }
+  };
+
+  return (
+    <div className="fixed inset-0 bg-[#ffffff] z-[9999] overflow-y-auto" onScroll={handleScroll}>
+      <div className="w-full flex flex-col pt-8 md:pt-12 px-4 md:px-6">
+        <div ref={headerRef}>
+          <h1 className="font-bebas text-[15vw] md:text-[12vw] leading-[0.8] tracking-normal uppercase text-[#111111] mb-6 md:mb-10">
+            VISIT US
+          </h1>
+        </div>
+        <div className={`sticky top-0 w-full z-50 py-4 transition-all duration-300 ${isSticky ? 'bg-white/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
+          <div className="grid grid-cols-3 items-center w-full gap-4">
+            <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] justify-start">
+              <span onClick={onClose} className="cursor-pointer hover:text-zinc-500 transition-colors">HOME</span>
+              <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
+              <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">STORIES</span>
+              <span className="cursor-pointer hover:text-[#d92323] transition-colors underline underline-offset-4 decoration-2">VISIT</span>
+            </div>
+            <div className="flex justify-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
+              <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">BAG ({cartCount})</span>
+            </div>
+            <div className="flex justify-end items-center gap-6 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
+              <span>NEW YORK, NY {nyTime}</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="w-full mt-12 pb-24 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-start">
+          {/* Left Column: Info */}
+          <div className="md:col-span-5 flex flex-col gap-10">
+            <div className="flex flex-col gap-3">
+              <span className="font-inter-tight text-[10px] md:text-xs font-bold text-zinc-400 uppercase tracking-widest">LOCATION</span>
+              <p className="font-helvetica text-lg md:text-xl text-[#111111] leading-relaxed">
+                254 10th Avenue<br />
+                Chelsea, New York<br />
+                NY 10001
+              </p>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <span className="font-inter-tight text-[10px] md:text-xs font-bold text-zinc-400 uppercase tracking-widest">HOURS</span>
+              <div className="font-helvetica text-sm md:text-base text-[#111111] flex flex-col gap-1">
+                <div className="flex justify-between max-w-xs">
+                  <span>Wednesday – Thursday</span>
+                  <span>5:00 PM – 12:00 AM</span>
+                </div>
+                <div className="flex justify-between max-w-xs">
+                  <span>Friday – Saturday</span>
+                  <span>5:00 PM – 1:00 AM</span>
+                </div>
+                <div className="flex justify-between max-w-xs">
+                  <span>Sunday</span>
+                  <span>5:00 PM – 11:00 PM</span>
+                </div>
+                <div className="flex justify-between max-w-xs text-zinc-400">
+                  <span>Monday – Tuesday</span>
+                  <span>Closed (Studio Days)</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <span className="font-inter-tight text-[10px] md:text-xs font-bold text-zinc-400 uppercase tracking-widest">CONTACT &amp; RESERVATIONS</span>
+              <p className="font-helvetica text-sm md:text-base text-[#111111] leading-relaxed">
+                For general inquiries: <a href="mailto:hello@artailstory.com" className="underline hover:text-[#d92323] transition-colors">hello@artailstory.com</a><br />
+                Phone: <a href="tel:+12125550199" className="underline hover:text-[#d92323] transition-colors">+1 (212) 555-0199</a>
+              </p>
+              <button className="w-full max-w-xs mt-4 bg-[#111111] text-[#F5F5F5] font-inter-tight font-semibold text-[11px] uppercase tracking-widest py-4 hover:bg-zinc-800 transition-colors">
+                BOOK A TABLE
+              </button>
+            </div>
+          </div>
+
+          {/* Right Column: Map Placeholder / Image */}
+          <div className="md:col-span-7 w-full aspect-[16/10] md:aspect-[16/11] bg-[#F5F5F5] overflow-hidden relative group">
+            <img 
+              src="https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=80" 
+              alt="Artail Story Chelsea Space" 
+              className="w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:grayscale"
+            />
+            <div className="absolute inset-0 bg-black/5 flex items-center justify-center">
+              <span className="bg-white/90 backdrop-blur-sm px-6 py-3 font-inter-tight font-bold text-[10px] md:text-xs uppercase tracking-widest text-[#111111] shadow-sm cursor-pointer hover:bg-black hover:text-white transition-colors">
+                OPEN IN GOOGLE MAPS
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 // --- Overlay: Stories ---
 const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime }) => {
   const [isSticky, setIsSticky] = useState(false);
@@ -319,9 +419,8 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime 
             <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] justify-start">
               <span onClick={onClose} className="cursor-pointer hover:text-zinc-500 transition-colors">HOME</span>
               <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
-              <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">INFO</span>
-              <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">ARCHIVE</span>
               <span className="cursor-pointer hover:text-[#d92323] transition-colors underline underline-offset-4 decoration-2">STORIES</span>
+              <span onClick={() => { onClose(); setView('visit'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
             </div>
             <div className="flex justify-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
               <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">BAG ({cartCount})</span>
@@ -442,9 +541,8 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
           <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] justify-start">
             <span onClick={onClose} className="cursor-pointer hover:text-zinc-500 transition-colors">COCKTAILS</span>
             <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
-            <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">INFO</span>
-            <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">ARCHIVE</span>
             <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">STORIES</span>
+            <span onClick={() => { onClose(); setView('visit'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
           </div>
           <div className="flex justify-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
             <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">
@@ -936,7 +1034,7 @@ export default function App() {
   };
 
   useEffect(() => {
-    if (view === 'catalogue' || view === 'editorial') {
+    if (view === 'catalogue' || view === 'editorial' || view === 'visit') {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
@@ -1020,6 +1118,16 @@ export default function App() {
         />
       )}
 
+      {view === 'visit' && (
+        <VisitOverlay 
+          onClose={() => setView('home')} 
+          cartCount={cartCount}
+          setView={setView}
+          setOverlayView={setOverlayView}
+          nyTime={nyTime}
+        />
+      )}
+
       {selectedMenu && (
         <MenuDetailOverlay 
           item={selectedMenu} 
@@ -1032,14 +1140,13 @@ export default function App() {
         />
       )}
 
-      {view !== 'catalogue' && view !== 'editorial' && !selectedMenu && (
+      {view !== 'catalogue' && view !== 'editorial' && view !== 'visit' && !selectedMenu && (
         <nav className={`left-0 w-full z-[999] px-6 py-5 grid grid-cols-3 items-center transition-all duration-700 ease-out ${navMode === 'hidden' ? 'pointer-events-none' : 'pointer-events-auto'} ${navMode === 'top' ? 'fixed top-0 opacity-100 translate-y-0 bg-transparent' : navMode === 'hidden' ? 'fixed top-0 opacity-0 -translate-y-full bg-transparent' : navMode === 'menu-top' ? 'fixed top-0 opacity-100 translate-y-0 bg-transparent' : 'fixed top-0 opacity-100 translate-y-0 bg-[#F5F5F5]/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]'}`}>
           <motion.div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] justify-start">
             <span onClick={scrollToMenu} className="cursor-pointer hover:text-zinc-500 transition-colors">COCKTAILS</span>
             <span onClick={() => { setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
-            <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">INFO</span>
-            <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">ARCHIVE</span>
             <span onClick={() => setView('editorial')} className="cursor-pointer hover:text-zinc-500 transition-colors">STORIES</span>
+            <span onClick={() => setView('visit')} className="cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
           </motion.div>
           <motion.div className="flex justify-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
             <span onClick={() => { setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">
