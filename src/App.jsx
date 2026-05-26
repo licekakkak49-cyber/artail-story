@@ -226,7 +226,7 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
     <div className="fixed inset-0 bg-[#ffffff] z-[9999] overflow-y-auto" onScroll={handleScroll}>
       <div className="w-full flex flex-col pt-8 md:pt-12 px-2 md:px-4">
         <div ref={headerRef}>
-          <h1 className="font-helvetica font-black text-[13vw] md:text-[11vw] leading-[0.8] tracking-tighter uppercase text-[#111111] mb-6 md:mb-10">
+          <h1 className="font-bebas text-[15vw] md:text-[12vw] leading-[0.8] tracking-normal uppercase text-[#111111] mb-6 md:mb-10">
             ART &amp; OBJECTS
           </h1>
         </div>
