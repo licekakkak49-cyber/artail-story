@@ -285,8 +285,8 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
   const overlayRef = useRef(null);
 
   const { scrollYProgress } = useScroll({ container: overlayRef });
-  // เมื่อ Scroll ลงมา (0 ถึง 30% ของหน้า) รูปจะค่อยๆ ซูมออกจาก 1 เป็น 0.85
-  const imageScale = useTransform(scrollYProgress, [0, 0.3], [1, 0.85]);
+  // เมื่อ Scroll ลงมา (0 ถึง 30% ของหน้า) รูปจะค่อยๆ ซูมออกจาก 1.1 เป็น 1.0 เพื่อไม่ให้เห็นขอบพื้นหลังสีเทา
+  const imageScale = useTransform(scrollYProgress, [0, 0.3], [1.1, 1.0]);
 
   const moreItems = cocktailMenuData.filter(menu => menu.artist === item.artist && menu.name !== item.name);
 
