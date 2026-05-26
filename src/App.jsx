@@ -331,45 +331,67 @@ const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime }) =
         </div>
 
         <div className="w-full mt-12 pb-24 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-start">
-          {/* Left Column: Info */}
-          <div className="md:col-span-5 flex flex-col gap-10">
-            <div className="flex flex-col gap-3">
-              <span className="font-inter-tight text-[10px] md:text-xs font-bold text-zinc-400 uppercase tracking-widest">LOCATION</span>
-              <p className="font-helvetica text-lg md:text-xl text-[#111111] leading-relaxed">
-                254 10th Avenue<br />
-                Chelsea, New York<br />
-                NY 10001
-              </p>
+          {/* Left Column: Info styled like the reference image */}
+          <div className="md:col-span-5 flex flex-col gap-12">
+            {/* 01 ADDRESS */}
+            <div className="flex gap-4 items-start">
+              <span className="font-inter text-zinc-400 text-xs md:text-sm font-bold pt-1.5">01</span>
+              <div className="flex flex-col">
+                <h2 className="font-inter font-black text-2xl md:text-3xl tracking-tight text-[#111111] uppercase">ADDRESS</h2>
+                <p className="font-inter text-sm md:text-base text-zinc-600 mt-2 leading-relaxed">
+                  254 10th Avenue<br />
+                  Chelsea, New York<br />
+                  NY 10001
+                </p>
+              </div>
             </div>
 
-            <div className="flex flex-col gap-3">
-              <span className="font-inter-tight text-[10px] md:text-xs font-bold text-zinc-400 uppercase tracking-widest">HOURS</span>
-              <div className="font-helvetica text-sm md:text-base text-[#111111] flex flex-col gap-1">
-                <div className="flex justify-between max-w-xs">
-                  <span>Wednesday – Thursday</span>
-                  <span>5:00 PM – 12:00 AM</span>
-                </div>
-                <div className="flex justify-between max-w-xs">
-                  <span>Friday – Saturday</span>
-                  <span>5:00 PM – 1:00 AM</span>
-                </div>
-                <div className="flex justify-between max-w-xs">
-                  <span>Sunday</span>
-                  <span>5:00 PM – 11:00 PM</span>
-                </div>
-                <div className="flex justify-between max-w-xs text-zinc-400">
-                  <span>Monday – Tuesday</span>
-                  <span>Closed (Studio Days)</span>
+            {/* 02 HOURS */}
+            <div className="flex gap-4 items-start">
+              <span className="font-inter text-zinc-400 text-xs md:text-sm font-bold pt-1.5">02</span>
+              <div className="flex flex-col w-full">
+                <h2 className="font-inter font-black text-2xl md:text-3xl tracking-tight text-[#111111] uppercase">HOURS</h2>
+                <div className="font-inter text-sm md:text-base text-zinc-600 mt-2 flex flex-col gap-1.5 w-full max-w-xs">
+                  <div className="flex justify-between">
+                    <span>Wednesday – Thursday</span>
+                    <span>5:00 PM – 12:00 AM</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Friday – Saturday</span>
+                    <span>5:00 PM – 1:00 AM</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span>Sunday</span>
+                    <span>5:00 PM – 11:00 PM</span>
+                  </div>
+                  <div className="flex justify-between text-zinc-400">
+                    <span>Monday – Tuesday</span>
+                    <span>Closed (Studio Days)</span>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <div className="flex flex-col gap-3">
-              <span className="font-inter-tight text-[10px] md:text-xs font-bold text-zinc-400 uppercase tracking-widest">CONTACT &amp; RESERVATIONS</span>
-              <p className="font-helvetica text-sm md:text-base text-[#111111] leading-relaxed">
-                For general inquiries: <a href="mailto:hello@artailstory.com" className="underline hover:text-[#d92323] transition-colors">hello@artailstory.com</a><br />
-                Phone: <a href="tel:+12125550199" className="underline hover:text-[#d92323] transition-colors">+1 (212) 555-0199</a>
-              </p>
+            {/* 03 EMAIL */}
+            <div className="flex gap-4 items-start">
+              <span className="font-inter text-zinc-400 text-xs md:text-sm font-bold pt-1.5">03</span>
+              <div className="flex flex-col">
+                <h2 className="font-inter font-black text-2xl md:text-3xl tracking-tight text-[#111111] uppercase">EMAIL</h2>
+                <p className="font-inter text-sm md:text-base text-zinc-600 mt-2 leading-relaxed">
+                  <a href="mailto:hello@artailstory.com" className="underline hover:text-[#d92323] transition-colors">hello@artailstory.com</a>
+                </p>
+              </div>
+            </div>
+
+            {/* 04 PHONE */}
+            <div className="flex gap-4 items-start">
+              <span className="font-inter text-zinc-400 text-xs md:text-sm font-bold pt-1.5">04</span>
+              <div className="flex flex-col">
+                <h2 className="font-inter font-black text-2xl md:text-3xl tracking-tight text-[#111111] uppercase">PHONE</h2>
+                <p className="font-inter text-sm md:text-base text-zinc-600 mt-2 leading-relaxed">
+                  <a href="tel:+12125550199" className="underline hover:text-[#d92323] transition-colors">+1 (212) 555-0199</a>
+                </p>
+              </div>
             </div>
           </div>
 
