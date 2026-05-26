@@ -293,9 +293,9 @@ const ZoomImage = ({ src, alt, className, containerRef }) => {
   const { scrollYProgress } = useScroll({
     target: ref,
     container: containerRef,
-    offset: ["start end", "end start"]
+    offset: ["start end", "center center"]
   });
-  // ค่อยๆ ซูมออกจาก 1.1 เป็น 1.0 ตามตำแหน่งจริงของรูปภาพในหน้าจอขณะ Scroll
+  // ค่อยๆ ซูมออกจาก 1.1 เป็น 1.0 เมื่อรูปภาพเริ่มเลื่อนเข้ามาในหน้าจอจนถึงกึ่งกลางจอพอดี
   const scale = useTransform(scrollYProgress, [0, 1], [1.1, 1.0]);
 
   return (
