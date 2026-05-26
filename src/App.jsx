@@ -279,7 +279,7 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
 };
 
 // --- Overlay: Menu Detail (Cocktail & Artwork Details) ---
-const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick }) => {
+const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setView, setOverlayView }) => {
   const [isSticky, setIsSticky] = useState(false);
   const headerRef = useRef(null);
   const overlayRef = useRef(null);
@@ -309,13 +309,15 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick }) => {
         <div className="grid grid-cols-3 items-center w-full gap-4">
           <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] justify-start">
             <span onClick={onClose} className="cursor-pointer hover:text-zinc-500 transition-colors">COCKTAILS</span>
-            <span className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
+            <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
             <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">INFO</span>
             <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">ARCHIVE</span>
             <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">EDITORIAL</span>
           </div>
           <div className="flex justify-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
-            <span className="cursor-pointer hover:text-zinc-500 transition-colors">BAG</span>
+            <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">
+              BAG ({cartCount})
+            </span>
           </div>
           <div className="flex justify-end items-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
             <span>NEW YORK, NY {nyTime}</span>
@@ -872,6 +874,9 @@ export default function App() {
           onClose={() => setSelectedMenu(null)} 
           nyTime={nyTime} 
           onMenuClick={setSelectedMenu}
+          cartCount={cartCount}
+          setView={setView}
+          setOverlayView={setOverlayView}
         />
       )}
 
