@@ -434,7 +434,7 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime 
         <div className="w-full mt-8 md:mt-12 pb-24 flex flex-col gap-12 md:gap-16">
           {/* Row 1: Teddy's Stories */}
           <div className="flex flex-col gap-4">
-            <h2 className="font-inter font-bold text-xs md:text-sm tracking-widest text-[#111111] uppercase">TEDDY</h2>
+            <h2 className="font-inter font-bold text-xs md:text-sm tracking-normal text-[#111111] uppercase">TEDDY</h2>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-0 items-start">
               {editorialStories.teddy.map((story, idx) => (
                 <div key={idx} className="flex flex-col group cursor-pointer">
@@ -454,7 +454,7 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime 
 
           {/* Row 2: Mimi's Stories */}
           <div className="flex flex-col gap-4">
-            <h2 className="font-inter font-bold text-xs md:text-sm tracking-widest text-[#111111] uppercase">MIMI</h2>
+            <h2 className="font-inter font-bold text-xs md:text-sm tracking-normal text-[#111111] uppercase">MIMI</h2>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-0 items-start">
               {editorialStories.mimi.map((story, idx) => (
                 <div key={idx} className="flex flex-col group cursor-pointer">
