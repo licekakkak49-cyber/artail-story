@@ -207,7 +207,7 @@ const ProductDetail = ({ item, onNavigate, onAcquire }) => {
 };
 
 // --- Overlay: Catalogue ---
-const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOverlayView, nyTime }) => {
+const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOverlayView, nyTime, setView }) => {
   const [isSticky, setIsSticky] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const headerRef = useRef(null);
@@ -1105,6 +1105,7 @@ export default function App() {
           overlayView={overlayView}
           setOverlayView={setOverlayView}
           nyTime={nyTime}
+          setView={setView}
         />
       )}
 
