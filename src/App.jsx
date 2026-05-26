@@ -242,12 +242,12 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
   return (
     <div className="fixed inset-0 bg-[#ffffff] z-[9999] overflow-y-auto" onScroll={handleScroll}>
       <div className="w-full flex flex-col pt-8 md:pt-12 px-2 md:px-4">
-        <div ref={headerRef}>
+        <div ref={headerRef} className="px-0">
           <h1 className="font-bebas text-[15vw] md:text-[12vw] leading-[0.8] tracking-normal uppercase text-[#111111] mb-6 md:mb-10">
             ART &amp; OBJECTS
           </h1>
         </div>
-        <div className={`sticky top-0 w-full z-50 px-2 md:px-4 py-4 transition-all duration-300 ${isSticky ? 'bg-white/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
+        <div className={`sticky top-0 w-full z-50 py-4 transition-all duration-300 ${isSticky ? 'bg-white/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
           <div className="grid grid-cols-3 items-center w-full gap-4">
             <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] justify-start">
               <span onClick={onClose} className="cursor-pointer hover:text-zinc-500 transition-colors">HOME</span>
@@ -258,7 +258,7 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
             <div className="flex justify-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
               <span onClick={openBag} className="cursor-pointer hover:text-zinc-500 transition-colors">BAG ({cartCount})</span>
             </div>
-            <div className="flex justify-end items-center gap-6 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
+            <div className="flex justify-end items-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
               <span>NEW YORK, NY {nyTime}</span>
             </div>
           </div>
@@ -270,7 +270,7 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
           <ProductDetail item={selectedItem} onNavigate={openDetail} onAcquire={handleAcquire} />
         ) : (
           <div className="w-full mt-8 md:mt-12">
-            <div className="flex justify-between items-center w-full mb-4 md:mb-6 text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] px-1 md:px-2">
+            <div className="flex justify-between items-center w-full mb-4 md:mb-6 text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] px-0">
               <span>OBJECTS ({catalogueItems.length})</span>
               <span>SHOW ALL</span>
             </div>
