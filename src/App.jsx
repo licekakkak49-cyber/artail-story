@@ -308,12 +308,12 @@ const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime }) =
   return (
     <div className="fixed inset-0 bg-[#ffffff] z-[9999] overflow-y-auto" onScroll={handleScroll}>
       <div className="w-full flex flex-col pt-8 md:pt-12 px-2 md:px-4">
-        <div ref={headerRef} className="px-2 md:px-4">
+        <div ref={headerRef} className="px-0">
           <h1 className="font-bebas text-[15vw] md:text-[12vw] leading-[0.8] tracking-normal uppercase text-[#111111] mb-6 md:mb-10">
             VISIT US
           </h1>
         </div>
-        <div className={`sticky top-0 w-full z-50 px-2 md:px-4 py-4 transition-all duration-300 ${isSticky ? 'bg-white/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
+        <div className={`sticky top-0 w-full z-50 py-4 transition-all duration-300 ${isSticky ? 'bg-white/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
           <div className="grid grid-cols-3 items-center w-full gap-4">
             <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] justify-start">
               <span onClick={onClose} className="cursor-pointer hover:text-zinc-500 transition-colors">HOME</span>
@@ -330,7 +330,7 @@ const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime }) =
           </div>
         </div>
 
-        <div className="w-full mt-12 pb-24 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-start px-2 md:px-4">
+        <div className="w-full mt-12 pb-24 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-start px-0">
           {/* Left Column: Info styled like the reference image */}
           <div className="md:col-span-5 flex flex-col gap-12">
             {/* 01 ADDRESS */}
@@ -439,12 +439,12 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime 
   return (
     <div className="fixed inset-0 bg-[#ffffff] z-[9999] overflow-y-auto" onScroll={handleScroll}>
       <div className="w-full flex flex-col pt-8 md:pt-12 px-2 md:px-4">
-        <div ref={headerRef} className="px-2 md:px-4">
+        <div ref={headerRef} className="px-0">
           <h1 className="font-bebas text-[15vw] md:text-[12vw] leading-[0.8] tracking-normal uppercase text-[#111111] mb-6 md:mb-10">
             EDITORIAL &amp; STORIES
           </h1>
         </div>
-        <div className={`sticky top-0 w-full z-50 px-2 md:px-4 py-4 transition-all duration-300 ${isSticky ? 'bg-white/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
+        <div className={`sticky top-0 w-full z-50 py-4 transition-all duration-300 ${isSticky ? 'bg-white/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
           <div className="grid grid-cols-3 items-center w-full gap-4">
             <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] justify-start">
               <span onClick={onClose} className="cursor-pointer hover:text-zinc-500 transition-colors">HOME</span>
@@ -461,7 +461,7 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime 
           </div>
         </div>
 
-        <div className="w-full mt-8 md:mt-12 pb-24 flex flex-col gap-12 md:gap-16 px-2 md:px-4">
+        <div className="w-full mt-8 md:mt-12 pb-24 flex flex-col gap-12 md:gap-16 px-0">
           {/* Row 1: Teddy's Stories */}
           <div className="flex flex-col gap-4">
             <h2 className="font-inter font-bold text-xs md:text-sm tracking-normal text-[#111111] uppercase">TEDDY</h2>
