@@ -311,7 +311,7 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime 
       <div className="w-full flex flex-col pt-8 md:pt-12 px-4 md:px-6">
         <div ref={headerRef}>
           <h1 className="font-bebas text-[15vw] md:text-[12vw] leading-[0.8] tracking-normal uppercase text-[#111111] mb-6 md:mb-10">
-            STORIES
+            EDITORIAL &amp; STORIES
           </h1>
         </div>
         <div className={`sticky top-0 w-full z-50 py-4 transition-all duration-300 ${isSticky ? 'bg-white/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
