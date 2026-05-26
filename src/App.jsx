@@ -279,17 +279,16 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
 };
 
 // --- Sub-component: Scroll Zoom Image ---
-// EXPLANATION OF WHY SCROLL ZOOM MIGHT NOT BE SHOWING YET:
-// 1. The `ZoomImage` uses `useScroll` with a specific `target` (itself) and `container` (the overlay).
-//    In Framer Motion, tracking a target inside a custom scrollable container requires the container 
-//    to be fully rendered and its ref populated. If the ref is evaluated before the DOM is ready, 
-//    the scroll listener won't bind correctly.
-// 2. The `offset: ["start end", "end start"]` triggers zoom based on the element's intersection 
-//    with the viewport. If the elements are already in view or the container scroll height is small, 
-//    the change in scale (1.1 to 1.0) is extremely subtle and might not be noticeable.
-// 3. To make it behave EXACTLY like the main artwork (which zooms smoothly from the very top of the page),
-//    we should pass the global `imageScale` (derived directly from the container's scroll progress) 
-//    to these images instead of using individual element-based intersection targets.
+// EXPLANATION / คำอธิบาย:
+// ใช่ครับ! เราได้เพิ่มฟีเจอร์นี้และนำไปใช้กับรูปภาพทั้งหมดในหน้า Menu Detail เรียบร้อยแล้ว (ทั้งรูปค็อกเทล 3 รูป และรูปในส่วน More by Artist)
+// โดยใช้คอมโพเนนต์ `ZoomImage` ที่ควบคุมด้วย Framer Motion (`useScroll` และ `useTransform`)
+//
+// สาเหตุที่เอฟเฟกต์อาจจะยังดูไม่เหมือนรูปงานศิลปะหลัก 100% เป็นเพราะ:
+// 1. รูปงานศิลปะหลักใช้ `imageScale` ที่อิงจาก Scroll Progress โดยตรงของหน้าต่างตั้งแต่เริ่มเลื่อน (0% ถึง 30%)
+// 2. ส่วน `ZoomImage` ของรูปอื่นๆ ใช้พิกัดแบบ Element Intersection (`offset: ["start end", "end start"]`) 
+//    ซึ่งจะเริ่มซูมเมื่อรูปนั้นๆ เลื่อนเข้ามาในหน้าจอ ทำให้จังหวะการซูมเกิดขึ้นเฉพาะตอนที่เลื่อนผ่านรูปนั้นจริงๆ
+//
+// หากต้องการให้ทุกรูปซูมพร้อมกันตามการเลื่อนของหน้าจอเหมือนรูปหลักเป๊ะๆ เราสามารถเปลี่ยนไปส่งค่า `imageScale` ตัวเดียวกันจากตัวแม่ไปให้ทุกรูปใช้งานได้ทันทีครับ
 const ZoomImage = ({ src, alt, className, containerRef }) => {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({
