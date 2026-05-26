@@ -335,7 +335,7 @@ const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime }) =
           <div className="md:col-span-5 flex flex-col gap-12">
             {/* 01 ADDRESS */}
             <div className="flex gap-4 items-start">
-              <span className="font-inter text-zinc-400 text-xs md:text-sm font-bold pt-1.5">01</span>
+              <span className="font-inter text-zinc-400 text-xs md:text-sm font-light pt-1.5">01</span>
               <div className="flex flex-col">
                 <h2 className="font-inter font-black text-2xl md:text-3xl tracking-tight text-[#111111] uppercase">ADDRESS</h2>
                 <p className="font-inter text-sm md:text-base text-zinc-600 mt-2 leading-relaxed">
@@ -348,7 +348,7 @@ const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime }) =
 
             {/* 02 HOURS */}
             <div className="flex gap-4 items-start">
-              <span className="font-inter text-zinc-400 text-xs md:text-sm font-bold pt-1.5">02</span>
+              <span className="font-inter text-zinc-400 text-xs md:text-sm font-light pt-1.5">02</span>
               <div className="flex flex-col w-full">
                 <h2 className="font-inter font-black text-2xl md:text-3xl tracking-tight text-[#111111] uppercase">HOURS</h2>
                 <div className="font-inter text-sm md:text-base text-zinc-600 mt-2 flex flex-col gap-1.5 w-full max-w-xs">
@@ -374,22 +374,22 @@ const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime }) =
 
             {/* 03 EMAIL */}
             <div className="flex gap-4 items-start">
-              <span className="font-inter text-zinc-400 text-xs md:text-sm font-bold pt-1.5">03</span>
+              <span className="font-inter text-zinc-400 text-xs md:text-sm font-light pt-1.5">03</span>
               <div className="flex flex-col">
                 <h2 className="font-inter font-black text-2xl md:text-3xl tracking-tight text-[#111111] uppercase">EMAIL</h2>
                 <p className="font-inter text-sm md:text-base text-zinc-600 mt-2 leading-relaxed">
-                  <a href="mailto:hello@artailstory.com" className="underline hover:text-[#d92323] transition-colors">hello@artailstory.com</a>
+                  <a href="mailto:hello@artailstory.com" className="hover:text-[#d92323] transition-colors">hello@artailstory.com</a>
                 </p>
               </div>
             </div>
 
             {/* 04 PHONE */}
             <div className="flex gap-4 items-start">
-              <span className="font-inter text-zinc-400 text-xs md:text-sm font-bold pt-1.5">04</span>
+              <span className="font-inter text-zinc-400 text-xs md:text-sm font-light pt-1.5">04</span>
               <div className="flex flex-col">
                 <h2 className="font-inter font-black text-2xl md:text-3xl tracking-tight text-[#111111] uppercase">PHONE</h2>
                 <p className="font-inter text-sm md:text-base text-zinc-600 mt-2 leading-relaxed">
-                  <a href="tel:+12125550199" className="underline hover:text-[#d92323] transition-colors">+1 (212) 555-0199</a>
+                  <a href="tel:+12125550199" className="hover:text-[#d92323] transition-colors">+1 (212) 555-0199</a>
                 </p>
               </div>
             </div>
