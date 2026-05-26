@@ -460,7 +460,7 @@ const ContentStage = ({ rawProgress, onMenuClick }) => {
       
       <div className="w-full flex flex-col items-center justify-center mt-2 md:mt-4 mb-6 md:mb-8 px-4 relative z-10">
         <div className="relative inline-block text-center">
-          {/* จุดสีแดงหลังตัว T */}
+          {/* จุดสีแดงหลังตัว T (ใช้รหัสสี #d92323 ซึ่งเป็นสีแดงสดที่มีโทนอุ่นอมส้มเล็กน้อยเพื่อให้ดูโมเดิร์นและไม่ดูทึบเกินไป) */}
           <motion.div 
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: isRevealed ? 1 : 0, opacity: isRevealed ? 1 : 0 }}
