@@ -251,12 +251,12 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
           <div className="grid grid-cols-3 items-center w-full gap-4">
             <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] justify-start">
               <span onClick={onClose} className="cursor-pointer hover:text-zinc-500 transition-colors">HOME</span>
-              <span onClick={openGrid} className={`cursor-pointer transition-colors ${overlayView === 'grid' || overlayView === 'detail' ? 'underline underline-offset-4 decoration-2' : 'hover:text-zinc-500'}`}>CATALOGUE</span>
+              <span onClick={openGrid} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
               <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">STORIES</span>
               <span onClick={() => { onClose(); setView('visit'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
             </div>
             <div className="flex justify-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
-              <span onClick={openBag} className={`cursor-pointer transition-colors ${overlayView === 'bag' ? 'underline underline-offset-4 decoration-2' : 'hover:text-zinc-500'}`}>BAG ({cartCount})</span>
+              <span onClick={openBag} className="cursor-pointer hover:text-zinc-500 transition-colors">BAG ({cartCount})</span>
             </div>
             <div className="flex justify-end items-center gap-6 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
               <span>NEW YORK, NY {nyTime}</span>
@@ -449,7 +449,7 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime 
             <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] justify-start">
               <span onClick={onClose} className="cursor-pointer hover:text-zinc-500 transition-colors">HOME</span>
               <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
-              <span className="cursor-pointer hover:text-[#d92323] transition-colors underline underline-offset-4 decoration-2">STORIES</span>
+              <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">STORIES</span>
               <span onClick={() => { onClose(); setView('visit'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
             </div>
             <div className="flex justify-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
