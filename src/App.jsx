@@ -254,7 +254,7 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
               <span onClick={openGrid} className={`cursor-pointer transition-colors ${overlayView === 'grid' || overlayView === 'detail' ? 'underline underline-offset-4 decoration-2' : 'hover:text-zinc-500'}`}>CATALOGUE</span>
               <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">INFO</span>
               <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">ARCHIVE</span>
-              <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">EDITORIAL</span>
+              <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">STORIES</span>
             </div>
             <div className="flex justify-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
               <span onClick={openBag} className={`cursor-pointer transition-colors ${overlayView === 'bag' ? 'underline underline-offset-4 decoration-2' : 'hover:text-zinc-500'}`}>BAG ({cartCount})</span>
@@ -295,7 +295,7 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
   );
 };
 
-// --- Overlay: Editorial & Stories ---
+// --- Overlay: Stories ---
 const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime }) => {
   const [isSticky, setIsSticky] = useState(false);
   const headerRef = useRef(null);
@@ -311,7 +311,7 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime 
       <div className="w-full flex flex-col pt-8 md:pt-12 px-4 md:px-6">
         <div ref={headerRef}>
           <h1 className="font-bebas text-[15vw] md:text-[12vw] leading-[0.8] tracking-normal uppercase text-[#111111] mb-6 md:mb-10">
-            EDITORIAL &amp; STORIES
+            STORIES
           </h1>
         </div>
         <div className={`sticky top-0 w-full z-50 py-4 transition-all duration-300 ${isSticky ? 'bg-white/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
@@ -321,7 +321,7 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime 
               <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
               <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">INFO</span>
               <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">ARCHIVE</span>
-              <span className="cursor-pointer hover:text-[#d92323] transition-colors underline underline-offset-4 decoration-2">EDITORIAL</span>
+              <span className="cursor-pointer hover:text-[#d92323] transition-colors underline underline-offset-4 decoration-2">STORIES</span>
             </div>
             <div className="flex justify-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
               <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">BAG ({cartCount})</span>
@@ -444,7 +444,7 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
             <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
             <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">INFO</span>
             <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">ARCHIVE</span>
-            <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">EDITORIAL</span>
+            <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">STORIES</span>
           </div>
           <div className="flex justify-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
             <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">
@@ -1039,7 +1039,7 @@ export default function App() {
             <span onClick={() => { setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
             <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">INFO</span>
             <span className="cursor-pointer hover:text-zinc-500 transition-colors hidden md:block">ARCHIVE</span>
-            <span onClick={() => setView('editorial')} className="cursor-pointer hover:text-zinc-500 transition-colors">EDITORIAL</span>
+            <span onClick={() => setView('editorial')} className="cursor-pointer hover:text-zinc-500 transition-colors">STORIES</span>
           </motion.div>
           <motion.div className="flex justify-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
             <span onClick={() => { setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">
