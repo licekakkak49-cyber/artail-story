@@ -378,7 +378,7 @@ const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime }) =
             {/* Top Image: Bar Space */}
             <div className="w-full aspect-[16/10] bg-[#F5F5F5] overflow-hidden relative group">
               <img 
-                src="https://images.unsplash.com/photo-1574096079513-d8259312b785?auto=format&fit=crop&w=1200&q=80" 
+                src="https://images.unsplash.com/photo-1572116469696-31de0f17cc34?auto=format&fit=crop&w=1200&q=80" 
                 alt="Artail Story Chelsea Space" 
                 className="w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:grayscale"
               />
