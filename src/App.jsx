@@ -368,23 +368,20 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
     <div className="fixed inset-0 bg-[#ffffff] z-[9999] overflow-y-auto" onScroll={handleScroll}>
       <div className="w-full flex flex-col pt-8 md:pt-12 px-2 md:px-4">
         <div ref={headerRef} className="px-0">
-          <h1 className="font-aura text-[10vw] md:text-[7vw] leading-[0.9] tracking-normal uppercase text-[#111111] mb-6 md:mb-10">
+          <h1 className="font-aura text-[10vw] md:text-[7vw] leading-[0.9] tracking-normal uppercase text-[#111111] mb-4 md:mb-6">
             ART &amp; OBJECTS
           </h1>
         </div>
         <div className={`sticky top-0 w-full z-50 py-4 transition-all duration-300 ${isSticky ? 'bg-white/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
-          <div className="grid grid-cols-3 items-center w-full gap-4">
-            <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] justify-start">
+          <div className="flex justify-between items-center w-full">
+            <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
               <span onClick={onClose} className="cursor-pointer hover:text-zinc-500 transition-colors">HOME</span>
               <span onClick={openGrid} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
               <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">STORIES</span>
               <span onClick={() => { onClose(); setView('visit'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
             </div>
-            <div className="flex justify-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
+            <div className="flex text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
               <span onClick={openBag} className="cursor-pointer hover:text-zinc-500 transition-colors">BAG ({cartCount})</span>
-            </div>
-            <div className="flex justify-end items-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
-              <span>NEW YORK, NY {nyTime}</span>
             </div>
           </div>
         </div>
@@ -394,7 +391,7 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
         ) : overlayView === 'detail' && selectedItem ? (
           <ProductDetail item={selectedItem} onNavigate={openDetail} onAcquire={handleAcquire} />
         ) : (
-          <div className="w-full mt-8 md:mt-12">
+          <div className="w-full mt-10 md:mt-14">
             <div className="flex justify-between items-center w-full mb-4 md:mb-6 text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] px-0">
               <span>OBJECTS ({catalogue.length})</span>
               <span>SHOW ALL</span>
@@ -434,28 +431,25 @@ const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime }) =
     <div className="fixed inset-0 bg-[#ffffff] z-[9999] overflow-y-auto" onScroll={handleScroll}>
       <div className="w-full flex flex-col pt-8 md:pt-12 px-2 md:px-4">
         <div ref={headerRef} className="px-0">
-          <h1 className="font-bebas text-[15vw] md:text-[12vw] leading-[0.8] tracking-normal uppercase text-[#111111] mb-6 md:mb-10">
+          <h1 className="font-aura text-[10vw] md:text-[7vw] leading-[0.9] tracking-normal uppercase text-[#111111] mb-4 md:mb-6">
             VISIT US
           </h1>
         </div>
         <div className={`sticky top-0 w-full z-50 py-4 transition-all duration-300 ${isSticky ? 'bg-white/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
-          <div className="grid grid-cols-3 items-center w-full gap-4">
-            <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] justify-start">
+          <div className="flex justify-between items-center w-full">
+            <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
               <span onClick={onClose} className="cursor-pointer hover:text-zinc-500 transition-colors">HOME</span>
               <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
               <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">STORIES</span>
               <span onClick={() => { onClose(); setView('visit'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
             </div>
-            <div className="flex justify-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
+            <div className="flex text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
               <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">BAG ({cartCount})</span>
-            </div>
-            <div className="flex justify-end items-center gap-6 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
-              <span>NEW YORK, NY {nyTime}</span>
             </div>
           </div>
         </div>
 
-        <div className="w-full mt-12 pb-24 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-start px-0">
+        <div className="w-full mt-10 md:mt-14 pb-24 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-start px-0">
           <div className="md:col-span-5 flex flex-col gap-12">
             <div className="flex gap-4 items-start">
               <span className="font-inter text-zinc-400 text-xs md:text-sm font-light pt-1.5">01</span>
@@ -555,65 +549,77 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime 
     <div className="fixed inset-0 bg-[#ffffff] z-[9999] overflow-y-auto" onScroll={handleScroll}>
       <div className="w-full flex flex-col pt-8 md:pt-12 px-2 md:px-4">
         <div ref={headerRef} className="px-0">
-          <h1 className="font-aura text-[10vw] md:text-[7vw] leading-[0.9] tracking-normal uppercase text-[#111111] mb-6 md:mb-10">
+          <h1 className="font-aura text-[10vw] md:text-[7vw] leading-[0.9] tracking-normal uppercase text-[#111111] mb-4 md:mb-6">
             EDITORIAL &amp; STORIES
           </h1>
         </div>
         <div className={`sticky top-0 w-full z-50 py-4 transition-all duration-300 ${isSticky ? 'bg-white/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
-          <div className="grid grid-cols-3 items-center w-full gap-4">
-            <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] justify-start">
+          <div className="flex justify-between items-center w-full">
+            <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
               <span onClick={onClose} className="cursor-pointer hover:text-zinc-500 transition-colors">HOME</span>
               <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
               <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">STORIES</span>
               <span onClick={() => { onClose(); setView('visit'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
             </div>
-            <div className="flex justify-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
+            <div className="flex text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
               <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">BAG ({cartCount})</span>
-            </div>
-            <div className="flex justify-end items-center gap-6 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
-              <span>NEW YORK, NY {nyTime}</span>
             </div>
           </div>
         </div>
 
-        <div className="w-full mt-8 md:mt-12 pb-24 flex flex-col gap-12 md:gap-16 px-0">
-          <div className="flex flex-col gap-4">
-            <h2 className="font-inter font-bold text-xs md:text-sm tracking-normal text-[#111111] uppercase">{settings.artist2_name || "TEDDY"}</h2>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-0 items-start">
-              {editorials.teddy.map((story, idx) => (
-                <div key={idx} className="flex flex-col group cursor-pointer">
-                  <div className="flex flex-col gap-1 mb-3 pr-3 md:pr-4">
-                    <span className="font-inter-tight text-[9px] md:text-[10px] font-bold text-zinc-400 uppercase tracking-widest">{story.category}</span>
-                    <h3 className="font-helvetica font-bold text-[11px] md:text-xs text-[#111111] leading-tight group-hover:text-[#d92323] transition-colors">
-                      {story.title}
-                    </h3>
-                  </div>
-                  <div className={`w-full ${story.aspect} bg-[#F5F5F5] overflow-hidden`}>
-                    <img src={story.src} alt={story.title} loading="lazy" decoding="async" className="w-full h-full object-cover transition-all duration-300 ease-in-out group-hover:grayscale" draggable="false" />
-                  </div>
-                </div>
-              ))}
+        <div className="w-full mt-10 md:mt-14 pb-32 flex flex-col gap-24 md:gap-32 px-6 md:px-12 lg:px-24">
+          
+          {/* Artist 1: Mimi (Image Right, Text Left) */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-center">
+            <div className="md:col-span-6 lg:col-span-6 flex flex-col justify-center order-2 md:order-1 px-4 md:px-0">
+              <h3 className="font-aura text-xl md:text-2xl lg:text-3xl text-[#1C1C1C] leading-[1.3] mb-8">
+                “I once believed I had lost my art. But behind the bar, I found it again. Today, I paint with flavor, balance, and emotion.
+                <br/><br/>
+                This pop-up is my canvas, and every drink tells the story of my return to myself.”
+              </h3>
+              <div className="font-mono text-[10px] md:text-xs text-[#9CA3AF] uppercase tracking-widest">
+                — {settings.artist1_name || "MIMI"}
+              </div>
+            </div>
+            <div className="md:col-span-6 lg:col-span-5 lg:col-start-8 relative order-1 md:order-2">
+              <motion.div 
+                whileHover={{ y: -8 }} 
+                transition={{ type: "spring", stiffness: 400, damping: 25, mass: 0.5 }}
+                className="w-full aspect-[4/5] md:aspect-[3/4] lg:aspect-[4/5] bg-[#F2F1EC] overflow-hidden"
+              >
+                <img src={settings.artist1_image || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=80"} alt={settings.artist1_name || "Mimi"} loading="lazy" decoding="async" className="w-full h-full object-cover" draggable="false" />
+              </motion.div>
             </div>
           </div>
 
-          <div className="flex flex-col gap-4">
-            <h2 className="font-inter font-bold text-xs md:text-sm tracking-normal text-[#111111] uppercase">{settings.artist1_name || "MIMI"}</h2>
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-0 items-start">
-              {editorials.mimi.map((story, idx) => (
-                <div key={idx} className="flex flex-col group cursor-pointer">
-                  <div className="flex flex-col gap-1 mb-3 pr-3 md:pr-4">
-                    <span className="font-inter-tight text-[9px] md:text-[10px] font-bold text-zinc-400 uppercase tracking-widest">{story.category}</span>
-                    <h3 className="font-helvetica font-bold text-[11px] md:text-xs text-[#111111] leading-tight group-hover:text-[#d92323] transition-colors">
-                      {story.title}
-                    </h3>
-                  </div>
-                  <div className={`w-full ${story.aspect} bg-[#F5F5F5] overflow-hidden`}>
-                    <img src={story.src} alt={story.title} loading="lazy" decoding="async" className="w-full h-full object-cover transition-all duration-300 ease-in-out group-hover:grayscale" draggable="false" />
-                  </div>
+          {/* Artist 2: Teddy (Image Left, Text Right) */}
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-center">
+            <div className="md:col-span-6 lg:col-span-5 relative order-1">
+              <motion.div 
+                whileHover={{ y: -8 }} 
+                transition={{ type: "spring", stiffness: 400, damping: 25, mass: 0.5 }}
+                className="w-full aspect-[4/5] md:aspect-[3/4] lg:aspect-[4/5] bg-[#F2F1EC] overflow-hidden"
+              >
+                <img src={settings.artist2_image || "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1200&q=80"} alt={settings.artist2_name || "Teddy"} loading="lazy" decoding="async" className="w-full h-full object-cover" draggable="false" />
+              </motion.div>
+            </div>
+            <div className="md:col-span-6 lg:col-span-6 lg:col-start-7 flex flex-col justify-center order-2 px-4 md:px-0">
+              <h3 className="font-aura text-xl md:text-2xl lg:text-3xl text-[#1C1C1C] leading-[1.3] mb-8">
+                “Cocktails became my world when I realized they weren't just my job; they're how I express who I am. 
+                <br/><br/>
+                After years behind the bar, I'm taking the next step: blending cocktails and art, and turning drinks into stories.”
+              </h3>
+              <div className="flex flex-col gap-3">
+                <div className="font-mono text-xs md:text-sm text-[#1C1C1C] uppercase tracking-widest font-bold">
+                  — {settings.artist2_name || "TEDDY"}
                 </div>
-              ))}
+                <div className="font-mono text-[9px] md:text-[10px] text-[#9CA3AF] uppercase tracking-widest leading-relaxed">
+                  Winner “Bar Star Awards”<br/>by New York Bartender Week 2025
+                </div>
+              </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>
@@ -668,20 +674,17 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
   return (
     <div ref={overlayRef} className="fixed inset-0 bg-[#F5F5F5] z-[9999] overflow-y-auto" onScroll={handleScroll}>
       <div className={`sticky top-0 w-full z-50 px-6 py-5 transition-all duration-300 ${isSticky ? 'bg-[#F5F5F5]/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
-        <div className="grid grid-cols-3 items-center w-full gap-4">
-          <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] justify-start">
+        <div className="flex justify-between items-center w-full">
+          <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
             <span onClick={onClose} className="cursor-pointer hover:text-zinc-500 transition-colors">COCKTAILS</span>
             <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
             <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">STORIES</span>
             <span onClick={() => { onClose(); setView('visit'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
           </div>
-          <div className="flex justify-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
+          <div className="flex text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
             <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">
               BAG ({cartCount})
             </span>
-          </div>
-          <div className="flex justify-end items-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
-            <span>NEW YORK, NY {nyTime}</span>
           </div>
         </div>
       </div>
@@ -767,8 +770,7 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
   );
 };
 
-const ContentStage = ({ rawProgress, onMenuClick }) => {
-  const { cocktails, settings } = useData();
+const ContentStage = ({ rawProgress }) => {
   const [isRevealed, setIsRevealed] = useState(false);
 
   useMotionValueEvent(rawProgress, "change", (latest) => {
@@ -777,73 +779,91 @@ const ContentStage = ({ rawProgress, onMenuClick }) => {
     }
   });
 
+  const menus = [
+    {
+      title: "Sunflowers",
+      image: "https://images.unsplash.com/photo-1579783901586-d88db74b4fe4?auto=format&fit=crop&w=1200&q=80",
+      caption: "Inspired by Vincent van Gogh's Sunflowers.\nA bright, warm, low-ABV cocktail with a refreshing,\neasy drinking character.",
+      reference: "Vincent van Gogh, Sunflowers, 1889\nVan Gogh Museum, Amsterdam\n© Van Gogh Museum",
+      quote: "This was my very first painting, from a time when I barely knew how people talked about art. I came from restaurant bartending, not galleries or textbooks.\n\nAfter discovering Van Gogh's Sunflowers and visiting an exhibition in New York inspired by his work, the feeling stayed with me. It quietly sparked the beginning of WAYD.\n\nThis drink follows the painting's direction. Bright in color, warm in energy, and full of life. Its refreshing, low-ABV character feels like a summer afternoon, easy, open, and gently layered.\n\nThis is not just a beverage. It is an experience of light, color, and emotion, and my interpretation of the WAYD style.",
+      artist: "— Teddy",
+      tags: "• Low ABV Light • Honest • Quietly expressive",
+      ingredients: "Chinola Passionfruit, Dry Vermouth, Licor 43, Benedictine, Verjus",
+      price: "$21"
+    },
+    {
+      title: "Yellow",
+      image: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&w=1200&q=80",
+      caption: "A cocktail that has undergone a milk-washing\nprocess. Inspired by Coldplay's song \"Yellow\".\nReferencing the album: Parachutes",
+      reference: "Inspired by Coldplay (Album Parachutes)\n- \"Yellow\" (official artwork)\nImage courtesy of Spotify",
+      quote: "People often ask about my favorite colors. Yellow has never been one of mine.\n\nYet, when it comes to music, Yellow is the song I return to most.\n\nI chose this drink to launch WAYD because it was with me long before any idea of a menu or a brand existed. During a time when life felt heavy and isolating, I was simply searching for a song that could offer solace. I paused at the title—Yellow—and as it began to play, tears flowed effortlessly.\n\nThe music didn't try to lift me up or promise answers; it simply existed, and that was enough.\n\nThis cocktail captures the essence of that night: soft, warm, and sincere.\n\nA gentle reminder that sometimes, light doesn't make a grand entrance.\n\nIf you've ever wondered who you're doing all of this for, welcome to Yellow...",
+      artist: "— Mimi",
+      tags: "• Warm • Luminous • Spirit-Forward",
+      ingredients: "Milk-Washed Nikka days Whiskey, Sake, Honey Pear Tea, Mango, Maple Syrup",
+      price: "$23"
+    }
+  ];
+
   return (
-    <div className="w-full h-screen bg-[#F5F5F5] flex flex-col justify-center items-center relative overflow-hidden select-none py-20">
+    <motion.div 
+      initial={{ opacity: 0 }}
+      animate={{ opacity: isRevealed ? 1 : 0 }}
+      transition={{ duration: 1 }}
+      className="w-full h-full bg-[#111111] overflow-y-auto overflow-x-hidden text-[#EAEAEA] flex flex-col pointer-events-auto"
+    >
+      <div className="w-full h-24 md:h-32 shrink-0"></div>
       
-      <div className="w-full flex flex-col items-center justify-center mt-2 md:mt-4 mb-6 md:mb-8 px-4 relative z-10">
-        <div className="relative inline-block text-center">
-          <motion.div 
-            initial={{ scale: 0, opacity: 0 }}
-            animate={{ scale: isRevealed ? 1 : 0, opacity: isRevealed ? 1 : 0 }}
-            transition={{ duration: 0.6, delay: 0.5, ease: "easeOut" }}
-            className="absolute -left-2 md:-left-4 top-0 md:-top-1 w-8 h-8 md:w-12 md:h-12 bg-[#d92323] rounded-full -z-10 transform-gpu will-change-transform"
-          ></motion.div>
-          <motion.h3 
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: isRevealed ? 1 : 0, y: isRevealed ? 0 : 30 }}
-            transition={{ duration: 0.8, delay: 0.7, ease: "easeOut" }}
-            className="font-inter font-normal text-[6vw] sm:text-[5vw] md:text-[3vw] lg:text-[2.5vw] text-[#111111] leading-[1.1] tracking-tight uppercase transform-gpu will-change-[opacity,transform]"
-          >
-            {(settings.quoteMain || '').replace(/\\n/g, '\n').split('\n').map((line, i) => (
-              <React.Fragment key={i}>
-                {line}
-                {i !== (settings.quoteMain || '').replace(/\\n/g, '\n').split('\n').length - 1 && <br />}
-              </React.Fragment>
-            ))}
-          </motion.h3>
-        </div>
-      </div>
+      {menus.map((menu, i) => (
+        <div key={i} className="w-full flex flex-col md:flex-row min-h-[100vh] border-b border-[#333333] last:border-0 relative bg-[#111111]">
+          
+          {/* Left Column */}
+          <div className="w-full md:w-[45%] flex flex-col items-center justify-start pt-16 md:pt-24 pb-16 px-8 md:px-16 border-b md:border-b-0 md:border-r border-[#333333] relative">
+            <h2 className="font-aura font-bold text-5xl md:text-6xl lg:text-7xl text-white mb-12 tracking-tight capitalize">
+              {menu.title}
+            </h2>
+            <div className="w-full max-w-sm aspect-[4/5] bg-[#1C1C1C] overflow-hidden mb-12 shadow-2xl">
+              <img src={menu.image} alt={menu.title} className="w-full h-full object-cover grayscale opacity-90" />
+            </div>
+            <p className="font-helvetica font-medium text-[11px] md:text-xs text-center text-[#EAEAEA] max-w-sm leading-[1.6] whitespace-pre-wrap">
+              {menu.caption}
+            </p>
+            <div className="w-full absolute bottom-6 right-6 md:bottom-8 md:right-8 text-[8px] md:text-[9px] text-zinc-500 text-right font-mono uppercase whitespace-pre-wrap pointer-events-none">
+              {menu.reference}
+            </div>
+          </div>
 
-      <div className="flex-1 flex items-center w-full overflow-hidden z-10">
-        <div className="flex w-max animate-marquee">
-          <div className="flex items-start gap-3 pr-3">
-            {cocktails.map((item, i) => (
-              <div key={`set1-${i}`} onClick={() => onMenuClick(item)} className="w-[28vw] sm:w-[20vw] md:w-[16vw] lg:w-[12vw] flex flex-col flex-shrink-0 cursor-pointer group">
-                <div className="relative w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden mb-3 transform-gpu">
-                  <img src={item.src} alt={item.name} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover grayscale transition-opacity duration-700 ease-in-out opacity-100 group-hover:opacity-0 transform-gpu will-change-[opacity]" draggable="false" />
-                  <img src={item.hoverSrc} alt={`${item.name} cocktail`} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out opacity-0 group-hover:opacity-100 transform-gpu will-change-[opacity]" draggable="false" />
-                </div>
-                <div className="flex justify-between items-baseline w-full text-[10px] md:text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-500 mt-1">
-                  <span className="font-inter-tight font-bold text-[#111111]">“{item.name}”</span>
-                  <span className="font-inter-tight font-normal text-zinc-400">{item.artist}</span>
+          {/* Right Column */}
+          <div className="w-full md:w-[55%] flex flex-col h-full min-h-[50vh] md:min-h-screen relative">
+            
+            {/* Quote Area */}
+            <div className="flex-1 flex flex-col justify-center items-center p-8 md:p-16 lg:p-24">
+              <div className="font-helvetica font-medium text-xs md:text-sm lg:text-[15px] leading-[1.8] text-[#EAEAEA] whitespace-pre-wrap max-w-md w-full">
+                {menu.quote.split('\n\n').map((paragraph, idx) => (
+                  <p key={idx} className="mb-6">"{paragraph}"</p>
+                ))}
+                <div className="text-right font-helvetica font-bold mt-8 text-white">
+                  {menu.artist}
                 </div>
               </div>
-            ))}
-          </div>
-          <div className="flex items-start gap-3 pr-3">
-            {cocktails.map((item, i) => (
-              <div key={`set2-${i}`} onClick={() => onMenuClick(item)} className="w-[28vw] sm:w-[20vw] md:w-[16vw] lg:w-[12vw] flex flex-col flex-shrink-0 cursor-pointer group" style={{ contain: 'layout paint' }}>
-                <div className="relative w-full aspect-[3/4] bg-[#EAEAEA] overflow-hidden mb-3 transform-gpu">
-                  <img src={item.src} alt={item.name} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover grayscale transition-opacity duration-700 ease-in-out opacity-100 group-hover:opacity-0 transform-gpu will-change-[opacity]" draggable="false" />
-                  <img src={item.hoverSrc} alt={`${item.name} cocktail`} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-in-out opacity-0 group-hover:opacity-100 transform-gpu will-change-[opacity]" draggable="false" />
-                </div>
-                <div className="flex justify-between items-baseline w-full text-[10px] md:text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-500 mt-1">
-                  <span className="font-inter-tight font-bold text-[#111111]">“{item.name}”</span>
-                  <span className="font-inter-tight font-normal text-zinc-400">{item.artist}</span>
-                </div>
+            </div>
+
+            {/* Bottom Metadata Panel */}
+            <div className="w-full bg-[#1C1C1C] flex flex-col items-center justify-center py-10 px-8 border-t border-[#333333] mt-auto">
+              <div className="font-helvetica font-bold text-[10px] md:text-xs text-white mb-2 tracking-wide text-center">
+                {menu.tags}
               </div>
-            ))}
+              <div className="font-helvetica text-[10px] md:text-xs text-zinc-400 text-center max-w-sm mb-2">
+                {menu.ingredients}
+              </div>
+              <div className="font-mono text-xs md:text-sm text-white font-bold tracking-widest text-center mt-2">
+                {menu.price}
+              </div>
+            </div>
+            
           </div>
         </div>
-      </div>
-
-      <div className="absolute bottom-4 md:bottom-6 left-4 md:left-6 font-inter-tight font-bold text-[10px] md:text-xs uppercase tracking-widest text-[#111111] cursor-pointer z-20 hover:text-zinc-500 transition-colors">
-        Previous
-      </div>
-      <div className="absolute bottom-4 md:bottom-6 right-4 md:right-6 font-inter-tight font-bold text-[10px] md:text-xs uppercase tracking-widest text-[#111111] cursor-pointer z-20 hover:text-zinc-500 transition-colors">
-        Next
-      </div>
-    </div>
+      ))}
+    </motion.div>
   );
 };
 
@@ -1222,19 +1242,16 @@ const FrontendApp = ({ onSecretClick }) => {
             transform: "translateZ(0)",
             willChange: "transform, opacity, background-color, backdrop-filter"
           }} 
-          className="fixed top-0 left-0 w-full z-[999] px-6 py-5 grid grid-cols-3 items-center"
+          className="fixed top-0 left-0 w-full z-[999] px-6 py-5 flex justify-between items-center"
         >
-          <motion.div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] justify-start">
+          <motion.div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
             <span onClick={scrollToMenu} className="cursor-pointer hover:text-zinc-500 transition-colors">COCKTAILS</span>
             <span onClick={() => { setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
             <span onClick={() => setView('editorial')} className="cursor-pointer hover:text-zinc-500 transition-colors">STORIES</span>
             <span onClick={() => setView('visit')} className="cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
           </motion.div>
-          <motion.div className="flex justify-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
+          <motion.div className="flex text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
             <span onClick={() => { setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">BAG ({cartCount})</span>
-          </motion.div>
-          <motion.div className="flex justify-end items-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
-            <span>NEW YORK, NY {nyTime}</span>
           </motion.div>
         </motion.nav>
       )}
