@@ -867,98 +867,93 @@ const ContentStage = ({ rawProgress }) => {
   );
 };
 
-const ArtistStage = ({ setView }) => {
-  const { settings } = useData();
+const HomeCatalogueStage = ({ setView, setOverlayView }) => {
+  const { catalogue } = useData();
+  const displayItems = catalogue.slice(0, 4);
+
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.15,
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { 
+      opacity: 1, 
+      y: 0,
+      transition: { duration: 0.8, ease: [0.21, 0.47, 0.32, 0.98] } 
+    }
+  };
+
+  const imageVariants = {
+    hidden: { scale: 1.15 },
+    visible: { 
+      scale: 1, 
+      transition: { duration: 1.2, ease: [0.21, 0.47, 0.32, 0.98] }
+    }
+  };
 
   return (
-    <div className="w-full h-[100vh] md:h-[120vh] bg-[#1c1c1e] relative overflow-hidden">
-      <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-        className="absolute top-12 md:top-16 right-6 md:right-12 lg:right-48 w-[35vw] md:w-[22vw] lg:w-[16vw] text-left z-20"
-      >
-        <p className="text-[#f5f5f5] font-inter-tight text-[11px] md:text-[13px] tracking-[0.05em] font-normal uppercase mb-1">WINNER "BARSTAR AWARDS"</p>
-        <p className="text-zinc-400 font-inter-tight text-[11px] md:text-[13px] tracking-[0.05em] uppercase font-normal">by NEW YORK BARTENDER WEEK 2025</p>
-      </motion.div>
-
-      <div className="absolute top-4 md:top-6 left-6 md:left-12 lg:left-48 w-[35vw] md:w-[22vw] lg:w-[16vw] flex flex-col group z-20">
-        <motion.div 
-          initial={{ opacity: 0, y: 100 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="w-full aspect-[2/3] bg-[#2a2a2c] overflow-hidden mb-3"
-        >
-          <img src={settings.artist1_image || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80"} alt={settings.artist1_name || "Mimi"} loading="lazy" decoding="async" className="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-105 will-change-transform" draggable="false" />
-        </motion.div>
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5, delay: 0.8, ease: "easeOut" }}
-          className="flex justify-between items-baseline w-full"
-        >
-          <span className="text-[#f5f5f5] font-inter-tight text-sm md:text-base font-normal">{settings.artist1_name || "Mimi"}</span>
-          <span className="text-[#f5f5f5] font-inter-tight text-sm md:text-base font-normal">7 Signature</span>
-        </motion.div>
-      </div>
-
-      <div className="absolute top-[20%] md:top-[25%] right-6 md:right-12 lg:right-48 w-[35vw] md:w-[22vw] lg:w-[16vw] flex flex-col group z-20">
-        <motion.div 
-          initial={{ opacity: 0, y: -100 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="w-full aspect-[2/3] bg-[#2a2a2c] overflow-hidden mb-3"
-        >
-          <img src={settings.artist2_image || "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80"} alt={settings.artist2_name || "Teddy"} loading="lazy" decoding="async" className="w-full h-full object-cover grayscale transition-transform duration-700 group-hover:scale-105 will-change-transform" draggable="false" />
-        </motion.div>
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.5, delay: 0.8, ease: "easeOut" }}
-          className="flex justify-between items-baseline w-full"
-        >
-          <span className="text-[#f5f5f5] font-inter-tight text-sm md:text-base font-normal">{settings.artist2_name || "Teddy"}</span>
-          <span className="text-[#f5f5f5] font-inter-tight text-sm md:text-base font-normal">7 Signature</span>
-        </motion.div>
-      </div>
-
-      <div className="absolute bottom-8 md:bottom-12 left-6 md:left-12 lg:left-48 right-6 md:right-12 lg:right-48 flex flex-col md:flex-row justify-between items-start md:items-end z-10 pointer-events-none">
-        <div className="flex items-baseline gap-4 md:gap-6">
+    <div className="w-full bg-[#F5F5F5] py-24 md:py-32 lg:py-40 flex flex-col items-center px-6 md:px-12 lg:px-24 relative">
+      <div className="w-full max-w-[1400px] flex flex-col relative z-10">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-16 gap-6 md:gap-0">
           <motion.h2 
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-[#f5f5f5] font-bebas text-[28vw] md:text-[14vw] lg:text-[8.5vw] leading-[0.75] tracking-normal m-0 p-0"
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 1, ease: [0.21, 0.47, 0.32, 0.98] }}
+            className="text-[#111111] font-helvetica text-4xl md:text-5xl lg:text-6xl tracking-tight uppercase"
           >
-            MEET
+            OBJECTS
           </motion.h2>
-          <motion.span 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="font-inter-tight text-xs md:text-sm tracking-widest uppercase mb-[1vw] md:mb-[0.5vw] text-[#f5f5f5]"
+          <motion.div
+             initial={{ opacity: 0, y: 20 }}
+             whileInView={{ opacity: 1, y: 0 }}
+             viewport={{ once: true, margin: "-100px" }}
+             transition={{ duration: 0.8, delay: 0.3, ease: [0.21, 0.47, 0.32, 0.98] }}
           >
-            <span onClick={() => setView('editorial')} className="cursor-pointer pointer-events-auto hover:text-[#d92323] transition-colors">STORIES</span> 
-          </motion.span>
+            <button 
+              onClick={() => { setView('catalogue'); setOverlayView('grid'); }}
+              className="text-[#111111] border border-[#111111] px-8 py-3 rounded-full font-inter-tight text-xs md:text-sm uppercase tracking-widest hover:bg-[#111111] hover:text-[#F5F5F5] transition-colors"
+            >
+              View All Objects
+            </button>
+          </motion.div>
         </div>
-        <motion.h2 
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-          className="text-[#f5f5f5] font-bebas text-[28vw] md:text-[14vw] lg:text-[8.5vw] leading-[0.75] tracking-normal m-0 p-0"
+        
+        <motion.div 
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 lg:gap-8 w-full"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
         >
-          ARTISTS(OUR)
-        </motion.h2>
+          {displayItems.map((item, i) => (
+            <motion.div 
+              key={i}
+              variants={itemVariants}
+              className="flex flex-col group cursor-pointer"
+              onClick={() => { setView('catalogue'); setOverlayView('grid'); }}
+            >
+              <div className="w-full aspect-[4/5] bg-[#EAEAEA] mb-4 overflow-hidden relative">
+                <motion.img 
+                  variants={imageVariants}
+                  src={item.src} 
+                  alt={item.name} 
+                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:grayscale origin-center" 
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300 pointer-events-none"></div>
+              </div>
+              <h3 className="font-helvetica font-bold text-xs md:text-sm text-[#111111] uppercase tracking-wide truncate">{item.name}</h3>
+              <p className="font-mono text-xs text-zinc-500 mt-1">${item.price}</p>
+            </motion.div>
+          ))}
+        </motion.div>
       </div>
-
     </div>
   );
 };
@@ -1349,7 +1344,7 @@ const FrontendApp = ({ onSecretClick }) => {
           </div>
 
           <div className="w-full flex flex-col relative z-20 bg-[#F5F5F5] pointer-events-auto">
-            <ArtistStage setView={setView} />
+            <HomeCatalogueStage setView={setView} setOverlayView={setOverlayView} />
             <JourneyStage />
             <FooterStage onSecretClick={onSecretClick} />
           </div>
