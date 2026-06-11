@@ -368,7 +368,7 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
     <div className="fixed inset-0 bg-[#ffffff] z-[9999] overflow-y-auto" onScroll={handleScroll}>
       <div className="w-full flex flex-col pt-8 md:pt-12 px-2 md:px-4">
         <div ref={headerRef} className="px-0">
-          <h1 className="font-bebas text-[15vw] md:text-[12vw] leading-[0.8] tracking-normal uppercase text-[#111111] mb-6 md:mb-10">
+          <h1 className="font-aura text-[10vw] md:text-[7vw] leading-[0.9] tracking-normal uppercase text-[#111111] mb-6 md:mb-10">
             ART &amp; OBJECTS
           </h1>
         </div>
@@ -555,7 +555,7 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime 
     <div className="fixed inset-0 bg-[#ffffff] z-[9999] overflow-y-auto" onScroll={handleScroll}>
       <div className="w-full flex flex-col pt-8 md:pt-12 px-2 md:px-4">
         <div ref={headerRef} className="px-0">
-          <h1 className="font-bebas text-[15vw] md:text-[12vw] leading-[0.8] tracking-normal uppercase text-[#111111] mb-6 md:mb-10">
+          <h1 className="font-aura text-[10vw] md:text-[7vw] leading-[0.9] tracking-normal uppercase text-[#111111] mb-6 md:mb-10">
             EDITORIAL &amp; STORIES
           </h1>
         </div>

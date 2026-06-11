@@ -1,5 +1,18 @@
 /* นำเข้า Tailwind v4 */
 @import "tailwindcss";
+
+@font-face {
+  font-family: 'Aura Regular';
+  src: url('./assets/fonts/Aura Regular.ttf') format('truetype'),
+       url('./assets/fonts/Aura Regular.tff') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.font-aura {
+  font-family: 'Aura Regular', 'Aura', sans-serif;
+}
+
 /* นำเข้า Font */
 @import url('https://api.fontshare.com/v2/css?f[]=switzer@700&display=swap');
 
