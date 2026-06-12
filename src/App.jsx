@@ -82,10 +82,14 @@ export const DataProvider = ({ children }) => {
   const [timeline, setTimeline] = useState(journeyTimelineData);
   const [settings, setSettings] = useState(siteSettingsData);
   const [syncStatus, setSyncStatus] = useState(supabaseUrl === 'YOUR_SUPABASE_URL' || !supabaseUrl.startsWith('http') ? 'Mock Mode' : 'Synced');
+  const [dbLoading, setDbLoading] = useState(true);
 
   useEffect(() => {
     const fetchSupabaseData = async () => {
-      if (supabaseUrl === 'YOUR_SUPABASE_URL' || !supabase) return; 
+      if (supabaseUrl === 'YOUR_SUPABASE_URL' || !supabase) {
+        setDbLoading(false);
+        return; 
+      }
       try {
         const [
           { data: cData },
@@ -146,6 +150,8 @@ export const DataProvider = ({ children }) => {
 
       } catch (error) {
         console.error("Error fetching data:", error);
+      } finally {
+        setDbLoading(false);
       }
     };
     fetchSupabaseData();
@@ -157,8 +163,9 @@ export const DataProvider = ({ children }) => {
     catalogue, setCatalogue, 
     timeline, setTimeline, 
     settings, setSettings, 
-    syncStatus, setSyncStatus
-  }), [cocktails, editorials, catalogue, timeline, settings, syncStatus]);
+    syncStatus, setSyncStatus,
+    dbLoading
+  }), [cocktails, editorials, catalogue, timeline, settings, syncStatus, dbLoading]);
 
   return (
     <DataContext.Provider value={contextValue}>
@@ -868,7 +875,7 @@ const ContentStage = ({ rawProgress }) => {
 };
 
 const HomeCatalogueStage = ({ setView, setOverlayView }) => {
-  const { catalogue } = useData();
+  const { catalogue, dbLoading } = useData();
   const displayItems = catalogue.slice(0, 4);
 
   const containerVariants = {
@@ -932,26 +939,39 @@ const HomeCatalogueStage = ({ setView, setOverlayView }) => {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {displayItems.map((item, i) => (
-            <motion.div 
-              key={i}
-              variants={itemVariants}
-              className="flex flex-col group cursor-pointer"
-              onClick={() => { setView('catalogue'); setOverlayView('grid'); }}
-            >
-              <div className="w-full aspect-[4/5] bg-[#EAEAEA] mb-4 overflow-hidden relative">
-                <motion.img 
-                  variants={imageVariants}
-                  src={item.src} 
-                  alt={item.name} 
-                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:grayscale origin-center" 
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300 pointer-events-none"></div>
+          {dbLoading ? (
+            Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="flex flex-col animate-pulse">
+                <div className="w-full aspect-[4/5] bg-zinc-200/50 border border-dashed border-zinc-400/40 mb-4 flex flex-col justify-center items-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-zinc-300/20 to-transparent -translate-x-full animate-shimmer"></div>
+                  <span className="font-helvetica text-[9px] text-zinc-500 uppercase tracking-widest font-bold z-10">[ LOADING OBJECT ]</span>
+                </div>
+                <div className="h-4 bg-zinc-300/40 w-3/4 mb-2"></div>
+                <div className="h-3 bg-zinc-300/30 w-1/4"></div>
               </div>
-              <h3 className="font-helvetica font-bold text-xs md:text-sm text-[#111111] uppercase tracking-wide truncate">{item.name}</h3>
-              <p className="font-mono text-xs text-zinc-500 mt-1">${item.price}</p>
-            </motion.div>
-          ))}
+            ))
+          ) : (
+            displayItems.map((item, i) => (
+              <motion.div 
+                key={i}
+                variants={itemVariants}
+                className="flex flex-col group cursor-pointer"
+                onClick={() => { setView('catalogue'); setOverlayView('grid'); }}
+              >
+                <div className="w-full aspect-[4/5] bg-[#EAEAEA] mb-4 overflow-hidden relative">
+                  <motion.img 
+                    variants={imageVariants}
+                    src={item.src} 
+                    alt={item.name} 
+                    className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:grayscale origin-center" 
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300 pointer-events-none"></div>
+                </div>
+                <h3 className="font-helvetica font-bold text-xs md:text-sm text-[#111111] uppercase tracking-wide truncate">{item.name}</h3>
+                <p className="font-mono text-xs text-zinc-500 mt-1">${item.price}</p>
+              </motion.div>
+            ))
+          )}
         </motion.div>
       </div>
     </div>
@@ -1058,6 +1078,113 @@ const FooterStage = ({ onSecretClick }) => {
   );
 };
 
+const HeroLandingStage = ({ setView, setOverlayView }) => {
+  return (
+    <div className="w-full h-screen bg-[#111111] relative overflow-hidden flex">
+      {/* Grid Lines */}
+      <div className="absolute inset-0 pointer-events-none flex">
+         <div className="w-[25%] h-full border-r border-white/10"></div>
+         <div className="w-[25%] h-full border-r border-white/10"></div>
+         <div className="w-[25%] h-full border-r border-white/10"></div>
+         <div className="w-[25%] h-full"></div>
+         <div className="absolute w-full h-[1px] bg-white/10 top-[25%]"></div>
+         <div className="absolute w-full h-[1px] bg-white/10 top-[70%]"></div>
+      </div>
+
+      {/* Scattered Nav Items (Phase 0) */}
+      <div className="absolute top-[12%] left-[8%] flex gap-16 md:gap-24 z-20">
+          <span onClick={() => { setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
+          <span onClick={() => setView('editorial')} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">ABOUT</span>
+          <span onClick={() => setView('visit')} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
+      </div>
+
+      <div className="absolute top-[10.5%] left-[62%] -translate-x-1/2 z-20 pointer-events-none flex justify-center items-center">
+          {/* Logo icon (D) */}
+          <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/D.svg" alt="logo" className="h-16 object-contain brightness-0 invert" />
+      </div>
+
+      {/* Main Content Areas */}
+      <div className="flex-1 relative z-10 flex flex-col justify-between pt-[24vh]">
+        <div className="w-full flex items-center justify-center relative">
+            <div className="flex items-center justify-center gap-4">
+               <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/W.svg" alt="W" className="h-[30vh] object-contain brightness-0 invert" />
+               <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/A.svg" alt="A" className="h-[30vh] object-contain brightness-0 invert" />
+               <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/Y.svg" alt="Y" className="h-[30vh] object-contain brightness-0 invert -ml-4 md:-ml-8" />
+               <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/D.svg" alt="D" className="h-[48vh] object-contain brightness-0 invert" />
+               <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/question.svg" alt="?" className="h-[30vh] object-contain brightness-0 invert" />
+            </div>
+        </div>
+
+        {/* Bottom texts */}
+        <div className="absolute bottom-12 left-0 w-full flex items-start">
+            <div className="flex-1 pl-[8%] flex flex-col items-start">
+                <p className="text-[9px] text-zinc-500 font-inter-tight tracking-[0.2em] uppercase leading-none">Lost in time</p>
+                <img 
+                    src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" 
+                    alt="WAYD? WAYD? WAYD?" 
+                    className="h-12 mt-2 object-contain"
+                    style={{ filter: 'brightness(0) saturate(100%) invert(62%) sepia(21%) saturate(1637%) hue-rotate(334deg) brightness(85%) contrast(85%)' }}
+                />
+            </div>
+            
+            <div className="flex-1 flex items-start justify-center gap-6">
+                <div className="flex flex-col gap-2">
+                    <span className="text-[9px] text-zinc-500 font-inter-tight tracking-[0.2em] uppercase leading-none">The bar becomes</span>
+                    <span className="text-[9px] text-zinc-500 font-inter-tight tracking-[0.2em] uppercase leading-none">The drinks are &nbsp;&nbsp;the work</span>
+                </div>
+                <div className="w-[80px] h-[1px] bg-zinc-700 mt-1"></div>
+                <span className="text-[9px] text-zinc-500 font-inter-tight tracking-[0.2em] uppercase leading-none">A (Canvas)</span>
+            </div>
+
+            <div className="flex-1"></div>
+        </div>
+      </div>
+
+      {/* Right Art Panel */}
+      <div className="w-[25%] h-full relative z-10 flex flex-col items-end justify-between py-8 pr-[2.5vw] pl-6">
+        
+        {/* Accessory line and question mark on the border */}
+        <div className="absolute left-[-6px] top-[20%] -translate-x-1/2 -translate-y-1/2 w-[40px] h-[120px]">
+            {/* The dash: stays at the exact same position */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[3px] h-[60px] bg-[#F5F5F5]"></div>
+            {/* The question mark: moved closer to the dash (top-[70px]) */}
+            <img 
+                src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/question.svg" 
+                alt="?" 
+                className="absolute top-[70px] left-1/2 -translate-x-1/2 h-10 object-contain brightness-0 invert rotate-90" 
+            />
+        </div>
+        
+        {/* Top: BAG/01. */}
+        <div className="z-20 w-full text-right">
+            <span onClick={() => { setView('catalogue'); setOverlayView('bag'); }} className="text-[#F5F5F5] text-2xl md:text-3xl font-inter-tight font-normal uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors leading-none">BAG/01.</span>
+        </div>
+
+        {/* Art Image Container (flex-1 to take up maximum space) */}
+        <div className="relative w-full flex-1 overflow-hidden my-6">
+            <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/artlanding.webp" alt="Art" className="absolute inset-0 w-full h-full object-cover" />
+            
+            {/* Texts over art panel */}
+            <div className="absolute top-10 right-6 text-right">
+                <p className="text-[#F5F5F5] text-sm font-inter-tight tracking-[0.2em] uppercase">ART | DRINK</p>
+            </div>
+            <div className="absolute top-[28%] right-6 text-right">
+                <p className="text-[#F5F5F5] text-sm font-inter-tight tracking-[0.2em] uppercase">WAYD?</p>
+            </div>
+            <div className="absolute top-[55%] right-6 text-right">
+                <p className="text-[#F5F5F5] text-sm font-inter-tight tracking-[0.1em] leading-relaxed">47 Mortimer Street<br/>Fitzrovia - London<br/>W1T 3TE</p>
+            </div>
+        </div>
+
+        {/* Bottom: Cocktails Button */}
+        <button className="bg-[#C28256] text-[#111111] px-8 py-3 text-xs md:text-sm font-inter-tight font-bold tracking-[0.2em] uppercase hover:bg-[#F5F5F5] transition-colors self-end">
+            [ Cocktail ]
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const FrontendApp = ({ onSecretClick }) => {
   const { settings, cocktails } = useData(); 
   const scrollSequenceRef = useRef(null);
@@ -1111,7 +1238,7 @@ const FrontendApp = ({ onSecretClick }) => {
   const [overlayView, setOverlayView] = useState('grid');
   const [cartItems, setCartItems] = useState([]);
   const [nyTime, setNyTime] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState(null);
 
   useEffect(() => {
@@ -1171,32 +1298,22 @@ const FrontendApp = ({ onSecretClick }) => {
 
   const cartCount = cartItems.reduce((sum, item) => sum + item.qty, 0);
 
-  const navY = useTransform(scrollYProgress, [0, 0.01, 0.02, 0.86, 0.88], ["0%", "0%", "-100%", "-100%", "0%"]);
-  const navOpacity = useTransform(scrollYProgress, [0, 0.01, 0.02, 0.86, 0.88], [1, 1, 0, 0, 1]);
-  const navBg = useTransform(scrollYProgress, [0.90, 0.91], ["rgba(245, 245, 245, 0)", "rgba(245, 245, 245, 0.85)"]);
-  const navShadow = useTransform(scrollYProgress, [0.90, 0.91], ["0 4px 30px rgba(0,0,0,0)", "0 4px 30px rgba(0,0,0,0.03)"]);
-  const navBackdrop = useTransform(scrollYProgress, [0.90, 0.91], ["blur(0px)", "blur(12px)"]);
-  const navPointerEvents = useTransform(scrollYProgress, v => (v >= 0.02 && v < 0.86) ? "none" : "auto");
+  const navY = useTransform(scrollYProgress, [0, 0.05, 0.86, 0.88], ["0%", "0%", "-100%", "0%"]);
+  const navOpacity = useTransform(scrollYProgress, [0, 0.05, 0.86, 0.88], [0, 0, 0, 1]);
+  const navBg = useTransform(scrollYProgress, [0.86, 0.88], ["rgba(17, 17, 17, 0)", "rgba(17, 17, 17, 0.85)"]);
+  const navShadow = useTransform(scrollYProgress, [0.86, 0.88], ["0 4px 30px rgba(0,0,0,0)", "0 4px 30px rgba(0,0,0,0.5)"]);
+  const navBackdrop = useTransform(scrollYProgress, [0.86, 0.88], ["blur(0px)", "blur(12px)"]);
+  const navPointerEvents = useTransform(scrollYProgress, v => (v < 0.86) ? "none" : "auto");
+  
+  const navPt = useTransform(scrollYProgress, [0, 0.01], ["12vh", "20px"]);
+  const navPl = useTransform(scrollYProgress, [0, 0.01], ["8vw", "24px"]);
+  const navPr = useTransform(scrollYProgress, [0, 0.01], ["2.5vw", "24px"]);
 
   return (
-    <div className="bg-[#F5F5F5] text-[#111111] selection:bg-[#111111] selection:text-[#F5F5F5] relative">
+    <div className="bg-[#111111] text-[#F5F5F5] selection:bg-[#F5F5F5] selection:text-[#111111] relative">
+      <HeroLandingStage setView={setView} setOverlayView={setOverlayView} />
       
-      {/* --- Preloader --- */}
-      <motion.div 
-        initial={{ opacity: 1 }}
-        animate={{ opacity: isLoading ? 1 : 0, pointerEvents: isLoading ? 'auto' : 'none' }}
-        transition={{ duration: 0.8, ease: "easeInOut" }}
-        className="fixed inset-0 z-[99999] bg-[#F5F5F5] flex justify-center items-center"
-      >
-        <motion.img 
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-          src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/logo3.svg" 
-          alt="WAYD Logo" 
-          className="h-20 sm:h-24 md:h-32 lg:h-40" 
-        />
-      </motion.div>
+      {/* --- Preloader removed in favor of Skeleton loading --- */}
 
       <style dangerouslySetInnerHTML={{__html: `
         @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap');
@@ -1217,6 +1334,12 @@ const FrontendApp = ({ onSecretClick }) => {
           backface-visibility: hidden;
           transform-style: preserve-3d;
         }
+        @keyframes shimmer {
+          100% { transform: translateX(100%); }
+        }
+        .animate-shimmer {
+          animation: shimmer 1.5s infinite;
+        }
       `}} />
 
       {view === 'catalogue' && <CatalogueOverlay onClose={() => setView('home')} cartItems={cartItems} setCartItems={setCartItems} overlayView={overlayView} setOverlayView={setOverlayView} nyTime={nyTime} setView={setView} />}
@@ -1234,19 +1357,27 @@ const FrontendApp = ({ onSecretClick }) => {
             backdropFilter: navBackdrop, 
             WebkitBackdropFilter: navBackdrop, 
             pointerEvents: navPointerEvents,
+            paddingTop: navPt,
+            paddingBottom: "20px",
+            paddingLeft: navPl,
+            paddingRight: navPr,
             transform: "translateZ(0)",
-            willChange: "transform, opacity, background-color, backdrop-filter"
+            willChange: "transform, opacity, background-color, backdrop-filter, padding"
           }} 
-          className="fixed top-0 left-0 w-full z-[999] px-6 py-5 flex justify-between items-center"
+          className="fixed top-0 left-0 w-full z-[999] flex justify-between items-start"
         >
-          <motion.div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
-            <span onClick={scrollToMenu} className="cursor-pointer hover:text-zinc-500 transition-colors">COCKTAILS</span>
+          <motion.div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#F5F5F5]">
             <span onClick={() => { setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
-            <span onClick={() => setView('editorial')} className="cursor-pointer hover:text-zinc-500 transition-colors">STORIES</span>
+            <span onClick={() => setView('editorial')} className="cursor-pointer hover:text-zinc-500 transition-colors">ABOUT</span>
             <span onClick={() => setView('visit')} className="cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
           </motion.div>
-          <motion.div className="flex text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
-            <span onClick={() => { setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">BAG ({cartCount})</span>
+          
+          <motion.div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center pointer-events-none">
+             <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/D.svg" alt="logo" className="h-6 sm:h-7 object-contain brightness-0 invert" />
+          </motion.div>
+
+          <motion.div className="flex text-2xl sm:text-3xl md:text-4xl font-inter-tight font-normal uppercase tracking-widest text-[#F5F5F5] leading-none">
+            <span onClick={() => { setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">BAG/0{cartCount > 0 ? cartCount : '1'}.</span>
           </motion.div>
         </motion.nav>
       )}
@@ -2616,11 +2747,11 @@ export default function App() {
 
   if (isDbConnecting) {
     return (
-      <div className="fixed inset-0 bg-[#F5F5F5] z-[99999] flex flex-col justify-center items-center">
+      <div className="fixed inset-0 bg-[#111111] z-[99999] flex flex-col justify-center items-center">
          <motion.div 
            animate={{ opacity: [0.5, 1, 0.5] }} 
            transition={{ repeat: Infinity, duration: 1.5 }}
-           className="font-inter-tight text-[10px] md:text-xs font-bold uppercase tracking-widest text-[#111111]"
+           className="font-inter-tight text-[10px] md:text-xs font-bold uppercase tracking-widest text-[#F5F5F5]"
          >
            Connecting to Secure Database...
          </motion.div>
