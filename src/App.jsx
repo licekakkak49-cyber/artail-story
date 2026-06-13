@@ -1078,9 +1078,18 @@ const FooterStage = ({ onSecretClick }) => {
   );
 };
 
-const HeroLandingStage = ({ setView, setOverlayView }) => {
+const HeroLandingStage = ({ setView, setOverlayView, cartCount }) => {
   return (
-    <div className="w-full h-screen bg-[#111111] relative overflow-hidden flex">
+    <div className="w-full h-screen bg-[#111111] relative overflow-hidden">
+      {/* Background Image */}
+      <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-0">
+        <img 
+          src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/background.webp" 
+          alt="background" 
+          className="h-full w-auto object-contain" 
+        />
+      </div>
+
       {/* Grid Lines */}
       <div className="absolute inset-0 pointer-events-none flex">
          <div className="w-[25%] h-full border-r border-white/10"></div>
@@ -1092,94 +1101,68 @@ const HeroLandingStage = ({ setView, setOverlayView }) => {
       </div>
 
       {/* Scattered Nav Items (Phase 0) */}
-      <div className="absolute top-[12%] left-[8%] flex gap-16 md:gap-24 z-20">
+      <div className="absolute top-[12%] left-[8vw] flex gap-16 md:gap-24 z-20">
           <span onClick={() => { setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
           <span onClick={() => setView('editorial')} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">ABOUT</span>
           <span onClick={() => setView('visit')} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
       </div>
 
-      <div className="absolute top-[10.5%] left-[62%] -translate-x-1/2 z-20 pointer-events-none flex justify-center items-center">
-          {/* Logo icon (D) */}
-          <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/D.svg" alt="logo" className="h-16 object-contain brightness-0 invert" />
+      {/* Right Nav Item */}
+      <div className="absolute top-[12%] right-[8vw] z-20">
+          <span onClick={() => { setView('catalogue'); setOverlayView('bag'); }} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">
+              BAG ({cartCount})
+          </span>
       </div>
 
-      {/* Main Content Areas */}
-      <div className="flex-1 relative z-10 flex flex-col justify-between pt-[24vh]">
-        <div className="w-full flex items-center justify-center relative">
-            <div className="flex items-center justify-center gap-4">
-               <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/W.svg" alt="W" className="h-[30vh] object-contain brightness-0 invert" />
-               <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/A.svg" alt="A" className="h-[30vh] object-contain brightness-0 invert" />
-               <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/Y.svg" alt="Y" className="h-[30vh] object-contain brightness-0 invert -ml-4 md:-ml-8" />
-               <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/D.svg" alt="D" className="h-[48vh] object-contain brightness-0 invert" />
-               <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/question.svg" alt="?" className="h-[30vh] object-contain brightness-0 invert" />
-            </div>
-        </div>
 
-        {/* Bottom texts */}
-        <div className="absolute bottom-12 left-0 w-full flex items-start">
-            <div className="flex-1 pl-[8%] flex flex-col items-start">
-                <p className="text-[9px] text-zinc-500 font-inter-tight tracking-[0.2em] uppercase leading-none">Lost in time</p>
-                <img 
-                    src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" 
-                    alt="WAYD? WAYD? WAYD?" 
-                    className="h-12 mt-2 object-contain"
-                    style={{ filter: 'brightness(0) saturate(100%) invert(62%) sepia(21%) saturate(1637%) hue-rotate(334deg) brightness(85%) contrast(85%)' }}
-                />
-            </div>
-            
-            <div className="flex-1 flex items-start justify-center gap-6">
-                <div className="flex flex-col gap-2">
-                    <span className="text-[9px] text-zinc-500 font-inter-tight tracking-[0.2em] uppercase leading-none">The bar becomes</span>
-                    <span className="text-[9px] text-zinc-500 font-inter-tight tracking-[0.2em] uppercase leading-none">The drinks are &nbsp;&nbsp;the work</span>
-                </div>
-                <div className="w-[80px] h-[1px] bg-zinc-700 mt-1"></div>
-                <span className="text-[9px] text-zinc-500 font-inter-tight tracking-[0.2em] uppercase leading-none">A (Canvas)</span>
-            </div>
 
-            <div className="flex-1"></div>
-        </div>
+      {/* Centered Letters (WAYD?) & Subtitle */}
+      <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-10">
+          <div className="relative flex items-center justify-center gap-4">
+             <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/W.svg" alt="W" className="h-[26vh] object-contain brightness-0 invert" />
+             <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/A.svg" alt="A" className="h-[26vh] object-contain brightness-0 invert" />
+             <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/Y.svg" alt="Y" className="h-[26vh] object-contain brightness-0 invert -ml-4 md:-ml-8" />
+             <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/D.svg" alt="D" className="h-[42vh] object-contain brightness-0 invert" />
+             <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/question.svg" alt="?" className="h-[26vh] object-contain brightness-0 invert" />
+             
+             {/* Subtitle positioned absolutely relative to the letters container, so it doesn't affect centering layout */}
+             <div className="absolute top-[100%] left-0 w-full pl-4 -mt-8 md:-mt-14">
+                 <p className="text-sm md:text-base text-[#F5F5F5] font-inter-tight tracking-[0.3em] uppercase whitespace-nowrap">
+                     WHAT ARE YOU DRINKING?
+                 </p>
+             </div>
+          </div>
       </div>
 
-      {/* Right Art Panel */}
-      <div className="w-[25%] h-full relative z-10 flex flex-col items-end justify-between py-8 pr-[2.5vw] pl-6">
-        
-        {/* Accessory line and question mark on the border */}
-        <div className="absolute left-[-6px] top-[20%] -translate-x-1/2 -translate-y-1/2 w-[40px] h-[120px]">
-            {/* The dash: stays at the exact same position */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[3px] h-[60px] bg-[#F5F5F5]"></div>
-            {/* The question mark: moved closer to the dash (top-[70px]) */}
-            <img 
-                src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/question.svg" 
-                alt="?" 
-                className="absolute top-[70px] left-1/2 -translate-x-1/2 h-10 object-contain brightness-0 invert rotate-90" 
-            />
-        </div>
-        
-        {/* Top: BAG/01. */}
-        <div className="z-20 w-full text-right">
-            <span onClick={() => { setView('catalogue'); setOverlayView('bag'); }} className="text-[#F5F5F5] text-2xl md:text-3xl font-inter-tight font-normal uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors leading-none">BAG/01.</span>
-        </div>
+      {/* Bottom texts */}
+      <div className="absolute bottom-12 left-0 w-full flex items-start z-20">
+          {/* Left Block */}
+          <div className="flex-1 pl-[8vw] flex flex-col items-start">
+              <p className="text-[9px] text-zinc-500 font-inter-tight tracking-[0.2em] uppercase leading-none">Lost in time</p>
+              <img 
+                  src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" 
+                  alt="WAYD? WAYD? WAYD?" 
+                  className="h-12 mt-2 object-contain"
+                  style={{ filter: 'brightness(0) saturate(100%) invert(64%) sepia(21%) saturate(1637%) hue-rotate(331deg) brightness(92%) contrast(89%)' }}
+              />
+          </div>
+          
+          {/* Middle Block */}
+          <div className="flex-1 flex items-start justify-center gap-6">
+              <div className="flex flex-col gap-2">
+                  <span className="text-[9px] text-zinc-500 font-inter-tight tracking-[0.2em] uppercase leading-none">The bar becomes</span>
+                  <span className="text-[9px] text-zinc-500 font-inter-tight tracking-[0.2em] uppercase leading-none">The drinks are &nbsp;&nbsp;the work</span>
+              </div>
+              <div className="w-[80px] h-[1px] bg-zinc-700 mt-1"></div>
+              <span className="text-[9px] text-zinc-500 font-inter-tight tracking-[0.2em] uppercase leading-none">A (Canvas)</span>
+          </div>
 
-        {/* Art Image Container (flex-1 to take up maximum space) */}
-        <div className="relative w-full flex-1 overflow-hidden my-6">
-            <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/artlanding.webp" alt="Art" className="absolute inset-0 w-full h-full object-cover" />
-            
-            {/* Texts over art panel */}
-            <div className="absolute top-10 right-6 text-right">
-                <p className="text-[#F5F5F5] text-sm font-inter-tight tracking-[0.2em] uppercase">ART | DRINK</p>
-            </div>
-            <div className="absolute top-[28%] right-6 text-right">
-                <p className="text-[#F5F5F5] text-sm font-inter-tight tracking-[0.2em] uppercase">WAYD?</p>
-            </div>
-            <div className="absolute top-[55%] right-6 text-right">
-                <p className="text-[#F5F5F5] text-sm font-inter-tight tracking-[0.1em] leading-relaxed">47 Mortimer Street<br/>Fitzrovia - London<br/>W1T 3TE</p>
-            </div>
-        </div>
-
-        {/* Bottom: Cocktails Button */}
-        <button className="bg-[#C28256] text-[#111111] px-8 py-3 text-xs md:text-sm font-inter-tight font-bold tracking-[0.2em] uppercase hover:bg-[#F5F5F5] transition-colors self-end">
-            [ Cocktail ]
-        </button>
+          {/* Right Block */}
+          <div className="flex-1 pr-[8vw] flex justify-end items-start">
+              <button className="bg-[#C28256] text-[#111111] px-6 py-2 text-[10px] md:text-xs font-inter-tight font-bold tracking-[0.2em] uppercase hover:bg-[#F5F5F5] transition-colors leading-none">
+                  [ Cocktail ]
+              </button>
+          </div>
       </div>
     </div>
   );
@@ -1311,7 +1294,7 @@ const FrontendApp = ({ onSecretClick }) => {
 
   return (
     <div className="bg-[#111111] text-[#F5F5F5] selection:bg-[#F5F5F5] selection:text-[#111111] relative">
-      <HeroLandingStage setView={setView} setOverlayView={setOverlayView} />
+      <HeroLandingStage setView={setView} setOverlayView={setOverlayView} cartCount={cartCount} />
       
       {/* --- Preloader removed in favor of Skeleton loading --- */}
 
