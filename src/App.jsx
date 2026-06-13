@@ -1079,111 +1079,143 @@ const FooterStage = ({ onSecretClick }) => {
 };
 
 const HeroLandingStage = ({ setView, setOverlayView, cartCount }) => {
+  const containerRef = useRef(null);
+  const { scrollY } = useScroll();
+
+  // Grid shatters outwards
+  const gridLineYUp = useTransform(scrollY, [0, 200], ["0vh", "-100vh"]);
+  const gridLineYDown = useTransform(scrollY, [0, 200], ["0vh", "100vh"]);
+  const gridLineXLeft = useTransform(scrollY, [0, 200], ["0vw", "-100vw"]);
+  const gridLineXRight = useTransform(scrollY, [0, 200], ["0vw", "100vw"]);
+  const gridOpacity = useTransform(scrollY, [100, 250], [1, 0]);
+
+  // Background zooms, blurs, and fades
+  const bgScale = useTransform(scrollY, [0, 350], [1, 1.15]);
+  const bgBlur = useTransform(scrollY, [0, 350], ["blur(0px)", "blur(20px)"]);
+  const bgOpacity = useTransform(scrollY, [100, 400], [1, 0]);
+
+  // Nav slides UP and fades
+  const navY = useTransform(scrollY, [100, 400], ["0px", "-40px"]);
+  const navOpacity = useTransform(scrollY, [100, 300], [1, 0]);
+
+  // Subtitle drops down, blurs, and fades
+  const subY = useTransform(scrollY, [200, 500], ["0px", "60px"]);
+  const subOpacity = useTransform(scrollY, [200, 400], [1, 0]);
+  const subBlur = useTransform(scrollY, [200, 500], ["blur(0px)", "blur(10px)"]);
+
+  // Bottom blocks drop down further, blur, and fade
+  const bottomY = useTransform(scrollY, [300, 600], ["0px", "80px"]);
+  const bottomOpacity = useTransform(scrollY, [300, 500], [1, 0]);
+  const bottomBlur = useTransform(scrollY, [300, 600], ["blur(0px)", "blur(10px)"]);
+
+  const pointerEvents = useTransform(scrollY, (v) => v > 500 ? "none" : "auto");
+  const visibilityState = useTransform(scrollY, (v) => v > 650 ? "hidden" : "visible");
+
   return (
-    <div className="w-full h-screen bg-[#111111] relative overflow-hidden">
-      {/* Background Image */}
-      <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-0">
-        <img 
-          src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/background.webp" 
-          alt="background" 
-          className="h-full w-auto object-contain" 
-        />
-      </div>
+    <div ref={containerRef} className="w-full h-[200vh] bg-[#111111] relative">
+      <div className="sticky top-0 w-full h-screen overflow-hidden">
+        {/* Background Image */}
+        <motion.div style={{ opacity: bgOpacity, scale: bgScale, filter: bgBlur, WebkitFilter: bgBlur, visibility: visibilityState }} className="absolute inset-0 pointer-events-none flex items-center justify-center z-0 origin-center">
+          <img 
+            src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/background.webp" 
+            alt="background" 
+            className="h-full w-auto object-contain" 
+          />
+        </motion.div>
 
-      {/* Grid Lines */}
-      <div className="absolute inset-0 pointer-events-none flex">
-         <div className="w-[25%] h-full border-r border-white/10"></div>
-         <div className="w-[25%] h-full border-r border-white/10"></div>
-         <div className="w-[25%] h-full border-r border-white/10"></div>
-         <div className="w-[25%] h-full"></div>
-         <div className="absolute w-full h-[1px] bg-white/10 top-[25%]"></div>
-         <div className="absolute w-full h-[1px] bg-white/10 top-[70%]"></div>
-      </div>
+        {/* Grid Lines - Animated individually */}
+        <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+           <motion.div style={{ y: gridLineYUp, opacity: gridOpacity, visibility: visibilityState }} className="absolute left-[25%] w-[1px] h-full bg-white/10"></motion.div>
+           <motion.div style={{ y: gridLineYDown, opacity: gridOpacity, visibility: visibilityState }} className="absolute left-[50%] w-[1px] h-full bg-white/10"></motion.div>
+           <motion.div style={{ y: gridLineYUp, opacity: gridOpacity, visibility: visibilityState }} className="absolute left-[75%] w-[1px] h-full bg-white/10"></motion.div>
+           
+           <motion.div style={{ x: gridLineXLeft, opacity: gridOpacity, visibility: visibilityState }} className="absolute w-full h-[1px] bg-white/10 top-[25%]"></motion.div>
+           <motion.div style={{ x: gridLineXRight, opacity: gridOpacity, visibility: visibilityState }} className="absolute w-full h-[1px] bg-white/10 top-[70%]"></motion.div>
+        </div>
 
-      {/* Navigation Bar */}
-      <nav className="absolute top-[12%] left-[8vw] right-[8vw] flex justify-between items-center z-20">
-          <div className="flex gap-16 md:gap-24">
-              <span onClick={() => { setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
-              <span onClick={() => setView('editorial')} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">ABOUT</span>
-              <span onClick={() => setView('visit')} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
-          </div>
-          <div>
-              <span onClick={() => { setView('catalogue'); setOverlayView('bag'); }} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">
-                  BAG ({cartCount})
-              </span>
-          </div>
-      </nav>
+        {/* Navigation Bar */}
+        <motion.nav style={{ opacity: navOpacity, y: navY, pointerEvents, visibility: visibilityState }} className="absolute top-[12%] left-[8vw] right-[8vw] flex justify-between items-center z-20">
+            <div className="flex gap-16 md:gap-24">
+                <span onClick={() => { setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
+                <span onClick={() => setView('editorial')} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">ABOUT</span>
+                <span onClick={() => setView('visit')} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
+            </div>
+            <div>
+                <span onClick={() => { setView('catalogue'); setOverlayView('bag'); }} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">
+                    BAG ({cartCount})
+                </span>
+            </div>
+        </motion.nav>
 
+        {/* Centered Letters (WAYD?) & Subtitle */}
+        <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-10">
+            <div className="relative flex items-center justify-center gap-4">
+               <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/W.svg" alt="W" className="h-[26vh] object-contain brightness-0 invert" />
+               <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/A.svg" alt="A" className="h-[26vh] object-contain brightness-0 invert" />
+               <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/Y.svg" alt="Y" className="h-[26vh] object-contain brightness-0 invert -ml-4 md:-ml-8" />
+               <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/D.svg" alt="D" className="h-[42vh] object-contain brightness-0 invert" />
+               <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/question.svg" alt="?" className="h-[26vh] object-contain brightness-0 invert" />
+               
+               {/* Subtitle positioned absolutely relative to the letters container, so it doesn't affect centering layout */}
+               <motion.div style={{ opacity: subOpacity, y: subY, filter: subBlur, WebkitFilter: subBlur, visibility: visibilityState }} className="absolute top-[100%] left-0 w-full pl-4 -mt-8 md:-mt-14">
+                   <p className="text-sm md:text-base text-[#F5F5F5] font-inter-tight tracking-[0.3em] uppercase whitespace-nowrap">
+                       WHAT ARE YOU DRINKING?
+                   </p>
+               </motion.div>
+            </div>
+        </div>
 
+        {/* Bottom texts */}
+        <motion.div style={{ opacity: bottomOpacity, y: bottomY, filter: bottomBlur, WebkitFilter: bottomBlur, pointerEvents, visibility: visibilityState }} className="absolute bottom-12 left-0 w-full flex items-start z-20">
+            {/* Left Block */}
+            <div className="flex-1 pl-[8vw] flex flex-col items-start">
+                <p className="text-[9px] text-zinc-500 font-inter-tight tracking-[0.2em] uppercase leading-none">Lost in time</p>
+                <img 
+                    src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" 
+                    alt="WAYD? WAYD? WAYD?" 
+                    className="h-12 mt-2 object-contain"
+                    style={{ filter: 'brightness(0) saturate(100%) invert(64%) sepia(21%) saturate(1637%) hue-rotate(331deg) brightness(92%) contrast(89%)' }}
+                />
+            </div>
+            
+            {/* Middle Block */}
+            <div className="flex-1 flex items-start justify-center gap-6">
+                <div className="flex flex-col gap-2">
+                    <span className="text-[9px] text-zinc-500 font-inter-tight tracking-[0.2em] uppercase leading-none">The bar becomes</span>
+                    <span className="text-[9px] text-zinc-500 font-inter-tight tracking-[0.2em] uppercase leading-none">The drinks are &nbsp;&nbsp;the work</span>
+                </div>
+                <div className="w-[80px] h-[1px] bg-zinc-700 mt-1"></div>
+                <span className="text-[9px] text-zinc-500 font-inter-tight tracking-[0.2em] uppercase leading-none">A (Canvas)</span>
+            </div>
 
-      {/* Centered Letters (WAYD?) & Subtitle */}
-      <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-10">
-          <div className="relative flex items-center justify-center gap-4">
-             <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/W.svg" alt="W" className="h-[26vh] object-contain brightness-0 invert" />
-             <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/A.svg" alt="A" className="h-[26vh] object-contain brightness-0 invert" />
-             <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/Y.svg" alt="Y" className="h-[26vh] object-contain brightness-0 invert -ml-4 md:-ml-8" />
-             <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/D.svg" alt="D" className="h-[42vh] object-contain brightness-0 invert" />
-             <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/question.svg" alt="?" className="h-[26vh] object-contain brightness-0 invert" />
-             
-             {/* Subtitle positioned absolutely relative to the letters container, so it doesn't affect centering layout */}
-             <div className="absolute top-[100%] left-0 w-full pl-4 -mt-8 md:-mt-14">
-                 <p className="text-sm md:text-base text-[#F5F5F5] font-inter-tight tracking-[0.3em] uppercase whitespace-nowrap">
-                     WHAT ARE YOU DRINKING?
-                 </p>
-             </div>
-          </div>
-      </div>
-
-      {/* Bottom texts */}
-      <div className="absolute bottom-12 left-0 w-full flex items-start z-20">
-          {/* Left Block */}
-          <div className="flex-1 pl-[8vw] flex flex-col items-start">
-              <p className="text-[9px] text-zinc-500 font-inter-tight tracking-[0.2em] uppercase leading-none">Lost in time</p>
-              <img 
-                  src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" 
-                  alt="WAYD? WAYD? WAYD?" 
-                  className="h-12 mt-2 object-contain"
-                  style={{ filter: 'brightness(0) saturate(100%) invert(64%) sepia(21%) saturate(1637%) hue-rotate(331deg) brightness(92%) contrast(89%)' }}
-              />
-          </div>
-          
-          {/* Middle Block */}
-          <div className="flex-1 flex items-start justify-center gap-6">
-              <div className="flex flex-col gap-2">
-                  <span className="text-[9px] text-zinc-500 font-inter-tight tracking-[0.2em] uppercase leading-none">The bar becomes</span>
-                  <span className="text-[9px] text-zinc-500 font-inter-tight tracking-[0.2em] uppercase leading-none">The drinks are &nbsp;&nbsp;the work</span>
-              </div>
-              <div className="w-[80px] h-[1px] bg-zinc-700 mt-1"></div>
-              <span className="text-[9px] text-zinc-500 font-inter-tight tracking-[0.2em] uppercase leading-none">A (Canvas)</span>
-          </div>
-
-          {/* Right Block */}
-          <div className="flex-1 pr-[8vw] flex justify-end items-start">
-              <motion.button 
-                  whileHover="hover"
-                  initial="initial"
-                  animate="animate"
-                  variants={{
-                      initial: { scale: 1 },
-                      hover: { scale: 1.05, transition: { type: "spring", stiffness: 400, damping: 15 } }
-                  }}
-                  className="relative overflow-hidden bg-[#C28256] text-[#111111] px-6 py-2 text-[9px] md:text-[10px] font-inter-tight font-bold tracking-[0.2em] uppercase cursor-pointer leading-none"
-              >
-                  {/* Sliding Background Layer */}
-                  <motion.div 
-                      variants={{
-                          initial: { scaleX: 0 },
-                          hover: { scaleX: 1 }
-                      }}
-                      transition={{ duration: 0.35, ease: "easeInOut" }}
-                      style={{ originX: 0 }}
-                      className="absolute inset-0 bg-[#F5F5F5] z-0"
-                  />
-                  
-                  {/* Button text */}
-                  <span className="relative z-10">[ Cocktail ]</span>
-              </motion.button>
-          </div>
+            {/* Right Block */}
+            <div className="flex-1 pr-[8vw] flex justify-end items-start pointer-events-auto">
+                <motion.button 
+                    whileHover="hover"
+                    initial="initial"
+                    animate="animate"
+                    variants={{
+                        initial: { scale: 1 },
+                        hover: { scale: 1.05, transition: { type: "spring", stiffness: 400, damping: 15 } }
+                    }}
+                    className="relative overflow-hidden bg-[#C28256] text-[#111111] px-6 py-2 text-[9px] md:text-[10px] font-inter-tight font-bold tracking-[0.2em] uppercase cursor-pointer leading-none"
+                >
+                    {/* Sliding Background Layer */}
+                    <motion.div 
+                        variants={{
+                            initial: { scaleX: 0 },
+                            hover: { scaleX: 1 }
+                        }}
+                        transition={{ duration: 0.35, ease: "easeInOut" }}
+                        style={{ originX: 0 }}
+                        className="absolute inset-0 bg-[#F5F5F5] z-0"
+                    />
+                    
+                    {/* Button text */}
+                    <span className="relative z-10">[ Cocktail ]</span>
+                </motion.button>
+            </div>
+        </motion.div>
       </div>
     </div>
   );
