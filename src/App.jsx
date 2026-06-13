@@ -1082,28 +1082,24 @@ const HeroLandingStage = ({ setView, setOverlayView, cartCount }) => {
   const containerRef = useRef(null);
   const { scrollY } = useScroll();
 
-  // Grid shatters outwards
+  // 1. Clear Area (0 - 600px)
   const gridLineYUp = useTransform(scrollY, [0, 200], ["0vh", "-100vh"]);
   const gridLineYDown = useTransform(scrollY, [0, 200], ["0vh", "100vh"]);
   const gridLineXLeft = useTransform(scrollY, [0, 200], ["0vw", "-100vw"]);
   const gridLineXRight = useTransform(scrollY, [0, 200], ["0vw", "100vw"]);
   const gridOpacity = useTransform(scrollY, [100, 250], [1, 0]);
 
-  // Background zooms, blurs, and fades
   const bgScale = useTransform(scrollY, [0, 350], [1, 1.15]);
   const bgBlur = useTransform(scrollY, [0, 350], ["blur(0px)", "blur(20px)"]);
   const bgOpacity = useTransform(scrollY, [100, 400], [1, 0]);
 
-  // Nav slides UP and fades
   const navY = useTransform(scrollY, [100, 400], ["0px", "-40px"]);
   const navOpacity = useTransform(scrollY, [100, 300], [1, 0]);
 
-  // Subtitle drops down, blurs, and fades
   const subY = useTransform(scrollY, [200, 500], ["0px", "60px"]);
   const subOpacity = useTransform(scrollY, [200, 400], [1, 0]);
   const subBlur = useTransform(scrollY, [200, 500], ["blur(0px)", "blur(10px)"]);
 
-  // Bottom blocks drop down further, blur, and fade
   const bottomY = useTransform(scrollY, [300, 600], ["0px", "80px"]);
   const bottomOpacity = useTransform(scrollY, [300, 500], [1, 0]);
   const bottomBlur = useTransform(scrollY, [300, 600], ["blur(0px)", "blur(10px)"]);
@@ -1111,9 +1107,29 @@ const HeroLandingStage = ({ setView, setOverlayView, cartCount }) => {
   const pointerEvents = useTransform(scrollY, (v) => v > 500 ? "none" : "auto");
   const visibilityState = useTransform(scrollY, (v) => v > 650 ? "hidden" : "visible");
 
+  // 2. Melt (600 - 1000px)
+  const gooeyFilter = useTransform(scrollY, (v) => (v >= 800 && v <= 1400) ? "url(#goo)" : "none");
+  const logoBlur = useTransform(scrollY, [800, 950], ["blur(0px)", "blur(5px)"]);
+  const meltScaleY = useTransform(scrollY, [800, 1000], [1, 1.6]);
+  const logoOpacity = useTransform(scrollY, [900, 1000], [1, 0]);
+
+  // 3. The Drop & Secret Swap (950 - 1400px)
+  const dropOpacity = useTransform(scrollY, [900, 1000, 1350, 1400], [0, 1, 1, 0]);
+  const dropY = useTransform(scrollY, [950, 1400], ["0vh", "120vh"]);
+  const dropScaleY = useTransform(scrollY, [950, 1100, 1400], [1, 3.5, 1]);
+  
+  // Secret Color Swap mid-air!
+  const stageBg = useTransform(scrollY, [1100, 1350], ["#111111", "#F5F5F5"]);
+  const dropColor = useTransform(scrollY, [1100, 1350], ["#F5F5F5", "#222222"]);
+
+  // 4. Ink Bleed (1400 - 1800px)
+  const bleedMaskSize = useTransform(scrollY, [1380, 1800], ["0vmax 0vmax", "140vmax 140vmax"]);
+  const bleedOpacity = useTransform(scrollY, [1380, 1400], [0, 1]);
+
   return (
-    <div ref={containerRef} className="w-full h-[200vh] bg-[#111111] relative">
+    <motion.div ref={containerRef} style={{ backgroundColor: stageBg }} className="w-full h-[300vh] relative">
       <div className="sticky top-0 w-full h-screen overflow-hidden">
+        
         {/* Background Image */}
         <motion.div style={{ opacity: bgOpacity, scale: bgScale, filter: bgBlur, WebkitFilter: bgBlur, visibility: visibilityState }} className="absolute inset-0 pointer-events-none flex items-center justify-center z-0 origin-center">
           <img 
@@ -1147,22 +1163,29 @@ const HeroLandingStage = ({ setView, setOverlayView, cartCount }) => {
             </div>
         </motion.nav>
 
-        {/* Centered Letters (WAYD?) & Subtitle */}
+        {/* The Melt & Drop Sequence */}
         <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-10">
-            <div className="relative flex items-center justify-center gap-4">
-               <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/W.svg" alt="W" className="h-[26vh] object-contain brightness-0 invert" />
-               <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/A.svg" alt="A" className="h-[26vh] object-contain brightness-0 invert" />
-               <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/Y.svg" alt="Y" className="h-[26vh] object-contain brightness-0 invert -ml-4 md:-ml-8" />
-               <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/D.svg" alt="D" className="h-[42vh] object-contain brightness-0 invert" />
-               <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/question.svg" alt="?" className="h-[26vh] object-contain brightness-0 invert" />
-               
-               {/* Subtitle positioned absolutely relative to the letters container, so it doesn't affect centering layout */}
-               <motion.div style={{ opacity: subOpacity, y: subY, filter: subBlur, WebkitFilter: subBlur, visibility: visibilityState }} className="absolute top-[100%] left-0 w-full pl-4 -mt-8 md:-mt-14">
-                   <p className="text-sm md:text-base text-[#F5F5F5] font-inter-tight tracking-[0.3em] uppercase whitespace-nowrap">
-                       WHAT ARE YOU DRINKING?
-                   </p>
-               </motion.div>
-            </div>
+            <motion.div style={{ filter: gooeyFilter, WebkitFilter: gooeyFilter }} className="relative w-full mx-auto flex items-center justify-center">
+                
+                {/* The Drop (Changes color mid-air) */}
+                <motion.div className="absolute rounded-full z-0" style={{ backgroundColor: dropColor, width: '40px', height: '40px', top: '50%', marginTop: '-20px', left: '49%', marginLeft: '-20px', y: dropY, scaleY: dropScaleY, opacity: dropOpacity, originY: 0.5 }} />
+
+                {/* Centered Letters (WAYD?) */}
+                <motion.div style={{ opacity: logoOpacity, filter: logoBlur, WebkitFilter: logoBlur }} className="relative flex items-center justify-center gap-4">
+                   <motion.img style={{ filter: "brightness(0) invert(1)", scaleY: meltScaleY, originY: 0 }} src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/W.svg" alt="W" className="h-[26vh] object-contain" />
+                   <motion.img style={{ filter: "brightness(0) invert(1)", scaleY: meltScaleY, originY: 0 }} src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/A.svg" alt="A" className="h-[26vh] object-contain" />
+                   <motion.img style={{ filter: "brightness(0) invert(1)", scaleY: meltScaleY, originY: 0 }} src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/Y.svg" alt="Y" className="h-[26vh] object-contain -ml-4 md:-ml-8" />
+                   <motion.img style={{ filter: "brightness(0) invert(1)", scaleY: meltScaleY, originY: 0 }} src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/D.svg" alt="D" className="h-[42vh] object-contain" />
+                   <motion.img style={{ filter: "brightness(0) invert(1)", scaleY: meltScaleY, originY: 0 }} src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/question.svg" alt="?" className="h-[26vh] object-contain" />
+                   
+                   {/* Subtitle positioned absolutely */}
+                   <motion.div style={{ opacity: subOpacity, y: subY, filter: subBlur, WebkitFilter: subBlur, visibility: visibilityState }} className="absolute top-[100%] left-0 w-full pl-4 -mt-8 md:-mt-14">
+                       <p className="text-sm md:text-base text-[#F5F5F5] font-inter-tight tracking-[0.3em] uppercase whitespace-nowrap">
+                           WHAT ARE YOU DRINKING?
+                       </p>
+                   </motion.div>
+                </motion.div>
+            </motion.div>
         </div>
 
         {/* Bottom texts */}
@@ -1216,8 +1239,19 @@ const HeroLandingStage = ({ setView, setOverlayView, cartCount }) => {
                 </motion.button>
             </div>
         </motion.div>
+
+        {/* Ink Bleed Mask Overlay (Off-Black) */}
+        <motion.div 
+            className="absolute inset-0 bg-[#222222] z-40 ink-bleed-mask pointer-events-none" 
+            style={{ 
+                WebkitMaskSize: bleedMaskSize, 
+                maskSize: bleedMaskSize, 
+                opacity: bleedOpacity, 
+                willChange: "mask-size, opacity" 
+            }}>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
