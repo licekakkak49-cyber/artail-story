@@ -1100,19 +1100,19 @@ const HeroLandingStage = ({ setView, setOverlayView, cartCount }) => {
          <div className="absolute w-full h-[1px] bg-white/10 top-[70%]"></div>
       </div>
 
-      {/* Scattered Nav Items (Phase 0) */}
-      <div className="absolute top-[12%] left-[8vw] flex gap-16 md:gap-24 z-20">
-          <span onClick={() => { setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
-          <span onClick={() => setView('editorial')} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">ABOUT</span>
-          <span onClick={() => setView('visit')} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
-      </div>
-
-      {/* Right Nav Item */}
-      <div className="absolute top-[12%] right-[8vw] z-20">
-          <span onClick={() => { setView('catalogue'); setOverlayView('bag'); }} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">
-              BAG ({cartCount})
-          </span>
-      </div>
+      {/* Navigation Bar */}
+      <nav className="absolute top-[12%] left-[8vw] right-[8vw] flex justify-between items-center z-20">
+          <div className="flex gap-16 md:gap-24">
+              <span onClick={() => { setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
+              <span onClick={() => setView('editorial')} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">ABOUT</span>
+              <span onClick={() => setView('visit')} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
+          </div>
+          <div>
+              <span onClick={() => { setView('catalogue'); setOverlayView('bag'); }} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">
+                  BAG ({cartCount})
+              </span>
+          </div>
+      </nav>
 
 
 
@@ -1159,9 +1159,30 @@ const HeroLandingStage = ({ setView, setOverlayView, cartCount }) => {
 
           {/* Right Block */}
           <div className="flex-1 pr-[8vw] flex justify-end items-start">
-              <button className="bg-[#C28256] text-[#111111] px-6 py-2 text-[10px] md:text-xs font-inter-tight font-bold tracking-[0.2em] uppercase hover:bg-[#F5F5F5] transition-colors leading-none">
-                  [ Cocktail ]
-              </button>
+              <motion.button 
+                  whileHover="hover"
+                  initial="initial"
+                  animate="animate"
+                  variants={{
+                      initial: { scale: 1 },
+                      hover: { scale: 1.05, transition: { type: "spring", stiffness: 400, damping: 15 } }
+                  }}
+                  className="relative overflow-hidden bg-[#C28256] text-[#111111] px-6 py-2 text-[9px] md:text-[10px] font-inter-tight font-bold tracking-[0.2em] uppercase cursor-pointer leading-none"
+              >
+                  {/* Sliding Background Layer */}
+                  <motion.div 
+                      variants={{
+                          initial: { scaleX: 0 },
+                          hover: { scaleX: 1 }
+                      }}
+                      transition={{ duration: 0.35, ease: "easeInOut" }}
+                      style={{ originX: 0 }}
+                      className="absolute inset-0 bg-[#F5F5F5] z-0"
+                  />
+                  
+                  {/* Button text */}
+                  <span className="relative z-10">[ Cocktail ]</span>
+              </motion.button>
           </div>
       </div>
     </div>
