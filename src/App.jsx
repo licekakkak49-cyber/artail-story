@@ -1233,7 +1233,7 @@ const FrontendApp = ({ onSecretClick }) => {
   const dropY = useTransform(scrollYProgress, [0.28, 0.38], ["0vh", "120vh"]); 
   const dropScaleY = useTransform(scrollYProgress, [0.28, 0.33, 0.38], [1, 3.5, 1]); 
   const dropHideX = useTransform(scrollYProgress, (v) => v > 0.40 ? -9999 : 0);
-  const dropColor = useTransform(scrollYProgress, [0.29, 0.34], ["#000000", "#8B0000"]); 
+  const dropColor = useTransform(scrollYProgress, [0.29, 0.34], ["#000000", "#000000"]); 
   const textLayerMasterOpacity = useTransform(scrollYProgress, [0.50, 0.52], [1, 1]); 
   const bleedMaskSize = useTransform(scrollYProgress, [0.39, 0.55], ["0vmax 0vmax", "140vmax 140vmax"]);
   const bleedOpacity = useTransform(scrollYProgress, [0.39, 0.41], [0, 1]);
@@ -1473,7 +1473,7 @@ const FrontendApp = ({ onSecretClick }) => {
                   </div>
                 </motion.div>
 
-                <motion.div className="absolute inset-0 bg-[#8B0000] z-40 ink-bleed-mask pointer-events-none" style={{ WebkitMaskSize: bleedMaskSize, maskSize: bleedMaskSize, opacity: bleedOpacity, willChange: "mask-size, opacity" }}></motion.div>
+                <motion.div className="absolute inset-0 bg-black z-40 ink-bleed-mask pointer-events-none" style={{ WebkitMaskSize: bleedMaskSize, maskSize: bleedMaskSize, opacity: bleedOpacity, willChange: "mask-size, opacity" }}></motion.div>
               </motion.div>
             </div>
           </div>
