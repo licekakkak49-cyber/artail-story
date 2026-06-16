@@ -1,5 +1,9 @@
 import React, { useRef, useState, useEffect, createContext, useContext, useMemo } from 'react';
-import { motion, useScroll, useTransform, useMotionValueEvent } from 'framer-motion';
+import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from 'framer-motion';
+import { CheckoutOverlay } from './components/ecommerce/CheckoutOverlay';
+import { OrderSuccessOverlay } from './components/ecommerce/OrderSuccessOverlay';
+import { AuthOverlay } from './components/ecommerce/AuthOverlay';
+import { ClientProfileOverlay } from './components/ecommerce/ClientProfileOverlay';
 
 // --- Supabase Setup ---
 const supabaseUrl = 'https://ttfdcqpzaxnxduvlhtgi.supabase.co';
@@ -14,14 +18,30 @@ export const useData = () => useContext(DataContext);
 const defaultDesc = `"Abstract Illusion" captures the essence of Teddy's vision through abstract forms and vibrant flavor profiles. The cocktail uses a palette of deep, rich spirits, swirling them into a sensory experience that evokes the natural beauty of its inspiration.`;
 
 const cocktailMenuData = [
-  { name: "Abstract Illusion", artist: "Teddy", src: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu1.webp", hoverSrc: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu1ct.webp", description: defaultDesc, cocktailImages: [] },
-  { name: "Golden Hour", artist: "Mimi", src: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_2.webp", hoverSrc: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_2ct.webp", description: defaultDesc, cocktailImages: [] },
-  { name: "Velvet Night", artist: "Teddy", src: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_3.webp", hoverSrc: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_3ct.webp", description: defaultDesc, cocktailImages: [] },
-  { name: "Crimson Tide", artist: "Mimi", src: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_4.webp", hoverSrc: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_4ct.webp", description: defaultDesc, cocktailImages: [] },
-  { name: "Emerald Dream", artist: "Teddy", src: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_5.webp", hoverSrc: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_5ct.webp", description: defaultDesc, cocktailImages: [] },
-  { name: "Sapphire Soul", artist: "Mimi", src: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_6.webp", hoverSrc: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_6ct.webp", description: defaultDesc, cocktailImages: [] },
-  { name: "Amber Glow", artist: "Teddy", src: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_7.webp", hoverSrc: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_7ct.webp", description: defaultDesc, cocktailImages: [] },
-  { name: "Obsidian Whisper", artist: "Mimi", src: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_8.webp", hoverSrc: "https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/menu_8ct.webp", description: defaultDesc, cocktailImages: [] }
+  {
+    id: 'mock_1',
+    name: "Sunflowers",
+    src: "https://images.unsplash.com/photo-1579783901586-d88db74b4fe4?auto=format&fit=crop&w=1200&q=80",
+    caption: "Inspired by Vincent van Gogh's Sunflowers.\nA bright, warm, low-ABV cocktail with a refreshing,\neasy drinking character.",
+    reference: "Vincent van Gogh, Sunflowers, 1889\nVan Gogh Museum, Amsterdam\n© Van Gogh Museum",
+    quote: "This was my very first painting, from a time when I barely knew how people talked about art. I came from restaurant bartending, not galleries or textbooks.\n\nAfter discovering Van Gogh's Sunflowers and visiting an exhibition in New York inspired by his work, the feeling stayed with me. It quietly sparked the beginning of WAYD.\n\nThis drink follows the painting's direction. Bright in color, warm in energy, and full of life. Its refreshing, low-ABV character feels like a summer afternoon, easy, open, and gently layered.\n\nThis is not just a beverage. It is an experience of light, color, and emotion, and my interpretation of the WAYD style.",
+    artist: "— Teddy",
+    tags: "• Low ABV Light • Honest • Quietly expressive",
+    ingredients: "Chinola Passionfruit, Dry Vermouth, Licor 43, Benedictine, Verjus",
+    price: "$21"
+  },
+  {
+    id: 'mock_2',
+    name: "Yellow",
+    src: "https://images.unsplash.com/photo-1614613535308-eb5fbd3d2c17?auto=format&fit=crop&w=1200&q=80",
+    caption: "A cocktail that has undergone a milk-washing\nprocess. Inspired by Coldplay's song \"Yellow\".\nReferencing the album: Parachutes",
+    reference: "Inspired by Coldplay (Album Parachutes)\n- \"Yellow\" (official artwork)\nImage courtesy of Spotify",
+    quote: "People often ask about my favorite colors. Yellow has never been one of mine.\n\nYet, when it comes to music, Yellow is the song I return to most.\n\nI chose this drink to launch WAYD because it was with me long before any idea of a menu or a brand existed. During a time when life felt heavy and isolating, I was simply searching for a song that could offer solace. I paused at the title—Yellow—and as it began to play, tears flowed effortlessly.\n\nThe music didn't try to lift me up or promise answers; it simply existed, and that was enough.\n\nThis cocktail captures the essence of that night: soft, warm, and sincere.\n\nA gentle reminder that sometimes, light doesn't make a grand entrance.\n\nIf you've ever wondered who you're doing all of this for, welcome to Yellow...",
+    artist: "— Mimi",
+    tags: "• Warm • Luminous • Spirit-Forward",
+    ingredients: "Milk-Washed Nikka days Whiskey, Sake, Honey Pear Tea, Mango, Maple Syrup",
+    price: "$23"
+  }
 ];
 
 const editorialStories = {
@@ -41,7 +61,29 @@ const editorialStories = {
   ]
 };
 
+const demoGalleryItem = {
+  id: 'demo-item-999',
+  name: "The Kai Vase (Demo Gallery)",
+  price: "145",
+  src: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=800&q=80",
+  designer: "Wayd Studio",
+  year: "2026",
+  colour: "Matte Cream",
+  size: "4.5\" x 4.5\" x 6.0\"",
+  material: "Handcrafted Ceramic",
+  info: "A beautifully sculpted, minimal ceramic vase. This is a demo item to showcase the multiple image gallery with 5 pictures for your client.",
+  stock: "10",
+  images: [
+    "https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1610701596027-14c0a524bcda?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1610701596013-14902b37bd14?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1597330768910-c081e7d23588?auto=format&fit=crop&w=800&q=80",
+    "https://images.unsplash.com/photo-1597330768875-14f09d84f93b?auto=format&fit=crop&w=800&q=80"
+  ]
+};
+
 const catalogueItems = [
+  demoGalleryItem,
   { name: "Whispered Whirlwind", price: "129", src: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=800&q=80", designer: "Daniel Kim", year: "2026", colour: "Ebony Black", size: "2.7\" x 2.7\" x 5.0\"", material: "STONEWARE", info: "Tray with matte finish. Candle included in your order may differ in color.", stock: "03", images: ["https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1610701596027-14c0a524bcda?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1610701596013-14902b37bd14?auto=format&fit=crop&w=800&q=80"] },
   { name: "Enchanted Canvas", price: "375", src: "https://images.unsplash.com/photo-1597330768910-c081e7d23588?auto=format&fit=crop&w=800&q=80", designer: "Elena Rostova", year: "2025", colour: "Cerulean Blue", size: "12.0\" x 8.5\" x 4.0\"", material: "CERAMIC & CLAY", info: "Hand-sculpted centerpiece. Each piece is unique and may feature slight variations.", stock: "01", images: ["https://images.unsplash.com/photo-1597330768910-c081e7d23588?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1597330768875-14f09d84f93b?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1597330768900-349c258d4a66?auto=format&fit=crop&w=800&q=80"] },
   { name: "Ethereal Serenade", price: "89", src: "https://images.unsplash.com/photo-1602928321679-560bb453f190?auto=format&fit=crop&w=800&q=80", designer: "Studio Narkara", year: "2026", colour: "Midnight & Coral", size: "5.5\" x 4.0\" x 8.0\"", material: "MIXED MEDIA", info: "Abstract floral interpretation. Keep away from direct sunlight to preserve colors.", stock: "05", images: ["https://images.unsplash.com/photo-1602928321679-560bb453f190?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1602928321855-3a7c6f091c78?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1602928321590-b1935c181fcd?auto=format&fit=crop&w=800&q=80"] },
@@ -105,16 +147,22 @@ export const DataProvider = ({ children }) => {
           supabase.from('site_settings').select('*').limit(1).single()
         ]);
 
-        if (cData && cData.length > 0) {
-          const mappedCocktails = cData.map(item => ({ 
-            ...item, 
-            hoverSrc: item.hover_src || item.hoverSrc,
-            cocktailImages: item.cocktail_images || item.cocktailImages || [],
-            description: item.description || defaultDesc
-          }));
-          setCocktails(mappedCocktails);
+        if (cData) {
+          if (cData.length === 0) {
+            setCocktails(cocktailMenuData);
+          } else {
+            const mappedCocktails = cData.map(item => ({ 
+              ...item, 
+              hoverSrc: item.hover_src || item.hoverSrc,
+              cocktailImages: item.cocktail_images || item.cocktailImages || [],
+              description: item.description || defaultDesc
+            }));
+            setCocktails(mappedCocktails);
+          }
         }
-        if (catData && catData.length > 0) setCatalogue(catData);
+        if (catData && catData.length > 0) {
+          setCatalogue([demoGalleryItem, ...catData]);
+        }
 
         if (edData && edData.length > 0) {
           const grouped = { teddy: [], mimi: [] };
@@ -174,7 +222,7 @@ export const DataProvider = ({ children }) => {
   );
 };
 
-const BagView = ({ cartItems, onRemove }) => {
+const BagView = ({ cartItems, onRemove, onCheckout }) => {
   const subtotal = cartItems.reduce((sum, item) => sum + (Number(item.price) * item.qty), 0);
   return (
     <div className="w-full flex flex-col md:flex-row mt-4 md:mt-12 pb-24 gap-12 md:gap-8 items-start px-1 md:px-2">
@@ -194,7 +242,7 @@ const BagView = ({ cartItems, onRemove }) => {
             <div key={idx} className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 md:gap-4 border-b border-[#111111]/10 py-6 group">
               <div className="w-full md:w-[55%] flex items-center gap-6">
                 <div className="w-16 md:w-20 aspect-[4/5] bg-[#F5F5F5] overflow-hidden shrink-0">
-                  <img src={item.src} alt={item.name} loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" draggable="false" />
+                  <img src={item.src || item.image || item.image_url || (item.images && item.images[0])} alt={item.name} loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" draggable="false" />
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <span className="font-helvetica text-[#111111] text-[12px] md:text-[14px] font-bold tracking-tight">"{item.name}"</span>
@@ -230,7 +278,7 @@ const BagView = ({ cartItems, onRemove }) => {
             <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold tracking-tight text-right uppercase">CALCULATED AT<br/>CHECKOUT</span>
           </div>
         </div>
-        <button className={`w-full font-inter-tight font-semibold text-[11px] uppercase tracking-widest py-4 transition-colors flex justify-center items-center ${cartItems.length > 0 ? 'bg-[#111111] text-[#F5F5F5] hover:bg-zinc-800' : 'bg-[#EAEAEA] text-[#a0a0a0] pointer-events-none'}`}>
+        <button onClick={onCheckout} className={`w-full font-inter-tight font-semibold text-[11px] uppercase tracking-widest py-4 transition-colors flex justify-center items-center ${cartItems.length > 0 ? 'bg-[#111111] text-[#F5F5F5] hover:bg-zinc-800' : 'bg-[#EAEAEA] text-[#a0a0a0] pointer-events-none'}`}>
           PROCEED TO CHECKOUT
         </button>
       </div>
@@ -241,6 +289,13 @@ const BagView = ({ cartItems, onRemove }) => {
 const ProductDetail = ({ item, onNavigate, onAcquire }) => {
   const { catalogue } = useData();
   const [imageIndex, setImageIndex] = useState(0);
+  const [isAdded, setIsAdded] = useState(false);
+
+  const handleAcquireClick = () => {
+    onAcquire(item);
+    setIsAdded(true);
+    setTimeout(() => setIsAdded(false), 1500);
+  };
 
   const handleDragEnd = (e, { offset }) => {
     const swipe = offset.x;
@@ -306,10 +361,28 @@ const ProductDetail = ({ item, onNavigate, onAcquire }) => {
                 <span className="text-[8px] transition-transform group-hover:translate-y-[2px]">▼</span>
               </div>
             </div>
-            <button onClick={() => onAcquire(item)} className="w-full bg-[#111111] text-[#F5F5F5] font-inter-tight font-semibold text-[11px] uppercase tracking-widest py-4 hover:bg-zinc-800 transition-colors flex justify-center items-center gap-3">
-              <span>ACQUIRE</span>
-              <span className="w-1 h-1 bg-[#F5F5F5] rounded-full opacity-30"></span>
-              <span>${item.price}</span>
+            <button 
+              onClick={handleAcquireClick} 
+              className={`w-full font-inter-tight font-semibold text-[11px] uppercase tracking-widest py-4 transition-all duration-300 flex justify-center items-center gap-3 border ${
+                isAdded 
+                  ? 'bg-white text-[#111111] border-[#111111]/20 shadow-sm' 
+                  : 'bg-[#111111] text-[#F5F5F5] border-transparent hover:bg-zinc-800'
+              }`}
+            >
+              {isAdded ? (
+                <>
+                  <svg className="w-3.5 h-3.5 text-emerald-600 animate-bounce" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                  </svg>
+                  <span>ADDED TO BAG</span>
+                </>
+              ) : (
+                <>
+                  <span>ADD TO BAG</span>
+                  <span className="w-1 h-1 bg-[#F5F5F5] rounded-full opacity-30"></span>
+                  <span>${item.price}</span>
+                </>
+              )}
             </button>
           </div>
           <div className="flex justify-between w-full max-w-lg mt-8 md:mt-12 pt-4 border-t border-[#111111]/10">
@@ -327,19 +400,29 @@ const ProductDetail = ({ item, onNavigate, onAcquire }) => {
               </div>
             ))}
           </motion.div>
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-            {item.images.map((_, i) => (
-              <button key={i} onClick={() => setImageIndex(i)} className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${imageIndex === i ? 'bg-[#111111]' : 'bg-[#111111]/30 hover:bg-[#111111]/50'}`} aria-label={`Go to slide ${i + 1}`} />
+        </div>
+        
+        {item.images.length > 1 && (
+          <div className="w-full max-w-[280px] md:max-w-[300px] lg:max-w-[340px] xl:max-w-[380px] flex gap-2 mt-4 overflow-x-auto pb-2 snap-x">
+            {item.images.map((imgUrl, i) => (
+              <div 
+                key={i} 
+                onClick={() => setImageIndex(i)} 
+                className={`w-16 h-16 shrink-0 cursor-pointer snap-start transition-all duration-300 border-b-2 ${imageIndex === i ? 'border-[#111111] opacity-100' : 'border-transparent opacity-50 hover:opacity-100'} bg-[#F5F5F5] overflow-hidden`}
+              >
+                <img src={imgUrl} alt={`thumbnail ${i+1}`} className="w-full h-full object-cover" />
+              </div>
             ))}
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
 };
 
-const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOverlayView, nyTime, setView }) => {
+const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOverlayView, nyTime, setView, onCheckout, currentUser, setEcommerceView }) => {
   const { catalogue } = useData();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null);
   const headerRef = useRef(null);
@@ -362,7 +445,6 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
       }
       return [...prev, { ...itemToAdd, qty: 1 }];
     });
-    setOverlayView('bag');
   };
 
   const handleRemoveFromBag = (indexToRemove) => {
@@ -380,21 +462,61 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
           </h1>
         </div>
         <div className={`sticky top-0 w-full z-50 py-4 transition-all duration-300 ${isSticky ? 'bg-white/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
-          <div className="flex justify-between items-center w-full">
-            <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
+          <div className="flex justify-between items-center w-full relative">
+            <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
               <span onClick={onClose} className="cursor-pointer hover:text-zinc-500 transition-colors">HOME</span>
               <span onClick={openGrid} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
-              <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">STORIES</span>
+              <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">ABOUT</span>
               <span onClick={() => { onClose(); setView('visit'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
             </div>
-            <div className="flex text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
-              <span onClick={openBag} className="cursor-pointer hover:text-zinc-500 transition-colors">BAG ({cartCount})</span>
+            {/* Mobile Menu Button */}
+            <div className="md:hidden flex">
+              <span onClick={() => setIsMobileMenuOpen(true)} className="text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer text-[#111111]">
+                [ MENU ]
+              </span>
+            </div>
+            
+            <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
+               <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/D.svg" alt="logo" className="h-9 sm:h-11 md:h-12 object-contain brightness-0" />
+            </div>
+
+            <div className="flex items-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
+              <span onClick={openBag} className="cursor-pointer hover:text-zinc-500 transition-colors mr-4 sm:mr-6 md:mr-8">BAG ({cartCount})</span>
+              <span onClick={() => {
+                if (currentUser) {
+                  onClose();
+                  setEcommerceView('profile');
+                } else {
+                  onClose();
+                  setEcommerceView('auth');
+                }
+              }} className="cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-[#111111]/20 rounded-full hover:bg-[#111111] hover:text-white hover:border-[#111111] transition-all duration-300">
+                {currentUser ? 'ACCOUNT' : 'LOGIN'}
+              </span>
             </div>
           </div>
         </div>
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-[#ffffff] z-[100] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
+              style={{ pointerEvents: 'auto' }}
+            >
+              <span onClick={() => setIsMobileMenuOpen(false)} className="absolute top-[8%] md:top-[12%] right-[8vw] text-[#a0a0a0] text-[10px] tracking-widest font-bold cursor-pointer underline underline-offset-4 decoration-1">CLOSE</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">HOME</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); openGrid(); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">CATALOGUE</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('editorial'); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">ABOUT</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('visit'); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">VISIT</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
 
         {overlayView === 'bag' ? (
-          <BagView cartItems={cartItems} onRemove={handleRemoveFromBag} />
+          <BagView cartItems={cartItems} onRemove={handleRemoveFromBag} onCheckout={onCheckout} />
         ) : overlayView === 'detail' && selectedItem ? (
           <ProductDetail item={selectedItem} onNavigate={openDetail} onAcquire={handleAcquire} />
         ) : (
@@ -403,13 +525,13 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
               <span>OBJECTS ({catalogue.length})</span>
               <span>SHOW ALL</span>
             </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pb-20 w-full">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3 pb-20 w-full">
               {catalogue.map((item, idx) => (
                 <div key={idx} onClick={() => openDetail(item)} className="flex flex-col group cursor-pointer">
                   <div className="w-full aspect-[4/5] bg-[#F5F5F5] overflow-hidden mb-2 md:mb-3">
-                    <img src={item.src} alt={item.name} loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-[1.03]" draggable="false" />
+                    <img src={item.src || item.image || item.image_url || (item.images && item.images[0])} alt={item.name} loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-[1.03]" draggable="false" />
                   </div>
-                  <div className="flex justify-between items-start w-full text-[11px] md:text-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-1 md:px-2">
+                  <div className="flex justify-between items-start w-full text-[10px] md:text-[11px] lg:text-xs opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-1 md:px-2 pt-1 md:pt-0">
                     <span className="font-helvetica font-bold text-[#111111] pr-4">"{item.name}"</span>
                     <span className="font-helvetica font-bold text-zinc-400">${item.price}</span>
                   </div>
@@ -423,8 +545,9 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
   );
 };
 
-const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime }) => {
+const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, currentUser, setEcommerceView }) => {
   const { settings } = useData();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
   const headerRef = useRef(null);
 
@@ -443,18 +566,58 @@ const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime }) =
           </h1>
         </div>
         <div className={`sticky top-0 w-full z-50 py-4 transition-all duration-300 ${isSticky ? 'bg-white/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
-          <div className="flex justify-between items-center w-full">
-            <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
+          <div className="flex justify-between items-center w-full relative">
+            <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
               <span onClick={onClose} className="cursor-pointer hover:text-zinc-500 transition-colors">HOME</span>
               <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
-              <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">STORIES</span>
+              <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">ABOUT</span>
               <span onClick={() => { onClose(); setView('visit'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
             </div>
-            <div className="flex text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
-              <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">BAG ({cartCount})</span>
+            {/* Mobile Menu Button */}
+            <div className="md:hidden flex">
+              <span onClick={() => setIsMobileMenuOpen(true)} className="text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer text-[#111111]">
+                [ MENU ]
+              </span>
+            </div>
+
+            <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
+               <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/D.svg" alt="logo" className="h-9 sm:h-11 md:h-12 object-contain brightness-0" />
+            </div>
+
+            <div className="flex items-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
+              <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors mr-4 sm:mr-6 md:mr-8">BAG ({cartCount})</span>
+              <span onClick={() => {
+                if (currentUser) {
+                  onClose();
+                  setEcommerceView('profile');
+                } else {
+                  onClose();
+                  setEcommerceView('auth');
+                }
+              }} className="cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-[#111111]/20 rounded-full hover:bg-[#111111] hover:text-white hover:border-[#111111] transition-all duration-300">
+                {currentUser ? 'ACCOUNT' : 'LOGIN'}
+              </span>
             </div>
           </div>
         </div>
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-[#ffffff] z-[100] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
+              style={{ pointerEvents: 'auto' }}
+            >
+              <span onClick={() => setIsMobileMenuOpen(false)} className="absolute top-[8%] md:top-[12%] right-[8vw] text-[#a0a0a0] text-[10px] tracking-widest font-bold cursor-pointer underline underline-offset-4 decoration-1">CLOSE</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">HOME</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('grid'); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">CATALOGUE</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('editorial'); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">ABOUT</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('visit'); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">VISIT</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
 
         <div className="w-full mt-10 md:mt-14 pb-24 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-start px-0">
           <div className="md:col-span-5 flex flex-col gap-12">
@@ -541,8 +704,9 @@ const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime }) =
   );
 };
 
-const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime }) => {
+const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, currentUser, setEcommerceView }) => {
   const { editorials, settings } = useData();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
   const headerRef = useRef(null);
 
@@ -561,31 +725,69 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime 
           </h1>
         </div>
         <div className={`sticky top-0 w-full z-50 py-4 transition-all duration-300 ${isSticky ? 'bg-white/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
-          <div className="flex justify-between items-center w-full">
-            <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
+          <div className="flex justify-between items-center w-full relative">
+            <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
               <span onClick={onClose} className="cursor-pointer hover:text-zinc-500 transition-colors">HOME</span>
               <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
-              <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">STORIES</span>
+              <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">ABOUT</span>
               <span onClick={() => { onClose(); setView('visit'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
             </div>
-            <div className="flex text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
-              <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">BAG ({cartCount})</span>
+            {/* Mobile Menu Button */}
+            <div className="md:hidden flex">
+              <span onClick={() => setIsMobileMenuOpen(true)} className="text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer text-[#111111]">
+                [ MENU ]
+              </span>
+            </div>
+
+            <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
+               <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/D.svg" alt="logo" className="h-9 sm:h-11 md:h-12 object-contain brightness-0" />
+            </div>
+
+            <div className="flex items-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
+              <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors mr-4 sm:mr-6 md:mr-8">BAG ({cartCount})</span>
+              <span onClick={() => {
+                if (currentUser) {
+                  onClose();
+                  setEcommerceView('profile');
+                } else {
+                  onClose();
+                  setEcommerceView('auth');
+                }
+              }} className="cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-[#111111]/20 rounded-full hover:bg-[#111111] hover:text-white hover:border-[#111111] transition-all duration-300">
+                {currentUser ? 'ACCOUNT' : 'LOGIN'}
+              </span>
             </div>
           </div>
         </div>
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-[#ffffff] z-[100] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
+              style={{ pointerEvents: 'auto' }}
+            >
+              <span onClick={() => setIsMobileMenuOpen(false)} className="absolute top-[8%] md:top-[12%] right-[8vw] text-[#a0a0a0] text-[10px] tracking-widest font-bold cursor-pointer underline underline-offset-4 decoration-1">CLOSE</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">HOME</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('grid'); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">CATALOGUE</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('editorial'); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">ABOUT</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('visit'); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">VISIT</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
 
         <div className="w-full mt-10 md:mt-14 pb-32 flex flex-col gap-24 md:gap-32 px-6 md:px-12 lg:px-24">
           
           {/* Artist 1: Mimi (Image Right, Text Left) */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-center">
             <div className="md:col-span-6 lg:col-span-6 flex flex-col justify-center order-2 md:order-1 px-4 md:px-0">
-              <h3 className="font-aura text-xl md:text-2xl lg:text-3xl text-[#1C1C1C] leading-[1.3] mb-8">
-                “I once believed I had lost my art. But behind the bar, I found it again. Today, I paint with flavor, balance, and emotion.
-                <br/><br/>
-                This pop-up is my canvas, and every drink tells the story of my return to myself.”
+              <h3 className="font-aura text-xl md:text-2xl lg:text-3xl text-[#1C1C1C] leading-[1.3] mb-8 whitespace-pre-wrap">
+                {settings.artist1_quote || "“I once believed I had lost my art. But behind the bar, I found it again. Today, I paint with flavor, balance, and emotion.\n\nThis pop-up is my canvas, and every drink tells the story of my return to myself.”"}
               </h3>
-              <div className="font-mono text-[10px] md:text-xs text-[#9CA3AF] uppercase tracking-widest">
-                — {settings.artist1_name || "MIMI"}
+              <div className="font-mono text-[10px] md:text-xs text-[#9CA3AF] uppercase tracking-widest whitespace-pre-wrap">
+                — {settings.artist1_subtext || settings.artist1_name || "MIMI"}
               </div>
             </div>
             <div className="md:col-span-6 lg:col-span-5 lg:col-start-8 relative order-1 md:order-2">
@@ -611,17 +813,15 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime 
               </motion.div>
             </div>
             <div className="md:col-span-6 lg:col-span-6 lg:col-start-7 flex flex-col justify-center order-2 px-4 md:px-0">
-              <h3 className="font-aura text-xl md:text-2xl lg:text-3xl text-[#1C1C1C] leading-[1.3] mb-8">
-                “Cocktails became my world when I realized they weren't just my job; they're how I express who I am. 
-                <br/><br/>
-                After years behind the bar, I'm taking the next step: blending cocktails and art, and turning drinks into stories.”
+              <h3 className="font-aura text-xl md:text-2xl lg:text-3xl text-[#1C1C1C] leading-[1.3] mb-8 whitespace-pre-wrap">
+                {settings.artist2_quote || "“Cocktails became my world when I realized they weren't just my job; they're how I express who I am.\n\nAfter years behind the bar, I'm taking the next step: blending cocktails and art, and turning drinks into stories.”"}
               </h3>
               <div className="flex flex-col gap-3">
                 <div className="font-mono text-xs md:text-sm text-[#1C1C1C] uppercase tracking-widest font-bold">
                   — {settings.artist2_name || "TEDDY"}
                 </div>
-                <div className="font-mono text-[9px] md:text-[10px] text-[#9CA3AF] uppercase tracking-widest leading-relaxed">
-                  Winner “Bar Star Awards”<br/>by New York Bartender Week 2025
+                <div className="font-mono text-[9px] md:text-[10px] text-[#9CA3AF] uppercase tracking-widest leading-relaxed whitespace-pre-wrap">
+                  {settings.artist2_subtext || "Winner “Bar Star Awards”\nby New York Bartender Week 2025"}
                 </div>
               </div>
             </div>
@@ -654,8 +854,9 @@ const ZoomImage = ({ src, alt, className, containerRef }) => {
   );
 };
 
-const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setView, setOverlayView }) => {
+const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setView, setOverlayView, currentUser, setEcommerceView }) => {
   const [isSticky, setIsSticky] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const headerRef = useRef(null);
   const overlayRef = useRef(null);
   const { settings } = useData();
@@ -681,19 +882,59 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
   return (
     <div ref={overlayRef} className="fixed inset-0 bg-[#F5F5F5] z-[9999] overflow-y-auto" onScroll={handleScroll}>
       <div className={`sticky top-0 w-full z-50 px-6 py-5 transition-all duration-300 ${isSticky ? 'bg-[#F5F5F5]/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
-        <div className="flex justify-between items-center w-full">
-          <div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
+        <div className="flex justify-between items-center w-full relative">
+          <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
             <span onClick={onClose} className="cursor-pointer hover:text-zinc-500 transition-colors">COCKTAILS</span>
             <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
-            <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">STORIES</span>
+            <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">ABOUT</span>
             <span onClick={() => { onClose(); setView('visit'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
           </div>
-          <div className="flex text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
-            <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">
+            {/* Mobile Menu Button */}
+            <div className="md:hidden flex">
+              <span onClick={() => setIsMobileMenuOpen(true)} className="text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer text-[#111111]">
+                [ MENU ]
+              </span>
+            </div>
+
+          <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
+             <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/D.svg" alt="logo" className="h-9 sm:h-11 md:h-12 object-contain brightness-0" />
+          </div>
+
+          <div className="flex items-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
+            <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors mr-4 sm:mr-6 md:mr-8">
               BAG ({cartCount})
+            </span>
+            <span onClick={() => {
+              if (currentUser) {
+                onClose();
+                setEcommerceView('profile');
+              } else {
+                onClose();
+                setEcommerceView('auth');
+              }
+            }} className="cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-[#111111]/20 rounded-full hover:bg-[#111111] hover:text-white hover:border-[#111111] transition-all duration-300">
+              {currentUser ? 'ACCOUNT' : 'LOGIN'}
             </span>
           </div>
         </div>
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-[#ffffff] z-[100] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
+              style={{ pointerEvents: 'auto' }}
+            >
+              <span onClick={() => setIsMobileMenuOpen(false)} className="absolute top-[8%] md:top-[12%] right-[8vw] text-[#a0a0a0] text-[10px] tracking-widest font-bold cursor-pointer underline underline-offset-4 decoration-1">CLOSE</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">HOME</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('grid'); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">CATALOGUE</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('editorial'); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">ABOUT</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('visit'); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">VISIT</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
       </div>
 
       <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 pt-4 md:pt-6 pb-24">
@@ -708,7 +949,7 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
             <div className="w-full bg-[#EAEAEA] overflow-hidden shadow-sm">
               <motion.img 
                 style={{ scale: imageScale }} 
-                src={item.src} 
+                src={item.src || item.image || item.image_url || (item.images && item.images[0])} 
                 alt={item.name} 
                 className="w-full h-auto object-cover origin-top transform-gpu" 
               />
@@ -777,16 +1018,10 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
   );
 };
 
-const ContentStage = ({ rawProgress }) => {
-  const [isRevealed, setIsRevealed] = useState(false);
+const ContentStage = ({ onMenuClick }) => {
+  const { cocktails } = useData();
 
-  useMotionValueEvent(rawProgress, "change", (latest) => {
-    if (latest > 0.75 && !isRevealed) {
-      setIsRevealed(true);
-    }
-  });
-
-  const menus = [
+  const defaultMenus = [
     {
       title: "Sunflowers",
       image: "https://images.unsplash.com/photo-1579783901586-d88db74b4fe4?auto=format&fit=crop&w=1200&q=80",
@@ -811,10 +1046,23 @@ const ContentStage = ({ rawProgress }) => {
     }
   ];
 
+  const menus = cocktails && cocktails.length > 0 ? cocktails.map(c => ({
+    title: c.name || '',
+    image: c.src || '',
+    caption: c.caption || '',
+    reference: c.reference || '',
+    quote: c.quote || '',
+    artist: c.artist || '',
+    tags: c.tags || '',
+    ingredients: c.ingredients || '',
+    price: c.price || ''
+  })) : defaultMenus;
+
   return (
     <motion.div 
       initial={{ opacity: 0 }}
-      animate={{ opacity: isRevealed ? 1 : 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 1 }}
       className="w-full h-full bg-[#111111] overflow-y-auto overflow-x-hidden text-[#EAEAEA] flex flex-col pointer-events-auto"
     >
@@ -961,7 +1209,7 @@ const HomeCatalogueStage = ({ setView, setOverlayView }) => {
                 <div className="w-full aspect-[4/5] bg-[#EAEAEA] mb-4 overflow-hidden relative">
                   <motion.img 
                     variants={imageVariants}
-                    src={item.src} 
+                    src={item.src || item.image || item.image_url || (item.images && item.images[0])} 
                     alt={item.name} 
                     className="w-full h-full object-cover transition-all duration-700 group-hover:scale-105 group-hover:grayscale origin-center" 
                   />
@@ -1078,8 +1326,9 @@ const FooterStage = ({ onSecretClick }) => {
   );
 };
 
-const HeroLandingStage = ({ setView, setOverlayView, cartCount }) => {
+const HeroLandingStage = ({ setView, setOverlayView, cartCount, scrollToMenu, currentUser, setEcommerceView }) => {
   const containerRef = useRef(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { scrollY } = useScroll();
 
   // 1. Clear Area (0 - 600px)
@@ -1122,12 +1371,12 @@ const HeroLandingStage = ({ setView, setOverlayView, cartCount }) => {
   const stageBg = useTransform(scrollY, [1100, 1350], ["#111111", "#F5F5F5"]);
   const dropColor = useTransform(scrollY, [1100, 1350], ["#F5F5F5", "#222222"]);
 
-  // 4. Ink Bleed (1400 - 1800px)
-  const bleedMaskSize = useTransform(scrollY, [1380, 1800], ["0vmax 0vmax", "140vmax 140vmax"]);
-  const bleedOpacity = useTransform(scrollY, [1380, 1400], [0, 1]);
+  // 4. Ink Bleed (1350 - 1650px)
+  const bleedMaskSize = useTransform(scrollY, [1350, 1650], ["0vmax 0vmax", "110vmax 110vmax"]);
+  const bleedOpacity = useTransform(scrollY, [1350, 1400], [0, 1]);
 
   return (
-    <motion.div ref={containerRef} style={{ backgroundColor: stageBg }} className="w-full h-[300vh] relative">
+    <motion.div ref={containerRef} style={{ backgroundColor: stageBg }} className="w-full h-[280vh] relative">
       <div className="sticky top-0 w-full h-screen overflow-hidden">
         
         {/* Background Image */}
@@ -1150,18 +1399,53 @@ const HeroLandingStage = ({ setView, setOverlayView, cartCount }) => {
         </div>
 
         {/* Navigation Bar */}
-        <motion.nav style={{ opacity: navOpacity, y: navY, pointerEvents, visibility: visibilityState }} className="absolute top-[12%] left-[8vw] right-[8vw] flex justify-between items-center z-20">
-            <div className="flex gap-16 md:gap-24">
+        <motion.nav style={{ opacity: navOpacity, y: navY, pointerEvents, visibility: visibilityState }} className="absolute top-[12%] left-[8vw] right-[8vw] flex justify-between items-center z-50">
+            {/* Desktop Links */}
+            <div className="hidden md:flex gap-16 md:gap-24">
                 <span onClick={() => { setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
                 <span onClick={() => setView('editorial')} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">ABOUT</span>
                 <span onClick={() => setView('visit')} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
             </div>
-            <div>
-                <span onClick={() => { setView('catalogue'); setOverlayView('bag'); }} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">
+            {/* Mobile Menu Button */}
+            <div className="md:hidden flex">
+                <span onClick={() => setIsMobileMenuOpen(true)} className="text-[#F5F5F5] text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer">
+                    [ MENU ]
+                </span>
+            </div>
+            
+            <div className="flex items-center text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest text-[#F5F5F5]">
+                <span onClick={() => { setView('catalogue'); setOverlayView('bag'); }} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors mr-4 sm:mr-6 md:mr-8">
                     BAG ({cartCount})
+                </span>
+                <span onClick={() => {
+                  if (currentUser) {
+                    setEcommerceView('profile');
+                  } else {
+                    setEcommerceView('auth');
+                  }
+                }} className="cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-white/20 rounded-full hover:bg-white hover:text-black hover:border-white transition-all duration-300">
+                  {currentUser ? 'ACCOUNT' : 'LOGIN'}
                 </span>
             </div>
         </motion.nav>
+
+        {/* Mobile Menu Overlay */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-[#111111] z-[100] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
+              style={{ pointerEvents: 'auto' }}
+            >
+              <span onClick={() => setIsMobileMenuOpen(false)} className="absolute top-[12%] right-[8vw] text-[#a0a0a0] text-[10px] tracking-widest font-bold cursor-pointer underline underline-offset-4 decoration-1">CLOSE</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-3xl font-bold tracking-widest cursor-pointer">CATALOGUE</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('editorial'); }} className="text-[#F5F5F5] text-3xl font-bold tracking-widest cursor-pointer">ABOUT</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('visit'); }} className="text-[#F5F5F5] text-3xl font-bold tracking-widest cursor-pointer">VISIT</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* The Melt & Drop Sequence */}
         <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-10">
@@ -1171,16 +1455,16 @@ const HeroLandingStage = ({ setView, setOverlayView, cartCount }) => {
                 <motion.div className="absolute rounded-full z-0" style={{ backgroundColor: dropColor, width: '40px', height: '40px', top: '50%', marginTop: '-20px', left: '49%', marginLeft: '-20px', y: dropY, scaleY: dropScaleY, opacity: dropOpacity, originY: 0.5 }} />
 
                 {/* Centered Letters (WAYD?) */}
-                <motion.div style={{ opacity: logoOpacity, filter: logoBlur, WebkitFilter: logoBlur }} className="relative flex items-center justify-center gap-4">
-                   <motion.img style={{ filter: "brightness(0) invert(1)", scaleY: meltScaleY, originY: 0 }} src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/W.svg" alt="W" className="h-[26vh] object-contain" />
-                   <motion.img style={{ filter: "brightness(0) invert(1)", scaleY: meltScaleY, originY: 0 }} src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/A.svg" alt="A" className="h-[26vh] object-contain" />
-                   <motion.img style={{ filter: "brightness(0) invert(1)", scaleY: meltScaleY, originY: 0 }} src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/Y.svg" alt="Y" className="h-[26vh] object-contain -ml-4 md:-ml-8" />
-                   <motion.img style={{ filter: "brightness(0) invert(1)", scaleY: meltScaleY, originY: 0 }} src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/D.svg" alt="D" className="h-[42vh] object-contain" />
-                   <motion.img style={{ filter: "brightness(0) invert(1)", scaleY: meltScaleY, originY: 0 }} src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/question.svg" alt="?" className="h-[26vh] object-contain" />
+                <motion.div style={{ opacity: logoOpacity, filter: logoBlur, WebkitFilter: logoBlur }} className="relative flex items-center justify-center gap-0 md:gap-4">
+                   <motion.img style={{ filter: "brightness(0) invert(1)", scaleY: meltScaleY, originY: 0 }} src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/W.svg" alt="W" className="h-[15vh] md:h-[26vh] object-contain" />
+                   <motion.img style={{ filter: "brightness(0) invert(1)", scaleY: meltScaleY, originY: 0 }} src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/A.svg" alt="A" className="h-[15vh] md:h-[26vh] object-contain" />
+                   <motion.img style={{ filter: "brightness(0) invert(1)", scaleY: meltScaleY, originY: 0 }} src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/Y.svg" alt="Y" className="h-[15vh] md:h-[26vh] object-contain -ml-4 md:-ml-8" />
+                   <motion.img style={{ filter: "brightness(0) invert(1)", scaleY: meltScaleY, originY: 0 }} src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/D.svg" alt="D" className="h-[25vh] md:h-[42vh] object-contain" />
+                   <motion.img style={{ filter: "brightness(0) invert(1)", scaleY: meltScaleY, originY: 0 }} src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/question.svg" alt="?" className="h-[15vh] md:h-[26vh] object-contain" />
                    
                    {/* Subtitle positioned absolutely */}
-                   <motion.div style={{ opacity: subOpacity, y: subY, filter: subBlur, WebkitFilter: subBlur, visibility: visibilityState }} className="absolute top-[100%] left-0 w-full pl-4 -mt-8 md:-mt-14">
-                       <p className="text-sm md:text-base text-[#F5F5F5] font-inter-tight tracking-[0.3em] uppercase whitespace-nowrap">
+                   <motion.div style={{ opacity: subOpacity, y: subY, filter: subBlur, WebkitFilter: subBlur, visibility: visibilityState }} className="absolute top-[100%] left-0 w-full pl-2 md:pl-4 -mt-10 md:-mt-14 text-left">
+                       <p className="text-[9px] md:text-base text-[#F5F5F5] font-inter-tight tracking-[0.2em] md:tracking-[0.3em] uppercase whitespace-nowrap">
                            WHAT ARE YOU DRINKING?
                        </p>
                    </motion.div>
@@ -1202,7 +1486,7 @@ const HeroLandingStage = ({ setView, setOverlayView, cartCount }) => {
             </div>
             
             {/* Middle Block */}
-            <div className="flex-1 flex items-start justify-center gap-6">
+            <div className="hidden md:flex flex-1 items-start justify-center gap-6">
                 <div className="flex flex-col gap-2">
                     <span className="text-[9px] text-zinc-500 font-inter-tight tracking-[0.2em] uppercase leading-none">The bar becomes</span>
                     <span className="text-[9px] text-zinc-500 font-inter-tight tracking-[0.2em] uppercase leading-none">The drinks are &nbsp;&nbsp;the work</span>
@@ -1214,6 +1498,7 @@ const HeroLandingStage = ({ setView, setOverlayView, cartCount }) => {
             {/* Right Block */}
             <div className="flex-1 pr-[8vw] flex justify-end items-start pointer-events-auto">
                 <motion.button 
+                    onClick={scrollToMenu}
                     whileHover="hover"
                     initial="initial"
                     animate="animate"
@@ -1221,7 +1506,7 @@ const HeroLandingStage = ({ setView, setOverlayView, cartCount }) => {
                         initial: { scale: 1 },
                         hover: { scale: 1.05, transition: { type: "spring", stiffness: 400, damping: 15 } }
                     }}
-                    className="relative overflow-hidden bg-[#C28256] text-[#111111] px-6 py-2 text-[9px] md:text-[10px] font-inter-tight font-bold tracking-[0.2em] uppercase cursor-pointer leading-none"
+                    className="relative overflow-hidden bg-[#C28256] text-[#111111] px-4 py-1.5 md:px-6 md:py-2 text-[8px] md:text-[10px] font-inter-tight font-bold tracking-[0.2em] uppercase cursor-pointer leading-none whitespace-nowrap"
                 >
                     {/* Sliding Background Layer */}
                     <motion.div 
@@ -1256,53 +1541,15 @@ const HeroLandingStage = ({ setView, setOverlayView, cartCount }) => {
 };
 
 const FrontendApp = ({ onSecretClick }) => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { settings, cocktails } = useData(); 
-  const scrollSequenceRef = useRef(null);
-  
-  const { scrollYProgress: rawProgress } = useScroll({
-    target: scrollSequenceRef,
-    offset: ["start start", "end end"]
+  const { scrollY } = useScroll();
+  const [showGlobalNav, setShowGlobalNav] = useState(false);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    // Show global nav after the 280vh HeroLandingStage is passed
+    setShowGlobalNav(latest > window.innerHeight * 2.6);
   });
-  const scrollYProgress = rawProgress;
-  const curtainY = useTransform(scrollYProgress, [0.55, 0.90], ["0vh", "-100vh"]);
-  
-  const wineScale = useTransform(scrollYProgress, [0.02, 0.12], [1, 4]);
-  const wineBlur = useTransform(scrollYProgress, [0.02, 0.12], ["blur(0px)", "blur(15px)"]);
-  const wineOpacity = useTransform(scrollYProgress, [0.02, 0.12], [0.85, 0]);
-  const wineHideY = useTransform(scrollYProgress, (v) => v > 0.13 ? -9999 : 0);
-
-  const cornerOpacity = useTransform(scrollYProgress, [0.00, 0.04], [1, 0]);
-  const cornerLeftX = useTransform(scrollYProgress, [0.00, 0.04], ["0vw", "-10vw"]); 
-  const cornerRightX = useTransform(scrollYProgress, [0.00, 0.04], ["0vw", "10vw"]); 
-  const cornerBottomY = useTransform(scrollYProgress, [0.00, 0.04], ["0vh", "15vh"]); 
-  const coordY = useTransform(scrollYProgress, [0.00, 0.04], ["0vh", "-25vh"]); 
-  const cornerHideY = useTransform(scrollYProgress, (v) => v > 0.05 ? -9999 : 0);
-
-  const mainTextY = useTransform(scrollYProgress, [0.02, 0.12], ["0vh", "22vh"]); 
-  const mw1 = useTransform(scrollYProgress, [0.15, 0.25], ["25vw", "0vw"]);
-  const mw2 = useTransform(scrollYProgress, [0.15, 0.25], ["20vw", "0vw"]);
-  const mw3 = useTransform(scrollYProgress, [0.15, 0.25], ["15vw", "0vw"]);
-  const mw4 = useTransform(scrollYProgress, [0.15, 0.25], ["45vw", "0vw"]);
-  const smallOpacity = useTransform(scrollYProgress, [0.15, 0.20], [1, 0]);
-  const smallTextHideY = useTransform(scrollYProgress, (v) => v > 0.21 ? -9999 : 0);
-  const line1Y = useTransform(scrollYProgress, [0.15, 0.25], ["-0.36em", "0em"]);
-  const line1X = useTransform(scrollYProgress, [0.15, 0.25], ["0em", "-0.45em"]); 
-  const line2Y = useTransform(scrollYProgress, [0.15, 0.25], ["0.36em", "0em"]);
-  const line2X = useTransform(scrollYProgress, [0.15, 0.25], ["0em", "0.65em"]); 
-
-  const gooeyFilter = useTransform(scrollYProgress, (v) => (v >= 0.24 && v <= 0.38) ? "url(#goo)" : "none");
-  const logoBlur = useTransform(scrollYProgress, [0.25, 0.30], ["blur(0px)", "blur(5px)"]);
-  const meltScaleY = useTransform(scrollYProgress, [0.25, 0.32], [1, 1.6]); 
-  const logoOpacity = useTransform(scrollYProgress, [0.30, 0.34], [1, 0]); 
-  const logoHideY = useTransform(scrollYProgress, (v) => v > 0.35 ? -9999 : 0);
-  const dropOpacity = useTransform(scrollYProgress, [0.25, 0.28, 0.38, 0.39], [0, 1, 1, 0]); 
-  const dropY = useTransform(scrollYProgress, [0.28, 0.38], ["0vh", "120vh"]); 
-  const dropScaleY = useTransform(scrollYProgress, [0.28, 0.33, 0.38], [1, 3.5, 1]); 
-  const dropHideX = useTransform(scrollYProgress, (v) => v > 0.40 ? -9999 : 0);
-  const dropColor = useTransform(scrollYProgress, [0.29, 0.34], ["#000000", "#000000"]); 
-  const textLayerMasterOpacity = useTransform(scrollYProgress, [0.50, 0.52], [1, 1]); 
-  const bleedMaskSize = useTransform(scrollYProgress, [0.39, 0.55], ["0vmax 0vmax", "140vmax 140vmax"]);
-  const bleedOpacity = useTransform(scrollYProgress, [0.39, 0.41], [0, 1]);
 
   const [view, setView] = useState('home');
   const [overlayView, setOverlayView] = useState('grid');
@@ -1310,6 +1557,13 @@ const FrontendApp = ({ onSecretClick }) => {
   const [nyTime, setNyTime] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState(null);
+  
+  // Ecommerce States
+  const [ecommerceView, setEcommerceView] = useState(null); // 'checkout', 'success', 'auth', 'profile'
+  const [currentUser, setCurrentUser] = useState(null);
+  const [lastOrderDetails, setLastOrderDetails] = useState(null);
+  
+  const cartTotal = cartItems.reduce((sum, item) => sum + (Number(item.price) * item.qty), 0);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 2000);
@@ -1360,28 +1614,14 @@ const FrontendApp = ({ onSecretClick }) => {
   }, [view]);
 
   const scrollToMenu = () => {
-    if (scrollSequenceRef.current) {
-      const targetY = scrollSequenceRef.current.offsetTop + (window.innerHeight * 4.5);
-      window.scrollTo({ top: targetY, behavior: 'smooth' });
-    }
+    window.scrollTo({ top: window.innerHeight * 2.8, behavior: 'auto' });
   };
 
   const cartCount = cartItems.reduce((sum, item) => sum + item.qty, 0);
 
-  const navY = useTransform(scrollYProgress, [0, 0.05, 0.86, 0.88], ["0%", "0%", "-100%", "0%"]);
-  const navOpacity = useTransform(scrollYProgress, [0, 0.05, 0.86, 0.88], [0, 0, 0, 1]);
-  const navBg = useTransform(scrollYProgress, [0.86, 0.88], ["rgba(17, 17, 17, 0)", "rgba(17, 17, 17, 0.85)"]);
-  const navShadow = useTransform(scrollYProgress, [0.86, 0.88], ["0 4px 30px rgba(0,0,0,0)", "0 4px 30px rgba(0,0,0,0.5)"]);
-  const navBackdrop = useTransform(scrollYProgress, [0.86, 0.88], ["blur(0px)", "blur(12px)"]);
-  const navPointerEvents = useTransform(scrollYProgress, v => (v < 0.86) ? "none" : "auto");
-  
-  const navPt = useTransform(scrollYProgress, [0, 0.01], ["12vh", "20px"]);
-  const navPl = useTransform(scrollYProgress, [0, 0.01], ["8vw", "24px"]);
-  const navPr = useTransform(scrollYProgress, [0, 0.01], ["2.5vw", "24px"]);
-
   return (
     <div className="bg-[#111111] text-[#F5F5F5] selection:bg-[#F5F5F5] selection:text-[#111111] relative">
-      <HeroLandingStage setView={setView} setOverlayView={setOverlayView} cartCount={cartCount} />
+      <HeroLandingStage setView={setView} setOverlayView={setOverlayView} cartCount={cartCount} scrollToMenu={scrollToMenu} currentUser={currentUser} setEcommerceView={setEcommerceView} />
       
       {/* --- Preloader removed in favor of Skeleton loading --- */}
 
@@ -1412,45 +1652,67 @@ const FrontendApp = ({ onSecretClick }) => {
         }
       `}} />
 
-      {view === 'catalogue' && <CatalogueOverlay onClose={() => setView('home')} cartItems={cartItems} setCartItems={setCartItems} overlayView={overlayView} setOverlayView={setOverlayView} nyTime={nyTime} setView={setView} />}
-      {view === 'editorial' && <EditorialOverlay onClose={() => setView('home')} cartCount={cartCount} setView={setView} setOverlayView={setOverlayView} nyTime={nyTime} />}
-      {view === 'visit' && <VisitOverlay onClose={() => setView('home')} cartCount={cartCount} setView={setView} setOverlayView={setOverlayView} nyTime={nyTime} />}
-      {selectedMenu && <MenuDetailOverlay item={selectedMenu} onClose={() => setSelectedMenu(null)} nyTime={nyTime} onMenuClick={setSelectedMenu} cartCount={cartCount} setView={setView} setOverlayView={setOverlayView} />}
+      {view === 'catalogue' && <CatalogueOverlay onClose={() => setView('home')} cartItems={cartItems} setCartItems={setCartItems} overlayView={overlayView} setOverlayView={setOverlayView} nyTime={nyTime} setView={setView} onCheckout={() => { setView('home'); setEcommerceView('checkout'); }} currentUser={currentUser} setEcommerceView={setEcommerceView} />}
+      {view === 'editorial' && <EditorialOverlay onClose={() => setView('home')} cartCount={cartCount} setView={setView} setOverlayView={setOverlayView} nyTime={nyTime} currentUser={currentUser} setEcommerceView={setEcommerceView} />}
+      {view === 'visit' && <VisitOverlay onClose={() => setView('home')} cartCount={cartCount} setView={setView} setOverlayView={setOverlayView} nyTime={nyTime} currentUser={currentUser} setEcommerceView={setEcommerceView} />}
+      {selectedMenu && <MenuDetailOverlay item={selectedMenu} onClose={() => setSelectedMenu(null)} nyTime={nyTime} onMenuClick={setSelectedMenu} cartCount={cartCount} setView={setView} setOverlayView={setOverlayView} currentUser={currentUser} setEcommerceView={setEcommerceView} />}
 
-      {view !== 'catalogue' && view !== 'editorial' && view !== 'visit' && !selectedMenu && (
+      <AnimatePresence>
+      {view !== 'catalogue' && view !== 'editorial' && view !== 'visit' && !selectedMenu && showGlobalNav && (
         <motion.nav 
-          style={{ 
-            y: navY, 
-            opacity: navOpacity, 
-            backgroundColor: navBg, 
-            boxShadow: navShadow, 
-            backdropFilter: navBackdrop, 
-            WebkitBackdropFilter: navBackdrop, 
-            pointerEvents: navPointerEvents,
-            paddingTop: navPt,
-            paddingBottom: "20px",
-            paddingLeft: navPl,
-            paddingRight: navPr,
-            transform: "translateZ(0)",
-            willChange: "transform, opacity, background-color, backdrop-filter, padding"
-          }} 
-          className="fixed top-0 left-0 w-full z-[999] flex justify-between items-start"
+          initial={{ y: "-100%", opacity: 0 }}
+          animate={{ y: "0%", opacity: 1 }}
+          exit={{ y: "-100%", opacity: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-[#111111]/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] pt-[20px] pb-[20px] px-[8vw] md:px-[8vw]"
         >
-          <motion.div className="flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#F5F5F5]">
+          <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#F5F5F5]">
             <span onClick={() => { setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
             <span onClick={() => setView('editorial')} className="cursor-pointer hover:text-zinc-500 transition-colors">ABOUT</span>
             <span onClick={() => setView('visit')} className="cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
-          </motion.div>
+          </div>
+          {/* Mobile Menu Button */}
+          <div className="md:hidden flex">
+            <span onClick={() => setIsMobileMenuOpen(true)} className="text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer text-[#F5F5F5]">
+              [ MENU ]
+            </span>
+          </div>
           
-          <motion.div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center pointer-events-none">
-             <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/D.svg" alt="logo" className="h-6 sm:h-7 object-contain brightness-0 invert" />
-          </motion.div>
+          <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
+             <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/D.svg" alt="logo" className="h-9 sm:h-11 md:h-12 object-contain brightness-0 invert" />
+          </div>
 
-          <motion.div className="flex text-2xl sm:text-3xl md:text-4xl font-inter-tight font-normal uppercase tracking-widest text-[#F5F5F5] leading-none">
-            <span onClick={() => { setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">BAG/0{cartCount > 0 ? cartCount : '1'}.</span>
-          </motion.div>
+          <div className="flex items-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#F5F5F5]">
+            <span onClick={() => { setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors mr-4 sm:mr-6 md:mr-8">BAG ({cartCount})</span>
+            <span onClick={() => {
+              if (currentUser) {
+                setEcommerceView('profile');
+              } else {
+                setEcommerceView('auth');
+              }
+            }} className="cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-white/20 rounded-full hover:bg-white hover:text-black hover:border-white transition-all duration-300">
+              {currentUser ? 'ACCOUNT' : 'LOGIN'}
+            </span>
+          </div>
         </motion.nav>
       )}
+      
+        {/* Mobile Menu Overlay for Global Nav */}
+        {isMobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-[#111111] z-[1000] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
+            style={{ pointerEvents: 'auto' }}
+          >
+            <span onClick={() => setIsMobileMenuOpen(false)} className="absolute top-[8%] md:top-[12%] right-[8vw] text-[#a0a0a0] text-[10px] tracking-widest font-bold cursor-pointer underline underline-offset-4 decoration-1">CLOSE</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-3xl font-bold tracking-widest cursor-pointer">CATALOGUE</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); setView('editorial'); }} className="text-[#F5F5F5] text-3xl font-bold tracking-widest cursor-pointer">ABOUT</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); setView('visit'); }} className="text-[#F5F5F5] text-3xl font-bold tracking-widest cursor-pointer">VISIT</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <svg style={{ position: 'absolute', width: 0, height: 0, pointerEvents: 'none' }}>
         <defs>
@@ -1462,97 +1724,111 @@ const FrontendApp = ({ onSecretClick }) => {
         </defs>
       </svg>
 
-      <div ref={scrollSequenceRef} className="h-[600vh] w-full relative z-30">
-        <div className="sticky top-0 h-screen w-full overflow-hidden pointer-events-none">
-          
-          <div className="absolute inset-0 w-full h-screen z-10 pointer-events-auto bg-[#F5F5F5]">
-            <ContentStage rawProgress={rawProgress} onMenuClick={setSelectedMenu} />
-          </div>
+      <div className="w-full flex flex-col relative z-20 bg-[#111111] pointer-events-auto">
+        <ContentStage onMenuClick={setSelectedMenu} />
+      </div>
 
-          <motion.div style={{ opacity: textLayerMasterOpacity, y: curtainY, transform: "translateZ(0)", willChange: "transform, opacity" }} className="absolute inset-0 w-full h-screen z-50 pointer-events-none bg-[#F5F5F5]">
-                
-                <motion.div style={{ filter: logoBlur, WebkitFilter: logoBlur, y: mainTextY, willChange: "transform, filter" }} className="absolute top-0 left-0 w-full flex flex-col items-center justify-start pt-[110px] md:pt-[130px] z-10">
-                  <motion.div style={{ filter: gooeyFilter, WebkitFilter: gooeyFilter }} className="relative w-full mx-auto flex items-center justify-center">
-                    
-                    <motion.div className="absolute rounded-full z-0" style={{ backgroundColor: dropColor, width: '40px', height: '40px', top: '50%', marginTop: '-20px', left: '49%', marginLeft: '-20px', y: dropY, x: dropHideX, scaleY: dropScaleY, opacity: dropOpacity, originY: 0.5 }} />
-                    
-                    <motion.div style={{ opacity: logoOpacity, y: logoHideY, WebkitTransform: 'translateZ(0)', transform: 'translateZ(0)', willChange: "transform, opacity" }} className="relative flex items-center justify-center w-full z-10 text-[22vw] md:text-[18vw] lg:text-[16vw] font-bebas leading-[0.75] tracking-normal text-black whitespace-nowrap h-0 mt-[0.36em]">
-                      <motion.div className="absolute flex justify-center items-center w-full h-full">
-                      <motion.div style={{ y: line1Y, x: line1X }} className="absolute flex justify-center items-baseline w-full">
-                        <motion.span style={{ scaleY: meltScaleY }} className="flex-shrink-0 inline-block origin-top">W</motion.span>
-                        <motion.div style={{ maxWidth: mw1, opacity: smallOpacity, y: smallTextHideY }} className="flex-shrink-0 flex overflow-hidden items-baseline pt-[0.2em]">
-                          <span className="font-bebas pr-[3vw]">HAT</span>
-                        </motion.div>
-                        <motion.span style={{ scaleY: meltScaleY }} className="flex-shrink-0 inline-block origin-top">A</motion.span>
-                        <motion.div style={{ maxWidth: mw2, opacity: smallOpacity, y: smallTextHideY }} className="flex-shrink-0 flex overflow-hidden items-baseline pt-[0.2em]">
-                          <span className="font-bebas pr-[4vw]">RE</span>
-                        </motion.div>
-                        <motion.span style={{ scaleY: meltScaleY }} className="flex-shrink-0 inline-block origin-top">Y</motion.span>
-                        <motion.div style={{ maxWidth: mw3, opacity: smallOpacity, y: smallTextHideY }} className="flex-shrink-0 flex overflow-hidden items-baseline pt-[0.2em]">
-                          <span className="font-bebas pr-[0vw]">OU</span>
-                        </motion.div>
-                      </motion.div>
+      <div className="w-full flex flex-col relative z-20 bg-[#F5F5F5] pointer-events-auto">
+        <HomeCatalogueStage setView={setView} setOverlayView={setOverlayView} />
+        <JourneyStage />
+        <FooterStage onSecretClick={onSecretClick} />
+      </div>
 
-                      <motion.div style={{ y: line2Y, x: line2X }} className="absolute flex justify-center items-baseline w-full">
-                        <motion.span style={{ scaleY: meltScaleY }} className="flex-shrink-0 inline-block origin-top">D</motion.span>
-                        <motion.div style={{ maxWidth: mw4, opacity: smallOpacity, y: smallTextHideY }} className="flex-shrink-0 flex overflow-hidden items-baseline pt-[0.2em]">
-                          <span className="font-bebas pr-[0vw]">RINKING</span>
-                        </motion.div>
-                        <motion.span style={{ scaleY: meltScaleY }} className="flex-shrink-0 inline-block origin-top">?</motion.span>
-                      </motion.div>
-                      </motion.div>
-                    </motion.div>
-                  </motion.div>
-                </motion.div>
+      <AnimatePresence>
+        {ecommerceView === 'checkout' && (
+          <CheckoutOverlay
+            onClose={() => setEcommerceView(null)}
+            onReturnToBag={() => {
+              setEcommerceView(null);
+              setView('catalogue');
+              setTimeout(() => setOverlayView('bag'), 50); // slight delay to ensure render
+            }}
+            cartItems={cartItems}
+            cartTotal={cartTotal}
+            onSuccess={(details) => {
+              setLastOrderDetails(details);
+              setCartItems([]);
+              setEcommerceView('success');
+            }}
+          />
+        )}
+        {ecommerceView === 'success' && (
+          <OrderSuccessOverlay
+            onClose={() => setEcommerceView(null)}
+            orderDetails={lastOrderDetails}
+            onSetPassword={async (pwd) => {
+              setCurrentUser({ email: lastOrderDetails.email });
+              setEcommerceView('profile');
+            }}
+          />
+        )}
+        {ecommerceView === 'auth' && (
+          <AuthOverlay
+            onClose={() => setEcommerceView(null)}
+            onLogin={async (email, password) => {
+              if (supabase) {
+                const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+                if (error) throw error;
+                setCurrentUser({
+                  email: data.user.email,
+                  id: data.user.id,
+                  firstName: data.user.user_metadata?.first_name,
+                  lastName: data.user.user_metadata?.last_name,
+                  username: data.user.user_metadata?.username
+                });
+              } else {
+                setCurrentUser({ email });
+              }
+            }}
+            onRegister={async (email, password, info) => {
+              if (supabase) {
+                const { data, error } = await supabase.auth.signUp({
+                  email,
+                  password,
+                  options: {
+                    data: {
+                      first_name: info.firstName,
+                      last_name: info.lastName,
+                      username: info.username
+                    }
+                  }
+                });
+                if (error) throw error;
+                if (data.user) {
+                  setCurrentUser({
+                    email: data.user.email,
+                    id: data.user.id,
+                    firstName: info.firstName,
+                    lastName: info.lastName,
+                    username: info.username
+                  });
+                } else {
+                  throw new Error('Please check your email for the confirmation link.');
+                }
+              } else {
+                setCurrentUser({
+                  email,
+                  firstName: info.firstName,
+                  lastName: info.lastName,
+                  username: info.username
+                });
+              }
+            }}
+          />
+        )}
+        {ecommerceView === 'profile' && (
+          <ClientProfileOverlay
+            onClose={() => setEcommerceView(null)}
+            user={currentUser}
+            onLogout={() => { setCurrentUser(null); setEcommerceView(null); }}
+            onUpdateUser={setCurrentUser}
+          />
+        )}
+      </AnimatePresence>
 
-                <motion.div className="absolute inset-0 flex justify-center items-start pt-[20px] md:pt-[40px] pointer-events-none z-20 overflow-hidden">
-                  <motion.div style={{ y: wineHideY, willChange: "transform" }} className="w-full h-full flex justify-center items-start">
-                    <motion.img 
-                      src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/hero.webp" 
-                      alt="Wine Splashing" 
-                      className="h-[calc(100vh-20px)] md:h-[calc(100vh-40px)] w-auto object-cover object-top" 
-                      style={{ opacity: wineOpacity, scale: wineScale, filter: wineBlur, WebkitFilter: wineBlur, mixBlendMode: 'multiply', willChange: "transform, opacity, filter" }} 
-                      loading="eager"
-                      fetchpriority="high"
-                      decoding="sync"
-                    />
-                  </motion.div>
-                </motion.div>
-
-                <motion.div style={{ y: cornerHideY, willChange: "transform" }} className="absolute inset-0 pointer-events-none z-30">
-                  <motion.div style={{ x: cornerLeftX, y: cornerBottomY, opacity: cornerOpacity, willChange: "transform, opacity" }} className="absolute top-[55vh] md:top-[60vh] font-inter font-medium text-[13px] md:text-[15px] text-[#111111] leading-[1.4] left-[15vw] md:left-[18vw] lg:left-[25vw]">
-                      <motion.div>
-                        {(settings.address || '').replace(/\\n/g, '\n').split('\n').map((l, i) => <React.Fragment key={i}>{l}<br/></React.Fragment>)}
-                      </motion.div>
-                  </motion.div>
-
-                  <motion.div style={{ x: cornerRightX, y: cornerBottomY, opacity: cornerOpacity, willChange: "transform, opacity" }} className="absolute top-[55vh] md:top-[60vh] font-inter font-medium text-[9px] md:text-[11px] text-[#111111] leading-[1.4] text-right max-w-[200px] md:max-w-[260px] right-[15vw] md:right-[18vw] lg:right-[25vw]">
-                      <motion.div>
-                        {(settings.quoteCinematic || '').replace(/\\n/g, '\n').split('\n').map((l, i) => <React.Fragment key={i}>{l}<br/></React.Fragment>)}
-                      </motion.div>
-                  </motion.div>
-
-                  <div className="absolute top-[24vh] md:top-[28vh] flex items-start justify-end right-[9vw] md:right-[13vw] lg:right-[15vw]">
-                    <motion.div style={{ y: coordY, opacity: cornerOpacity, writingMode: 'vertical-rl', transform: 'rotate(180deg)', willChange: "transform, opacity" }} className="font-inter-tight font-bold text-[8px] md:text-[9px] uppercase tracking-widest text-[#111111]">
-                        <motion.div>{settings.latitude_longitude || "40.7128° N, 74.0060° W"}</motion.div>
-                    </motion.div>
-                  </div>
-                </motion.div>
-
-                <motion.div className="absolute inset-0 bg-black z-40 ink-bleed-mask pointer-events-none" style={{ WebkitMaskSize: bleedMaskSize, maskSize: bleedMaskSize, opacity: bleedOpacity, willChange: "mask-size, opacity" }}></motion.div>
-              </motion.div>
-            </div>
-          </div>
-
-          <div className="w-full flex flex-col relative z-20 bg-[#F5F5F5] pointer-events-auto">
-            <HomeCatalogueStage setView={setView} setOverlayView={setOverlayView} />
-            <JourneyStage />
-            <FooterStage onSecretClick={onSecretClick} />
-          </div>
-
-        </div>
+    </div>
   );
-}
+};
 
 const uploadImageToSupabase = async (file) => {
   if (!file || supabaseUrl === 'YOUR_SUPABASE_URL' || !supabase) return null;
@@ -1718,7 +1994,7 @@ const AdminLogin = ({ onLogin, onCancel }) => {
 };
 
 const AdminStudioOverview = () => {
-  const { cocktails, setCocktails, settings, setSettings, setSyncStatus } = useData();
+  const { cocktails, setCocktails, setSyncStatus } = useData();
   const [editingCocktail, setEditingCocktail] = useState(null); 
 
   const handleSaveCocktail = async () => {
@@ -1736,18 +2012,38 @@ const AdminStudioOverview = () => {
           name: editingCocktail.name,
           artist: editingCocktail.artist,
           src: editingCocktail.src,
-          hover_src: editingCocktail.hoverSrc,
-          description: editingCocktail.description,
-          cocktail_images: editingCocktail.cocktailImages
+          caption: editingCocktail.caption,
+          reference: editingCocktail.reference,
+          quote: editingCocktail.quote,
+          tags: editingCocktail.tags,
+          ingredients: editingCocktail.ingredients,
+          price: editingCocktail.price,
+          hover_src: editingCocktail.hoverSrc || "",
+          description: editingCocktail.description || "",
+          cocktail_images: editingCocktail.cocktailImages || []
         };
-        await supabase.from('cocktails').update(payload).eq('id', editingCocktail.id);
+        
+        if (typeof editingCocktail.id === 'string' && editingCocktail.id.startsWith('mock_')) {
+          const { data, error } = await supabase.from('cocktails').insert([payload]).select();
+          if (error) throw error;
+          if (data && data[0]) {
+             const updatedMenu = [...newMenu];
+             const idx = updatedMenu.findIndex(i => i.id === editingCocktail.id);
+             if (idx !== -1) {
+                 updatedMenu[idx] = data[0];
+                 setCocktails(updatedMenu);
+                 setEditingCocktail(data[0]);
+             }
+          }
+        } else {
+          await supabase.from('cocktails').update(payload).eq('id', editingCocktail.id);
+        }
         setSyncStatus('Synced');
       } catch(e) { 
         console.error("Save error:", e);
         setSyncStatus('Error');
       }
     }
-    setEditingCocktail(null);
   };
 
   const handleDeleteCocktail = async (e, id, idx) => {
@@ -1757,6 +2053,7 @@ const AdminStudioOverview = () => {
       try {
         await supabase.from('cocktails').delete().eq('id', id);
         setCocktails(prev => prev.filter(c => c.id !== id));
+        if (editingCocktail?.id === id) setEditingCocktail(null);
         setSyncStatus('Synced');
       } catch(e) { 
         console.error("Delete error:", e);
@@ -1764,17 +2061,21 @@ const AdminStudioOverview = () => {
       }
     } else {
       setCocktails(prev => prev.filter((_, i) => i !== idx));
+      if (editingCocktail?.id === id) setEditingCocktail(null);
     }
   };
 
   const handleAddCocktail = async () => {
     const newDrink = {
       name: "New Cocktail",
-      artist: "Teddy",
+      artist: "— Teddy",
       src: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=800&q=80",
-      hoverSrc: "https://images.unsplash.com/photo-1571597314545-2384a51eb85c?auto=format&fit=crop&w=800&q=80",
-      description: defaultDesc,
-      cocktailImages: []
+      caption: "A short description...",
+      reference: "Inspired by...",
+      quote: "The full story...",
+      tags: "• Tag 1 • Tag 2",
+      ingredients: "Ingredient 1, Ingredient 2",
+      price: "$20"
     };
 
     if (supabaseUrl !== 'YOUR_SUPABASE_URL' && supabase) {
@@ -1784,20 +2085,21 @@ const AdminStudioOverview = () => {
           name: newDrink.name,
           artist: newDrink.artist,
           src: newDrink.src,
-          hover_src: newDrink.hoverSrc,
-          description: newDrink.description,
-          cocktail_images: newDrink.cocktailImages
+          caption: newDrink.caption,
+          reference: newDrink.reference,
+          quote: newDrink.quote,
+          tags: newDrink.tags,
+          ingredients: newDrink.ingredients,
+          price: newDrink.price,
+          hover_src: "",
+          description: "",
+          cocktail_images: []
         };
         const { data, error } = await supabase.from('cocktails').insert([payload]).select();
         if (error) throw error;
         if (data && data[0]) {
-          const addedDrink = { 
-            ...data[0], 
-            hoverSrc: data[0].hover_src,
-            cocktailImages: data[0].cocktail_images || [],
-            description: data[0].description || ''
-          };
-          setCocktails(prev => [...prev, addedDrink]);
+          setCocktails(prev => [...prev, data[0]]);
+          setEditingCocktail(data[0]);
           setSyncStatus('Synced');
         }
       } catch(e) {
@@ -1805,230 +2107,129 @@ const AdminStudioOverview = () => {
         setSyncStatus('Error');
       }
     } else {
-      setCocktails(prev => [...prev, { ...newDrink, id: Date.now() }]);
-    }
-  };
-
-  const handleSettingsUpdate = (field, value) => {
-    setSettings(prev => ({ ...prev, [field]: value }));
-  };
-
-  const handleSettingsSave = async (field, value) => {
-    const dbMap = {
-      artist1_name: 'artist1_name',
-      artist1_image: 'artist1_image',
-      artist2_name: 'artist2_name',
-      artist2_image: 'artist2_image'
-    };
-    const dbField = dbMap[field] || field;
-
-    if (supabaseUrl !== 'YOUR_SUPABASE_URL' && supabase && settings.id) {
-      setSyncStatus('Saving...');
-      try {
-        await supabase.from('site_settings').update({ [dbField]: value }).eq('id', settings.id);
-        setSyncStatus('Synced');
-      } catch (e) { 
-        console.error("Save error:", e); 
-        setSyncStatus('Error');
-      }
+      const added = { ...newDrink, id: Date.now() };
+      setCocktails(prev => [...prev, added]);
+      setEditingCocktail(added);
     }
   };
 
   return (
-    <div className="w-full flex flex-col gap-16 pb-24 relative">
-      <div className="w-full bg-[#1c1c1e] h-[550px] md:h-[650px] relative overflow-hidden rounded-xl border border-zinc-800 shadow-inner">
-         <div className="absolute top-8 right-8 text-right z-20 pointer-events-none hidden md:block">
-            <p className="text-[#f5f5f5] font-inter-tight text-[11px] tracking-[0.05em] font-normal uppercase mb-1">EDIT ARTIST PROFILES</p>
-            <p className="text-zinc-500 font-inter-tight text-[10px] tracking-[0.05em] uppercase font-normal">Changes sync to Stories Grid automatically</p>
+    <div className="w-full flex h-[calc(100vh-140px)] overflow-hidden relative">
+      {/* Left List Container */}
+      <div className={`w-full md:w-1/3 border-r-0 md:border-r border-zinc-200 md:pr-4 flex-col h-full ${editingCocktail ? 'hidden md:flex' : 'flex'}`}>
+         <div className="flex justify-between items-center mb-6 pb-4 border-b border-zinc-200 shrink-0">
+           <h3 className="font-bebas text-3xl uppercase tracking-wide text-[#111111]">Cocktails</h3>
+           <span onClick={handleAddCocktail} className="font-inter-tight text-[10px] text-[#111111] font-bold uppercase tracking-widest cursor-pointer hover:bg-[#111111] hover:text-white border border-[#111111] px-3 py-1.5 rounded-full transition-colors">+ Add</span>
          </div>
-
-         <div className="absolute top-12 md:top-16 left-8 md:left-24 w-[160px] md:w-[220px] lg:w-[260px] flex flex-col z-20 group/artist">
-            <div className="w-full aspect-[2/3] bg-[#2a2a2c] overflow-hidden mb-3 ring-1 ring-white/10 shadow-xl">
-               <EditableImage 
-                  src={settings.artist1_image || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80"} 
-                  aspect="h-full" 
-                  grayscale={true} 
-                  onUpload={(url, isFinal) => {
-                      handleSettingsUpdate('artist1_image', url);
-                      if (isFinal) handleSettingsSave('artist1_image', url);
-                  }} 
-               />
-            </div>
-            <div className="flex justify-between items-baseline w-full px-1">
-               <EditableText 
-                  value={settings.artist1_name || "Mimi"} 
-                  onChange={v => handleSettingsUpdate('artist1_name', v)} 
-                  onSave={v => handleSettingsSave('artist1_name', v)} 
-                  className="text-[#f5f5f5] font-inter-tight text-base md:text-lg font-normal !border-b-zinc-700 focus:!border-[#f5f5f5]" 
-               />
-               <span className="text-zinc-500 font-inter-tight text-[10px] md:text-xs">7 Signature</span>
-            </div>
-         </div>
-
-         <div className="absolute top-[35%] md:top-[30%] right-8 md:right-24 w-[160px] md:w-[220px] lg:w-[260px] flex flex-col z-20 group/artist">
-            <div className="w-full aspect-[2/3] bg-[#2a2a2c] overflow-hidden mb-3 ring-1 ring-white/10 shadow-xl">
-               <EditableImage 
-                  src={settings.artist2_image || "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80"} 
-                  aspect="h-full" 
-                  grayscale={true} 
-                  onUpload={(url, isFinal) => {
-                      handleSettingsUpdate('artist2_image', url);
-                      if (isFinal) handleSettingsSave('artist2_image', url);
-                  }} 
-               />
-            </div>
-            <div className="flex justify-between items-baseline w-full px-1">
-               <EditableText 
-                  value={settings.artist2_name || "Teddy"} 
-                  onChange={v => handleSettingsUpdate('artist2_name', v)} 
-                  onSave={v => handleSettingsSave('artist2_name', v)} 
-                  className="text-[#f5f5f5] font-inter-tight text-base md:text-lg font-normal !border-b-zinc-700 focus:!border-[#f5f5f5]" 
-               />
-               <span className="text-zinc-500 font-inter-tight text-[10px] md:text-xs">7 Signature</span>
-            </div>
-         </div>
-
-         <div className="absolute bottom-8 left-8 right-8 flex justify-between items-end z-10 pointer-events-none">
-            <h2 className="text-[#f5f5f5]/10 font-bebas text-[15vw] md:text-[12vw] leading-[0.75] m-0 p-0 tracking-normal">MEET</h2>
-            <h2 className="text-[#f5f5f5]/10 font-bebas text-[15vw] md:text-[12vw] leading-[0.75] m-0 p-0 tracking-normal">ARTISTS(OUR)</h2>
-         </div>
-      </div>
-
-      <div className="flex flex-col">
-        <div className="flex justify-between items-end mb-8">
-          <h3 className="font-helvetica font-bold text-2xl tracking-tight uppercase">Exhibition Menu</h3>
-          <span onClick={handleAddCocktail} className="font-inter-tight text-[10px] text-zinc-400 uppercase tracking-widest cursor-pointer hover:text-black transition-colors">+ Add New Drink</span>
-        </div>
-        
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
-          {cocktails.map((item, idx) => (
-            <div key={idx} onClick={() => setEditingCocktail(item)} className="flex flex-col group relative cursor-pointer hover:opacity-80 transition-opacity">
-              <button 
-                onClick={(e) => handleDeleteCocktail(e, item.id, idx)} 
-                className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white w-6 h-6 flex justify-center items-center rounded-full z-30 opacity-0 group-hover:opacity-100 transition-all shadow-md cursor-pointer"
-                title="Delete Drink"
+         <div className="flex-1 overflow-y-auto flex flex-col gap-2 pb-24">
+            {cocktails.map((item, idx) => (
+              <div 
+                key={idx} 
+                onClick={() => setEditingCocktail(item)} 
+                className={`p-4 border border-zinc-200 cursor-pointer flex gap-4 transition-colors ${editingCocktail?.id === item.id ? 'bg-[#F5F5F5] border-[#111111]' : 'hover:bg-[#F5F5F5]'}`}
               >
-                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6 18L18 6M6 6l12 12"></path></svg>
-              </button>
-              <div className="relative w-full aspect-[3/4] overflow-hidden mb-3 bg-[#EAEAEA]">
-                <img src={item.src} className="absolute inset-0 w-full h-full object-cover grayscale transition-opacity duration-500 group-hover:opacity-0" alt="B&W" />
-                <img src={item.hoverSrc} className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100" alt="Color" />
+                 <div className="w-16 aspect-[3/4] shrink-0 bg-zinc-200 overflow-hidden">
+                   <img src={item.src} className="w-full h-full object-cover" />
+                 </div>
+                 <div className="flex flex-col justify-center gap-1">
+                   <span className="font-helvetica font-bold text-sm text-[#111111]">{item.name}</span>
+                   <span className="font-inter-tight text-[10px] text-zinc-500 uppercase">{item.artist}</span>
+                 </div>
               </div>
-              <div className="flex flex-col gap-1 px-1">
-                <span className="font-inter-tight font-bold text-[13px] text-[#111111]">{item.name}</span>
-                <span className="font-inter-tight font-normal text-[11px] text-zinc-500">{item.artist}</span>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+         </div>
       </div>
 
-      <motion.div 
-        initial={{ x: '100%' }} 
-        animate={{ x: editingCocktail ? 0 : '100%', boxShadow: editingCocktail ? '-10px 0 40px rgba(0,0,0,0.1)' : 'none' }} 
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        className="fixed top-0 right-0 h-full w-full md:w-[600px] bg-white z-[9999] overflow-y-auto border-l border-zinc-200"
-      >
-        {editingCocktail && (
-          <div className="p-8 md:p-12 pb-24">
-            <div className="flex justify-between items-center mb-12 border-b border-zinc-100 pb-4 sticky top-0 bg-white z-10 pt-4">
-              <span className="font-bebas text-2xl uppercase tracking-wide">Edit Menu Detail</span>
-              <div className="flex gap-6">
-                <button onClick={() => setEditingCocktail(null)} className="font-inter-tight text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-black transition-colors">Cancel</button>
-                <button onClick={handleSaveCocktail} className="font-inter-tight text-[10px] font-bold uppercase tracking-widest text-[#d92323] hover:text-black transition-colors">Save Changes</button>
-              </div>
-            </div>
+      {/* Right Form Container */}
+      <div className={`w-full md:w-2/3 md:pl-8 flex-col h-full overflow-y-auto pb-24 absolute inset-0 bg-white md:static z-50 md:z-auto ${editingCocktail ? 'flex' : 'hidden md:flex'}`}>
+         {editingCocktail ? (
+           <div className="flex flex-col max-w-2xl px-4 md:px-0">
+             <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 sticky top-0 bg-white z-10 py-4 border-b border-zinc-200 gap-4 md:gap-0">
+                <div className="flex items-center gap-4">
+                  <button onClick={() => setEditingCocktail(null)} className="md:hidden flex items-center justify-center w-8 h-8 rounded-full bg-zinc-100 hover:bg-zinc-200 transition-colors">
+                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
+                  </button>
+                  <span className="font-bebas text-2xl uppercase tracking-wide">Edit Details</span>
+                </div>
+                <div className="flex justify-end gap-4 w-full md:w-auto">
+                  <button onClick={(e) => handleDeleteCocktail(e, editingCocktail.id, cocktails.findIndex(c => c.id === editingCocktail.id))} className="font-inter-tight text-[10px] font-bold uppercase tracking-widest text-red-500 hover:text-red-700 transition-colors">Delete</button>
+                  <button onClick={handleSaveCocktail} className="font-inter-tight text-[10px] font-bold uppercase tracking-widest bg-[#111111] text-white px-4 py-2 hover:bg-black transition-colors rounded-full shadow-md">Save Changes</button>
+                </div>
+             </div>
 
-            <div className="flex flex-col gap-10">
-              <div className="grid grid-cols-2 gap-6">
+             <div className="flex flex-col gap-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="flex flex-col gap-2">
+                    <label className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-500">Cocktail Name</label>
+                    <input type="text" value={editingCocktail.name || ''} onChange={e => setEditingCocktail({...editingCocktail, name: e.target.value})} className="w-full bg-[#F5F5F5] border border-zinc-200 p-3 font-helvetica text-[#111111] focus:outline-none focus:border-black" />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-500">Price</label>
+                    <input type="text" value={editingCocktail.price || ''} onChange={e => setEditingCocktail({...editingCocktail, price: e.target.value})} className="w-full bg-[#F5F5F5] border border-zinc-200 p-3 font-helvetica text-[#111111] focus:outline-none focus:border-black" placeholder="$21" />
+                  </div>
+                </div>
+
                 <div className="flex flex-col gap-2">
-                  <span className="font-helvetica text-zinc-400 text-[9px] font-bold uppercase tracking-widest">B&W COVER</span>
-                  <div className="w-full aspect-[3/4] relative">
-                    <EditableImage src={editingCocktail.src} aspect="h-full" grayscale={true} onUpload={(url) => setEditingCocktail({...editingCocktail, src: url})} />
-                  </div>
+                  <label className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-500">Artist</label>
+                  <input type="text" value={editingCocktail.artist || ''} onChange={e => setEditingCocktail({...editingCocktail, artist: e.target.value})} className="w-full bg-[#F5F5F5] border border-zinc-200 p-3 font-helvetica text-[#111111] focus:outline-none focus:border-black" placeholder="— Teddy" />
                 </div>
+
                 <div className="flex flex-col gap-2">
-                  <span className="font-helvetica text-zinc-400 text-[9px] font-bold uppercase tracking-widest">COLOR REVEAL</span>
-                  <div className="w-full aspect-[3/4] relative">
-                    <EditableImage src={editingCocktail.hoverSrc} aspect="h-full" onUpload={(url) => setEditingCocktail({...editingCocktail, hoverSrc: url})} />
+                  <label className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-500">Main Image</label>
+                  <div className="w-48 aspect-[4/5] ring-1 ring-black/5 shadow-md">
+                     <EditableImage src={editingCocktail.src} aspect="h-full" onUpload={(url) => setEditingCocktail({...editingCocktail, src: url})} />
                   </div>
                 </div>
-              </div>
 
-              <div className="flex flex-col gap-6">
-                <div className="flex flex-col gap-1.5">
-                  <span className="font-helvetica text-zinc-400 text-[9px] font-bold uppercase tracking-widest">COCKTAIL NAME</span>
-                  <EditableText value={editingCocktail.name} onChange={v => setEditingCocktail({...editingCocktail, name: v})} className="text-xl font-bold font-helvetica" />
+                <div className="flex flex-col gap-2">
+                  <label className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-500">Caption (Top Left)</label>
+                  <textarea value={editingCocktail.caption || ''} onChange={e => setEditingCocktail({...editingCocktail, caption: e.target.value})} className="w-full bg-[#F5F5F5] border border-zinc-200 p-3 font-mono text-sm text-[#111111] focus:outline-none focus:border-black min-h-[100px] whitespace-pre-wrap" placeholder="Inspired by..." />
                 </div>
-                <div className="flex flex-col gap-1.5">
-                  <span className="font-helvetica text-zinc-400 text-[9px] font-bold uppercase tracking-widest">ARTIST</span>
-                  <EditableText value={editingCocktail.artist} onChange={v => setEditingCocktail({...editingCocktail, artist: v})} className="text-sm font-bold font-helvetica" />
-                </div>
-                <div className="flex flex-col gap-1.5">
-                  <span className="font-helvetica text-zinc-400 text-[9px] font-bold uppercase tracking-widest">DESCRIPTION</span>
-                  <EditableTextArea value={editingCocktail.description} onChange={v => setEditingCocktail({...editingCocktail, description: v})} className="text-sm font-inter leading-relaxed" rows={5} placeholder="Write the cocktail interpretation story here..." />
-                </div>
-              </div>
 
-              <div className="flex flex-col gap-4 border-t border-zinc-100 pt-8">
-                <span className="font-helvetica text-zinc-400 text-[9px] font-bold uppercase tracking-widest">COCKTAIL GALLERY IMAGES</span>
-                <p className="text-[10px] text-zinc-500 font-inter-tight">These images will be displayed in the 3-column grid at the bottom of the detail page.</p>
-                
-                <div className="flex gap-4 overflow-x-auto pb-4 snap-x">
-                  {(editingCocktail.cocktailImages || []).map((img, i) => (
-                    <div key={i} className="w-32 aspect-[3/4] shrink-0 snap-center relative group">
-                      <EditableImage src={img} aspect="h-full" onUpload={(url) => {
-                        const newImgs = [...(editingCocktail.cocktailImages || [])];
-                        newImgs[i] = url;
-                        setEditingCocktail({...editingCocktail, cocktailImages: newImgs});
-                      }} />
-                      <button onClick={() => {
-                         const newImgs = editingCocktail.cocktailImages.filter((_, idx) => idx !== i);
-                         setEditingCocktail({...editingCocktail, cocktailImages: newImgs});
-                      }} className="absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 text-white w-5 h-5 flex justify-center items-center rounded-full z-30 opacity-0 group-hover:opacity-100 transition-opacity">
-                         <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M6 18L18 6M6 6l12 12"></path></svg>
-                      </button>
-                    </div>
-                  ))}
-                  
-                  <div 
-                    onClick={() => {
-                       const newImgs = [...(editingCocktail.cocktailImages || []), editingCocktail.hoverSrc];
-                       setEditingCocktail({...editingCocktail, cocktailImages: newImgs});
-                    }}
-                    className="w-32 aspect-[3/4] shrink-0 snap-center border border-dashed border-zinc-300 hover:border-black flex flex-col justify-center items-center cursor-pointer transition-colors text-zinc-400 hover:text-black gap-2"
-                  >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path></svg>
-                    <span className="font-inter-tight text-[9px] uppercase font-bold tracking-widest">Add Image</span>
-                  </div>
+                <div className="flex flex-col gap-2">
+                  <label className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-500">Reference (Bottom Left)</label>
+                  <textarea value={editingCocktail.reference || ''} onChange={e => setEditingCocktail({...editingCocktail, reference: e.target.value})} className="w-full bg-[#F5F5F5] border border-zinc-200 p-3 font-mono text-sm text-[#111111] focus:outline-none focus:border-black min-h-[100px] whitespace-pre-wrap" placeholder="Vincent van Gogh, Sunflowers..." />
                 </div>
-              </div>
 
-            </div>
-          </div>
-        )}
-      </motion.div>
-      {editingCocktail && <div onClick={() => setEditingCocktail(null)} className="fixed inset-0 bg-black/20 z-[9998] backdrop-blur-sm transition-opacity" />}
+                <div className="flex flex-col gap-2">
+                  <label className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-500">Main Story / Quote</label>
+                  <textarea value={editingCocktail.quote || ''} onChange={e => setEditingCocktail({...editingCocktail, quote: e.target.value})} className="w-full bg-[#F5F5F5] border border-zinc-200 p-4 font-aura text-xl leading-[1.3] text-[#111111] focus:outline-none focus:border-black min-h-[300px] whitespace-pre-wrap" placeholder="This was my very first painting..." />
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-500">Tags</label>
+                  <input type="text" value={editingCocktail.tags || ''} onChange={e => setEditingCocktail({...editingCocktail, tags: e.target.value})} className="w-full bg-[#F5F5F5] border border-zinc-200 p-3 font-mono text-sm text-[#111111] focus:outline-none focus:border-black" placeholder="• Low ABV Light • Honest" />
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-500">Ingredients</label>
+                  <input type="text" value={editingCocktail.ingredients || ''} onChange={e => setEditingCocktail({...editingCocktail, ingredients: e.target.value})} className="w-full bg-[#F5F5F5] border border-zinc-200 p-3 font-mono text-sm text-[#111111] focus:outline-none focus:border-black" placeholder="Chinola Passionfruit, Dry Vermouth..." />
+                </div>
+             </div>
+           </div>
+         ) : (
+           <div className="hidden md:flex h-full items-center justify-center">
+             <span className="font-inter-tight text-xs uppercase tracking-widest text-zinc-400">Select a cocktail to edit</span>
+           </div>
+         )}
+      </div>
     </div>
   );
 };
 
 const AdminStudioEditorials = () => {
-  const { editorials, setEditorials, setSyncStatus, settings } = useData();
-  const [activeArtist, setActiveArtist] = useState('teddy');
+  const { settings, setSettings, setSyncStatus } = useData();
+  const [activeArtist, setActiveArtist] = useState('1');
 
-  const handleUpdate = (idx, field, value) => {
-    const newEd = { ...editorials };
-    newEd[activeArtist][idx] = { ...newEd[activeArtist][idx], [field]: value };
-    setEditorials(newEd);
+  const handleUpdate = (field, value) => {
+    setSettings(prev => ({ ...prev, [field]: value }));
   };
 
-  const handleSave = async (idx, field, value) => {
-    const item = editorials[activeArtist][idx];
-    if (supabaseUrl !== 'YOUR_SUPABASE_URL' && supabase && item.id) {
+  const handleSave = async (field, value) => {
+    if (supabaseUrl !== 'YOUR_SUPABASE_URL' && supabase) {
       setSyncStatus('Saving...');
       try {
-        await supabase.from('editorials').update({ [field]: value }).eq('id', item.id);
+        await supabase.from('site_settings').update({ [field]: value }).eq('id', 1);
         setSyncStatus('Synced');
       } catch(e) { 
         console.error("Save error:", e);
@@ -2038,46 +2239,74 @@ const AdminStudioEditorials = () => {
   };
 
   const tabs = [
-    { key: 'teddy', label: settings.artist2_name || 'Teddy' },
-    { key: 'mimi', label: settings.artist1_name || 'Mimi' }
+    { key: '1', label: settings.artist1_name || 'Mimi (Artist 1)' },
+    { key: '2', label: settings.artist2_name || 'Teddy (Artist 2)' }
   ];
 
+  const prefix = `artist${activeArtist}`;
+
   return (
-    <div className="w-full flex flex-col pb-24">
-      <div className="flex gap-8 border-b border-zinc-200 mb-8 pb-4">
+    <div className="w-full flex flex-col pb-24 h-[calc(100vh-140px)] overflow-y-auto pr-4">
+      <div className="flex gap-8 border-b border-zinc-200 mb-8 pb-4 shrink-0">
         {tabs.map(tab => (
           <button 
             key={tab.key} 
             onClick={() => setActiveArtist(tab.key)} 
             className={`font-bebas text-3xl uppercase tracking-wide transition-colors ${activeArtist === tab.key ? 'text-[#111111]' : 'text-zinc-300 hover:text-zinc-400'}`}>
-            {tab.label} Stories
+            {tab.label}
           </button>
         ))}
       </div>
 
-      <div className="grid grid-cols-2 md:grid-cols-5 gap-0 items-start">
-        {editorials[activeArtist].map((story, idx) => (
-          <div key={idx} className="flex flex-col group">
-            <div className="flex flex-col gap-1 mb-3 pr-3 md:pr-4">
-              <EditableText value={story.category} onChange={(v) => handleUpdate(idx, 'category', v)} onSave={(v) => handleSave(idx, 'category', v)} className="font-inter-tight text-[9px] md:text-[10px] font-bold text-zinc-400 uppercase tracking-widest" />
-              <EditableText value={story.title} onChange={(v) => handleUpdate(idx, 'title', v)} onSave={(v) => handleSave(idx, 'title', v)} className="font-helvetica font-bold text-[11px] md:text-xs text-[#111111] leading-tight" />
-            </div>
-            <div className="relative">
-              <EditableImage src={story.src} aspect={story.aspect} className="grayscale-0 transition-all duration-300 group-hover:grayscale" onUpload={(url, isFinal) => {
-                 handleUpdate(idx, 'src', url);
-                 if (isFinal) handleSave(idx, 'src', url);
-              }} />
-              
-              <div className="absolute -right-2 top-2 flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity translate-x-full pr-4 z-10">
-                {['aspect-[3/4]', 'aspect-[4/3]', 'aspect-[2/3]', 'aspect-square'].map(ratio => (
-                  <button key={ratio} onClick={() => { handleUpdate(idx, 'aspect', ratio); handleSave(idx, 'aspect', ratio); }} className={`w-6 h-6 border flex items-center justify-center text-[8px] bg-white transition-colors ${story.aspect === ratio ? 'border-black text-black' : 'border-zinc-200 text-zinc-400 hover:border-black'}`} title={ratio}>
-                    {ratio === 'aspect-[3/4]' ? '3:4' : ratio === 'aspect-[4/3]' ? '4:3' : ratio === 'aspect-square' ? '1:1' : '2:3'}
-                  </button>
-                ))}
-              </div>
-            </div>
+      <div className="flex flex-col gap-8 max-w-4xl">
+        <div className="flex flex-col gap-2">
+          <label className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-500">Artist Name</label>
+          <input 
+            type="text" 
+            value={settings[`${prefix}_name`] || ''} 
+            onChange={(e) => handleUpdate(`${prefix}_name`, e.target.value)}
+            onBlur={(e) => handleSave(`${prefix}_name`, e.target.value)}
+            className="w-full bg-[#F5F5F5] border border-zinc-200 p-4 font-helvetica text-[#111111] focus:outline-none focus:border-[#111111] transition-colors"
+            placeholder="e.g. MIMI"
+          />
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-500">Artist Portrait (Upload Image)</label>
+          <div className="w-48">
+            <EditableImage 
+              src={settings[`${prefix}_image`] || 'https://via.placeholder.com/400x500?text=Upload+Portrait'} 
+              aspect="aspect-[4/5]" 
+              onUpload={(url, isFinal) => {
+                handleUpdate(`${prefix}_image`, url);
+                if (isFinal) handleSave(`${prefix}_image`, url);
+              }} 
+            />
           </div>
-        ))}
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-500">Main Quote / Story</label>
+          <textarea 
+            value={settings[`${prefix}_quote`] || ''} 
+            onChange={(e) => handleUpdate(`${prefix}_quote`, e.target.value)}
+            onBlur={(e) => handleSave(`${prefix}_quote`, e.target.value)}
+            className="w-full bg-[#F5F5F5] border border-zinc-200 p-4 font-aura text-xl md:text-2xl text-[#111111] focus:outline-none focus:border-[#111111] transition-colors min-h-[200px] resize-y leading-[1.3]"
+            placeholder="“I once believed I had lost my art...”"
+          />
+          <p className="text-[10px] text-zinc-400 font-inter-tight uppercase tracking-widest">Use Return key for paragraphs.</p>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-500">Subtext / Awards</label>
+          <textarea 
+            value={settings[`${prefix}_subtext`] || ''} 
+            onChange={(e) => handleUpdate(`${prefix}_subtext`, e.target.value)}
+            onBlur={(e) => handleSave(`${prefix}_subtext`, e.target.value)}
+            className="w-full bg-[#F5F5F5] border border-zinc-200 p-4 font-mono text-sm text-[#111111] focus:outline-none focus:border-[#111111] transition-colors min-h-[100px] resize-y"
+            placeholder="Winner Bar Star Awards..."
+          />
+        </div>
       </div>
     </div>
   );
@@ -2120,7 +2349,7 @@ const AdminStudioCatalogue = () => {
           <div key={idx} onClick={() => setEditingItem(item)} className="flex items-center justify-between py-4 border-b border-zinc-100 hover:bg-zinc-50 cursor-pointer transition-colors group px-2">
             <div className="flex items-center gap-4 w-2/3">
               <div className="w-12 aspect-[4/5] bg-zinc-100 overflow-hidden shrink-0">
-                <img src={item.src} alt={item.name} className="w-full h-full object-cover" />
+                <img src={item.src || item.image || item.image_url || (item.images && item.images[0])} alt={item.name} className="w-full h-full object-cover" />
               </div>
               <div className="flex flex-col">
                 <span className="font-helvetica font-bold text-sm text-[#111111] group-hover:text-[#d92323] transition-colors">{item.name}</span>
@@ -2166,8 +2395,27 @@ const AdminStudioCatalogue = () => {
                       setEditingItem({...editingItem, images: newImgs, src: i===0 ? url : editingItem.src});
                     }} />
                     {i === 0 && <span className="absolute top-2 left-2 bg-black text-white text-[8px] px-1 uppercase pointer-events-none">Main Cover</span>}
+                    {i > 0 && (
+                      <button 
+                        onClick={() => {
+                          const newImgs = editingItem.images.filter((_, index) => index !== i);
+                          setEditingItem({...editingItem, images: newImgs});
+                        }}
+                        className="absolute top-2 right-2 bg-red-500 text-white w-6 h-6 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600"
+                        title="Remove Image"
+                      >
+                        &times;
+                      </button>
+                    )}
                   </div>
                 ))}
+                <div 
+                  onClick={() => setEditingItem({...editingItem, images: [...editingItem.images, '']})}
+                  className="w-48 aspect-[4/5] shrink-0 snap-center relative group bg-zinc-100 flex flex-col items-center justify-center cursor-pointer hover:bg-zinc-200 transition-colors border border-dashed border-zinc-300"
+                >
+                  <span className="text-3xl text-zinc-400 font-light mb-1">+</span>
+                  <span className="text-[10px] uppercase font-bold text-zinc-400 tracking-widest">Add Image</span>
+                </div>
               </div>
 
               <div className="grid grid-cols-2 gap-y-8 gap-x-6">
@@ -2221,7 +2469,7 @@ const AdminStudioOrders = () => {
     { id: "ORD-004", customer: "Michael T.", email: "m.thomas@example.com", phone: "+1 212-555-9933", address: "321 Broadway\nNew York, NY 10007", date: "May 27, 2026", total: 75, status: "Shipped", items: [{ name: "The Artail Story Book", qty: 1, price: 75 }], tracking: "TRK123456789" },
   ]);
 
-  const [selectedOrderId, setSelectedOrder] = useState(mockOrders[0].id);
+  const [selectedOrderId, setSelectedOrder] = useState(null); // start null for mobile view
   const [filter, setFilter] = useState('All');
   
   const selectedOrder = mockOrders.find(o => o.id === selectedOrderId);
@@ -2243,32 +2491,34 @@ const AdminStudioOrders = () => {
 
   return (
     <div className="w-full flex flex-col h-[calc(100vh-140px)]">
-      <div className="grid grid-cols-3 gap-6 mb-6 shrink-0">
-        <div className="bg-[#F5F5F5] p-6 border border-zinc-200 flex flex-col gap-1">
-          <span className="font-inter-tight text-[10px] text-zinc-500 uppercase tracking-widest">Orders Today</span>
-          <span className="font-bebas text-4xl text-[#111111]">{stats.today}</span>
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-6 shrink-0">
+        <div className="p-4 md:p-6 border border-[#111111]/10 flex flex-col gap-1">
+          <span className="font-helvetica text-[9px] text-[#a0a0a0] font-bold uppercase tracking-widest">Orders Today</span>
+          <span className="font-helvetica text-2xl md:text-3xl font-bold tracking-tight text-[#111111] mt-2">{stats.today}</span>
         </div>
-        <div className="bg-[#F5F5F5] p-6 border border-zinc-200 flex flex-col gap-1">
-          <span className="font-inter-tight text-[10px] text-zinc-500 uppercase tracking-widest">Total Revenue (All Time)</span>
-          <span className="font-bebas text-4xl text-[#111111]">${stats.revenue}</span>
+        <div className="p-4 md:p-6 border border-[#111111]/10 flex flex-col gap-1">
+          <span className="font-helvetica text-[9px] text-[#a0a0a0] font-bold uppercase tracking-widest">Total Revenue</span>
+          <span className="font-helvetica text-2xl md:text-3xl font-bold tracking-tight text-[#111111] mt-2">${stats.revenue}</span>
         </div>
-        <div className="bg-[#111111] p-6 flex flex-col gap-1">
-          <span className="font-inter-tight text-[10px] text-zinc-400 uppercase tracking-widest">To Fulfill</span>
-          <div className="flex items-center gap-3">
-             <span className="font-bebas text-4xl text-[#F5F5F5]">{stats.toFulfill}</span>
-             {stats.toFulfill > 0 && <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>}
+        <div className="bg-[#111111] p-4 md:p-6 flex flex-col gap-1">
+          <span className="font-helvetica text-[9px] text-[#a0a0a0] font-bold uppercase tracking-widest">To Fulfill</span>
+          <div className="flex items-center gap-3 mt-2">
+             <span className="font-helvetica text-2xl md:text-3xl font-bold tracking-tight text-[#F5F5F5]">{stats.toFulfill}</span>
+             {stats.toFulfill > 0 && <span className="w-2 h-2 rounded-none bg-white animate-pulse"></span>}
           </div>
         </div>
       </div>
 
-      <div className="flex flex-1 border border-zinc-200 overflow-hidden">
-        <div className="w-1/3 border-r border-zinc-200 bg-[#F5F5F5] flex flex-col">
-          <div className="p-4 border-b border-zinc-200 bg-white z-10 flex gap-4 overflow-x-auto shrink-0 hide-scrollbar">
+      <div className="flex flex-1 border border-[#111111]/10 overflow-hidden bg-white">
+        
+        {/* Left Panel: List */}
+        <div className={`w-full md:w-1/3 border-r-0 md:border-r border-[#111111]/10 flex flex-col ${selectedOrderId ? 'hidden md:flex' : 'flex'}`}>
+          <div className="p-4 border-b border-[#111111]/10 flex gap-4 overflow-x-auto shrink-0 hide-scrollbar bg-white">
              {['All', 'Pending', 'Processing', 'Shipped'].map(f => (
                <button 
                  key={f} 
                  onClick={() => setFilter(f)} 
-                 className={`font-inter-tight text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded-full transition-colors whitespace-nowrap ${filter === f ? 'bg-[#111111] text-white' : 'bg-zinc-100 text-zinc-500 hover:bg-zinc-200'}`}
+                 className={`font-helvetica text-[9px] font-bold uppercase tracking-widest pb-1 transition-colors whitespace-nowrap ${filter === f ? 'text-[#111111] border-b border-[#111111]' : 'text-[#a0a0a0] hover:text-[#111111]'}`}
                >
                  {f}
                </button>
@@ -2277,20 +2527,20 @@ const AdminStudioOrders = () => {
           
           <div className="flex flex-col overflow-y-auto flex-1">
             {filteredOrders.length === 0 ? (
-               <div className="p-8 text-center font-inter-tight text-xs text-zinc-400 uppercase tracking-widest">No orders found</div>
+               <div className="p-8 text-center font-helvetica text-[11px] text-[#a0a0a0] font-bold uppercase tracking-widest">No orders found</div>
             ) : (
               filteredOrders.map((order, idx) => (
-                <div key={idx} onClick={() => setSelectedOrder(order.id)} className={`p-5 border-b border-zinc-200 cursor-pointer transition-colors flex flex-col gap-3 ${selectedOrderId === order.id ? 'bg-white border-l-4 border-l-[#111111]' : 'hover:bg-white text-[#111111] border-l-4 border-l-transparent'}`}>
+                <div key={idx} onClick={() => setSelectedOrder(order.id)} className={`p-4 border-b border-[#111111]/10 cursor-pointer transition-colors flex flex-col gap-3 ${selectedOrderId === order.id ? 'bg-[#F5F5F5] border-l-2 border-l-[#111111]' : 'hover:bg-[#F5F5F5] bg-white border-l-2 border-l-transparent'}`}>
                   <div className="flex justify-between items-start">
-                    <div className="flex flex-col gap-0.5">
-                      <span className="font-helvetica font-bold text-sm tracking-tight text-[#111111]">{order.id}</span>
-                      <span className="font-inter-tight text-[10px] text-zinc-500">{order.customer}</span>
+                    <div className="flex flex-col gap-1">
+                      <span className="font-helvetica font-bold text-[12px] tracking-tight text-[#111111]">{order.id}</span>
+                      <span className="font-helvetica text-[9px] font-bold uppercase tracking-widest text-[#a0a0a0]">{order.customer}</span>
                     </div>
-                    <span className="font-helvetica font-bold text-xs text-[#111111]">${order.total}</span>
+                    <span className="font-helvetica font-bold text-[12px] text-[#111111]">${order.total}</span>
                   </div>
-                  <div className="flex justify-between items-center">
-                    <span className="font-inter-tight text-[9px] text-zinc-400 uppercase tracking-widest">{order.date}</span>
-                    <span className={`text-[8px] font-bold uppercase tracking-widest px-2 py-1 rounded-sm ${order.status === 'Shipped' ? 'bg-green-100 text-green-700' : order.status === 'Processing' ? 'bg-blue-100 text-blue-700' : 'bg-orange-100 text-orange-700'}`}>
+                  <div className="flex justify-between items-center mt-2">
+                    <span className="font-helvetica text-[9px] text-[#a0a0a0] font-bold uppercase tracking-widest">{order.date}</span>
+                    <span className={`text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 border ${order.status === 'Shipped' ? 'border-[#111111] bg-[#111111] text-white' : 'border-[#111111]/20 text-[#111111]'}`}>
                       {order.status}
                     </span>
                   </div>
@@ -2300,74 +2550,101 @@ const AdminStudioOrders = () => {
           </div>
         </div>
         
-        <div className="w-2/3 bg-white overflow-y-auto flex flex-col relative">
+        {/* Right Panel: Detail */}
+        <div className={`w-full md:w-2/3 bg-white overflow-y-auto flex-col relative ${selectedOrderId ? 'flex' : 'hidden md:flex'}`}>
           {selectedOrder ? (
-            <>
-              <div className="sticky top-0 bg-white/90 backdrop-blur-md border-b border-zinc-200 p-6 flex justify-between items-center z-20">
+            <div className="flex flex-col">
+              <div className="sticky top-0 bg-white border-b border-[#111111]/10 p-4 md:p-6 flex flex-col sm:flex-row justify-between sm:items-center gap-4 z-20">
                 <div className="flex items-center gap-4">
-                  <h4 className="font-helvetica font-bold text-xl tracking-tight text-[#111111]">{selectedOrder.id}</h4>
-                  <span className={`text-[9px] font-bold uppercase tracking-widest px-2 py-1 rounded-sm ${selectedOrder.status === 'Shipped' ? 'bg-green-100 text-green-700' : selectedOrder.status === 'Processing' ? 'bg-blue-100 text-blue-700' : 'bg-orange-100 text-orange-700'}`}>
+                  <button onClick={() => setSelectedOrder(null)} className="md:hidden text-[#111111] font-helvetica text-[9px] font-bold uppercase tracking-widest hover:underline underline-offset-4 decoration-1 mr-2">
+                    {"< BACK"}
+                  </button>
+                  <h4 className="font-helvetica font-bold text-lg md:text-xl tracking-tight text-[#111111] uppercase">{selectedOrder.id}</h4>
+                  <span className={`text-[9px] font-bold uppercase tracking-widest px-2 py-1 border ${selectedOrder.status === 'Shipped' ? 'border-[#111111] bg-[#111111] text-white' : 'border-[#111111]/20 text-[#111111]'}`}>
                     {selectedOrder.status}
                   </span>
                 </div>
-                {selectedOrder.status === 'Pending' && (
-                  <button onClick={() => handleUpdateStatus(selectedOrder.id, 'Processing')} className="bg-white border border-zinc-300 hover:border-[#111111] text-[#111111] font-inter-tight text-[10px] font-bold uppercase tracking-widest px-4 py-2 transition-colors">
-                    Mark as Processing
+                
+                <div className="flex gap-2">
+                  <button className="hidden sm:block px-4 py-2 border border-[#111111]/20 hover:border-[#111111] text-[#111111] font-helvetica text-[9px] font-bold uppercase tracking-widest transition-colors">
+                    PRINT INVOICE
                   </button>
-                )}
+                  {selectedOrder.status === 'Pending' && (
+                    <button onClick={() => handleUpdateStatus(selectedOrder.id, 'Processing')} className="bg-[#111111] hover:bg-[#333333] text-white font-helvetica text-[9px] font-bold uppercase tracking-widest px-4 py-2 transition-colors">
+                      MARK PROCESSING
+                    </button>
+                  )}
+                  {selectedOrder.status === 'Shipped' && (
+                    <button className="px-4 py-2 border border-[#111111]/20 hover:border-red-500 hover:text-red-500 text-[#111111] font-helvetica text-[9px] font-bold uppercase tracking-widest transition-colors">
+                      REFUND
+                    </button>
+                  )}
+                </div>
               </div>
 
-              <div className="p-8 md:p-12 flex flex-col gap-12 max-w-2xl mx-auto w-full">
-                <div className="grid grid-cols-2 gap-12">
+              <div className="p-4 md:p-8 lg:p-12 flex flex-col gap-12 w-full">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                   <div className="flex flex-col gap-4">
-                    <span className="font-inter-tight text-[10px] font-bold text-zinc-400 uppercase tracking-widest border-b border-dashed border-zinc-200 pb-2">Customer</span>
-                    <div className="flex flex-col gap-1 text-sm font-inter text-[#111111]">
-                      <span className="font-bold">{selectedOrder.customer}</span>
-                      <a href={`mailto:${selectedOrder.email}`} className="text-zinc-500 hover:text-[#d92323] transition-colors">{selectedOrder.email}</a>
-                      <a href={`tel:${selectedOrder.phone}`} className="text-zinc-500 hover:text-[#d92323] transition-colors">{selectedOrder.phone}</a>
+                    <span className="font-helvetica text-[9px] font-bold text-[#a0a0a0] uppercase tracking-widest border-b border-[#111111]/10 pb-2">CUSTOMER</span>
+                    <div className="flex flex-col gap-1 text-[11px] font-helvetica font-bold uppercase tracking-widest text-[#111111]">
+                      <span>{selectedOrder.customer}</span>
+                      <a href={`mailto:${selectedOrder.email}`} className="text-[#a0a0a0] hover:text-[#111111] transition-colors">{selectedOrder.email}</a>
+                      <a href={`tel:${selectedOrder.phone}`} className="text-[#a0a0a0] hover:text-[#111111] transition-colors">{selectedOrder.phone}</a>
                     </div>
                   </div>
                   <div className="flex flex-col gap-4">
-                    <span className="font-inter-tight text-[10px] font-bold text-zinc-400 uppercase tracking-widest border-b border-dashed border-zinc-200 pb-2">Shipping Address</span>
-                    <p className="text-sm font-inter text-zinc-600 leading-relaxed">
+                    <span className="font-helvetica text-[9px] font-bold text-[#a0a0a0] uppercase tracking-widest border-b border-[#111111]/10 pb-2">SHIPPING ADDRESS</span>
+                    <p className="text-[11px] font-helvetica font-bold uppercase tracking-widest text-[#111111] leading-relaxed">
                       {(selectedOrder.address || '').split('\n').map((line, i) => <React.Fragment key={i}>{line}<br/></React.Fragment>)}
                     </p>
                   </div>
                 </div>
 
                 <div className="flex flex-col gap-4">
-                  <span className="font-inter-tight text-[10px] font-bold text-zinc-400 uppercase tracking-widest border-b border-dashed border-zinc-200 pb-2">Purchased Items ({selectedOrder.items.length})</span>
-                  <div className="flex flex-col gap-4">
+                  <span className="font-helvetica text-[9px] font-bold text-[#a0a0a0] uppercase tracking-widest border-b border-[#111111]/10 pb-2">ITEMS ({selectedOrder.items.length})</span>
+                  <div className="flex flex-col">
                     {selectedOrder.items.map((item, i) => (
-                      <div key={i} className="flex justify-between items-start">
+                      <div key={i} className="flex justify-between items-start py-4 border-b border-[#111111]/10">
                         <div className="flex gap-4 items-start">
-                          <div className="w-12 h-12 bg-[#F5F5F5] border border-zinc-200 flex justify-center items-center font-inter-tight text-xs text-zinc-400">IMG</div>
-                          <div className="flex flex-col gap-0.5">
-                            <span className="font-helvetica font-bold text-sm text-[#111111]">"{item.name}"</span>
-                            <span className="font-inter-tight text-[10px] text-zinc-500 uppercase tracking-widest">Qty: {item.qty} × ${item.price}</span>
+                          <div className="w-16 aspect-[4/5] bg-[#F5F5F5] border border-[#111111]/10 flex justify-center items-center font-helvetica text-[9px] text-[#a0a0a0] font-bold uppercase">IMG</div>
+                          <div className="flex flex-col gap-1">
+                            <span className="font-helvetica font-bold text-[12px] tracking-tight text-[#111111]">"{item.name}"</span>
+                            <span className="font-helvetica text-[9px] text-[#a0a0a0] font-bold uppercase tracking-widest">QTY: 0{item.qty}</span>
                           </div>
                         </div>
-                        <span className="font-helvetica font-bold text-sm text-[#111111]">${item.price * item.qty}</span>
+                        <span className="font-helvetica font-bold text-[12px] text-[#111111]">${item.price * item.qty}</span>
                       </div>
                     ))}
                   </div>
-                  <div className="flex justify-between items-baseline border-t border-[#111111] pt-4 mt-2">
-                    <span className="font-helvetica font-bold text-sm uppercase text-[#111111]">Total Paid</span>
-                    <span className="font-bebas text-4xl tracking-wide text-[#111111]">${selectedOrder.total}</span>
+                  
+                  <div className="flex flex-col gap-2 mt-4 bg-[#F5F5F5] p-6 border border-[#111111]/10">
+                    <div className="flex justify-between items-center">
+                      <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest">SUBTOTAL</span>
+                      <span className="font-helvetica text-[#111111] text-[12px] font-bold tracking-tight">${selectedOrder.total}</span>
+                    </div>
+                    <div className="flex justify-between items-center">
+                      <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest">SHIPPING</span>
+                      <span className="font-helvetica text-[#111111] text-[12px] font-bold tracking-tight">FREE</span>
+                    </div>
+                    <div className="w-full h-[1px] bg-[#111111]/10 my-2"></div>
+                    <div className="flex justify-between items-baseline">
+                      <span className="font-helvetica font-bold text-[12px] uppercase text-[#111111]">TOTAL</span>
+                      <span className="font-helvetica font-bold text-2xl tracking-tight text-[#111111]">${selectedOrder.total}</span>
+                    </div>
                   </div>
                 </div>
 
-                <div className="bg-[#F5F5F5] p-6 border border-zinc-200 flex flex-col gap-4">
-                  <span className="font-inter-tight text-[10px] font-bold text-[#111111] uppercase tracking-widest">Fulfillment</span>
+                <div className="flex flex-col gap-4">
+                  <span className="font-helvetica text-[9px] font-bold text-[#a0a0a0] uppercase tracking-widest border-b border-[#111111]/10 pb-2">FULFILLMENT</span>
                   
                   {selectedOrder.status !== 'Shipped' ? (
-                    <div className="flex flex-col gap-3">
-                      <p className="font-inter text-xs text-zinc-500">Enter the tracking number below to fulfill this order and notify the customer.</p>
-                      <div className="flex gap-2">
+                    <div className="flex flex-col gap-4">
+                      <p className="font-helvetica font-bold text-[11px] uppercase tracking-widest text-[#a0a0a0]">ENTER TRACKING NUMBER TO FULFILL THIS ORDER</p>
+                      <div className="flex flex-col sm:flex-row gap-2">
                         <input 
                           type="text" 
                           placeholder="e.g. TRK123456789" 
-                          className="flex-1 bg-white border border-zinc-300 px-3 py-2 font-inter text-sm focus:outline-none focus:border-[#111111]"
+                          className="flex-1 bg-white border border-[#111111]/20 px-4 py-2 font-helvetica text-[11px] font-bold uppercase tracking-widest focus:outline-none focus:border-[#111111] placeholder:text-[#a0a0a0]"
                           id={`tracking-${selectedOrder.id}`}
                         />
                         <button 
@@ -2375,30 +2652,32 @@ const AdminStudioOrders = () => {
                             const val = document.getElementById(`tracking-${selectedOrder.id}`).value;
                             if(val) handleSaveTracking(selectedOrder.id, val);
                           }} 
-                          className="bg-[#111111] hover:bg-zinc-800 text-white font-inter-tight text-[10px] font-bold uppercase tracking-widest px-6 transition-colors"
+                          className="bg-[#111111] hover:bg-[#333333] text-white font-helvetica text-[9px] font-bold uppercase tracking-widest px-8 py-3 sm:py-0 transition-colors whitespace-nowrap"
                         >
-                          Fulfill Order
+                          FULFILL ORDER
                         </button>
                       </div>
                     </div>
                   ) : (
-                    <div className="flex flex-col gap-2">
-                      <div className="flex items-center gap-2 text-green-600">
-                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
-                        <span className="font-inter font-bold text-sm">Order fulfilled and shipped.</span>
+                    <div className="flex flex-col gap-2 p-6 border border-[#111111] bg-white">
+                      <div className="flex items-center gap-2 text-[#111111]">
+                        <span className="font-helvetica font-bold text-[11px] uppercase tracking-widest">ORDER FULFILLED</span>
                       </div>
-                      <div className="flex gap-2 mt-2">
-                        <span className="font-inter-tight text-[10px] text-zinc-500 uppercase tracking-widest">Tracking Number:</span>
-                        <span className="font-helvetica font-bold text-xs text-[#111111]">{selectedOrder.tracking}</span>
+                      <div className="flex gap-2 mt-2 items-center">
+                        <span className="font-helvetica text-[9px] text-[#a0a0a0] font-bold uppercase tracking-widest">TRACKING NO:</span>
+                        <span className="font-helvetica font-bold text-[11px] uppercase tracking-widest text-[#111111]">{selectedOrder.tracking}</span>
+                        <button className="ml-2 px-2 py-1 text-[8px] border border-[#111111]/20 hover:border-[#111111] font-helvetica font-bold uppercase tracking-widest">UPDATE</button>
                       </div>
                     </div>
                   )}
                 </div>
 
               </div>
-            </>
+            </div>
           ) : (
-            <div className="w-full h-full flex justify-center items-center font-inter-tight text-zinc-400 text-xs uppercase tracking-widest">Select an order to view details</div>
+            <div className="w-full h-full flex justify-center items-center font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest">
+              SELECT AN ORDER TO VIEW DETAILS
+            </div>
           )}
         </div>
       </div>
@@ -2471,38 +2750,38 @@ const AdminStudioTimeline = () => {
       </div>
 
       <div className="relative w-full flex flex-col items-center">
-        <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[1px] bg-zinc-300 -z-10"></div>
+        <div className="absolute top-0 bottom-0 left-8 md:left-1/2 -translate-x-1/2 w-[1px] bg-zinc-300 -z-10"></div>
 
         {timeline.map((item, index) => (
-          <div key={item.id} className="relative flex w-full justify-between items-center group py-8">
-            <div className="absolute left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-2 border-[#111111] rounded-full z-10 transition-transform group-hover:scale-125"></div>
+          <div key={item.id} className="relative flex flex-col md:flex-row w-full md:justify-between items-start md:items-center group py-8">
+            <div className="absolute left-8 md:left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-2 border-[#111111] rounded-full z-10 transition-transform group-hover:scale-125"></div>
 
-            <div className={`w-1/2 flex justify-end pr-12 ${index % 2 === 0 ? 'order-1' : 'order-3 pr-0 pl-12 justify-start'}`}>
+            <div className={`w-full md:w-1/2 flex pl-16 md:pl-0 ${index % 2 === 0 ? 'md:order-1 md:justify-end md:pr-12' : 'md:order-3 md:justify-start md:pl-12'}`}>
               <div className="relative flex items-center group/node">
-                <EditableText value={item.year} onChange={v => handleUpdate(item.id, 'year', v)} onSave={v => handleSave(item.id, 'year', v)} className={`font-bebas text-4xl text-zinc-300 w-24 ${index % 2 === 0 ? 'text-right' : 'text-left'}`} />
-                <button onClick={() => handleDeleteNode(item.id)} className={`absolute opacity-0 group-hover/node:opacity-100 text-red-400 hover:text-red-600 transition-opacity p-2 ${index % 2 === 0 ? '-left-10' : '-right-10'}`} title="Remove Event">
+                <EditableText value={item.year} onChange={v => handleUpdate(item.id, 'year', v)} onSave={v => handleSave(item.id, 'year', v)} className={`font-bebas text-4xl text-zinc-300 w-24 text-left ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`} />
+                <button onClick={() => handleDeleteNode(item.id)} className={`absolute opacity-0 group-hover/node:opacity-100 text-red-400 hover:text-red-600 transition-opacity p-2 -right-10 md:-right-auto ${index % 2 === 0 ? 'md:-left-10' : 'md:-right-10'}`} title="Remove Event">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
               </div>
             </div>
 
-            <div className="w-8 shrink-0 order-2"></div>
+            <div className="hidden md:block w-8 shrink-0 order-2"></div>
 
-            <div className={`w-1/2 flex flex-col justify-start pl-12 ${index % 2 === 0 ? 'order-3' : 'order-1 pl-0 pr-12 items-end'}`}>
-              <EditableText value={item.name} onChange={v => handleUpdate(item.id, 'name', v)} onSave={v => handleSave(item.id, 'name', v)} className={`font-inter-tight font-bold text-lg text-[#111111] leading-tight ${index % 2 === 0 ? 'text-left' : 'text-right'}`} />
-              <EditableText value={item.desc} onChange={v => handleUpdate(item.id, 'desc', v)} onSave={v => handleSave(item.id, 'desc', v)} className={`font-inter text-sm text-zinc-500 mt-1 ${index % 2 === 0 ? 'text-left' : 'text-right'}`} />
+            <div className={`w-full md:w-1/2 flex flex-col mt-2 md:mt-0 pl-16 md:pl-0 ${index % 2 === 0 ? 'md:order-3 md:pl-12 md:items-start' : 'md:order-1 md:pr-12 md:pl-0 md:items-end'}`}>
+              <EditableText value={item.name} onChange={v => handleUpdate(item.id, 'name', v)} onSave={v => handleSave(item.id, 'name', v)} className={`font-inter-tight font-bold text-lg text-[#111111] leading-tight text-left w-full ${index % 2 === 0 ? 'md:text-left' : 'md:text-right'}`} />
+              <EditableText value={item.desc} onChange={v => handleUpdate(item.id, 'desc', v)} onSave={v => handleSave(item.id, 'desc', v)} className={`font-inter text-sm text-zinc-500 mt-1 text-left w-full ${index % 2 === 0 ? 'md:text-left' : 'md:text-right'}`} />
             </div>
 
             {index < timeline.length - 1 && (
-              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-8 h-8 flex justify-center items-center z-20 opacity-0 group-hover:opacity-100 transition-opacity">
+              <div className="absolute -bottom-4 left-8 md:left-1/2 -translate-x-1/2 w-8 h-8 flex justify-center items-center z-20 opacity-0 group-hover:opacity-100 transition-opacity">
                 <button onClick={() => handleAddNode(index)} className="w-6 h-6 bg-white border border-[#111111] rounded-full text-[#111111] flex justify-center items-center hover:bg-[#111111] hover:text-white transition-colors pb-0.5" title="Insert Event">+</button>
               </div>
             )}
           </div>
         ))}
 
-        <div className="relative flex justify-center items-center py-8">
-           <button onClick={() => handleAddNode(timeline.length - 1)} className="w-10 h-10 bg-zinc-100 hover:bg-[#111111] border border-dashed border-zinc-300 hover:border-[#111111] rounded-full text-zinc-400 hover:text-white flex justify-center items-center transition-all pb-1 text-xl" title="Add Final Event">+</button>
+        <div className="relative flex justify-center md:justify-center items-center py-8 w-full pl-16 md:pl-0">
+           <button onClick={() => handleAddNode(timeline.length - 1)} className="w-10 h-10 bg-zinc-100 hover:bg-[#111111] border border-dashed border-zinc-300 hover:border-[#111111] rounded-full text-zinc-400 hover:text-white flex justify-center items-center transition-all pb-1 text-xl absolute left-3 md:static" title="Add Final Event">+</button>
         </div>
       </div>
     </div>
@@ -2551,34 +2830,8 @@ const AdminStudioSettings = () => {
         <h3 className="font-bebas text-4xl tracking-wide uppercase text-[#111111]">Site Settings & Identity</h3>
       </div>
 
-      <div className="flex flex-col gap-8 mb-16">
-         <span className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-400 border-b border-dashed border-zinc-200 pb-2">01. Hero Identity & Quotes</span>
-         
-         <div className="bg-[#EAEAEA] p-12 md:p-16 flex flex-col items-center text-center gap-4 relative overflow-hidden group">
-            <span className="text-[9px] text-zinc-400 font-bold uppercase tracking-widest mb-4">MAIN HERO TEXT (NEW LINE = ENTER)</span>
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-16 h-16 bg-[#d92323]/10 rounded-full blur-xl -z-10"></div>
-            <EditableTextArea
-                value={settings.quoteMain || ''}
-                onChange={v => handleUpdate('quoteMain', v)}
-                onSave={v => handleSave('quoteMain', v)}
-                className="font-inter font-normal text-3xl md:text-[2.5vw] text-[#111111] leading-[1.1] tracking-tight uppercase text-center w-full max-w-lg bg-transparent h-48 md:h-64"
-                rows={6}
-            />
-         </div>
-
-         <div className="bg-[#EAEAEA] p-12 md:p-16 flex flex-col items-start gap-4">
-            <span className="text-[9px] text-zinc-400 font-bold uppercase tracking-widest mb-4">CINEMATIC SCROLL TEXT</span>
-            <EditableTextArea
-                value={settings.quoteCinematic || ''}
-                onChange={v => handleUpdate('quoteCinematic', v)}
-                onSave={v => handleSave('quoteCinematic', v)}
-                className="font-inter font-medium text-[11px] md:text-[13px] text-[#111111] leading-[1.4] w-full max-w-sm bg-transparent"
-            />
-         </div>
-      </div>
-
       <div className="flex flex-col gap-8">
-         <span className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-400 border-b border-dashed border-zinc-200 pb-2">02. Visit Us (Location & Hours)</span>
+         <span className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-400 border-b border-dashed border-zinc-200 pb-2">01. Visit Us (Location & Hours)</span>
          
          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-4">
             <div className="flex flex-col gap-10">
@@ -2638,7 +2891,7 @@ const AdminStudioSettings = () => {
       </div>
 
       <div className="flex flex-col gap-8 mt-16">
-         <span className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-400 border-b border-dashed border-zinc-200 pb-2">03. Google Map Integration & Location Coordinates</span>
+         <span className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-400 border-b border-dashed border-zinc-200 pb-2">02. Google Map Integration & Location Coordinates</span>
          
          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-4">
             <div className="flex flex-col gap-2">
@@ -2674,11 +2927,11 @@ const AdminStudioSettings = () => {
 const AdminLayout = ({ onLogout }) => {
   const { syncStatus } = useData();
   const [activeTab, setActiveTab] = useState('overview');
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(window.innerWidth >= 768);
   
   const menuItems = [
-    { id: 'overview', label: 'Bar & Artists', icon: 'M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z' },
-    { id: 'editorials', label: 'Stories Grid', icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10' },
+    { id: 'overview', label: 'Cocktail Menu', icon: 'M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z' },
+    { id: 'editorials', label: 'About Page', icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10' },
     { id: 'catalogue', label: 'Catalogue', icon: 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z' },
     { id: 'timeline', label: 'Our Journey', icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' },
     { id: 'orders', label: 'Order Ledger', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2' },
@@ -2702,13 +2955,26 @@ const AdminLayout = ({ onLogout }) => {
   };
 
   return (
-    <div className="flex h-screen bg-[#ffffff] overflow-hidden font-inter">
-      <aside className={`bg-[#F5F5F5] border-r border-zinc-200 flex flex-col shrink-0 transition-all duration-300 ease-in-out ${isSidebarOpen ? 'w-64' : 'w-20'}`}>
+    <div className="flex h-screen bg-[#ffffff] overflow-hidden font-inter relative">
+      {/* Mobile Overlay */}
+      {isSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 md:hidden" 
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
+      <aside className={`bg-[#F5F5F5] border-r border-zinc-200 flex flex-col shrink-0 transition-all duration-300 ease-in-out fixed md:relative z-50 h-full ${isSidebarOpen ? 'translate-x-0 w-64' : '-translate-x-full md:translate-x-0 md:w-20'}`}>
         <div className="h-20 flex items-center justify-between px-6 border-b border-zinc-200 shrink-0">
-          {isSidebarOpen && <span className="font-bebas text-2xl tracking-wide text-[#111111]">STUDIO</span>}
-          <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-zinc-400 hover:text-[#111111] transition-colors p-2 -mr-2">
+          {(isSidebarOpen || window.innerWidth < 768) && <span className="font-bebas text-2xl tracking-wide text-[#111111]">STUDIO</span>}
+          <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-zinc-400 hover:text-[#111111] transition-colors p-2 -mr-2 hidden md:block">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+          <button onClick={() => setIsSidebarOpen(false)} className="text-zinc-400 hover:text-[#111111] transition-colors p-2 -mr-2 md:hidden">
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
@@ -2717,14 +2983,17 @@ const AdminLayout = ({ onLogout }) => {
           {menuItems.map(item => (
             <button 
               key={item.id}
-              onClick={() => setActiveTab(item.id)}
+              onClick={() => {
+                setActiveTab(item.id);
+                if (window.innerWidth < 768) setIsSidebarOpen(false);
+              }}
               className={`w-full flex items-center gap-4 px-4 py-3 rounded-md transition-colors ${activeTab === item.id ? 'bg-white shadow-sm text-[#111111] font-bold' : 'text-zinc-500 hover:bg-zinc-200/50 hover:text-[#111111]'}`}
               title={!isSidebarOpen ? item.label : ""}
             >
               <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d={item.icon}></path>
               </svg>
-              {isSidebarOpen && <span className="font-inter-tight text-[11px] uppercase tracking-widest truncate">{item.label}</span>}
+              {(isSidebarOpen || window.innerWidth < 768) && <span className="font-inter-tight text-[11px] uppercase tracking-widest truncate">{item.label}</span>}
             </button>
           ))}
         </nav>
@@ -2732,24 +3001,27 @@ const AdminLayout = ({ onLogout }) => {
         <div className="p-4 border-t border-zinc-200">
           <button onClick={onLogout} className={`w-full flex items-center gap-4 px-4 py-3 rounded-md text-red-500 hover:bg-red-50 transition-colors ${!isSidebarOpen && 'justify-center px-0'}`} title={!isSidebarOpen ? "Logout" : ""}>
             <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
-            {isSidebarOpen && <span className="font-inter-tight text-[11px] uppercase tracking-widest font-bold">Close Studio</span>}
+            {(isSidebarOpen || window.innerWidth < 768) && <span className="font-inter-tight text-[11px] uppercase tracking-widest font-bold">Close Studio</span>}
           </button>
         </div>
       </aside>
 
       <main className="flex-1 flex flex-col h-full overflow-hidden bg-white relative">
-        <header className="h-20 flex items-center px-8 md:px-12 shrink-0 justify-between">
+        <header className="h-20 flex items-center px-4 md:px-12 shrink-0 justify-between">
            <div className="flex items-center gap-3">
+             <button onClick={() => setIsSidebarOpen(true)} className="md:hidden text-zinc-600 p-2 border border-zinc-200 rounded-md">
+               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+             </button>
              <div className="flex items-center gap-2 bg-zinc-100/80 px-3 py-1.5 rounded-full border border-zinc-200/50">
-               {syncStatus === 'Mock Mode' && <><span className="w-2 h-2 rounded-full bg-orange-400"></span><span className="font-inter-tight text-[10px] text-zinc-500 uppercase tracking-widest">Local Mock Mode</span></>}
-               {syncStatus === 'Synced' && <><span className="w-2 h-2 rounded-full bg-green-500"></span><span className="font-inter-tight text-[10px] text-zinc-500 uppercase tracking-widest">Saved to Cloud</span></>}
+               {syncStatus === 'Mock Mode' && <><span className="w-2 h-2 rounded-full bg-orange-400"></span><span className="font-inter-tight text-[10px] text-zinc-500 uppercase tracking-widest hidden md:inline">Local Mock Mode</span></>}
+               {syncStatus === 'Synced' && <><span className="w-2 h-2 rounded-full bg-green-500"></span><span className="font-inter-tight text-[10px] text-zinc-500 uppercase tracking-widest hidden md:inline">Saved to Cloud</span></>}
                {syncStatus === 'Saving...' && (
                  <>
                    <svg className="w-3 h-3 text-zinc-500 animate-spin" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                   <span className="font-inter-tight text-[10px] text-zinc-500 uppercase tracking-widest">Saving...</span>
+                   <span className="font-inter-tight text-[10px] text-zinc-500 uppercase tracking-widest hidden md:inline">Saving...</span>
                  </>
                )}
-               {syncStatus === 'Error' && <><span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span><span className="font-inter-tight text-[10px] text-red-500 uppercase tracking-widest">Save Failed</span></>}
+               {syncStatus === 'Error' && <><span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span><span className="font-inter-tight text-[10px] text-red-500 uppercase tracking-widest hidden md:inline">Save Failed</span></>}
              </div>
            </div>
            <span className="font-helvetica font-bold text-sm text-[#111111] uppercase tracking-tight">
