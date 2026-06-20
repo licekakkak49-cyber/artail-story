@@ -114,7 +114,8 @@ const siteSettingsData = {
   artist2_name: "Teddy",
   artist2_image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80",
   map_embed_url: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.617539313314!2d-74.0084126234181!3d40.74844047138819!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259b9b3117469%3A0xd134e199a405a163!2s254%2010th%20Ave%2C%20New%20York%2C%20NY%2010001!5e0!3m2!1sen!2sus!4v1716720000000!5m2!1sen!2sus",
-  latitude_longitude: "40.7128° N, 74.0060° W"
+  latitude_longitude: "40.7128° N, 74.0060° W",
+  homeVideo: "https://res.cloudinary.com/dfw2qnshp/video/upload/v1781892107/79912-570698384_medium_l2pckz.mp4"
 };
 
 export const DataProvider = ({ children }) => {
@@ -192,6 +193,7 @@ export const DataProvider = ({ children }) => {
             hours2: stData.hours_2 ?? stData.hours2 ?? siteSettingsData.hours2,
             hours3: stData.hours_3 ?? stData.hours3 ?? siteSettingsData.hours3,
             hours4: stData.hours_4 ?? stData.hours4 ?? siteSettingsData.hours4,
+            homeVideo: stData.home_video ?? stData.homeVideo ?? siteSettingsData.homeVideo,
           });
         }
         // 🌟 [END: แก้ปัญหา \n] 🌟
@@ -227,39 +229,39 @@ const BagView = ({ cartItems, onRemove, onCheckout }) => {
   return (
     <div className="w-full flex flex-col md:flex-row mt-4 md:mt-12 pb-24 gap-12 md:gap-8 items-start px-1 md:px-2">
       <div className="w-full md:w-2/3 flex flex-col">
-        <div className="hidden md:flex justify-between border-b border-[#111111]/10 pb-4 mb-6">
+        <div className="hidden md:flex justify-between border-b border-black/10 pb-4 mb-6">
           <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest w-[55%]">OBJECT</span>
           <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest w-[15%] text-center">QTY</span>
           <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest w-[15%] text-right">PRICE</span>
           <span className="w-[15%]"></span>
         </div>
         {cartItems.length === 0 ? (
-          <div className="py-12 flex justify-center border-b border-[#111111]/10">
+          <div className="py-12 flex justify-center border-b border-black/10">
             <span className="font-helvetica text-[#a0a0a0] text-[11px] font-bold uppercase tracking-widest">YOUR BAG IS EMPTY</span>
           </div>
         ) : (
           cartItems.map((item, idx) => (
-            <div key={idx} className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 md:gap-4 border-b border-[#111111]/10 py-6 group">
+            <div key={idx} className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 md:gap-4 border-b border-black/10 py-6 group">
               <div className="w-full md:w-[55%] flex items-center gap-6">
                 <div className="w-16 md:w-20 aspect-[4/5] bg-[#F5F5F5] overflow-hidden shrink-0">
                   <img src={item.src || item.image || item.image_url || (item.images && item.images[0])} alt={item.name} loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" draggable="false" />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <span className="font-helvetica text-[#111111] text-[12px] md:text-[14px] font-bold tracking-tight">"{item.name}"</span>
+                  <span className="font-helvetica text-black text-[12px] md:text-[14px] font-bold tracking-tight">"{item.name}"</span>
                   <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest">{item.designer}</span>
                 </div>
               </div>
               <div className="w-full md:w-[45%] flex justify-between items-center md:items-center mt-2 md:mt-0">
                 <div className="w-1/3 md:w-[33%] flex flex-col md:flex-row md:justify-center items-start md:items-center gap-1.5 md:gap-0">
                   <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest md:hidden">QTY</span>
-                  <span className="font-helvetica text-[#111111] text-[12px] font-bold tracking-tight">0{item.qty}</span>
+                  <span className="font-helvetica text-black text-[12px] font-bold tracking-tight">0{item.qty}</span>
                 </div>
                 <div className="w-1/3 md:w-[33%] flex flex-col md:flex-row md:justify-end items-start md:items-center gap-1.5 md:gap-0">
                   <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest md:hidden">PRICE</span>
-                  <span className="font-helvetica text-[#111111] text-[12px] font-bold tracking-tight">${Number(item.price) * item.qty}</span>
+                  <span className="font-helvetica text-black text-[12px] font-bold tracking-tight">${Number(item.price) * item.qty}</span>
                 </div>
                 <div className="w-1/3 md:w-[33%] flex justify-end items-center">
-                  <span onClick={() => onRemove(idx)} className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest cursor-pointer hover:text-[#111111] underline underline-offset-4 decoration-1 transition-colors">REMOVE</span>
+                  <span onClick={() => onRemove(idx)} className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest cursor-pointer hover:text-black underline underline-offset-4 decoration-1 transition-colors">REMOVE</span>
                 </div>
               </div>
             </div>
@@ -267,18 +269,18 @@ const BagView = ({ cartItems, onRemove, onCheckout }) => {
         )}
       </div>
       <div className="w-full md:w-1/3 flex flex-col mt-8 md:mt-0 md:pl-8 lg:pl-16">
-        <div className="flex flex-col gap-6 border-b border-[#111111]/10 pb-8 mb-8">
+        <div className="flex flex-col gap-6 border-b border-black/10 pb-8 mb-8">
           <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest">ORDER SUMMARY</span>
           <div className="flex justify-between items-center">
-            <span className="font-helvetica text-[#111111] text-[10px] font-bold uppercase tracking-widest">SUBTOTAL</span>
-            <span className="font-helvetica text-[#111111] text-[14px] font-bold tracking-tight">${subtotal}</span>
+            <span className="font-helvetica text-black text-[10px] font-bold uppercase tracking-widest">SUBTOTAL</span>
+            <span className="font-helvetica text-black text-[14px] font-bold tracking-tight">${subtotal}</span>
           </div>
           <div className="flex justify-between items-start">
             <span className="font-helvetica text-[#a0a0a0] text-[10px] font-bold uppercase tracking-widest">SHIPPING</span>
             <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold tracking-tight text-right uppercase">CALCULATED AT<br/>CHECKOUT</span>
           </div>
         </div>
-        <button onClick={onCheckout} className={`w-full font-inter-tight font-semibold text-[11px] uppercase tracking-widest py-4 transition-colors flex justify-center items-center ${cartItems.length > 0 ? 'bg-[#111111] text-[#F5F5F5] hover:bg-zinc-800' : 'bg-[#EAEAEA] text-[#a0a0a0] pointer-events-none'}`}>
+        <button onClick={onCheckout} className={`w-full font-helvetica font-semibold text-[11px] uppercase tracking-widest py-4 transition-colors flex justify-center items-center ${cartItems.length > 0 ? 'bg-black text-[#F5F5F5] hover:bg-zinc-800' : 'bg-[#EAEAEA] text-[#a0a0a0] pointer-events-none'}`}>
           PROCEED TO CHECKOUT
         </button>
       </div>
@@ -315,58 +317,58 @@ const ProductDetail = ({ item, onNavigate, onAcquire }) => {
       <div className="w-full md:w-2/3 grid grid-cols-2 md:grid-cols-3 gap-y-12 gap-x-6 md:gap-x-12 relative h-full">
         <div className="flex flex-col gap-1.5">
           <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest">OBJECT</span>
-          <span className="font-helvetica text-[#111111] text-[12px] font-bold tracking-tight">"{item.name}"</span>
+          <span className="font-helvetica text-black text-[12px] font-bold tracking-tight">"{item.name}"</span>
         </div>
         <div className="flex flex-col gap-1.5">
           <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest">DESIGNER</span>
-          <span className="font-helvetica text-[#111111] text-[12px] font-bold tracking-tight">{item.designer}</span>
+          <span className="font-helvetica text-black text-[12px] font-bold tracking-tight">{item.designer}</span>
         </div>
         <div className="flex flex-col gap-1.5 hidden md:flex">
           <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest">YEAR</span>
-          <span className="font-helvetica text-[#111111] text-[12px] font-bold tracking-tight">{item.year}</span>
+          <span className="font-helvetica text-black text-[12px] font-bold tracking-tight">{item.year}</span>
         </div>
         <div className="flex flex-col gap-1.5">
           <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest">COLOUR</span>
-          <span className="font-helvetica text-[#111111] text-[12px] font-bold tracking-tight">{item.colour}</span>
+          <span className="font-helvetica text-black text-[12px] font-bold tracking-tight">{item.colour}</span>
         </div>
         <div className="flex flex-col gap-1.5">
           <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest">SIZE</span>
-          <span className="font-helvetica text-[#111111] text-[12px] font-bold tracking-tight">{item.size}</span>
+          <span className="font-helvetica text-black text-[12px] font-bold tracking-tight">{item.size}</span>
         </div>
         <div className="flex flex-col gap-1.5 hidden md:flex">
           <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest">MATERIAL</span>
-          <span className="font-helvetica text-[#111111] text-[12px] font-bold tracking-tight">{item.material}</span>
+          <span className="font-helvetica text-black text-[12px] font-bold tracking-tight">{item.material}</span>
         </div>
         <div className="flex flex-col gap-1.5 md:hidden">
           <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest">YEAR</span>
-          <span className="font-helvetica text-[#111111] text-[12px] font-bold tracking-tight">{item.year}</span>
+          <span className="font-helvetica text-black text-[12px] font-bold tracking-tight">{item.year}</span>
         </div>
         <div className="flex flex-col gap-1.5 md:hidden">
           <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest">MATERIAL</span>
-          <span className="font-helvetica text-[#111111] text-[12px] font-bold tracking-tight">{item.material}</span>
+          <span className="font-helvetica text-black text-[12px] font-bold tracking-tight">{item.material}</span>
         </div>
         <div className="flex flex-col gap-1.5 col-span-2 md:col-span-3 lg:col-span-2">
           <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest">INFO</span>
-          <span className="font-helvetica text-[#111111] text-[12px] font-bold tracking-tight leading-snug max-w-md">{item.info}</span>
+          <span className="font-helvetica text-black text-[12px] font-bold tracking-tight leading-snug max-w-md">{item.info}</span>
         </div>
         <div className="col-span-2 md:col-span-3 flex flex-col w-full mt-8 md:mt-16 gap-6">
-          <div className="flex flex-col md:flex-row items-start md:items-end w-full gap-4 md:gap-8 max-w-lg border-t border-[#111111]/10 pt-6">
+          <div className="flex flex-col md:flex-row items-start md:items-end w-full gap-4 md:gap-8 max-w-lg border-t border-black/10 pt-6">
             <div className="flex flex-col gap-1.5 shrink-0 cursor-pointer group">
               <div className="flex items-baseline gap-2">
                 <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest">QTY</span>
                 <span className="font-helvetica text-[#a0a0a0] text-[8px] uppercase tracking-widest">({item.stock} AVAILABLE)</span>
               </div>
               <div className="flex items-center gap-2">
-                <span className="font-helvetica text-[#111111] text-[14px] font-bold tracking-tight">01</span>
+                <span className="font-helvetica text-black text-[14px] font-bold tracking-tight">01</span>
                 <span className="text-[8px] transition-transform group-hover:translate-y-[2px]">▼</span>
               </div>
             </div>
             <button 
               onClick={handleAcquireClick} 
-              className={`w-full font-inter-tight font-semibold text-[11px] uppercase tracking-widest py-4 transition-all duration-300 flex justify-center items-center gap-3 border ${
+              className={`w-full font-helvetica font-semibold text-[11px] uppercase tracking-widest py-4 transition-all duration-300 flex justify-center items-center gap-3 border ${
                 isAdded 
-                  ? 'bg-white text-[#111111] border-[#111111]/20 shadow-sm' 
-                  : 'bg-[#111111] text-[#F5F5F5] border-transparent hover:bg-zinc-800'
+                  ? 'bg-white text-black border-black/20 shadow-sm' 
+                  : 'bg-black text-[#F5F5F5] border-transparent hover:bg-zinc-800'
               }`}
             >
               {isAdded ? (
@@ -385,9 +387,9 @@ const ProductDetail = ({ item, onNavigate, onAcquire }) => {
               )}
             </button>
           </div>
-          <div className="flex justify-between w-full max-w-lg mt-8 md:mt-12 pt-4 border-t border-[#111111]/10">
-             <span onClick={handlePrev} className={`font-helvetica text-[10px] font-bold uppercase tracking-widest transition-colors ${currentIndex > 0 ? 'text-[#111111] cursor-pointer hover:text-zinc-500' : 'text-zinc-300 pointer-events-none'}`}>PREVIOUS</span>
-            <span onClick={handleNext} className={`font-helvetica text-[10px] font-bold uppercase tracking-widest transition-colors ${currentIndex < catalogueItems.length - 1 ? 'text-[#111111] cursor-pointer hover:text-zinc-500' : 'text-zinc-300 pointer-events-none'}`}>NEXT</span>
+          <div className="flex justify-between w-full max-w-lg mt-8 md:mt-12 pt-4 border-t border-black/10">
+             <span onClick={handlePrev} className={`font-helvetica text-[10px] font-bold uppercase tracking-widest transition-colors ${currentIndex > 0 ? 'text-black cursor-pointer hover:text-zinc-500' : 'text-zinc-300 pointer-events-none'}`}>Previous</span>
+            <span onClick={handleNext} className={`font-helvetica text-[10px] font-bold uppercase tracking-widest transition-colors ${currentIndex < catalogueItems.length - 1 ? 'text-black cursor-pointer hover:text-zinc-500' : 'text-zinc-300 pointer-events-none'}`}>Next</span>
           </div>
         </div>
       </div>
@@ -408,7 +410,7 @@ const ProductDetail = ({ item, onNavigate, onAcquire }) => {
               <div 
                 key={i} 
                 onClick={() => setImageIndex(i)} 
-                className={`w-16 h-16 shrink-0 cursor-pointer snap-start transition-all duration-300 border-b-2 ${imageIndex === i ? 'border-[#111111] opacity-100' : 'border-transparent opacity-50 hover:opacity-100'} bg-[#F5F5F5] overflow-hidden`}
+                className={`w-16 h-16 shrink-0 cursor-pointer snap-start transition-all duration-300 border-b-2 ${imageIndex === i ? 'border-black opacity-100' : 'border-transparent opacity-50 hover:opacity-100'} bg-[#F5F5F5] overflow-hidden`}
               >
                 <img src={imgUrl} alt={`thumbnail ${i+1}`} className="w-full h-full object-cover" />
               </div>
@@ -455,61 +457,89 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
 
   return (
     <div className="fixed inset-0 bg-[#ffffff] z-[9999] overflow-y-auto" onScroll={handleScroll}>
-      <div className="w-full flex flex-col pt-8 md:pt-12 px-2 md:px-4">
-        <div ref={headerRef} className="px-0">
-          <h1 className="font-aura text-[10vw] md:text-[7vw] leading-[0.9] tracking-normal uppercase text-[#111111] mb-4 md:mb-6">
-            ART &amp; OBJECTS
-          </h1>
+      <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-white/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.05)] pt-[60px] pb-[60px] px-[8vw]">
+        <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-black/80">
+          <span onClick={() => { onClose(); setView('cocktail'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
+          <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
+          <span onClick={openGrid} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Shop</span>
+          <span onClick={() => { onClose(); setView('journey'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Our Journey</span>
+          <span onClick={() => { onClose(); setView('visit'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Visit</span>
         </div>
-        <div className={`sticky top-0 w-full z-50 py-4 transition-all duration-300 ${isSticky ? 'bg-white/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
-          <div className="flex justify-between items-center w-full relative">
-            <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
-              <span onClick={onClose} className="cursor-pointer hover:text-zinc-500 transition-colors">HOME</span>
-              <span onClick={openGrid} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
-              <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">ABOUT</span>
-              <span onClick={() => { onClose(); setView('visit'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
-            </div>
-            {/* Mobile Menu Button */}
-            <div className="md:hidden flex">
-              <span onClick={() => setIsMobileMenuOpen(true)} className="text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer text-[#111111]">
-                [ MENU ]
-              </span>
-            </div>
-            
-            <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
-               <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/D.svg" alt="logo" className="h-9 sm:h-11 md:h-12 object-contain brightness-0" />
-            </div>
+        {/* Hamburger Icon */}
+        <div className="md:hidden flex items-center z-[1001]">
+          <button 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+            className="flex flex-col justify-between w-5 h-3 cursor-pointer focus:outline-none text-black bg-transparent border-none p-0"
+            aria-label="Toggle Menu"
+          >
+            <span className="w-full h-[1px] bg-current transition-transform duration-300 origin-left" style={{ transform: isMobileMenuOpen ? 'rotate(45deg) translate(1px, -1px)' : 'none' }}></span>
+            <span className="w-full h-[1px] bg-current transition-opacity duration-300" style={{ opacity: isMobileMenuOpen ? 0 : 1 }}></span>
+            <span className="w-full h-[1px] bg-current transition-transform duration-300 origin-left" style={{ transform: isMobileMenuOpen ? 'rotate(-45deg) translate(1px, 1px)' : 'none' }}></span>
+          </button>
+        </div>
 
-            <div className="flex items-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
-              <span onClick={openBag} className="cursor-pointer hover:text-zinc-500 transition-colors mr-4 sm:mr-6 md:mr-8">BAG ({cartCount})</span>
-              <span onClick={() => {
-                if (currentUser) {
-                  onClose();
-                  setEcommerceView('profile');
-                } else {
-                  onClose();
-                  setEcommerceView('auth');
-                }
-              }} className="cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-[#111111]/20 rounded-full hover:bg-[#111111] hover:text-white hover:border-[#111111] transition-all duration-300">
-                {currentUser ? 'ACCOUNT' : 'LOGIN'}
-              </span>
-            </div>
-          </div>
+        <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
+           <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-14 sm:h-16 md:h-20 object-contain brightness-0 opacity-80 hover:opacity-100 transition-opacity duration-300" />
         </div>
+
+        <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-black/80">
+          <span onClick={openBag} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300 mr-4 sm:mr-6 md:mr-8">Bag ({cartCount})</span>
+          <span onClick={() => {
+            if (currentUser) {
+              onClose();
+              setEcommerceView('profile');
+            } else {
+              onClose();
+              setEcommerceView('auth');
+            }
+          }} className="cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-black/20 rounded-full hover:bg-black hover:text-white hover:border-black transition-all duration-300">
+            {currentUser ? 'Account' : 'Log In'}
+          </span>
+        </div>
+      </nav>
+      {/* Main Content Area */}
+      <div className="w-full pt-[160px] md:pt-[180px] px-[8vw] pb-32 flex flex-col bg-white text-black">
+        <h1 className="font-helvetica font-bold text-4xl md:text-5xl lg:text-6xl leading-[0.9] tracking-tight uppercase text-black mb-12 md:mb-20">
+          SHOP
+        </h1>
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-[#ffffff] z-[100] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
+              className="fixed inset-0 bg-[#ffffff] z-[90] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
               style={{ pointerEvents: 'auto' }}
             >
-              <span onClick={() => setIsMobileMenuOpen(false)} className="absolute top-[8%] md:top-[12%] right-[8vw] text-[#a0a0a0] text-[10px] tracking-widest font-bold cursor-pointer underline underline-offset-4 decoration-1">CLOSE</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">HOME</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); openGrid(); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">CATALOGUE</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('editorial'); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">ABOUT</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('visit'); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">VISIT</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('cocktail'); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">Menu</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('editorial'); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">About</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); openGrid(); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">Shop</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('journey'); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">Our Journey</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('visit'); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">Visit</span>
+              
+              <div className="flex flex-col gap-4 mt-8 w-full max-w-[280px]">
+                <button 
+                  onClick={() => { setIsMobileMenuOpen(false); openBag(); }} 
+                  className="border border-black/20 text-black hover:bg-black hover:text-white rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase transition-all duration-300"
+                >
+                  Bag ({cartCount})
+                </button>
+                <button 
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    if (currentUser) {
+                      onClose();
+                      setEcommerceView('profile');
+                    } else {
+                      onClose();
+                      setEcommerceView('auth');
+                    }
+                  }} 
+                  className="bg-black text-white hover:bg-black/80 rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase font-bold transition-all duration-300"
+                >
+                  {currentUser ? 'Account' : 'Log In'}
+                </button>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -521,18 +551,18 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
           <ProductDetail item={selectedItem} onNavigate={openDetail} onAcquire={handleAcquire} />
         ) : (
           <div className="w-full mt-10 md:mt-14">
-            <div className="flex justify-between items-center w-full mb-4 md:mb-6 text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111] px-0">
+            <div className="flex justify-between items-center w-full mb-4 md:mb-6 text-[10px] md:text-xs font-helvetica font-thin capitalize tracking-widest text-black px-0">
               <span>OBJECTS ({catalogue.length})</span>
               <span>SHOW ALL</span>
             </div>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 md:gap-3 pb-20 w-full">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 md:gap-8 pb-20 w-full">
               {catalogue.map((item, idx) => (
                 <div key={idx} onClick={() => openDetail(item)} className="flex flex-col group cursor-pointer">
                   <div className="w-full aspect-[4/5] bg-[#F5F5F5] overflow-hidden mb-2 md:mb-3">
                     <img src={item.src || item.image || item.image_url || (item.images && item.images[0])} alt={item.name} loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-700 ease-in-out group-hover:scale-[1.03]" draggable="false" />
                   </div>
                   <div className="flex justify-between items-start w-full text-[10px] md:text-[11px] lg:text-xs opacity-100 md:opacity-0 group-hover:opacity-100 transition-opacity duration-300 px-1 md:px-2 pt-1 md:pt-0">
-                    <span className="font-helvetica font-bold text-[#111111] pr-4">"{item.name}"</span>
+                    <span className="font-helvetica font-bold text-black pr-4">"{item.name}"</span>
                     <span className="font-helvetica font-bold text-zinc-400">${item.price}</span>
                   </div>
                 </div>
@@ -549,6 +579,7 @@ const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, cur
   const { settings } = useData();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
+  const [showMap, setShowMap] = useState(false);
   const headerRef = useRef(null);
 
   const handleScroll = (e) => {
@@ -558,134 +589,161 @@ const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, cur
   };
 
   return (
-    <div className="fixed inset-0 bg-[#ffffff] z-[9999] overflow-y-auto" onScroll={handleScroll}>
-      <div className="w-full flex flex-col pt-8 md:pt-12 px-2 md:px-4">
-        <div ref={headerRef} className="px-0">
-          <h1 className="font-aura text-[10vw] md:text-[7vw] leading-[0.9] tracking-normal uppercase text-[#111111] mb-4 md:mb-6">
-            VISIT US
-          </h1>
+    <div className="fixed inset-0 bg-black z-[9999] overflow-y-auto" onScroll={handleScroll}>
+      <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] pt-[60px] pb-[60px] px-[8vw]">
+        <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
+          <span onClick={() => { onClose(); setView('cocktail'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
+          <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
+          <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Shop</span>
+          <span onClick={() => { onClose(); setView('journey'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Our Journey</span>
+          <span onClick={() => { onClose(); setView('visit'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Visit</span>
         </div>
-        <div className={`sticky top-0 w-full z-50 py-4 transition-all duration-300 ${isSticky ? 'bg-white/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
-          <div className="flex justify-between items-center w-full relative">
-            <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
-              <span onClick={onClose} className="cursor-pointer hover:text-zinc-500 transition-colors">HOME</span>
-              <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
-              <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">ABOUT</span>
-              <span onClick={() => { onClose(); setView('visit'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
-            </div>
-            {/* Mobile Menu Button */}
-            <div className="md:hidden flex">
-              <span onClick={() => setIsMobileMenuOpen(true)} className="text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer text-[#111111]">
-                [ MENU ]
-              </span>
-            </div>
+        {/* Hamburger Icon */}
+        <div className="md:hidden flex items-center z-[1001]">
+          <button 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+            className="flex flex-col justify-between w-5 h-3 cursor-pointer focus:outline-none text-[#F5F5F5] bg-transparent border-none p-0"
+            aria-label="Toggle Menu"
+          >
+            <span className="w-full h-[1px] bg-current transition-transform duration-300 origin-left" style={{ transform: isMobileMenuOpen ? 'rotate(45deg) translate(1px, -1px)' : 'none' }}></span>
+            <span className="w-full h-[1px] bg-current transition-opacity duration-300" style={{ opacity: isMobileMenuOpen ? 0 : 1 }}></span>
+            <span className="w-full h-[1px] bg-current transition-transform duration-300 origin-left" style={{ transform: isMobileMenuOpen ? 'rotate(-45deg) translate(1px, 1px)' : 'none' }}></span>
+          </button>
+        </div>
 
-            <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
-               <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/D.svg" alt="logo" className="h-9 sm:h-11 md:h-12 object-contain brightness-0" />
-            </div>
+        <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
+           <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-14 sm:h-16 md:h-20 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
+        </div>
 
-            <div className="flex items-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
-              <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors mr-4 sm:mr-6 md:mr-8">BAG ({cartCount})</span>
-              <span onClick={() => {
-                if (currentUser) {
-                  onClose();
-                  setEcommerceView('profile');
-                } else {
-                  onClose();
-                  setEcommerceView('auth');
-                }
-              }} className="cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-[#111111]/20 rounded-full hover:bg-[#111111] hover:text-white hover:border-[#111111] transition-all duration-300">
-                {currentUser ? 'ACCOUNT' : 'LOGIN'}
-              </span>
+        <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
+          <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300 mr-4 sm:mr-6 md:mr-8">Bag ({cartCount})</span>
+          <span onClick={() => {
+            if (currentUser) {
+              onClose();
+              setEcommerceView('profile');
+            } else {
+              onClose();
+              setEcommerceView('auth');
+            }
+          }} className="cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-white/20 rounded-full hover:bg-white hover:text-black hover:border-white transition-all duration-300">
+            {currentUser ? 'Account' : 'Log In'}
+          </span>
+        </div>
+      </nav>
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black z-[90] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
+            style={{ pointerEvents: 'auto' }}
+          >
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('cocktail'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Menu</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('editorial'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">About</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Shop</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('journey'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Our Journey</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('visit'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Visit</span>
+            
+            <div className="flex flex-col gap-4 mt-8 w-full max-w-[280px]">
+              <button 
+                onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('bag'); }} 
+                className="border border-white/20 text-[#F5F5F5] hover:bg-white hover:text-black rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase transition-all duration-300"
+              >
+                Bag ({cartCount})
+              </button>
+              <button 
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  if (currentUser) {
+                    onClose();
+                    setEcommerceView('profile');
+                  } else {
+                    onClose();
+                    setEcommerceView('auth');
+                  }
+                }} 
+                className="bg-white text-black hover:bg-white/80 rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase font-bold transition-all duration-300"
+              >
+                {currentUser ? 'Account' : 'Log In'}
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Main Content Area */}
+      <div className="w-full pt-[160px] md:pt-[180px] px-[12vw] md:px-[22vw] pb-32 flex flex-col bg-black text-[#F5F5F5]">
+        <h1 className="font-helvetica font-bold text-4xl md:text-5xl lg:text-6xl leading-[0.9] tracking-tight uppercase text-[#F5F5F5] mb-12 md:mb-16">
+          VISIT US
+        </h1>
+
+        {/* Gallery Bar Artistic Space Banner */}
+        <div className="w-full aspect-[21/9] md:aspect-[21/9] bg-zinc-900 overflow-hidden relative mb-6 shadow-2xl">
+          <img 
+            src="/gallery_bar_space.png" 
+            alt="Gallery Bar Space" 
+            className="w-full h-full object-cover grayscale-0 hover:grayscale opacity-90 transition-all duration-1000 ease-in-out"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
+        </div>
+
+        {/* Info Grid (Reference-style layout with NY Mockup) */}
+        <div className="w-full grid grid-cols-1 md:grid-cols-12 gap-y-8 md:gap-y-0 md:gap-x-8 items-start px-0 bg-black text-[#C28256] font-helvetica">
+
+          {/* Left: Address Only (No label) */}
+          <div className="md:col-span-6 flex flex-col justify-start">
+            <div className="text-[15px] md:text-[17px] text-[#C28256] font-light leading-relaxed max-w-md">
+              92 Central Park Offices Building, Unit No.NY4401, 44th Floor, Central Park West, Upper West Side, New York, NY 10024
             </div>
           </div>
-        </div>
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-[#ffffff] z-[100] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
-              style={{ pointerEvents: 'auto' }}
+
+          {/* Middle: Phone and Email (Aligned to top) */}
+          <div className="md:col-span-3 flex flex-col justify-start md:pt-1">
+            <div className="space-y-4">
+              <div className="text-[15px] md:text-[17px] text-[#C28256] font-light leading-none">
+                <a href="tel:+12127218209" className="hover:text-white transition-colors duration-300">
+                  (+1) 212-721-8209
+                </a>
+              </div>
+              <div className="text-[15px] md:text-[17px] text-[#C28256] font-light leading-none pt-1">
+                <a href="mailto:nyc@wayd.co" className="hover:text-white transition-colors duration-300">
+                  nyc@wayd.co
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: Open Map Button (Aligned to top) */}
+          <div className="md:col-span-3 flex md:justify-end items-start md:pt-0">
+            <button 
+              onClick={() => setShowMap(true)}
+              className="border border-[#C28256]/40 hover:border-[#C28256] text-[#C28256] hover:text-white font-helvetica text-[10px] md:text-[11px] font-light tracking-[0.2em] px-8 py-3.5 transition-all duration-300 rounded-none w-full md:w-auto text-center bg-transparent"
             >
-              <span onClick={() => setIsMobileMenuOpen(false)} className="absolute top-[8%] md:top-[12%] right-[8vw] text-[#a0a0a0] text-[10px] tracking-widest font-bold cursor-pointer underline underline-offset-4 decoration-1">CLOSE</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">HOME</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('grid'); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">CATALOGUE</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('editorial'); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">ABOUT</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('visit'); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">VISIT</span>
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-
-        <div className="w-full mt-10 md:mt-14 pb-24 grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-start px-0">
-          <div className="md:col-span-5 flex flex-col gap-12">
-            <div className="flex gap-4 items-start">
-              <span className="font-inter text-zinc-400 text-xs md:text-sm font-light pt-1.5">01</span>
-              <div className="flex flex-col">
-                <h2 className="font-inter font-black text-2xl md:text-3xl tracking-tight text-[#111111] uppercase">ADDRESS</h2>
-                <p className="font-inter text-sm md:text-base text-zinc-600 mt-2 leading-relaxed">
-                  {(settings.address || '').replace(/\\n/g, '\n').split('\n').map((line, i) => <React.Fragment key={i}>{line}<br/></React.Fragment>)}
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-4 items-start">
-              <span className="font-inter text-zinc-400 text-xs md:text-sm font-light pt-1.5">02</span>
-              <div className="flex flex-col w-full">
-                <h2 className="font-inter font-black text-2xl md:text-3xl tracking-tight text-[#111111] uppercase">HOURS</h2>
-                <div className="font-inter text-sm md:text-base text-zinc-600 mt-2 flex flex-col gap-1.5 w-full max-w-xs">
-                  <div className="flex justify-between">
-                    <span>Wednesday – Thursday</span>
-                    <span>{settings.hours1}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Friday – Saturday</span>
-                    <span>{settings.hours2}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span>Sunday</span>
-                    <span>{settings.hours3}</span>
-                  </div>
-                  <div className="flex justify-between text-zinc-400">
-                    <span>Monday – Tuesday</span>
-                    <span>{settings.hours4}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex gap-4 items-start">
-              <span className="font-inter text-zinc-400 text-xs md:text-sm font-light pt-1.5">03</span>
-              <div className="flex flex-col">
-                <h2 className="font-inter font-black text-2xl md:text-3xl tracking-tight text-[#111111] uppercase">EMAIL</h2>
-                <p className="font-inter text-sm md:text-base text-zinc-600 mt-2 leading-relaxed">
-                  <a href={`mailto:${settings.email}`} className="hover:text-[#d92323] transition-colors">{settings.email}</a>
-                </p>
-              </div>
-            </div>
-
-            <div className="flex gap-4 items-start">
-              <span className="font-inter text-zinc-400 text-xs md:text-sm font-light pt-1.5">04</span>
-              <div className="flex flex-col">
-                <h2 className="font-inter font-black text-2xl md:text-3xl tracking-tight text-[#111111] uppercase">PHONE</h2>
-                <p className="font-inter text-sm md:text-base text-zinc-600 mt-2 leading-relaxed">
-                  <a href={`tel:${settings.phone}`} className="hover:text-[#d92323] transition-colors">{settings.phone}</a>
-                </p>
-              </div>
-            </div>
+              OPEN OUR MAP
+            </button>
           </div>
+        </div>
+      </div>
 
-          <div className="md:col-span-7 flex flex-col items-end w-full gap-0">
-            <div className="w-full aspect-[16/10] bg-[#F5F5F5] overflow-hidden relative group">
-              <img 
-                src={settings.barImage} 
-                alt="Artail Story Space" 
-                className="w-full h-full object-cover transition-all duration-700 ease-in-out group-hover:grayscale"
-              />
-            </div>
-            <div className="w-[75%] aspect-[16/10] bg-[#EAEAEA] overflow-hidden relative group">
+      {/* Interactive Map Modal Overlay */}
+      <AnimatePresence>
+        {showMap && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100000] bg-black/95 backdrop-blur-md flex items-center justify-center p-6 md:p-12"
+          >
+            <div className="relative w-full max-w-4xl aspect-[16/10] bg-zinc-900 border border-zinc-800 shadow-2xl p-2 flex flex-col">
+              <button 
+                onClick={() => setShowMap(false)}
+                className="absolute -top-12 right-0 text-zinc-400 hover:text-white font-helvetica text-xs font-bold uppercase tracking-widest flex items-center gap-2 py-2"
+              >
+                <span>[ Close Map ]</span>
+                <span className="text-lg">×</span>
+              </button>
+              
               <iframe 
                 src={settings.map_embed_url || "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.617539313314!2d-74.0084126234181!3d40.74844047138819!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259b9b3117469%3A0xd134e199a405a163!2s254%2010th%20Ave%2C%20New%20York%2C%20NY%2010001!5e0!3m2!1sen!2sus!4v1716720000000!5m2!1sen!2sus"}
                 width="100%" 
@@ -694,12 +752,12 @@ const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, cur
                 allowFullScreen="" 
                 loading="lazy" 
                 referrerPolicy="no-referrer-when-downgrade"
-                className="w-full h-full transition-all duration-700 ease-in-out group-hover:grayscale"
+                className="w-full h-full grayscale invert"
               ></iframe>
             </div>
-          </div>
-        </div>
-      </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
@@ -707,127 +765,175 @@ const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, cur
 const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, currentUser, setEcommerceView }) => {
   const { editorials, settings } = useData();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isSticky, setIsSticky] = useState(false);
-  const headerRef = useRef(null);
-
-  const handleScroll = (e) => {
-    if (headerRef.current) {
-      setIsSticky(e.target.scrollTop > headerRef.current.offsetHeight - 20);
-    }
-  };
 
   return (
-    <div className="fixed inset-0 bg-[#ffffff] z-[9999] overflow-y-auto" onScroll={handleScroll}>
-      <div className="w-full flex flex-col pt-8 md:pt-12 px-2 md:px-4">
-        <div ref={headerRef} className="px-0">
-          <h1 className="font-aura text-[10vw] md:text-[7vw] leading-[0.9] tracking-normal uppercase text-[#111111] mb-4 md:mb-6">
-            EDITORIAL &amp; STORIES
-          </h1>
+    <div className="fixed inset-0 bg-black z-[9999] overflow-y-auto">
+      <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] pt-[60px] pb-[60px] px-[8vw]">
+        <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
+          <span onClick={() => { onClose(); setView('cocktail'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
+          <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
+          <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Shop</span>
+          <span onClick={() => { onClose(); setView('journey'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Our Journey</span>
+          <span onClick={() => { onClose(); setView('visit'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Visit</span>
         </div>
-        <div className={`sticky top-0 w-full z-50 py-4 transition-all duration-300 ${isSticky ? 'bg-white/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
-          <div className="flex justify-between items-center w-full relative">
-            <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
-              <span onClick={onClose} className="cursor-pointer hover:text-zinc-500 transition-colors">HOME</span>
-              <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
-              <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">ABOUT</span>
-              <span onClick={() => { onClose(); setView('visit'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
-            </div>
-            {/* Mobile Menu Button */}
-            <div className="md:hidden flex">
-              <span onClick={() => setIsMobileMenuOpen(true)} className="text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer text-[#111111]">
-                [ MENU ]
-              </span>
-            </div>
-
-            <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
-               <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/D.svg" alt="logo" className="h-9 sm:h-11 md:h-12 object-contain brightness-0" />
-            </div>
-
-            <div className="flex items-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
-              <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors mr-4 sm:mr-6 md:mr-8">BAG ({cartCount})</span>
-              <span onClick={() => {
-                if (currentUser) {
-                  onClose();
-                  setEcommerceView('profile');
-                } else {
-                  onClose();
-                  setEcommerceView('auth');
-                }
-              }} className="cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-[#111111]/20 rounded-full hover:bg-[#111111] hover:text-white hover:border-[#111111] transition-all duration-300">
-                {currentUser ? 'ACCOUNT' : 'LOGIN'}
-              </span>
-            </div>
-          </div>
+        {/* Hamburger Icon */}
+        <div className="md:hidden flex items-center z-[1001]">
+          <button 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+            className="flex flex-col justify-between w-5 h-3 cursor-pointer focus:outline-none text-[#F5F5F5] bg-transparent border-none p-0"
+            aria-label="Toggle Menu"
+          >
+            <span className="w-full h-[1px] bg-current transition-transform duration-300 origin-left" style={{ transform: isMobileMenuOpen ? 'rotate(45deg) translate(1px, -1px)' : 'none' }}></span>
+            <span className="w-full h-[1px] bg-current transition-opacity duration-300" style={{ opacity: isMobileMenuOpen ? 0 : 1 }}></span>
+            <span className="w-full h-[1px] bg-current transition-transform duration-300 origin-left" style={{ transform: isMobileMenuOpen ? 'rotate(-45deg) translate(1px, 1px)' : 'none' }}></span>
+          </button>
         </div>
-        <AnimatePresence>
-          {isMobileMenuOpen && (
-            <motion.div 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-[#ffffff] z-[100] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
-              style={{ pointerEvents: 'auto' }}
-            >
-              <span onClick={() => setIsMobileMenuOpen(false)} className="absolute top-[8%] md:top-[12%] right-[8vw] text-[#a0a0a0] text-[10px] tracking-widest font-bold cursor-pointer underline underline-offset-4 decoration-1">CLOSE</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">HOME</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('grid'); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">CATALOGUE</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('editorial'); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">ABOUT</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('visit'); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">VISIT</span>
-            </motion.div>
-          )}
-        </AnimatePresence>
+
+        <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
+           <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-14 sm:h-16 md:h-20 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
+        </div>
+
+        <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
+          <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300 mr-4 sm:mr-6 md:mr-8">Bag ({cartCount})</span>
+          <span onClick={() => {
+            if (currentUser) {
+              onClose();
+              setEcommerceView('profile');
+            } else {
+              onClose();
+              setEcommerceView('auth');
+            }
+          }} className="cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-white/20 rounded-full hover:bg-white hover:text-black hover:border-white transition-all duration-300">
+            {currentUser ? 'Account' : 'Log In'}
+          </span>
+        </div>
+      </nav>
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black z-[90] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
+            style={{ pointerEvents: 'auto' }}
+          >
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('cocktail'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Menu</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('editorial'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">About</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Shop</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('journey'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Our Journey</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('visit'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Visit</span>
+            
+            <div className="flex flex-col gap-4 mt-8 w-full max-w-[280px]">
+              <button 
+                onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('bag'); }} 
+                className="border border-white/20 text-[#F5F5F5] hover:bg-white hover:text-black rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase transition-all duration-300"
+              >
+                Bag ({cartCount})
+              </button>
+              <button 
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  if (currentUser) {
+                    onClose();
+                    setEcommerceView('profile');
+                  } else {
+                    onClose();
+                    setEcommerceView('auth');
+                  }
+                }} 
+                className="bg-white text-black hover:bg-white/80 rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase font-bold transition-all duration-300"
+              >
+                {currentUser ? 'Account' : 'Log In'}
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Main Content Area */}
+      <div className="w-full pt-[160px] md:pt-[180px] px-[8vw] pb-32 flex flex-col bg-black text-[#F5F5F5]">
+        <h1 className="font-helvetica font-bold text-4xl md:text-5xl lg:text-6xl leading-[0.9] tracking-tight uppercase text-[#F5F5F5] mb-12 md:mb-20">
+          ABOUT
+        </h1>
 
 
-        <div className="w-full mt-10 md:mt-14 pb-32 flex flex-col gap-24 md:gap-32 px-6 md:px-12 lg:px-24">
+        {/* Dynamic Space */}
+        {/* Dynamic Space (Matching Menu catalog layout) */}
+        <div className="w-full flex flex-col bg-black text-[#EAEAEA]">
           
-          {/* Artist 1: Mimi (Image Right, Text Left) */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-center">
-            <div className="md:col-span-6 lg:col-span-6 flex flex-col justify-center order-2 md:order-1 px-4 md:px-0">
-              <h3 className="font-aura text-xl md:text-2xl lg:text-3xl text-[#1C1C1C] leading-[1.3] mb-8 whitespace-pre-wrap">
-                {settings.artist1_quote || "“I once believed I had lost my art. But behind the bar, I found it again. Today, I paint with flavor, balance, and emotion.\n\nThis pop-up is my canvas, and every drink tells the story of my return to myself.”"}
-              </h3>
-              <div className="font-mono text-[10px] md:text-xs text-[#9CA3AF] uppercase tracking-widest whitespace-pre-wrap">
-                — {settings.artist1_subtext || settings.artist1_name || "MIMI"}
+          {/* Artist 1: Mimi (Text Left, Image Right) */}
+          <div className="w-full flex flex-col md:flex-row min-h-[90vh] relative bg-black py-16 md:py-24">
+            {/* Left Column (Text details) */}
+            <div className="w-full md:w-[46%] flex flex-col justify-center items-center p-8 md:p-12 lg:p-20 relative bg-black">
+              <div className="font-helvetica font-medium text-xs md:text-sm lg:text-[15px] leading-[1.8] whitespace-pre-wrap max-w-md w-full">
+                
+                {/* Title */}
+                <h2 className="font-helvetica font-bold text-3xl md:text-4xl lg:text-5xl text-white mb-6 tracking-wide uppercase text-left leading-[1.2]">
+                  MIMI
+                </h2>
+                {settings.artist1_subtext && (
+                  <p className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-[#C28256] mb-8">
+                    {settings.artist1_subtext}
+                  </p>
+                )}
+
+                {/* Description (Larger text) */}
+                <div className="space-y-6 text-zinc-300 font-light leading-[1.8] text-[15px] md:text-[17px]">
+                  <p>“I once believed I had lost my art. But behind the bar, I found it again. Today, I paint with flavor, balance, and emotion.</p>
+                  <p>This pop-up is my canvas, and every drink tells the story of my return to myself.”</p>
+                </div>
+
               </div>
             </div>
-            <div className="md:col-span-6 lg:col-span-5 lg:col-start-8 relative order-1 md:order-2">
-              <motion.div 
-                whileHover={{ y: -8 }} 
-                transition={{ type: "spring", stiffness: 400, damping: 25, mass: 0.5 }}
-                className="w-full aspect-[4/5] md:aspect-[3/4] lg:aspect-[4/5] bg-[#F2F1EC] overflow-hidden"
-              >
-                <img src={settings.artist1_image || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=80"} alt={settings.artist1_name || "Mimi"} loading="lazy" decoding="async" className="w-full h-full object-cover" draggable="false" />
-              </motion.div>
+
+            {/* Right Column (Portrait) */}
+            <div className="w-full md:w-[54%] flex flex-col items-center justify-center px-8 md:px-12 relative">
+              <div className="w-full max-w-sm lg:max-w-md flex flex-col">
+                <div className="w-full aspect-[4/5] bg-zinc-900 overflow-hidden shadow-2xl">
+                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=80" alt="Mimi" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-in-out" draggable="false" />
+                </div>
+              </div>
             </div>
           </div>
 
-          {/* Artist 2: Teddy (Image Left, Text Right) */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-16 items-center">
-            <div className="md:col-span-6 lg:col-span-5 relative order-1">
-              <motion.div 
-                whileHover={{ y: -8 }} 
-                transition={{ type: "spring", stiffness: 400, damping: 25, mass: 0.5 }}
-                className="w-full aspect-[4/5] md:aspect-[3/4] lg:aspect-[4/5] bg-[#F2F1EC] overflow-hidden"
-              >
-                <img src={settings.artist2_image || "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1200&q=80"} alt={settings.artist2_name || "Teddy"} loading="lazy" decoding="async" className="w-full h-full object-cover" draggable="false" />
-              </motion.div>
+          {/* Artist 2: Teddy */}
+          <div className="w-full flex flex-col md:flex-row min-h-[90vh] relative bg-black py-16 md:py-24">
+            {/* Left Column (Portrait) */}
+            <div className="w-full md:w-[54%] flex flex-col items-center justify-center px-8 md:px-12 relative">
+              <div className="w-full max-w-sm lg:max-w-md flex flex-col">
+                <div className="w-full aspect-[4/5] bg-zinc-900 overflow-hidden shadow-2xl">
+                  <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1200&q=80" alt="Teddy" loading="lazy" decoding="async" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-in-out" draggable="false" />
+                </div>
+              </div>
             </div>
-            <div className="md:col-span-6 lg:col-span-6 lg:col-start-7 flex flex-col justify-center order-2 px-4 md:px-0">
-              <h3 className="font-aura text-xl md:text-2xl lg:text-3xl text-[#1C1C1C] leading-[1.3] mb-8 whitespace-pre-wrap">
-                {settings.artist2_quote || "“Cocktails became my world when I realized they weren't just my job; they're how I express who I am.\n\nAfter years behind the bar, I'm taking the next step: blending cocktails and art, and turning drinks into stories.”"}
-              </h3>
-              <div className="flex flex-col gap-3">
-                <div className="font-mono text-xs md:text-sm text-[#1C1C1C] uppercase tracking-widest font-bold">
-                  — {settings.artist2_name || "TEDDY"}
+
+            {/* Right Column (Text details) */}
+            <div className="w-full md:w-[46%] flex flex-col justify-center items-center p-8 md:p-12 lg:p-20 relative bg-black">
+              <div className="font-helvetica font-medium text-xs md:text-sm lg:text-[15px] leading-[1.8] whitespace-pre-wrap max-w-md w-full">
+                
+                {/* Title */}
+                <h2 className="font-helvetica font-bold text-3xl md:text-4xl lg:text-5xl text-white mb-6 tracking-wide uppercase text-left leading-[1.2]">
+                  TEDDY
+                </h2>
+                {(settings.artist2_subtext || "Winner “Bar Star Awards” by New York Bartender Week 2025") && (
+                  <p className="font-mono text-[10px] md:text-xs uppercase tracking-widest text-[#C28256] mb-8">
+                    {settings.artist2_subtext || "Winner “Bar Star Awards” by New York Bartender Week 2025"}
+                  </p>
+                )}
+
+                {/* Description (Larger text) */}
+                <div className="space-y-6 text-zinc-300 font-light leading-[1.8] text-[15px] md:text-[17px]">
+                  <p>“Cocktails became my world when I realized they weren't just my job; they're how I express who I am.</p>
+                  <p>After years behind the bar, I'm taking the next step: blending cocktails and art, and turning drinks into stories.”</p>
                 </div>
-                <div className="font-mono text-[9px] md:text-[10px] text-[#9CA3AF] uppercase tracking-widest leading-relaxed whitespace-pre-wrap">
-                  {settings.artist2_subtext || "Winner “Bar Star Awards”\nby New York Bartender Week 2025"}
-                </div>
+
+
               </div>
             </div>
           </div>
 
         </div>
+
       </div>
     </div>
   );
@@ -881,27 +987,34 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
 
   return (
     <div ref={overlayRef} className="fixed inset-0 bg-[#F5F5F5] z-[9999] overflow-y-auto" onScroll={handleScroll}>
-      <div className={`sticky top-0 w-full z-50 px-6 py-5 transition-all duration-300 ${isSticky ? 'bg-[#F5F5F5]/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
+      <div className={`sticky top-0 w-full z-50 px-6 py-7 transition-all duration-300 ${isSticky ? 'bg-[#F5F5F5]/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
         <div className="flex justify-between items-center w-full relative">
-          <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
-            <span onClick={onClose} className="cursor-pointer hover:text-zinc-500 transition-colors">COCKTAILS</span>
-            <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
-            <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">ABOUT</span>
-            <span onClick={() => { onClose(); setView('visit'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
+          <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-black">
+            <span onClick={() => { onClose(); setView('cocktail'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
+            <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
+            <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Shop</span>
+            <span onClick={() => { onClose(); setView('journey'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Our Journey</span>
+            <span onClick={() => { onClose(); setView('visit'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Visit</span>
           </div>
-            {/* Mobile Menu Button */}
-            <div className="md:hidden flex">
-              <span onClick={() => setIsMobileMenuOpen(true)} className="text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer text-[#111111]">
-                [ MENU ]
-              </span>
-            </div>
+          {/* Hamburger Icon */}
+          <div className="md:hidden flex items-center z-[1001]">
+            <button 
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+              className="flex flex-col justify-between w-5 h-3 cursor-pointer focus:outline-none text-black bg-transparent border-none p-0"
+              aria-label="Toggle Menu"
+            >
+              <span className="w-full h-[1px] bg-current transition-transform duration-300 origin-left" style={{ transform: isMobileMenuOpen ? 'rotate(45deg) translate(1px, -1px)' : 'none' }}></span>
+              <span className="w-full h-[1px] bg-current transition-opacity duration-300" style={{ opacity: isMobileMenuOpen ? 0 : 1 }}></span>
+              <span className="w-full h-[1px] bg-current transition-transform duration-300 origin-left" style={{ transform: isMobileMenuOpen ? 'rotate(-45deg) translate(1px, 1px)' : 'none' }}></span>
+            </button>
+          </div>
 
           <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
-             <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/D.svg" alt="logo" className="h-9 sm:h-11 md:h-12 object-contain brightness-0" />
+             <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-14 sm:h-16 md:h-20 object-contain brightness-0" />
           </div>
 
-          <div className="flex items-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#111111]">
-            <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors mr-4 sm:mr-6 md:mr-8">
+          <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-black">
+            <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300 mr-4 sm:mr-6 md:mr-8">
               BAG ({cartCount})
             </span>
             <span onClick={() => {
@@ -912,8 +1025,8 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
                 onClose();
                 setEcommerceView('auth');
               }
-            }} className="cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-[#111111]/20 rounded-full hover:bg-[#111111] hover:text-white hover:border-[#111111] transition-all duration-300">
-              {currentUser ? 'ACCOUNT' : 'LOGIN'}
+            }} className="cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-black/20 rounded-full hover:bg-black hover:text-white hover:border-black transition-all duration-300">
+              {currentUser ? 'Account' : 'Log In'}
             </span>
           </div>
         </div>
@@ -923,14 +1036,38 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-[#ffffff] z-[100] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
+              className="fixed inset-0 bg-[#ffffff] z-[90] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
               style={{ pointerEvents: 'auto' }}
             >
-              <span onClick={() => setIsMobileMenuOpen(false)} className="absolute top-[8%] md:top-[12%] right-[8vw] text-[#a0a0a0] text-[10px] tracking-widest font-bold cursor-pointer underline underline-offset-4 decoration-1">CLOSE</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">HOME</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('grid'); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">CATALOGUE</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('editorial'); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">ABOUT</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('visit'); }} className="text-[#111111] text-3xl font-bold tracking-widest cursor-pointer">VISIT</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('cocktail'); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">Menu</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('editorial'); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">About</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('grid'); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">Shop</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('journey'); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">Our Journey</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('visit'); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">Visit</span>
+              
+              <div className="flex flex-col gap-4 mt-8 w-full max-w-[280px]">
+                <button 
+                  onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('bag'); }} 
+                  className="border border-black/20 text-black hover:bg-black hover:text-white rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase transition-all duration-300"
+                >
+                  Bag ({cartCount})
+                </button>
+                <button 
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    if (currentUser) {
+                      onClose();
+                      setEcommerceView('profile');
+                    } else {
+                      onClose();
+                      setEcommerceView('auth');
+                    }
+                  }} 
+                  className="bg-black text-white hover:bg-black/80 rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase font-bold transition-all duration-300"
+                >
+                  {currentUser ? 'Account' : 'Log In'}
+                </button>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -939,7 +1076,7 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
 
       <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12 pt-4 md:pt-6 pb-24">
         <div ref={headerRef}>
-          <h1 className="font-helvetica font-normal text-3xl md:text-4xl lg:text-5xl leading-[1.1] tracking-tight text-[#111111] mb-2 md:mb-4">
+          <h1 className="font-helvetica font-normal text-3xl md:text-4xl lg:text-5xl leading-[1.1] tracking-tight text-black mb-2 md:mb-4">
             {item.name}
           </h1>
         </div>
@@ -957,7 +1094,7 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
           </div>
 
           <div className="md:col-span-5 lg:col-span-4 flex flex-col">
-            <p className="font-inter text-sm md:text-base text-[#111111] leading-relaxed mb-10">
+            <p className="font-helvetica text-sm md:text-base text-black leading-relaxed mb-10">
               {item.description || defaultDesc}
             </p>
 
@@ -967,10 +1104,10 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
               </div>
               <div className="flex flex-col">
                 <div className="flex items-baseline gap-2">
-                  <span className="font-helvetica text-lg md:text-xl font-normal text-[#111111]">{item.artist}</span>
-                  <span className="font-inter-tight text-[10px] text-zinc-500 uppercase tracking-widest">• New York</span>
+                  <span className="font-helvetica text-lg md:text-xl font-normal text-black">{item.artist}</span>
+                  <span className="font-helvetica text-[10px] text-zinc-500 uppercase tracking-widest">• New York</span>
                 </div>
-                <span onClick={() => { onClose(); setView('editorial'); }} className="font-inter-tight text-[10px] md:text-xs text-[#111111] uppercase tracking-widest mt-1 cursor-pointer hover:text-[#d92323] transition-colors">+ About Artist</span>
+                <span onClick={() => { onClose(); setView('editorial'); }} className="font-helvetica text-[10px] md:text-xs text-black uppercase tracking-widest mt-1 cursor-pointer hover:text-[#d92323] transition-colors">+ About Artist</span>
               </div>
             </div>
           </div>
@@ -989,12 +1126,12 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
               </div>
             ))}
           </div>
-          <span className="block font-inter-tight text-[10px] text-zinc-500 uppercase tracking-widest mt-4">The Cocktail Interpretation</span>
+          <span className="block font-helvetica text-[10px] text-zinc-500 uppercase tracking-widest mt-4">The Cocktail Interpretation</span>
         </div>
 
         {moreItems.length > 0 && (
-          <div className="w-full mt-24 md:mt-32 pt-12 border-t border-[#111111]/20">
-            <h3 className="font-helvetica text-3xl md:text-4xl lg:text-5xl text-[#111111] mb-8 md:mb-12 tracking-tight">More by {item.artist}</h3>
+          <div className="w-full mt-24 md:mt-32 pt-12 border-t border-black/20">
+            <h3 className="font-helvetica text-3xl md:text-4xl lg:text-5xl text-black mb-8 md:mb-12 tracking-tight">More by {item.artist}</h3>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
               {moreItems.slice(0, 4).map((moreItem, idx) => (
                 <div key={idx} onClick={() => onMenuClick(moreItem)} className="flex flex-col cursor-pointer group">
@@ -1006,7 +1143,7 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
                       containerRef={overlayRef}
                     />
                   </div>
-                  <span className="font-inter-tight font-bold text-[11px] md:text-xs text-[#111111]">"{moreItem.name}"</span>
+                  <span className="font-helvetica font-bold text-[11px] md:text-xs text-black">"{moreItem.name}"</span>
                 </div>
               ))}
             </div>
@@ -1018,8 +1155,17 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
   );
 };
 
-const ContentStage = ({ onMenuClick }) => {
+const CocktailOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, currentUser, setEcommerceView, onMenuClick }) => {
   const { cocktails } = useData();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSticky, setIsSticky] = useState(false);
+  const headerRef = useRef(null);
+
+  const handleScroll = (e) => {
+    if (headerRef.current) {
+      setIsSticky(e.target.scrollTop > headerRef.current.offsetHeight - 20);
+    }
+  };
 
   const defaultMenus = [
     {
@@ -1059,66 +1205,158 @@ const ContentStage = ({ onMenuClick }) => {
   })) : defaultMenus;
 
   return (
-    <motion.div 
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 1 }}
-      className="w-full h-full bg-[#111111] overflow-y-auto overflow-x-hidden text-[#EAEAEA] flex flex-col pointer-events-auto"
-    >
-      <div className="w-full h-24 md:h-32 shrink-0"></div>
-      
-      {menus.map((menu, i) => (
-        <div key={i} className="w-full flex flex-col md:flex-row min-h-[100vh] border-b border-[#333333] last:border-0 relative bg-[#111111]">
-          
-          {/* Left Column */}
-          <div className="w-full md:w-[45%] flex flex-col items-center justify-start pt-16 md:pt-24 pb-16 px-8 md:px-16 border-b md:border-b-0 md:border-r border-[#333333] relative">
-            <h2 className="font-aura font-bold text-5xl md:text-6xl lg:text-7xl text-white mb-12 tracking-tight capitalize">
-              {menu.title}
-            </h2>
-            <div className="w-full max-w-sm aspect-[4/5] bg-[#1C1C1C] overflow-hidden mb-12 shadow-2xl">
-              <img src={menu.image} alt={menu.title} className="w-full h-full object-cover grayscale opacity-90" />
-            </div>
-            <p className="font-helvetica font-medium text-[11px] md:text-xs text-center text-[#EAEAEA] max-w-sm leading-[1.6] whitespace-pre-wrap">
-              {menu.caption}
-            </p>
-            <div className="w-full absolute bottom-6 right-6 md:bottom-8 md:right-8 text-[8px] md:text-[9px] text-zinc-500 text-right font-mono uppercase whitespace-pre-wrap pointer-events-none">
-              {menu.reference}
-            </div>
-          </div>
+    <div className="fixed inset-0 bg-black z-[9999] overflow-y-auto" onScroll={handleScroll}>
+      <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] pt-[60px] pb-[60px] px-[8vw]">
+        <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
+          <span onClick={() => { if (typeof onClose === 'function') onClose(); setView('cocktail'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
+          <span onClick={() => { if (typeof onClose === 'function') onClose(); setView('editorial'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
+          <span onClick={() => { if (typeof onClose === 'function') onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Shop</span>
+          <span onClick={() => { if (typeof onClose === 'function') onClose(); setView('journey'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Our Journey</span>
+          <span onClick={() => { if (typeof onClose === 'function') onClose(); setView('visit'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Visit</span>
+        </div>
+        {/* Hamburger Icon */}
+        <div className="md:hidden flex items-center z-[1001]">
+          <button 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+            className="flex flex-col justify-between w-5 h-3 cursor-pointer focus:outline-none text-[#F5F5F5] bg-transparent border-none p-0"
+            aria-label="Toggle Menu"
+          >
+            <span className="w-full h-[1px] bg-current transition-transform duration-300 origin-left" style={{ transform: isMobileMenuOpen ? 'rotate(45deg) translate(1px, -1px)' : 'none' }}></span>
+            <span className="w-full h-[1px] bg-current transition-opacity duration-300" style={{ opacity: isMobileMenuOpen ? 0 : 1 }}></span>
+            <span className="w-full h-[1px] bg-current transition-transform duration-300 origin-left" style={{ transform: isMobileMenuOpen ? 'rotate(-45deg) translate(1px, 1px)' : 'none' }}></span>
+          </button>
+        </div>
 
-          {/* Right Column */}
-          <div className="w-full md:w-[55%] flex flex-col h-full min-h-[50vh] md:min-h-screen relative">
+        <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
+           <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-14 sm:h-16 md:h-20 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
+        </div>
+
+        <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
+          <span onClick={() => { if (typeof onClose === 'function') onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300 mr-4 sm:mr-6 md:mr-8">Bag ({cartCount})</span>
+          <span onClick={() => {
+            if (currentUser) {
+              if (typeof onClose === 'function') onClose();
+              setEcommerceView('profile');
+            } else {
+              if (typeof onClose === 'function') onClose();
+              setView('auth');
+            }
+          }} className="cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-white/20 rounded-full hover:bg-white hover:text-black hover:border-white transition-all duration-300">
+            {currentUser ? 'Account' : 'Log In'}
+          </span>
+        </div>
+      </nav>
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black z-[90] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
+            style={{ pointerEvents: 'auto' }}
+          >
+            <span onClick={() => { setIsMobileMenuOpen(false); if (typeof onClose === 'function') onClose(); setView('cocktail'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Menu</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); if (typeof onClose === 'function') onClose(); setView('editorial'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">About</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); if (typeof onClose === 'function') onClose(); setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Shop</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); if (typeof onClose === 'function') onClose(); setView('journey'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Our Journey</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); if (typeof onClose === 'function') onClose(); setView('visit'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Visit</span>
             
-            {/* Quote Area */}
-            <div className="flex-1 flex flex-col justify-center items-center p-8 md:p-16 lg:p-24">
-              <div className="font-helvetica font-medium text-xs md:text-sm lg:text-[15px] leading-[1.8] text-[#EAEAEA] whitespace-pre-wrap max-w-md w-full">
-                {menu.quote.split('\n\n').map((paragraph, idx) => (
-                  <p key={idx} className="mb-6">"{paragraph}"</p>
-                ))}
-                <div className="text-right font-helvetica font-bold mt-8 text-white">
-                  {menu.artist}
+            <div className="flex flex-col gap-4 mt-8 w-full max-w-[280px]">
+              <button 
+                onClick={() => { setIsMobileMenuOpen(false); if (typeof onClose === 'function') onClose(); setView('catalogue'); setOverlayView('bag'); }} 
+                className="border border-white/20 text-[#F5F5F5] hover:bg-white hover:text-black rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase transition-all duration-300"
+              >
+                Bag ({cartCount})
+              </button>
+              <button 
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  if (currentUser) {
+                    if (typeof onClose === 'function') onClose();
+                    setEcommerceView('profile');
+                  } else {
+                    if (typeof onClose === 'function') onClose();
+                    setView('auth');
+                  }
+                }} 
+                className="bg-white text-black hover:bg-white/80 rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase font-bold transition-all duration-300"
+              >
+                {currentUser ? 'Account' : 'Log In'}
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Main Content Area */}
+      <div className="w-full pt-[160px] md:pt-[180px] px-[8vw] pb-32 flex flex-col bg-black text-[#F5F5F5]">
+        <h1 className="font-helvetica font-bold text-4xl md:text-5xl lg:text-6xl leading-[0.9] tracking-tight uppercase text-[#F5F5F5] mb-12 md:mb-20">
+          MENU
+        </h1>
+
+        <div className="w-full pb-24 flex flex-col bg-black text-[#EAEAEA] pointer-events-auto">
+          {menus.map((menu, i) => (
+            <div key={i} className="w-full flex flex-col md:flex-row min-h-[90vh] relative bg-black py-16 md:py-24">
+              
+              {/* Left Column (Image & Reference) */}
+              <div className="w-full md:w-[54%] flex flex-col items-center justify-center px-8 md:px-12 relative">
+                <div className="w-full max-w-lg lg:max-w-xl flex flex-col">
+                  <div className="w-full aspect-[4/5] bg-[#1C1C1C] overflow-hidden shadow-2xl">
+                    <img src={menu.image} alt={menu.title} className="w-full h-full object-cover grayscale opacity-90" />
+                  </div>
+                  <div className="w-full text-[8px] md:text-[9px] text-zinc-500 text-right font-mono uppercase whitespace-pre-wrap mt-2.5 tracking-wider leading-relaxed">
+                    {menu.reference}
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column (Text and Actions) */}
+              <div className="w-full md:w-[46%] flex flex-col justify-center items-center p-8 md:p-12 lg:p-20 relative bg-black">
+                <div className="font-helvetica font-medium text-xs md:text-sm lg:text-[15px] leading-[1.8] whitespace-pre-wrap max-w-md w-full">
+                  
+                  {/* Title and Price side-by-side */}
+                  <div className="flex justify-between items-baseline mb-6 w-full">
+                    <h2 className="font-helvetica font-bold text-3xl md:text-4xl lg:text-5xl text-white tracking-tight uppercase leading-[1.2]">
+                      ' {menu.title} '
+                    </h2>
+                    <span className="font-helvetica font-normal text-xl md:text-2xl text-[#C28256] ml-4 shrink-0">
+                      {menu.price}
+                    </span>
+                  </div>
+
+                  {/* Caption */}
+                  <div className="font-helvetica font-light text-[11px] md:text-xs text-zinc-400 leading-[1.6] whitespace-pre-wrap mb-8 uppercase tracking-wider">
+                    {menu.caption}
+                  </div>
+
+                  {/* Description Paragraphs without outer double quotes */}
+                  <div className="space-y-6 text-zinc-300 font-light leading-[1.8] text-xs md:text-sm">
+                    {menu.quote.split('\n\n').map((paragraph, idx) => (
+                      <p key={idx}>{paragraph}</p>
+                    ))}
+                  </div>
+
+                  <div className="text-right text-[10px] md:text-xs tracking-wider text-zinc-500 font-mono mt-8">
+                    {menu.artist}
+                  </div>
+
+                  {/* Details (No Purchase Action) */}
+                  <div className="mt-10 pt-8 border-t border-zinc-900 flex flex-col gap-2">
+                    <span className="text-[10px] md:text-xs font-mono text-zinc-500 uppercase tracking-widest">
+                      {menu.tags}
+                    </span>
+                    <span className="font-helvetica text-xs text-zinc-400 leading-relaxed">
+                      {menu.ingredients}
+                    </span>
+                  </div>
+
                 </div>
               </div>
             </div>
-
-            {/* Bottom Metadata Panel */}
-            <div className="w-full bg-[#1C1C1C] flex flex-col items-center justify-center py-10 px-8 border-t border-[#333333] mt-auto">
-              <div className="font-helvetica font-bold text-[10px] md:text-xs text-white mb-2 tracking-wide text-center">
-                {menu.tags}
-              </div>
-              <div className="font-helvetica text-[10px] md:text-xs text-zinc-400 text-center max-w-sm mb-2">
-                {menu.ingredients}
-              </div>
-              <div className="font-mono text-xs md:text-sm text-white font-bold tracking-widest text-center mt-2">
-                {menu.price}
-              </div>
-            </div>
-            
-          </div>
+          ))}
         </div>
-      ))}
-    </motion.div>
+      </div>
+    </div>
   );
 };
 
@@ -1161,7 +1399,7 @@ const HomeCatalogueStage = ({ setView, setOverlayView }) => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 1, ease: [0.21, 0.47, 0.32, 0.98] }}
-            className="text-[#111111] font-helvetica text-4xl md:text-5xl lg:text-6xl tracking-tight uppercase"
+            className="text-black font-helvetica text-4xl md:text-5xl lg:text-6xl tracking-tight uppercase"
           >
             OBJECTS
           </motion.h2>
@@ -1173,7 +1411,7 @@ const HomeCatalogueStage = ({ setView, setOverlayView }) => {
           >
             <button 
               onClick={() => { setView('catalogue'); setOverlayView('grid'); }}
-              className="text-[#111111] border border-[#111111] px-8 py-3 rounded-full font-inter-tight text-xs md:text-sm uppercase tracking-widest hover:bg-[#111111] hover:text-[#F5F5F5] transition-colors"
+              className="text-black border border-black px-8 py-3 rounded-full font-helvetica text-xs md:text-sm uppercase tracking-widest hover:bg-black hover:text-[#F5F5F5] transition-colors"
             >
               View All Objects
             </button>
@@ -1215,7 +1453,7 @@ const HomeCatalogueStage = ({ setView, setOverlayView }) => {
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-300 pointer-events-none"></div>
                 </div>
-                <h3 className="font-helvetica font-bold text-xs md:text-sm text-[#111111] uppercase tracking-wide truncate">{item.name}</h3>
+                <h3 className="font-helvetica font-bold text-xs md:text-sm text-black uppercase tracking-wide truncate">{item.name}</h3>
                 <p className="font-mono text-xs text-zinc-500 mt-1">${item.price}</p>
               </motion.div>
             ))
@@ -1226,40 +1464,254 @@ const HomeCatalogueStage = ({ setView, setOverlayView }) => {
   );
 };
 
-const JourneyStage = () => {
+const JourneyOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, currentUser, setEcommerceView }) => {
   const { timeline } = useData();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSticky, setIsSticky] = useState(false);
+  const headerRef = useRef(null);
+
+  const [customImages, setCustomImages] = useState([
+    {
+      src: '/bar_award_1.png',
+      badge: "ASIA'S 50 BEST BARS 2025",
+      rank: '',
+      name: 'WAYD',
+      location: ''
+    },
+    {
+      src: '/bar_award_2.png',
+      badge: "THE BEST BAR IN THAILAND 2025,\nSPONSORED BY AMARO LUCANO",
+      rank: '',
+      name: 'WAYD',
+      location: ''
+    },
+    {
+      src: '/bar_award_3.png',
+      badge: "THE WORLD'S 50 BEST BARS 2025",
+      rank: '',
+      name: 'WAYD',
+      location: ''
+    }
+  ]);
+
+  const handleImageUpload = (e) => {
+    const files = Array.from(e.target.files).slice(0, 3);
+    if (files.length === 0) return;
+
+    const newImages = files.map((file, idx) => {
+      const url = URL.createObjectURL(file);
+      const mockTexts = [
+        { badge: "ASIA'S 50 BEST BARS 2025", rank: '', name: 'WAYD', location: '' },
+        { badge: 'THE BEST BAR IN THAILAND 2025', rank: '', name: 'WAYD', location: '' },
+        { badge: "THE WORLD'S 50 BEST BARS 2025", rank: '', name: 'WAYD', location: '' }
+      ];
+      return {
+        src: url,
+        badge: mockTexts[idx]?.badge || 'MEMORIES',
+        rank: mockTexts[idx]?.rank || '',
+        name: 'MY BAR',
+        location: 'MEMORIES'
+      };
+    });
+    setCustomImages(newImages);
+  };
+
+  const updateImageText = (index, field, value) => {
+    setCustomImages(prev => prev.map((img, i) => i === index ? { ...img, [field]: value } : img));
+  };
+
+  const handleScroll = (e) => {
+    if (headerRef.current) {
+      setIsSticky(e.target.scrollTop > headerRef.current.offsetHeight - 20);
+    }
+  };
 
   return (
-    <div className="w-full bg-[#1C1C1C] pt-12 pb-24 md:pt-20 md:pb-32 lg:pt-24 lg:pb-40 flex justify-center items-start px-6 md:px-12 lg:px-48">
-      <div className="w-full max-w-none grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-start pt-4 md:pt-6">
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-          className="md:col-span-4 flex flex-col items-start pr-0 md:pr-12"
-        >
-          <h2 className="text-[#F5F5F5] font-helvetica text-3xl md:text-4xl lg:text-[3.5vw] font-normal leading-[1.1] tracking-tight uppercase">
-            Our<br />Journey
-          </h2>
-          <p className="text-[#F5F5F5] font-inter-tight text-xs md:text-sm font-normal tracking-normal mt-3 md:mt-4 max-w-[280px]">
-            From a shared belief to a permanent canvas
-          </p>
-        </motion.div>
-        <div className="md:col-span-8 flex flex-col w-full mt-8 md:mt-0">
-          {timeline.map((item, i) => (
+    <div className="fixed inset-0 bg-black z-[9999] overflow-y-auto" onScroll={handleScroll}>
+      <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] pt-[60px] pb-[60px] px-[8vw]">
+        <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
+          <span onClick={() => { onClose(); setView('cocktail'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
+          <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
+          <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Shop</span>
+          <span onClick={() => { onClose(); setView('journey'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Our Journey</span>
+          <span onClick={() => { onClose(); setView('visit'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Visit</span>
+        </div>
+        {/* Hamburger Icon */}
+        <div className="md:hidden flex items-center z-[1001]">
+          <button 
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+            className="flex flex-col justify-between w-5 h-3 cursor-pointer focus:outline-none text-[#F5F5F5] bg-transparent border-none p-0"
+            aria-label="Toggle Menu"
+          >
+            <span className="w-full h-[1px] bg-current transition-transform duration-300 origin-left" style={{ transform: isMobileMenuOpen ? 'rotate(45deg) translate(1px, -1px)' : 'none' }}></span>
+            <span className="w-full h-[1px] bg-current transition-opacity duration-300" style={{ opacity: isMobileMenuOpen ? 0 : 1 }}></span>
+            <span className="w-full h-[1px] bg-current transition-transform duration-300 origin-left" style={{ transform: isMobileMenuOpen ? 'rotate(-45deg) translate(1px, 1px)' : 'none' }}></span>
+          </button>
+        </div>
+
+        <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
+           <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-14 sm:h-16 md:h-20 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
+        </div>
+
+        <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
+          <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300 mr-4 sm:mr-6 md:mr-8">Bag ({cartCount})</span>
+          <span onClick={() => {
+            if (currentUser) {
+              onClose();
+              setEcommerceView('profile');
+            } else {
+              onClose();
+              setEcommerceView('auth');
+            }
+          }} className="cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-white/20 rounded-full hover:bg-white hover:text-black hover:border-white transition-all duration-300">
+            {currentUser ? 'Account' : 'Log In'}
+          </span>
+        </div>
+      </nav>
+      {/* Main Content Area */}
+      <div className="w-full pt-[160px] md:pt-[180px] px-[8vw] pb-32 flex flex-col bg-black text-[#F5F5F5]">
+        <AnimatePresence>
+          {isMobileMenuOpen && (
             <motion.div 
-              key={i} 
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.9, delay: i * 0.25, ease: "easeOut" }}
-              className="w-full border-b border-[#F5F5F5]/30 flex flex-col lg:flex-row justify-between items-start lg:items-baseline py-3 md:py-4 lg:py-5 gap-2 lg:gap-4 hover:bg-[#2A2A2A] transition-colors duration-300 px-2 lg:px-0"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black z-[90] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
+              style={{ pointerEvents: 'auto' }}
             >
-              <span className="font-inter-tight text-xl md:text-2xl lg:text-[1.8vw] font-normal text-[#F5F5F5] tracking-[-0.03em] leading-tight">{item.name}</span>
-              <span className="font-inter-tight text-sm md:text-base font-normal text-[#F5F5F5] lg:text-right whitespace-normal lg:whitespace-nowrap tracking-normal">– {item.desc}, {item.year}</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('home'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Home</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('cocktail'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Menu</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('editorial'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">About</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Shop</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('journey'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Our Journey</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('visit'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Visit</span>
+              
+              <div className="flex flex-col gap-4 mt-8 w-full max-w-[280px]">
+                <button 
+                  onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('bag'); }} 
+                  className="border border-white/20 text-[#F5F5F5] hover:bg-white hover:text-black rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase transition-all duration-300"
+                >
+                  Bag ({cartCount})
+                </button>
+                <button 
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    if (currentUser) {
+                      onClose();
+                      setEcommerceView('profile');
+                    } else {
+                      onClose();
+                      setEcommerceView('auth');
+                    }
+                  }} 
+                  className="bg-white text-black hover:bg-white/80 rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase font-bold transition-all duration-300"
+                >
+                  {currentUser ? 'Account' : 'Log In'}
+                </button>
+              </div>
             </motion.div>
-          ))}
+          )}
+        </AnimatePresence>
+
+        <div className="w-full mt-10 md:mt-14 pb-24 flex flex-col bg-black text-[#EAEAEA] pointer-events-auto px-6 md:px-12 lg:px-48">
+          <div className="w-full max-w-none grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-8 items-start pt-16">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
+              className="md:col-span-4 flex flex-col items-start pr-0 md:pr-12"
+            >
+              <h2 className="text-[#F5F5F5] font-helvetica text-3xl md:text-4xl lg:text-[3.5vw] font-normal leading-[1.1] tracking-tight uppercase">
+                Our<br />Journey
+              </h2>
+              <p className="text-zinc-500 font-helvetica text-xs md:text-sm font-normal tracking-normal mt-3 md:mt-4 max-w-[280px]">
+                From a shared belief to a permanent canvas
+              </p>
+            </motion.div>
+            <div className="md:col-span-8 flex flex-col w-full mt-8 md:mt-0">
+              {timeline.map((item, i) => (
+                <motion.div 
+                  key={i} 
+                  initial={{ opacity: 0, y: 40 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.9, delay: i * 0.1, ease: "easeOut" }}
+                  className="w-full border-b border-[#333333] flex flex-col lg:flex-row justify-between items-start lg:items-baseline py-5 lg:py-6 gap-2 lg:gap-4 hover:bg-[#1A1A1A] transition-colors duration-300 px-2 lg:px-0"
+                >
+                  <span className="font-helvetica text-xl md:text-2xl lg:text-[1.8vw] font-normal text-[#F5F5F5] tracking-[-0.03em] leading-tight">{item.name}</span>
+                  <span className="font-helvetica text-sm md:text-base font-normal text-zinc-400 lg:text-right whitespace-normal lg:whitespace-nowrap tracking-normal">– {item.desc}, {item.year}</span>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Awards & Gallery Section */}
+        <div className="w-full mt-24 flex flex-col items-center px-0 md:px-4 lg:px-12">
+
+            {/* Dynamic Grid Layout */}
+            <div className={`grid gap-6 w-full ${
+              customImages.length === 1 ? 'grid-cols-1' : 
+              customImages.length === 2 ? 'grid-cols-2' : 'grid-cols-1 md:grid-cols-3'
+            }`}>
+              {customImages.map((img, idx) => (
+                <div 
+                  key={idx} 
+                  className="relative aspect-[4/3] md:aspect-square bg-zinc-900 overflow-hidden group flex flex-col justify-between p-6 md:p-8"
+                >
+                  {/* Image Background */}
+                  <img 
+                    src={img.src} 
+                    alt={`Moment ${idx + 1}`} 
+                    className="absolute inset-0 w-full h-full object-cover grayscale-0 group-hover:grayscale transition-all duration-700 ease-in-out pointer-events-none" 
+                  />
+                  {/* Dark overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/80 opacity-95 transition-opacity duration-500 group-hover:opacity-75 pointer-events-none" />
+
+
+                  {/* Bottom details: No.4, BAR US, BANGKOK */}
+                  <div className="relative z-10 w-full flex flex-col items-center gap-2 mt-auto">
+                    {img.rank && (
+                      <div className="bg-white px-2 py-0.5 shadow-md">
+                        <span 
+                          contentEditable
+                          suppressContentEditableWarning
+                          onBlur={(e) => updateImageText(idx, 'rank', e.target.innerText)}
+                          className="font-helvetica font-black text-[10px] md:text-[12px] text-black uppercase tracking-tight block outline-none cursor-text"
+                        >
+                          {img.rank}
+                        </span>
+                      </div>
+                    )}
+
+                    {img.name && img.name !== 'WAYD' && (
+                      <div className="bg-white px-1 py-[2px] shadow-md leading-none">
+                        <span 
+                          contentEditable
+                          suppressContentEditableWarning
+                          onBlur={(e) => updateImageText(idx, 'name', e.target.innerText)}
+                          className="font-helvetica font-bold text-xl md:text-2xl lg:text-3xl text-black uppercase tracking-wide block leading-none outline-none cursor-text"
+                        >
+                          {img.name}
+                        </span>
+                      </div>
+                    )}
+
+                    {img.location && (
+                      <div className="bg-white px-3 py-1 shadow-md">
+                        <span 
+                          contentEditable
+                          suppressContentEditableWarning
+                          onBlur={(e) => updateImageText(idx, 'location', e.target.innerText)}
+                          className="font-helvetica font-black text-[9px] md:text-[10px] text-black uppercase tracking-widest block outline-none cursor-text"
+                        >
+                          {img.location}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+          </div>
         </div>
       </div>
     </div>
@@ -1267,61 +1719,33 @@ const JourneyStage = () => {
 };
 
 const FooterStage = ({ onSecretClick }) => {
-  const { settings } = useData();
-  
   return (
-    <div className="w-full bg-[#F5F5F5] pt-12 pb-12 md:pt-16 md:pb-16 lg:pt-20 lg:pb-20 flex justify-center items-start px-6 md:px-12">
-      <div className="w-full max-w-[950px] grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 items-start">
-        <div className="md:col-span-7 flex flex-col items-start pr-0 md:pr-12">
-          <motion.h2 
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 1.2, delay: 0.5, ease: "easeOut" }}
-            className="text-[#111111] font-helvetica text-3xl md:text-4xl lg:text-[3.5vw] font-normal leading-[1.1] tracking-tight uppercase mb-12 md:mb-20"
-          >
-            Artail Story<br />New York
-          </motion.h2>
-          <motion.div 
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.9, ease: "easeOut" }}
-            className="text-[#111111] font-inter-tight text-sm md:text-base leading-relaxed tracking-wide"
-          >
-            {(settings.address || '').replace(/\\n/g, '\n').split('\n').map((line, i) => <React.Fragment key={i}>{line}<br/></React.Fragment>)}
-            <span onClick={onSecretClick} className="cursor-pointer text-[#111111]/5 select-none hover:text-[#d92323] transition-colors" title="Staff Only">.</span>
-          </motion.div>
-        </div>
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.9, ease: "easeOut" }}
-          className="md:col-span-5 grid grid-cols-2 sm:grid-cols-3 gap-6 md:gap-8 mt-2 md:mt-2"
-        >
-          <div className="flex flex-col gap-3 md:gap-4">
-            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Home</a>
-            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Artists</a>
-            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Collections</a>
-            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Menus</a>
-            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Pop-ups</a>
-          </div>
-          <div className="flex flex-col gap-3 md:gap-4">
-            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">News</a>
-            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Videos</a>
-            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">About</a>
-            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Contact</a>
-            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Reservations</a>
-          </div>
-          <div className="flex flex-col gap-3 md:gap-4">
-            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Insta</a>
-            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">X (Twitter)</a>
-            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">YouTube</a>
-            <a href="#" className="text-[#111111] hover:text-zinc-500 font-inter-tight text-xs md:text-sm tracking-wide transition-colors">Spotify</a>
-          </div>
-        </motion.div>
+    <div className="w-full bg-black pt-6 pb-16 px-[8vw] flex justify-between items-center border-t border-zinc-900">
+      <div className="flex items-center gap-6">
+        {/* Instagram */}
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-white transition-colors duration-300">
+          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" />
+          </svg>
+        </a>
+        
+        {/* Facebook */}
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-white transition-colors duration-300">
+          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
+          </svg>
+        </a>
+
+        {/* TikTok */}
+        <a href="https://tiktok.com" target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-white transition-colors duration-300">
+          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.17-2.86-.74-3.99-1.72-.08-.07-.17-.15-.25-.23V14c0 1.63-.42 3.25-1.28 4.62-1.7 2.77-5.07 4.24-8.29 3.52-3.1-.69-5.54-3.51-5.74-6.68-.3-4.63 3.64-8.81 8.31-8.31.25.03.5.07.75.12V11.2c-.36-.08-.73-.13-1.11-.14-2.18-.08-4.22 1.58-4.57 3.73-.42 2.5 1.48 4.95 3.98 5.11 2.21.14 4.31-1.37 4.7-3.53.07-.4.1-.81.09-1.22V.02z" />
+          </svg>
+        </a>
       </div>
+      
+      {/* Hidden staff access dot */}
+      <span onClick={onSecretClick} className="cursor-pointer text-zinc-950/20 select-none hover:text-[#d92323] transition-colors" title="Staff Only">.</span>
     </div>
   );
 };
@@ -1402,19 +1826,27 @@ const HeroLandingStage = ({ setView, setOverlayView, cartCount, scrollToMenu, cu
         <motion.nav style={{ opacity: navOpacity, y: navY, pointerEvents, visibility: visibilityState }} className="absolute top-[12%] left-[8vw] right-[8vw] flex justify-between items-center z-50">
             {/* Desktop Links */}
             <div className="hidden md:flex gap-16 md:gap-24">
-                <span onClick={() => { setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
-                <span onClick={() => setView('editorial')} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">ABOUT</span>
-                <span onClick={() => setView('visit')} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
+                <span onClick={() => setView('cocktail')} className="text-[#F5F5F5]/80 text-[9px] md:text-[10px] font-helvetica font-thin capitalize tracking-widest cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
+                <span onClick={() => setView('editorial')} className="text-[#F5F5F5]/80 text-[9px] md:text-[10px] font-helvetica font-thin capitalize tracking-widest cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
+                <span onClick={() => { setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5]/80 text-[9px] md:text-[10px] font-helvetica font-thin capitalize tracking-widest cursor-pointer hover:text-[#C28256] transition-colors duration-300">Shop</span>
+                <span onClick={() => setView('journey')} className="text-[#F5F5F5]/80 text-[9px] md:text-[10px] font-helvetica font-thin capitalize tracking-widest cursor-pointer hover:text-[#C28256] transition-colors duration-300">Our Journey</span>
+                <span onClick={() => setView('visit')} className="text-[#F5F5F5]/80 text-[9px] md:text-[10px] font-helvetica font-thin capitalize tracking-widest cursor-pointer hover:text-[#C28256] transition-colors duration-300">Visit</span>
             </div>
-            {/* Mobile Menu Button */}
-            <div className="md:hidden flex">
-                <span onClick={() => setIsMobileMenuOpen(true)} className="text-[#F5F5F5] text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer">
-                    [ MENU ]
-                </span>
+            {/* Hamburger Icon */}
+            <div className="md:hidden flex items-center z-[1001]">
+              <button 
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+                className="flex flex-col justify-between w-5 h-3 cursor-pointer focus:outline-none text-[#F5F5F5] bg-transparent border-none p-0"
+                aria-label="Toggle Menu"
+              >
+                <span className="w-full h-[1px] bg-current transition-transform duration-300 origin-left" style={{ transform: isMobileMenuOpen ? 'rotate(45deg) translate(1px, -1px)' : 'none' }}></span>
+                <span className="w-full h-[1px] bg-current transition-opacity duration-300" style={{ opacity: isMobileMenuOpen ? 0 : 1 }}></span>
+                <span className="w-full h-[1px] bg-current transition-transform duration-300 origin-left" style={{ transform: isMobileMenuOpen ? 'rotate(-45deg) translate(1px, 1px)' : 'none' }}></span>
+              </button>
             </div>
             
-            <div className="flex items-center text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest text-[#F5F5F5]">
-                <span onClick={() => { setView('catalogue'); setOverlayView('bag'); }} className="text-[#F5F5F5] text-[9px] md:text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer hover:text-zinc-500 transition-colors mr-4 sm:mr-6 md:mr-8">
+            <div className="hidden md:flex items-center text-[9px] md:text-[10px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
+                <span onClick={() => { setView('catalogue'); setOverlayView('bag'); }} className="text-[#F5F5F5]/80 text-[9px] md:text-[10px] font-helvetica font-thin capitalize tracking-widest cursor-pointer hover:text-[#C28256] transition-colors duration-300 mr-4 sm:mr-6 md:mr-8">
                     BAG ({cartCount})
                 </span>
                 <span onClick={() => {
@@ -1424,7 +1856,7 @@ const HeroLandingStage = ({ setView, setOverlayView, cartCount, scrollToMenu, cu
                     setEcommerceView('auth');
                   }
                 }} className="cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-white/20 rounded-full hover:bg-white hover:text-black hover:border-white transition-all duration-300">
-                  {currentUser ? 'ACCOUNT' : 'LOGIN'}
+                  {currentUser ? 'Account' : 'Log In'}
                 </span>
             </div>
         </motion.nav>
@@ -1436,13 +1868,36 @@ const HeroLandingStage = ({ setView, setOverlayView, cartCount, scrollToMenu, cu
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-[#111111] z-[100] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
+              className="fixed inset-0 bg-black z-[90] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
               style={{ pointerEvents: 'auto' }}
             >
-              <span onClick={() => setIsMobileMenuOpen(false)} className="absolute top-[12%] right-[8vw] text-[#a0a0a0] text-[10px] tracking-widest font-bold cursor-pointer underline underline-offset-4 decoration-1">CLOSE</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-3xl font-bold tracking-widest cursor-pointer">CATALOGUE</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); setView('editorial'); }} className="text-[#F5F5F5] text-3xl font-bold tracking-widest cursor-pointer">ABOUT</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); setView('visit'); }} className="text-[#F5F5F5] text-3xl font-bold tracking-widest cursor-pointer">VISIT</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('cocktail'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Menu</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('editorial'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">About</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Shop</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('journey'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Our Journey</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('visit'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Visit</span>
+              
+              <div className="flex flex-col gap-4 mt-8 w-full max-w-[280px]">
+                <button 
+                  onClick={() => { setIsMobileMenuOpen(false); setView('catalogue'); setOverlayView('bag'); }} 
+                  className="border border-white/20 text-[#F5F5F5] hover:bg-white hover:text-black rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase transition-all duration-300"
+                >
+                  Bag ({cartCount})
+                </button>
+                <button 
+                  onClick={() => {
+                    setIsMobileMenuOpen(false);
+                    if (currentUser) {
+                      setEcommerceView('profile');
+                    } else {
+                      setEcommerceView('auth');
+                    }
+                  }} 
+                  className="bg-white text-black hover:bg-white/80 rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase font-bold transition-all duration-300"
+                >
+                  {currentUser ? 'Account' : 'Log In'}
+                </button>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
@@ -1464,7 +1919,7 @@ const HeroLandingStage = ({ setView, setOverlayView, cartCount, scrollToMenu, cu
                    
                    {/* Subtitle positioned absolutely */}
                    <motion.div style={{ opacity: subOpacity, y: subY, filter: subBlur, WebkitFilter: subBlur, visibility: visibilityState }} className="absolute top-[100%] left-0 w-full pl-2 md:pl-4 -mt-10 md:-mt-14 text-left">
-                       <p className="text-[9px] md:text-base text-[#F5F5F5] font-inter-tight tracking-[0.2em] md:tracking-[0.3em] uppercase whitespace-nowrap">
+                       <p className="text-[9px] md:text-base text-[#F5F5F5] font-helvetica tracking-[0.2em] md:tracking-[0.3em] uppercase whitespace-nowrap">
                            WHAT ARE YOU DRINKING?
                        </p>
                    </motion.div>
@@ -1476,7 +1931,7 @@ const HeroLandingStage = ({ setView, setOverlayView, cartCount, scrollToMenu, cu
         <motion.div style={{ opacity: bottomOpacity, y: bottomY, filter: bottomBlur, WebkitFilter: bottomBlur, pointerEvents, visibility: visibilityState }} className="absolute bottom-12 left-0 w-full flex items-start z-20">
             {/* Left Block */}
             <div className="flex-1 pl-[8vw] flex flex-col items-start">
-                <p className="text-[9px] text-zinc-500 font-inter-tight tracking-[0.2em] uppercase leading-none">Lost in time</p>
+                <p className="text-[9px] text-zinc-500 font-helvetica tracking-[0.2em] uppercase leading-none">Lost in time</p>
                 <img 
                     src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" 
                     alt="WAYD? WAYD? WAYD?" 
@@ -1488,11 +1943,11 @@ const HeroLandingStage = ({ setView, setOverlayView, cartCount, scrollToMenu, cu
             {/* Middle Block */}
             <div className="hidden md:flex flex-1 items-start justify-center gap-6">
                 <div className="flex flex-col gap-2">
-                    <span className="text-[9px] text-zinc-500 font-inter-tight tracking-[0.2em] uppercase leading-none">The bar becomes</span>
-                    <span className="text-[9px] text-zinc-500 font-inter-tight tracking-[0.2em] uppercase leading-none">The drinks are &nbsp;&nbsp;the work</span>
+                    <span className="text-[9px] text-zinc-500 font-helvetica tracking-[0.2em] uppercase leading-none">The bar becomes</span>
+                    <span className="text-[9px] text-zinc-500 font-helvetica tracking-[0.2em] uppercase leading-none">The drinks are &nbsp;&nbsp;the work</span>
                 </div>
                 <div className="w-[80px] h-[1px] bg-zinc-700 mt-1"></div>
-                <span className="text-[9px] text-zinc-500 font-inter-tight tracking-[0.2em] uppercase leading-none">A (Canvas)</span>
+                <span className="text-[9px] text-zinc-500 font-helvetica tracking-[0.2em] uppercase leading-none">A (Canvas)</span>
             </div>
 
             {/* Right Block */}
@@ -1506,7 +1961,7 @@ const HeroLandingStage = ({ setView, setOverlayView, cartCount, scrollToMenu, cu
                         initial: { scale: 1 },
                         hover: { scale: 1.05, transition: { type: "spring", stiffness: 400, damping: 15 } }
                     }}
-                    className="relative overflow-hidden bg-[#C28256] text-[#111111] px-4 py-1.5 md:px-6 md:py-2 text-[8px] md:text-[10px] font-inter-tight font-bold tracking-[0.2em] uppercase cursor-pointer leading-none whitespace-nowrap"
+                    className="relative overflow-hidden bg-[#C28256] text-black px-4 py-1.5 md:px-6 md:py-2 text-[8px] md:text-[10px] font-helvetica font-bold tracking-[0.2em] uppercase cursor-pointer leading-none whitespace-nowrap"
                 >
                     {/* Sliding Background Layer */}
                     <motion.div 
@@ -1544,12 +1999,6 @@ const FrontendApp = ({ onSecretClick }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { settings, cocktails } = useData(); 
   const { scrollY } = useScroll();
-  const [showGlobalNav, setShowGlobalNav] = useState(false);
-
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    // Show global nav after the 280vh HeroLandingStage is passed
-    setShowGlobalNav(latest > window.innerHeight * 2.6);
-  });
 
   const [view, setView] = useState('home');
   const [overlayView, setOverlayView] = useState('grid');
@@ -1606,7 +2055,7 @@ const FrontendApp = ({ onSecretClick }) => {
   }, [isLoading, cocktails, settings]);
 
   useEffect(() => {
-    if (view === 'catalogue' || view === 'editorial' || view === 'visit') {
+    if (view === 'catalogue' || view === 'editorial' || view === 'visit' || view === 'cocktail' || view === 'journey') {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
@@ -1620,19 +2069,15 @@ const FrontendApp = ({ onSecretClick }) => {
   const cartCount = cartItems.reduce((sum, item) => sum + item.qty, 0);
 
   return (
-    <div className="bg-[#111111] text-[#F5F5F5] selection:bg-[#F5F5F5] selection:text-[#111111] relative">
-      <HeroLandingStage setView={setView} setOverlayView={setOverlayView} cartCount={cartCount} scrollToMenu={scrollToMenu} currentUser={currentUser} setEcommerceView={setEcommerceView} />
+    <div className="bg-black text-[#F5F5F5] selection:bg-[#F5F5F5] selection:text-black relative">
       
       {/* --- Preloader removed in favor of Skeleton loading --- */}
 
       <style dangerouslySetInnerHTML={{__html: `
-        @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
-        .font-bebas { font-family: "Bebas Neue", sans-serif; }
-        .font-inter { font-family: "Inter", sans-serif; }
+        .font-helvetica font-bold { font-family: "Bebas Neue", sans-serif; }
+        .font-helvetica { font-family: "Inter", sans-serif; }
         .font-helvetica { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
-        .font-inter-tight { font-family: "Inter Tight", "Inter Tight Placeholder", sans-serif; }
+        .font-helvetica { font-family: "Inter Tight", "Inter Tight Placeholder", sans-serif; }
         ::-webkit-scrollbar { display: none; }
         @keyframes marquee-scroll {
           0% { transform: translate3d(0, 0, 0); }
@@ -1655,35 +2100,45 @@ const FrontendApp = ({ onSecretClick }) => {
       {view === 'catalogue' && <CatalogueOverlay onClose={() => setView('home')} cartItems={cartItems} setCartItems={setCartItems} overlayView={overlayView} setOverlayView={setOverlayView} nyTime={nyTime} setView={setView} onCheckout={() => { setView('home'); setEcommerceView('checkout'); }} currentUser={currentUser} setEcommerceView={setEcommerceView} />}
       {view === 'editorial' && <EditorialOverlay onClose={() => setView('home')} cartCount={cartCount} setView={setView} setOverlayView={setOverlayView} nyTime={nyTime} currentUser={currentUser} setEcommerceView={setEcommerceView} />}
       {view === 'visit' && <VisitOverlay onClose={() => setView('home')} cartCount={cartCount} setView={setView} setOverlayView={setOverlayView} nyTime={nyTime} currentUser={currentUser} setEcommerceView={setEcommerceView} />}
+      {view === 'cocktail' && <CocktailOverlay onClose={() => setView('home')} cartCount={cartCount} setView={setView} setOverlayView={setOverlayView} nyTime={nyTime} currentUser={currentUser} setEcommerceView={setEcommerceView} onMenuClick={setSelectedMenu} />}
+      {view === 'journey' && <JourneyOverlay onClose={() => setView('home')} cartCount={cartCount} setView={setView} setOverlayView={setOverlayView} nyTime={nyTime} currentUser={currentUser} setEcommerceView={setEcommerceView} />}
       {selectedMenu && <MenuDetailOverlay item={selectedMenu} onClose={() => setSelectedMenu(null)} nyTime={nyTime} onMenuClick={setSelectedMenu} cartCount={cartCount} setView={setView} setOverlayView={setOverlayView} currentUser={currentUser} setEcommerceView={setEcommerceView} />}
 
       <AnimatePresence>
-      {view !== 'catalogue' && view !== 'editorial' && view !== 'visit' && !selectedMenu && showGlobalNav && (
+      {view !== 'catalogue' && view !== 'editorial' && view !== 'visit' && view !== 'cocktail' && view !== 'journey' && !selectedMenu && (
         <motion.nav 
           initial={{ y: "-100%", opacity: 0 }}
           animate={{ y: "0%", opacity: 1 }}
           exit={{ y: "-100%", opacity: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-[#111111]/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] pt-[20px] pb-[20px] px-[8vw] md:px-[8vw]"
+          className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] pt-[60px] pb-[60px] px-[8vw] md:px-[8vw]"
         >
-          <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#F5F5F5]">
-            <span onClick={() => { setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-zinc-500 transition-colors">CATALOGUE</span>
-            <span onClick={() => setView('editorial')} className="cursor-pointer hover:text-zinc-500 transition-colors">ABOUT</span>
-            <span onClick={() => setView('visit')} className="cursor-pointer hover:text-zinc-500 transition-colors">VISIT</span>
+          <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
+            <span onClick={() => setView('cocktail')} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
+            <span onClick={() => setView('editorial')} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
+            <span onClick={() => { setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Shop</span>
+            <span onClick={() => setView('journey')} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Our Journey</span>
+            <span onClick={() => setView('visit')} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Visit</span>
           </div>
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex">
-            <span onClick={() => setIsMobileMenuOpen(true)} className="text-[10px] font-inter-tight font-bold uppercase tracking-widest cursor-pointer text-[#F5F5F5]">
-              [ MENU ]
-            </span>
+          {/* Hamburger Icon */}
+          <div className="md:hidden flex items-center z-[1001]">
+            <button 
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
+              className="flex flex-col justify-between w-5 h-3 cursor-pointer focus:outline-none text-[#F5F5F5] bg-transparent border-none p-0"
+              aria-label="Toggle Menu"
+            >
+              <span className="w-full h-[1px] bg-current transition-transform duration-300 origin-left" style={{ transform: isMobileMenuOpen ? 'rotate(45deg) translate(1px, -1px)' : 'none' }}></span>
+              <span className="w-full h-[1px] bg-current transition-opacity duration-300" style={{ opacity: isMobileMenuOpen ? 0 : 1 }}></span>
+              <span className="w-full h-[1px] bg-current transition-transform duration-300 origin-left" style={{ transform: isMobileMenuOpen ? 'rotate(-45deg) translate(1px, 1px)' : 'none' }}></span>
+            </button>
           </div>
           
           <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
-             <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/D.svg" alt="logo" className="h-9 sm:h-11 md:h-12 object-contain brightness-0 invert" />
+             <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-14 sm:h-16 md:h-20 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
           </div>
 
-          <div className="flex items-center text-[9px] sm:text-[10px] md:text-xs font-inter-tight font-bold uppercase tracking-widest text-[#F5F5F5]">
-            <span onClick={() => { setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-zinc-500 transition-colors mr-4 sm:mr-6 md:mr-8">BAG ({cartCount})</span>
+          <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
+            <span onClick={() => { setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300 mr-4 sm:mr-6 md:mr-8">Bag ({cartCount})</span>
             <span onClick={() => {
               if (currentUser) {
                 setEcommerceView('profile');
@@ -1691,7 +2146,7 @@ const FrontendApp = ({ onSecretClick }) => {
                 setEcommerceView('auth');
               }
             }} className="cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-white/20 rounded-full hover:bg-white hover:text-black hover:border-white transition-all duration-300">
-              {currentUser ? 'ACCOUNT' : 'LOGIN'}
+              {currentUser ? 'Account' : 'Log In'}
             </span>
           </div>
         </motion.nav>
@@ -1703,34 +2158,82 @@ const FrontendApp = ({ onSecretClick }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-[#111111] z-[1000] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
+            className="fixed inset-0 bg-black z-[90] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
             style={{ pointerEvents: 'auto' }}
           >
-            <span onClick={() => setIsMobileMenuOpen(false)} className="absolute top-[8%] md:top-[12%] right-[8vw] text-[#a0a0a0] text-[10px] tracking-widest font-bold cursor-pointer underline underline-offset-4 decoration-1">CLOSE</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-3xl font-bold tracking-widest cursor-pointer">CATALOGUE</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); setView('editorial'); }} className="text-[#F5F5F5] text-3xl font-bold tracking-widest cursor-pointer">ABOUT</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); setView('visit'); }} className="text-[#F5F5F5] text-3xl font-bold tracking-widest cursor-pointer">VISIT</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); setView('cocktail'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Menu</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); setView('editorial'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">About</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Shop</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); setView('journey'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Our Journey</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); setView('visit'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Visit</span>
+            
+            <div className="flex flex-col gap-4 mt-8 w-full max-w-[280px]">
+              <button 
+                onClick={() => { setIsMobileMenuOpen(false); setView('catalogue'); setOverlayView('bag'); }} 
+                className="border border-white/20 text-[#F5F5F5] hover:bg-white hover:text-black rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase transition-all duration-300"
+              >
+                Bag ({cartCount})
+              </button>
+              <button 
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  if (currentUser) {
+                    setEcommerceView('profile');
+                  } else {
+                    setEcommerceView('auth');
+                  }
+                }} 
+                className="bg-white text-black hover:bg-white/80 rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase font-bold transition-all duration-300"
+              >
+                {currentUser ? 'Account' : 'Log In'}
+              </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      <svg style={{ position: 'absolute', width: 0, height: 0, pointerEvents: 'none' }}>
-        <defs>
-          <filter id="goo" x="-20%" y="-40%" width="140%" height="180%">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur" />
-            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 25 -10" result="goo" />
-            <feBlend in="SourceGraphic" in2="goo" />
-          </filter>
-        </defs>
-      </svg>
 
-      <div className="w-full flex flex-col relative z-20 bg-[#111111] pointer-events-auto">
-        <ContentStage onMenuClick={setSelectedMenu} />
+
+      <div className="w-full flex flex-col relative z-20 bg-black pointer-events-auto">
+        {/* Full-Screen Home Video Banner */}
+        <div className="w-full h-screen bg-black relative overflow-hidden flex items-center justify-center">
+          {settings.homeVideo ? (
+            <video 
+              key={settings.homeVideo}
+              src={settings.homeVideo} 
+              className="absolute inset-0 w-full h-full object-cover" 
+              autoPlay 
+              loop 
+              muted 
+              playsInline
+            />
+          ) : (
+            <div className="absolute inset-0 w-full h-full bg-black flex items-center justify-center text-zinc-600 uppercase tracking-widest text-xs font-helvetica">
+              [ No Video Uploaded - Set in Admin Settings ]
+            </div>
+          )}
+          <div className="absolute inset-0 bg-black/30 pointer-events-none" />
+          
+          {/* Scroll Down Indicator */}
+          <div 
+            className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[#F5F5F5] font-helvetica text-[9px] tracking-[0.25em] uppercase opacity-70 hover:opacity-100 transition-opacity cursor-pointer animate-pulse"
+            onClick={() => {
+              if (window.innerWidth < 768) {
+                setIsMobileMenuOpen(true);
+              } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }
+            }}
+          >
+            <span>Explore WAYD</span>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M5 15l7-7 7 7M12 8v12" />
+            </svg>
+          </div>
+        </div>
       </div>
 
       <div className="w-full flex flex-col relative z-20 bg-[#F5F5F5] pointer-events-auto">
-        <HomeCatalogueStage setView={setView} setOverlayView={setOverlayView} />
-        <JourneyStage />
         <FooterStage onSecretClick={onSecretClick} />
       </div>
 
@@ -1890,6 +2393,53 @@ const EditableImage = ({ src, aspect = "aspect-[3/4]", className = "", onUpload,
   );
 };
 
+const EditableVideo = ({ src, aspect = "aspect-[16/9]", className = "", onUpload }) => {
+  const [isUploading, setIsUploading] = useState(false);
+
+  const handleFile = async (e) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      const tempUrl = URL.createObjectURL(file);
+      if (onUpload) onUpload(tempUrl, false); 
+
+      if (supabaseUrl !== 'YOUR_SUPABASE_URL') {
+        setIsUploading(true);
+        const publicUrl = await uploadImageToSupabase(file);
+        if (publicUrl && onUpload) {
+          onUpload(publicUrl, true); 
+        }
+        setIsUploading(false);
+      } else {
+        if (onUpload) onUpload(tempUrl, true); 
+      }
+    }
+  };
+
+  return (
+    <div className={`relative w-full ${aspect} bg-[#EAEAEA] overflow-hidden group cursor-pointer ${className}`}>
+      {src ? (
+        <video src={src} className={`w-full h-full object-cover transition-all duration-300 ${isUploading ? 'blur-sm opacity-50' : ''}`} muted loop playsInline autoPlay />
+      ) : (
+        <div className="w-full h-full bg-[#1C1C1C] flex items-center justify-center text-zinc-500 font-helvetica text-xs uppercase tracking-widest">
+          No Video Uploaded
+        </div>
+      )}
+      {isUploading && (
+        <div className="absolute inset-0 flex justify-center items-center z-20 pointer-events-none">
+          <span className="bg-black/80 text-white px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded-full">Uploading...</span>
+        </div>
+      )}
+      <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
+        <label className="text-white text-[10px] font-bold uppercase tracking-widest cursor-pointer flex flex-col items-center gap-2 w-full h-full justify-center">
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+          Upload Video
+          <input type="file" accept="video/*" className="hidden" onChange={handleFile} disabled={isUploading} />
+        </label>
+      </div>
+    </div>
+  );
+};
+
 const EditableText = ({ value, onChange, onSave, className, placeholder = "Enter text..." }) => {
   const [localVal, setLocalVal] = useState(value || '');
   
@@ -1906,7 +2456,7 @@ const EditableText = ({ value, onChange, onSave, className, placeholder = "Enter
       onBlur={() => {
         if (onSave && localVal !== value) onSave(localVal); 
       }}
-      className={`bg-transparent border-b border-dashed border-transparent hover:border-zinc-300 focus:border-[#111111] focus:outline-none transition-colors w-full ${className}`}
+      className={`bg-transparent border-b border-dashed border-transparent hover:border-zinc-300 focus:border-black focus:outline-none transition-colors w-full ${className}`}
       placeholder={placeholder}
     />
   );
@@ -1927,7 +2477,7 @@ const EditableTextArea = ({ value, onChange, onSave, className, placeholder = "E
       onBlur={() => {
         if (onSave && localVal !== value) onSave(localVal);
       }}
-      className={`bg-transparent border-b border-dashed border-transparent hover:border-zinc-300 focus:border-[#111111] focus:outline-none transition-colors w-full resize-none ${className}`}
+      className={`bg-transparent border-b border-dashed border-transparent hover:border-zinc-300 focus:border-black focus:outline-none transition-colors w-full resize-none ${className}`}
       placeholder={placeholder}
       rows={rows}
     />
@@ -1968,23 +2518,23 @@ const AdminLogin = ({ onLogin, onCancel }) => {
         animate={{ opacity: 1, y: 0 }}
         className="bg-white p-8 md:p-12 shadow-[0_4px_30px_rgba(0,0,0,0.03)] w-full max-w-md relative"
       >
-        <button onClick={onCancel} className="absolute top-4 right-4 text-zinc-400 hover:text-[#111111] text-xs font-inter-tight uppercase tracking-widest transition-colors">
+        <button onClick={onCancel} className="absolute top-4 right-4 text-zinc-400 hover:text-black text-xs font-helvetica uppercase tracking-widest transition-colors">
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
         <div className="flex flex-col items-center mb-10">
           <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/logo3.svg" alt="WAYD Logo" className="h-12 mb-6" />
-          <h2 className="font-helvetica font-bold text-xl text-[#111111] tracking-tight">EDITORIAL STUDIO</h2>
-          <p className="font-inter-tight text-xs text-zinc-500 uppercase tracking-widest mt-2">Content Management</p>
+          <h2 className="font-helvetica font-bold text-xl text-black tracking-tight">EDITORIAL STUDIO</h2>
+          <p className="font-helvetica text-xs text-zinc-500 uppercase tracking-widest mt-2">Content Management</p>
         </div>
         <form onSubmit={handleSubmit} className="flex flex-col gap-6">
           {errorMsg && <div className="bg-red-50 text-red-500 border border-red-200 text-[10px] font-bold uppercase tracking-widest p-3 text-center">{errorMsg}</div>}
           <div className="flex flex-col gap-2">
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="border-b border-zinc-300 py-3 font-inter text-sm text-[#111111] focus:outline-none focus:border-[#111111] transition-colors bg-transparent placeholder-zinc-400" placeholder="Studio Email" required />
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="border-b border-zinc-300 py-3 font-helvetica text-sm text-black focus:outline-none focus:border-black transition-colors bg-transparent placeholder-zinc-400" placeholder="Studio Email" required />
           </div>
           <div className="flex flex-col gap-2">
-            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="border-b border-zinc-300 py-3 font-inter text-sm text-[#111111] focus:outline-none focus:border-[#111111] transition-colors bg-transparent placeholder-zinc-400" placeholder="Passcode" required />
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="border-b border-zinc-300 py-3 font-helvetica text-sm text-black focus:outline-none focus:border-black transition-colors bg-transparent placeholder-zinc-400" placeholder="Passcode" required />
           </div>
-          <button type="submit" disabled={isLoggingIn} className={`w-full font-inter-tight font-semibold text-[11px] uppercase tracking-widest py-4 mt-4 transition-colors ${isLoggingIn ? 'bg-zinc-400 text-white cursor-wait' : 'bg-[#111111] text-[#F5F5F5] hover:bg-zinc-800'}`}>
+          <button type="submit" disabled={isLoggingIn} className={`w-full font-helvetica font-semibold text-[11px] uppercase tracking-widest py-4 mt-4 transition-colors ${isLoggingIn ? 'bg-zinc-400 text-white cursor-wait' : 'bg-black text-[#F5F5F5] hover:bg-zinc-800'}`}>
             {isLoggingIn ? 'AUTHENTICATING...' : 'ENTER STUDIO'}
           </button>
         </form>
@@ -1994,7 +2544,7 @@ const AdminLogin = ({ onLogin, onCancel }) => {
 };
 
 const AdminStudioOverview = () => {
-  const { cocktails, setCocktails, setSyncStatus } = useData();
+  const { cocktails, setCocktails, setSyncStatus, settings, setSettings } = useData();
   const [editingCocktail, setEditingCocktail] = useState(null); 
 
   const handleSaveCocktail = async () => {
@@ -2118,22 +2668,44 @@ const AdminStudioOverview = () => {
       {/* Left List Container */}
       <div className={`w-full md:w-1/3 border-r-0 md:border-r border-zinc-200 md:pr-4 flex-col h-full ${editingCocktail ? 'hidden md:flex' : 'flex'}`}>
          <div className="flex justify-between items-center mb-6 pb-4 border-b border-zinc-200 shrink-0">
-           <h3 className="font-bebas text-3xl uppercase tracking-wide text-[#111111]">Cocktails</h3>
-           <span onClick={handleAddCocktail} className="font-inter-tight text-[10px] text-[#111111] font-bold uppercase tracking-widest cursor-pointer hover:bg-[#111111] hover:text-white border border-[#111111] px-3 py-1.5 rounded-full transition-colors">+ Add</span>
+           <h3 className="font-helvetica font-bold text-3xl uppercase tracking-wide text-black">Cocktails</h3>
+           <span onClick={handleAddCocktail} className="font-helvetica text-[10px] text-black font-bold uppercase tracking-widest cursor-pointer hover:bg-black hover:text-white border border-black px-3 py-1.5 rounded-full transition-colors">+ Add</span>
          </div>
+         
+         <div className="mb-6 p-4 border border-zinc-200 rounded-lg bg-zinc-50 shrink-0">
+           <span className="font-helvetica font-bold text-xs uppercase tracking-widest text-zinc-400 block mb-2">Home Banner Video</span>
+           <EditableVideo 
+             src={settings.homeVideo} 
+             aspect="aspect-[16/9]" 
+             onUpload={async (url, isFinal) => {
+               setSettings(prev => ({ ...prev, homeVideo: url }));
+               if (isFinal && supabaseUrl !== 'YOUR_SUPABASE_URL' && supabase && settings.id) {
+                 setSyncStatus('Saving...');
+                 try {
+                   await supabase.from('site_settings').update({ home_video: url }).eq('id', settings.id);
+                   setSyncStatus('Synced');
+                 } catch (e) {
+                   console.error("Save video error:", e);
+                   setSyncStatus('Error');
+                 }
+               }
+             }}
+           />
+         </div>
+
          <div className="flex-1 overflow-y-auto flex flex-col gap-2 pb-24">
             {cocktails.map((item, idx) => (
               <div 
                 key={idx} 
                 onClick={() => setEditingCocktail(item)} 
-                className={`p-4 border border-zinc-200 cursor-pointer flex gap-4 transition-colors ${editingCocktail?.id === item.id ? 'bg-[#F5F5F5] border-[#111111]' : 'hover:bg-[#F5F5F5]'}`}
+                className={`p-4 border border-zinc-200 cursor-pointer flex gap-4 transition-colors ${editingCocktail?.id === item.id ? 'bg-[#F5F5F5] border-black' : 'hover:bg-[#F5F5F5]'}`}
               >
                  <div className="w-16 aspect-[3/4] shrink-0 bg-zinc-200 overflow-hidden">
                    <img src={item.src} className="w-full h-full object-cover" />
                  </div>
                  <div className="flex flex-col justify-center gap-1">
-                   <span className="font-helvetica font-bold text-sm text-[#111111]">{item.name}</span>
-                   <span className="font-inter-tight text-[10px] text-zinc-500 uppercase">{item.artist}</span>
+                   <span className="font-helvetica font-bold text-sm text-black">{item.name}</span>
+                   <span className="font-helvetica text-[10px] text-zinc-500 uppercase">{item.artist}</span>
                  </div>
               </div>
             ))}
@@ -2149,67 +2721,67 @@ const AdminStudioOverview = () => {
                   <button onClick={() => setEditingCocktail(null)} className="md:hidden flex items-center justify-center w-8 h-8 rounded-full bg-zinc-100 hover:bg-zinc-200 transition-colors">
                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                   </button>
-                  <span className="font-bebas text-2xl uppercase tracking-wide">Edit Details</span>
+                  <span className="font-helvetica font-bold text-2xl uppercase tracking-wide">Edit Details</span>
                 </div>
                 <div className="flex justify-end gap-4 w-full md:w-auto">
-                  <button onClick={(e) => handleDeleteCocktail(e, editingCocktail.id, cocktails.findIndex(c => c.id === editingCocktail.id))} className="font-inter-tight text-[10px] font-bold uppercase tracking-widest text-red-500 hover:text-red-700 transition-colors">Delete</button>
-                  <button onClick={handleSaveCocktail} className="font-inter-tight text-[10px] font-bold uppercase tracking-widest bg-[#111111] text-white px-4 py-2 hover:bg-black transition-colors rounded-full shadow-md">Save Changes</button>
+                  <button onClick={(e) => handleDeleteCocktail(e, editingCocktail.id, cocktails.findIndex(c => c.id === editingCocktail.id))} className="font-helvetica text-[10px] font-bold uppercase tracking-widest text-red-500 hover:text-red-700 transition-colors">Delete</button>
+                  <button onClick={handleSaveCocktail} className="font-helvetica text-[10px] font-bold uppercase tracking-widest bg-black text-white px-4 py-2 hover:bg-black transition-colors rounded-full shadow-md">Save Changes</button>
                 </div>
              </div>
 
              <div className="flex flex-col gap-8">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="flex flex-col gap-2">
-                    <label className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-500">Cocktail Name</label>
-                    <input type="text" value={editingCocktail.name || ''} onChange={e => setEditingCocktail({...editingCocktail, name: e.target.value})} className="w-full bg-[#F5F5F5] border border-zinc-200 p-3 font-helvetica text-[#111111] focus:outline-none focus:border-black" />
+                    <label className="font-helvetica text-xs font-bold uppercase tracking-widest text-zinc-500">Cocktail Name</label>
+                    <input type="text" value={editingCocktail.name || ''} onChange={e => setEditingCocktail({...editingCocktail, name: e.target.value})} className="w-full bg-[#F5F5F5] border border-zinc-200 p-3 font-helvetica text-black focus:outline-none focus:border-black" />
                   </div>
                   <div className="flex flex-col gap-2">
-                    <label className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-500">Price</label>
-                    <input type="text" value={editingCocktail.price || ''} onChange={e => setEditingCocktail({...editingCocktail, price: e.target.value})} className="w-full bg-[#F5F5F5] border border-zinc-200 p-3 font-helvetica text-[#111111] focus:outline-none focus:border-black" placeholder="$21" />
+                    <label className="font-helvetica text-xs font-bold uppercase tracking-widest text-zinc-500">Price</label>
+                    <input type="text" value={editingCocktail.price || ''} onChange={e => setEditingCocktail({...editingCocktail, price: e.target.value})} className="w-full bg-[#F5F5F5] border border-zinc-200 p-3 font-helvetica text-black focus:outline-none focus:border-black" placeholder="$21" />
                   </div>
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-500">Artist</label>
-                  <input type="text" value={editingCocktail.artist || ''} onChange={e => setEditingCocktail({...editingCocktail, artist: e.target.value})} className="w-full bg-[#F5F5F5] border border-zinc-200 p-3 font-helvetica text-[#111111] focus:outline-none focus:border-black" placeholder="— Teddy" />
+                  <label className="font-helvetica text-xs font-bold uppercase tracking-widest text-zinc-500">Artist</label>
+                  <input type="text" value={editingCocktail.artist || ''} onChange={e => setEditingCocktail({...editingCocktail, artist: e.target.value})} className="w-full bg-[#F5F5F5] border border-zinc-200 p-3 font-helvetica text-black focus:outline-none focus:border-black" placeholder="— Teddy" />
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-500">Main Image</label>
+                  <label className="font-helvetica text-xs font-bold uppercase tracking-widest text-zinc-500">Main Image</label>
                   <div className="w-48 aspect-[4/5] ring-1 ring-black/5 shadow-md">
                      <EditableImage src={editingCocktail.src} aspect="h-full" onUpload={(url) => setEditingCocktail({...editingCocktail, src: url})} />
                   </div>
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-500">Caption (Top Left)</label>
-                  <textarea value={editingCocktail.caption || ''} onChange={e => setEditingCocktail({...editingCocktail, caption: e.target.value})} className="w-full bg-[#F5F5F5] border border-zinc-200 p-3 font-mono text-sm text-[#111111] focus:outline-none focus:border-black min-h-[100px] whitespace-pre-wrap" placeholder="Inspired by..." />
+                  <label className="font-helvetica text-xs font-bold uppercase tracking-widest text-zinc-500">Caption (Top Left)</label>
+                  <textarea value={editingCocktail.caption || ''} onChange={e => setEditingCocktail({...editingCocktail, caption: e.target.value})} className="w-full bg-[#F5F5F5] border border-zinc-200 p-3 font-mono text-sm text-black focus:outline-none focus:border-black min-h-[100px] whitespace-pre-wrap" placeholder="Inspired by..." />
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-500">Reference (Bottom Left)</label>
-                  <textarea value={editingCocktail.reference || ''} onChange={e => setEditingCocktail({...editingCocktail, reference: e.target.value})} className="w-full bg-[#F5F5F5] border border-zinc-200 p-3 font-mono text-sm text-[#111111] focus:outline-none focus:border-black min-h-[100px] whitespace-pre-wrap" placeholder="Vincent van Gogh, Sunflowers..." />
+                  <label className="font-helvetica text-xs font-bold uppercase tracking-widest text-zinc-500">Reference (Bottom Left)</label>
+                  <textarea value={editingCocktail.reference || ''} onChange={e => setEditingCocktail({...editingCocktail, reference: e.target.value})} className="w-full bg-[#F5F5F5] border border-zinc-200 p-3 font-mono text-sm text-black focus:outline-none focus:border-black min-h-[100px] whitespace-pre-wrap" placeholder="Vincent van Gogh, Sunflowers..." />
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-500">Main Story / Quote</label>
-                  <textarea value={editingCocktail.quote || ''} onChange={e => setEditingCocktail({...editingCocktail, quote: e.target.value})} className="w-full bg-[#F5F5F5] border border-zinc-200 p-4 font-aura text-xl leading-[1.3] text-[#111111] focus:outline-none focus:border-black min-h-[300px] whitespace-pre-wrap" placeholder="This was my very first painting..." />
+                  <label className="font-helvetica text-xs font-bold uppercase tracking-widest text-zinc-500">Main Story / Quote</label>
+                  <textarea value={editingCocktail.quote || ''} onChange={e => setEditingCocktail({...editingCocktail, quote: e.target.value})} className="w-full bg-[#F5F5F5] border border-zinc-200 p-4 font-helvetica font-bold text-xl leading-[1.3] text-black focus:outline-none focus:border-black min-h-[300px] whitespace-pre-wrap" placeholder="This was my very first painting..." />
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-500">Tags</label>
-                  <input type="text" value={editingCocktail.tags || ''} onChange={e => setEditingCocktail({...editingCocktail, tags: e.target.value})} className="w-full bg-[#F5F5F5] border border-zinc-200 p-3 font-mono text-sm text-[#111111] focus:outline-none focus:border-black" placeholder="• Low ABV Light • Honest" />
+                  <label className="font-helvetica text-xs font-bold uppercase tracking-widest text-zinc-500">Tags</label>
+                  <input type="text" value={editingCocktail.tags || ''} onChange={e => setEditingCocktail({...editingCocktail, tags: e.target.value})} className="w-full bg-[#F5F5F5] border border-zinc-200 p-3 font-mono text-sm text-black focus:outline-none focus:border-black" placeholder="• Low ABV Light • Honest" />
                 </div>
 
                 <div className="flex flex-col gap-2">
-                  <label className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-500">Ingredients</label>
-                  <input type="text" value={editingCocktail.ingredients || ''} onChange={e => setEditingCocktail({...editingCocktail, ingredients: e.target.value})} className="w-full bg-[#F5F5F5] border border-zinc-200 p-3 font-mono text-sm text-[#111111] focus:outline-none focus:border-black" placeholder="Chinola Passionfruit, Dry Vermouth..." />
+                  <label className="font-helvetica text-xs font-bold uppercase tracking-widest text-zinc-500">Ingredients</label>
+                  <input type="text" value={editingCocktail.ingredients || ''} onChange={e => setEditingCocktail({...editingCocktail, ingredients: e.target.value})} className="w-full bg-[#F5F5F5] border border-zinc-200 p-3 font-mono text-sm text-black focus:outline-none focus:border-black" placeholder="Chinola Passionfruit, Dry Vermouth..." />
                 </div>
              </div>
            </div>
          ) : (
            <div className="hidden md:flex h-full items-center justify-center">
-             <span className="font-inter-tight text-xs uppercase tracking-widest text-zinc-400">Select a cocktail to edit</span>
+             <span className="font-helvetica text-xs uppercase tracking-widest text-zinc-400">Select a cocktail to edit</span>
            </div>
          )}
       </div>
@@ -2252,7 +2824,7 @@ const AdminStudioEditorials = () => {
           <button 
             key={tab.key} 
             onClick={() => setActiveArtist(tab.key)} 
-            className={`font-bebas text-3xl uppercase tracking-wide transition-colors ${activeArtist === tab.key ? 'text-[#111111]' : 'text-zinc-300 hover:text-zinc-400'}`}>
+            className={`font-helvetica font-bold text-3xl uppercase tracking-wide transition-colors ${activeArtist === tab.key ? 'text-black' : 'text-zinc-300 hover:text-zinc-400'}`}>
             {tab.label}
           </button>
         ))}
@@ -2260,19 +2832,19 @@ const AdminStudioEditorials = () => {
 
       <div className="flex flex-col gap-8 max-w-4xl">
         <div className="flex flex-col gap-2">
-          <label className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-500">Artist Name</label>
+          <label className="font-helvetica text-xs font-bold uppercase tracking-widest text-zinc-500">Artist Name</label>
           <input 
             type="text" 
             value={settings[`${prefix}_name`] || ''} 
             onChange={(e) => handleUpdate(`${prefix}_name`, e.target.value)}
             onBlur={(e) => handleSave(`${prefix}_name`, e.target.value)}
-            className="w-full bg-[#F5F5F5] border border-zinc-200 p-4 font-helvetica text-[#111111] focus:outline-none focus:border-[#111111] transition-colors"
+            className="w-full bg-[#F5F5F5] border border-zinc-200 p-4 font-helvetica text-black focus:outline-none focus:border-black transition-colors"
             placeholder="e.g. MIMI"
           />
         </div>
 
         <div className="flex flex-col gap-2">
-          <label className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-500">Artist Portrait (Upload Image)</label>
+          <label className="font-helvetica text-xs font-bold uppercase tracking-widest text-zinc-500">Artist Portrait (Upload Image)</label>
           <div className="w-48">
             <EditableImage 
               src={settings[`${prefix}_image`] || 'https://via.placeholder.com/400x500?text=Upload+Portrait'} 
@@ -2286,24 +2858,24 @@ const AdminStudioEditorials = () => {
         </div>
 
         <div className="flex flex-col gap-2">
-          <label className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-500">Main Quote / Story</label>
+          <label className="font-helvetica text-xs font-bold uppercase tracking-widest text-zinc-500">Main Quote / Story</label>
           <textarea 
             value={settings[`${prefix}_quote`] || ''} 
             onChange={(e) => handleUpdate(`${prefix}_quote`, e.target.value)}
             onBlur={(e) => handleSave(`${prefix}_quote`, e.target.value)}
-            className="w-full bg-[#F5F5F5] border border-zinc-200 p-4 font-aura text-xl md:text-2xl text-[#111111] focus:outline-none focus:border-[#111111] transition-colors min-h-[200px] resize-y leading-[1.3]"
+            className="w-full bg-[#F5F5F5] border border-zinc-200 p-4 font-helvetica font-bold text-xl md:text-2xl text-black focus:outline-none focus:border-black transition-colors min-h-[200px] resize-y leading-[1.3]"
             placeholder="“I once believed I had lost my art...”"
           />
-          <p className="text-[10px] text-zinc-400 font-inter-tight uppercase tracking-widest">Use Return key for paragraphs.</p>
+          <p className="text-[10px] text-zinc-400 font-helvetica uppercase tracking-widest">Use Return key for paragraphs.</p>
         </div>
 
         <div className="flex flex-col gap-2">
-          <label className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-500">Subtext / Awards</label>
+          <label className="font-helvetica text-xs font-bold uppercase tracking-widest text-zinc-500">Subtext / Awards</label>
           <textarea 
             value={settings[`${prefix}_subtext`] || ''} 
             onChange={(e) => handleUpdate(`${prefix}_subtext`, e.target.value)}
             onBlur={(e) => handleSave(`${prefix}_subtext`, e.target.value)}
-            className="w-full bg-[#F5F5F5] border border-zinc-200 p-4 font-mono text-sm text-[#111111] focus:outline-none focus:border-[#111111] transition-colors min-h-[100px] resize-y"
+            className="w-full bg-[#F5F5F5] border border-zinc-200 p-4 font-mono text-sm text-black focus:outline-none focus:border-black transition-colors min-h-[100px] resize-y"
             placeholder="Winner Bar Star Awards..."
           />
         </div>
@@ -2341,7 +2913,7 @@ const AdminStudioCatalogue = () => {
     <div className="w-full relative">
       <div className="flex justify-between items-end mb-8">
         <h3 className="font-helvetica font-bold text-2xl tracking-tight uppercase">Objects & Artifacts</h3>
-        <span className="font-inter-tight text-[10px] text-zinc-400 uppercase tracking-widest cursor-pointer hover:text-black transition-colors">+ Add Object</span>
+        <span className="font-helvetica text-[10px] text-zinc-400 uppercase tracking-widest cursor-pointer hover:text-black transition-colors">+ Add Object</span>
       </div>
 
       <div className="flex flex-col border-t border-zinc-200">
@@ -2352,17 +2924,17 @@ const AdminStudioCatalogue = () => {
                 <img src={item.src || item.image || item.image_url || (item.images && item.images[0])} alt={item.name} className="w-full h-full object-cover" />
               </div>
               <div className="flex flex-col">
-                <span className="font-helvetica font-bold text-sm text-[#111111] group-hover:text-[#d92323] transition-colors">{item.name}</span>
-                <span className="font-inter-tight text-[10px] text-zinc-400 uppercase tracking-widest mt-1">{item.designer}</span>
+                <span className="font-helvetica font-bold text-sm text-black group-hover:text-[#d92323] transition-colors">{item.name}</span>
+                <span className="font-helvetica text-[10px] text-zinc-400 uppercase tracking-widest mt-1">{item.designer}</span>
               </div>
             </div>
             <div className="flex items-center justify-between w-1/3">
-              <span className="font-helvetica font-bold text-sm text-[#111111]">${item.price}</span>
+              <span className="font-helvetica font-bold text-sm text-black">${item.price}</span>
               <div className="flex items-center gap-2">
                 {Number(item.stock) > 0 ? (
-                  <><span className="w-2 h-2 rounded-full bg-green-500"></span><span className="font-inter-tight text-[10px] uppercase tracking-widest text-zinc-500">In Stock ({item.stock})</span></>
+                  <><span className="w-2 h-2 rounded-full bg-green-500"></span><span className="font-helvetica text-[10px] uppercase tracking-widest text-zinc-500">In Stock ({item.stock})</span></>
                 ) : (
-                  <><span className="w-2 h-2 rounded-full bg-red-500"></span><span className="font-inter-tight text-[10px] uppercase tracking-widest text-red-500">Sold Out</span></>
+                  <><span className="w-2 h-2 rounded-full bg-red-500"></span><span className="font-helvetica text-[10px] uppercase tracking-widest text-red-500">Sold Out</span></>
                 )}
               </div>
             </div>
@@ -2379,10 +2951,10 @@ const AdminStudioCatalogue = () => {
         {editingItem && (
           <div className="p-8 md:p-12 pb-24">
             <div className="flex justify-between items-center mb-12 border-b border-zinc-100 pb-4 sticky top-0 bg-white z-10 pt-4">
-              <span className="font-bebas text-2xl uppercase tracking-wide">Edit Object</span>
+              <span className="font-helvetica font-bold text-2xl uppercase tracking-wide">Edit Object</span>
               <div className="flex gap-6">
-                <button onClick={() => setEditingItem(null)} className="font-inter-tight text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-black transition-colors">Cancel</button>
-                <button onClick={handleSave} className="font-inter-tight text-[10px] font-bold uppercase tracking-widest text-[#d92323] hover:text-black transition-colors">Save Changes</button>
+                <button onClick={() => setEditingItem(null)} className="font-helvetica text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-black transition-colors">Cancel</button>
+                <button onClick={handleSave} className="font-helvetica text-[10px] font-bold uppercase tracking-widest text-[#d92323] hover:text-black transition-colors">Save Changes</button>
               </div>
             </div>
 
@@ -2492,15 +3064,15 @@ const AdminStudioOrders = () => {
   return (
     <div className="w-full flex flex-col h-[calc(100vh-140px)]">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-6 shrink-0">
-        <div className="p-4 md:p-6 border border-[#111111]/10 flex flex-col gap-1">
+        <div className="p-4 md:p-6 border border-black/10 flex flex-col gap-1">
           <span className="font-helvetica text-[9px] text-[#a0a0a0] font-bold uppercase tracking-widest">Orders Today</span>
-          <span className="font-helvetica text-2xl md:text-3xl font-bold tracking-tight text-[#111111] mt-2">{stats.today}</span>
+          <span className="font-helvetica text-2xl md:text-3xl font-bold tracking-tight text-black mt-2">{stats.today}</span>
         </div>
-        <div className="p-4 md:p-6 border border-[#111111]/10 flex flex-col gap-1">
+        <div className="p-4 md:p-6 border border-black/10 flex flex-col gap-1">
           <span className="font-helvetica text-[9px] text-[#a0a0a0] font-bold uppercase tracking-widest">Total Revenue</span>
-          <span className="font-helvetica text-2xl md:text-3xl font-bold tracking-tight text-[#111111] mt-2">${stats.revenue}</span>
+          <span className="font-helvetica text-2xl md:text-3xl font-bold tracking-tight text-black mt-2">${stats.revenue}</span>
         </div>
-        <div className="bg-[#111111] p-4 md:p-6 flex flex-col gap-1">
+        <div className="bg-black p-4 md:p-6 flex flex-col gap-1">
           <span className="font-helvetica text-[9px] text-[#a0a0a0] font-bold uppercase tracking-widest">To Fulfill</span>
           <div className="flex items-center gap-3 mt-2">
              <span className="font-helvetica text-2xl md:text-3xl font-bold tracking-tight text-[#F5F5F5]">{stats.toFulfill}</span>
@@ -2509,16 +3081,16 @@ const AdminStudioOrders = () => {
         </div>
       </div>
 
-      <div className="flex flex-1 border border-[#111111]/10 overflow-hidden bg-white">
+      <div className="flex flex-1 border border-black/10 overflow-hidden bg-white">
         
         {/* Left Panel: List */}
-        <div className={`w-full md:w-1/3 border-r-0 md:border-r border-[#111111]/10 flex flex-col ${selectedOrderId ? 'hidden md:flex' : 'flex'}`}>
-          <div className="p-4 border-b border-[#111111]/10 flex gap-4 overflow-x-auto shrink-0 hide-scrollbar bg-white">
+        <div className={`w-full md:w-1/3 border-r-0 md:border-r border-black/10 flex flex-col ${selectedOrderId ? 'hidden md:flex' : 'flex'}`}>
+          <div className="p-4 border-b border-black/10 flex gap-4 overflow-x-auto shrink-0 hide-scrollbar bg-white">
              {['All', 'Pending', 'Processing', 'Shipped'].map(f => (
                <button 
                  key={f} 
                  onClick={() => setFilter(f)} 
-                 className={`font-helvetica text-[9px] font-bold uppercase tracking-widest pb-1 transition-colors whitespace-nowrap ${filter === f ? 'text-[#111111] border-b border-[#111111]' : 'text-[#a0a0a0] hover:text-[#111111]'}`}
+                 className={`font-helvetica text-[9px] font-bold uppercase tracking-widest pb-1 transition-colors whitespace-nowrap ${filter === f ? 'text-black border-b border-black' : 'text-[#a0a0a0] hover:text-black'}`}
                >
                  {f}
                </button>
@@ -2530,17 +3102,17 @@ const AdminStudioOrders = () => {
                <div className="p-8 text-center font-helvetica text-[11px] text-[#a0a0a0] font-bold uppercase tracking-widest">No orders found</div>
             ) : (
               filteredOrders.map((order, idx) => (
-                <div key={idx} onClick={() => setSelectedOrder(order.id)} className={`p-4 border-b border-[#111111]/10 cursor-pointer transition-colors flex flex-col gap-3 ${selectedOrderId === order.id ? 'bg-[#F5F5F5] border-l-2 border-l-[#111111]' : 'hover:bg-[#F5F5F5] bg-white border-l-2 border-l-transparent'}`}>
+                <div key={idx} onClick={() => setSelectedOrder(order.id)} className={`p-4 border-b border-black/10 cursor-pointer transition-colors flex flex-col gap-3 ${selectedOrderId === order.id ? 'bg-[#F5F5F5] border-l-2 border-l-[#111111]' : 'hover:bg-[#F5F5F5] bg-white border-l-2 border-l-transparent'}`}>
                   <div className="flex justify-between items-start">
                     <div className="flex flex-col gap-1">
-                      <span className="font-helvetica font-bold text-[12px] tracking-tight text-[#111111]">{order.id}</span>
+                      <span className="font-helvetica font-bold text-[12px] tracking-tight text-black">{order.id}</span>
                       <span className="font-helvetica text-[9px] font-bold uppercase tracking-widest text-[#a0a0a0]">{order.customer}</span>
                     </div>
-                    <span className="font-helvetica font-bold text-[12px] text-[#111111]">${order.total}</span>
+                    <span className="font-helvetica font-bold text-[12px] text-black">${order.total}</span>
                   </div>
                   <div className="flex justify-between items-center mt-2">
                     <span className="font-helvetica text-[9px] text-[#a0a0a0] font-bold uppercase tracking-widest">{order.date}</span>
-                    <span className={`text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 border ${order.status === 'Shipped' ? 'border-[#111111] bg-[#111111] text-white' : 'border-[#111111]/20 text-[#111111]'}`}>
+                    <span className={`text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 border ${order.status === 'Shipped' ? 'border-black bg-black text-white' : 'border-black/20 text-black'}`}>
                       {order.status}
                     </span>
                   </div>
@@ -2554,28 +3126,28 @@ const AdminStudioOrders = () => {
         <div className={`w-full md:w-2/3 bg-white overflow-y-auto flex-col relative ${selectedOrderId ? 'flex' : 'hidden md:flex'}`}>
           {selectedOrder ? (
             <div className="flex flex-col">
-              <div className="sticky top-0 bg-white border-b border-[#111111]/10 p-4 md:p-6 flex flex-col sm:flex-row justify-between sm:items-center gap-4 z-20">
+              <div className="sticky top-0 bg-white border-b border-black/10 p-4 md:p-6 flex flex-col sm:flex-row justify-between sm:items-center gap-4 z-20">
                 <div className="flex items-center gap-4">
-                  <button onClick={() => setSelectedOrder(null)} className="md:hidden text-[#111111] font-helvetica text-[9px] font-bold uppercase tracking-widest hover:underline underline-offset-4 decoration-1 mr-2">
+                  <button onClick={() => setSelectedOrder(null)} className="md:hidden text-black font-helvetica text-[9px] font-bold uppercase tracking-widest hover:underline underline-offset-4 decoration-1 mr-2">
                     {"< BACK"}
                   </button>
-                  <h4 className="font-helvetica font-bold text-lg md:text-xl tracking-tight text-[#111111] uppercase">{selectedOrder.id}</h4>
-                  <span className={`text-[9px] font-bold uppercase tracking-widest px-2 py-1 border ${selectedOrder.status === 'Shipped' ? 'border-[#111111] bg-[#111111] text-white' : 'border-[#111111]/20 text-[#111111]'}`}>
+                  <h4 className="font-helvetica font-bold text-lg md:text-xl tracking-tight text-black uppercase">{selectedOrder.id}</h4>
+                  <span className={`text-[9px] font-bold uppercase tracking-widest px-2 py-1 border ${selectedOrder.status === 'Shipped' ? 'border-black bg-black text-white' : 'border-black/20 text-black'}`}>
                     {selectedOrder.status}
                   </span>
                 </div>
                 
                 <div className="flex gap-2">
-                  <button className="hidden sm:block px-4 py-2 border border-[#111111]/20 hover:border-[#111111] text-[#111111] font-helvetica text-[9px] font-bold uppercase tracking-widest transition-colors">
+                  <button className="hidden sm:block px-4 py-2 border border-black/20 hover:border-black text-black font-helvetica text-[9px] font-bold uppercase tracking-widest transition-colors">
                     PRINT INVOICE
                   </button>
                   {selectedOrder.status === 'Pending' && (
-                    <button onClick={() => handleUpdateStatus(selectedOrder.id, 'Processing')} className="bg-[#111111] hover:bg-[#333333] text-white font-helvetica text-[9px] font-bold uppercase tracking-widest px-4 py-2 transition-colors">
+                    <button onClick={() => handleUpdateStatus(selectedOrder.id, 'Processing')} className="bg-black hover:bg-[#333333] text-white font-helvetica text-[9px] font-bold uppercase tracking-widest px-4 py-2 transition-colors">
                       MARK PROCESSING
                     </button>
                   )}
                   {selectedOrder.status === 'Shipped' && (
-                    <button className="px-4 py-2 border border-[#111111]/20 hover:border-red-500 hover:text-red-500 text-[#111111] font-helvetica text-[9px] font-bold uppercase tracking-widest transition-colors">
+                    <button className="px-4 py-2 border border-black/20 hover:border-red-500 hover:text-red-500 text-black font-helvetica text-[9px] font-bold uppercase tracking-widest transition-colors">
                       REFUND
                     </button>
                   )}
@@ -2585,57 +3157,57 @@ const AdminStudioOrders = () => {
               <div className="p-4 md:p-8 lg:p-12 flex flex-col gap-12 w-full">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                   <div className="flex flex-col gap-4">
-                    <span className="font-helvetica text-[9px] font-bold text-[#a0a0a0] uppercase tracking-widest border-b border-[#111111]/10 pb-2">CUSTOMER</span>
-                    <div className="flex flex-col gap-1 text-[11px] font-helvetica font-bold uppercase tracking-widest text-[#111111]">
+                    <span className="font-helvetica text-[9px] font-bold text-[#a0a0a0] uppercase tracking-widest border-b border-black/10 pb-2">CUSTOMER</span>
+                    <div className="flex flex-col gap-1 text-[11px] font-helvetica font-thin capitalize tracking-widest text-black">
                       <span>{selectedOrder.customer}</span>
-                      <a href={`mailto:${selectedOrder.email}`} className="text-[#a0a0a0] hover:text-[#111111] transition-colors">{selectedOrder.email}</a>
-                      <a href={`tel:${selectedOrder.phone}`} className="text-[#a0a0a0] hover:text-[#111111] transition-colors">{selectedOrder.phone}</a>
+                      <a href={`mailto:${selectedOrder.email}`} className="text-[#a0a0a0] hover:text-black transition-colors">{selectedOrder.email}</a>
+                      <a href={`tel:${selectedOrder.phone}`} className="text-[#a0a0a0] hover:text-black transition-colors">{selectedOrder.phone}</a>
                     </div>
                   </div>
                   <div className="flex flex-col gap-4">
-                    <span className="font-helvetica text-[9px] font-bold text-[#a0a0a0] uppercase tracking-widest border-b border-[#111111]/10 pb-2">SHIPPING ADDRESS</span>
-                    <p className="text-[11px] font-helvetica font-bold uppercase tracking-widest text-[#111111] leading-relaxed">
+                    <span className="font-helvetica text-[9px] font-bold text-[#a0a0a0] uppercase tracking-widest border-b border-black/10 pb-2">SHIPPING ADDRESS</span>
+                    <p className="text-[11px] font-helvetica font-thin capitalize tracking-widest text-black leading-relaxed">
                       {(selectedOrder.address || '').split('\n').map((line, i) => <React.Fragment key={i}>{line}<br/></React.Fragment>)}
                     </p>
                   </div>
                 </div>
 
                 <div className="flex flex-col gap-4">
-                  <span className="font-helvetica text-[9px] font-bold text-[#a0a0a0] uppercase tracking-widest border-b border-[#111111]/10 pb-2">ITEMS ({selectedOrder.items.length})</span>
+                  <span className="font-helvetica text-[9px] font-bold text-[#a0a0a0] uppercase tracking-widest border-b border-black/10 pb-2">ITEMS ({selectedOrder.items.length})</span>
                   <div className="flex flex-col">
                     {selectedOrder.items.map((item, i) => (
-                      <div key={i} className="flex justify-between items-start py-4 border-b border-[#111111]/10">
+                      <div key={i} className="flex justify-between items-start py-4 border-b border-black/10">
                         <div className="flex gap-4 items-start">
-                          <div className="w-16 aspect-[4/5] bg-[#F5F5F5] border border-[#111111]/10 flex justify-center items-center font-helvetica text-[9px] text-[#a0a0a0] font-bold uppercase">IMG</div>
+                          <div className="w-16 aspect-[4/5] bg-[#F5F5F5] border border-black/10 flex justify-center items-center font-helvetica text-[9px] text-[#a0a0a0] font-bold uppercase">IMG</div>
                           <div className="flex flex-col gap-1">
-                            <span className="font-helvetica font-bold text-[12px] tracking-tight text-[#111111]">"{item.name}"</span>
+                            <span className="font-helvetica font-bold text-[12px] tracking-tight text-black">"{item.name}"</span>
                             <span className="font-helvetica text-[9px] text-[#a0a0a0] font-bold uppercase tracking-widest">QTY: 0{item.qty}</span>
                           </div>
                         </div>
-                        <span className="font-helvetica font-bold text-[12px] text-[#111111]">${item.price * item.qty}</span>
+                        <span className="font-helvetica font-bold text-[12px] text-black">${item.price * item.qty}</span>
                       </div>
                     ))}
                   </div>
                   
-                  <div className="flex flex-col gap-2 mt-4 bg-[#F5F5F5] p-6 border border-[#111111]/10">
+                  <div className="flex flex-col gap-2 mt-4 bg-[#F5F5F5] p-6 border border-black/10">
                     <div className="flex justify-between items-center">
                       <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest">SUBTOTAL</span>
-                      <span className="font-helvetica text-[#111111] text-[12px] font-bold tracking-tight">${selectedOrder.total}</span>
+                      <span className="font-helvetica text-black text-[12px] font-bold tracking-tight">${selectedOrder.total}</span>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest">SHIPPING</span>
-                      <span className="font-helvetica text-[#111111] text-[12px] font-bold tracking-tight">FREE</span>
+                      <span className="font-helvetica text-black text-[12px] font-bold tracking-tight">FREE</span>
                     </div>
-                    <div className="w-full h-[1px] bg-[#111111]/10 my-2"></div>
+                    <div className="w-full h-[1px] bg-black/10 my-2"></div>
                     <div className="flex justify-between items-baseline">
-                      <span className="font-helvetica font-bold text-[12px] uppercase text-[#111111]">TOTAL</span>
-                      <span className="font-helvetica font-bold text-2xl tracking-tight text-[#111111]">${selectedOrder.total}</span>
+                      <span className="font-helvetica font-bold text-[12px] uppercase text-black">TOTAL</span>
+                      <span className="font-helvetica font-bold text-2xl tracking-tight text-black">${selectedOrder.total}</span>
                     </div>
                   </div>
                 </div>
 
                 <div className="flex flex-col gap-4">
-                  <span className="font-helvetica text-[9px] font-bold text-[#a0a0a0] uppercase tracking-widest border-b border-[#111111]/10 pb-2">FULFILLMENT</span>
+                  <span className="font-helvetica text-[9px] font-bold text-[#a0a0a0] uppercase tracking-widest border-b border-black/10 pb-2">FULFILLMENT</span>
                   
                   {selectedOrder.status !== 'Shipped' ? (
                     <div className="flex flex-col gap-4">
@@ -2644,7 +3216,7 @@ const AdminStudioOrders = () => {
                         <input 
                           type="text" 
                           placeholder="e.g. TRK123456789" 
-                          className="flex-1 bg-white border border-[#111111]/20 px-4 py-2 font-helvetica text-[11px] font-bold uppercase tracking-widest focus:outline-none focus:border-[#111111] placeholder:text-[#a0a0a0]"
+                          className="flex-1 bg-white border border-black/20 px-4 py-2 font-helvetica text-[11px] font-bold uppercase tracking-widest focus:outline-none focus:border-black placeholder:text-[#a0a0a0]"
                           id={`tracking-${selectedOrder.id}`}
                         />
                         <button 
@@ -2652,21 +3224,21 @@ const AdminStudioOrders = () => {
                             const val = document.getElementById(`tracking-${selectedOrder.id}`).value;
                             if(val) handleSaveTracking(selectedOrder.id, val);
                           }} 
-                          className="bg-[#111111] hover:bg-[#333333] text-white font-helvetica text-[9px] font-bold uppercase tracking-widest px-8 py-3 sm:py-0 transition-colors whitespace-nowrap"
+                          className="bg-black hover:bg-[#333333] text-white font-helvetica text-[9px] font-bold uppercase tracking-widest px-8 py-3 sm:py-0 transition-colors whitespace-nowrap"
                         >
                           FULFILL ORDER
                         </button>
                       </div>
                     </div>
                   ) : (
-                    <div className="flex flex-col gap-2 p-6 border border-[#111111] bg-white">
-                      <div className="flex items-center gap-2 text-[#111111]">
+                    <div className="flex flex-col gap-2 p-6 border border-black bg-white">
+                      <div className="flex items-center gap-2 text-black">
                         <span className="font-helvetica font-bold text-[11px] uppercase tracking-widest">ORDER FULFILLED</span>
                       </div>
                       <div className="flex gap-2 mt-2 items-center">
                         <span className="font-helvetica text-[9px] text-[#a0a0a0] font-bold uppercase tracking-widest">TRACKING NO:</span>
-                        <span className="font-helvetica font-bold text-[11px] uppercase tracking-widest text-[#111111]">{selectedOrder.tracking}</span>
-                        <button className="ml-2 px-2 py-1 text-[8px] border border-[#111111]/20 hover:border-[#111111] font-helvetica font-bold uppercase tracking-widest">UPDATE</button>
+                        <span className="font-helvetica font-bold text-[11px] uppercase tracking-widest text-black">{selectedOrder.tracking}</span>
+                        <button className="ml-2 px-2 py-1 text-[8px] border border-black/20 hover:border-black font-helvetica font-thin capitalize tracking-widest">UPDATE</button>
                       </div>
                     </div>
                   )}
@@ -2745,8 +3317,8 @@ const AdminStudioTimeline = () => {
   return (
     <div className="w-full max-w-4xl mx-auto flex flex-col pb-24 items-center">
       <div className="text-center mb-16">
-        <h3 className="font-bebas text-5xl tracking-wide uppercase text-[#111111]">Our Journey</h3>
-        <p className="font-inter-tight text-xs text-zinc-500 uppercase tracking-widest mt-2">Click text to edit • Hover line to add/remove events</p>
+        <h3 className="font-helvetica font-bold text-5xl tracking-wide uppercase text-black">Our Journey</h3>
+        <p className="font-helvetica text-xs text-zinc-500 uppercase tracking-widest mt-2">Click text to edit • Hover line to add/remove events</p>
       </div>
 
       <div className="relative w-full flex flex-col items-center">
@@ -2754,11 +3326,11 @@ const AdminStudioTimeline = () => {
 
         {timeline.map((item, index) => (
           <div key={item.id} className="relative flex flex-col md:flex-row w-full md:justify-between items-start md:items-center group py-8">
-            <div className="absolute left-8 md:left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-2 border-[#111111] rounded-full z-10 transition-transform group-hover:scale-125"></div>
+            <div className="absolute left-8 md:left-1/2 -translate-x-1/2 w-4 h-4 bg-white border-2 border-black rounded-full z-10 transition-transform group-hover:scale-125"></div>
 
             <div className={`w-full md:w-1/2 flex pl-16 md:pl-0 ${index % 2 === 0 ? 'md:order-1 md:justify-end md:pr-12' : 'md:order-3 md:justify-start md:pl-12'}`}>
               <div className="relative flex items-center group/node">
-                <EditableText value={item.year} onChange={v => handleUpdate(item.id, 'year', v)} onSave={v => handleSave(item.id, 'year', v)} className={`font-bebas text-4xl text-zinc-300 w-24 text-left ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`} />
+                <EditableText value={item.year} onChange={v => handleUpdate(item.id, 'year', v)} onSave={v => handleSave(item.id, 'year', v)} className={`font-helvetica font-bold text-4xl text-zinc-300 w-24 text-left ${index % 2 === 0 ? 'md:text-right' : 'md:text-left'}`} />
                 <button onClick={() => handleDeleteNode(item.id)} className={`absolute opacity-0 group-hover/node:opacity-100 text-red-400 hover:text-red-600 transition-opacity p-2 -right-10 md:-right-auto ${index % 2 === 0 ? 'md:-left-10' : 'md:-right-10'}`} title="Remove Event">
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
@@ -2768,20 +3340,20 @@ const AdminStudioTimeline = () => {
             <div className="hidden md:block w-8 shrink-0 order-2"></div>
 
             <div className={`w-full md:w-1/2 flex flex-col mt-2 md:mt-0 pl-16 md:pl-0 ${index % 2 === 0 ? 'md:order-3 md:pl-12 md:items-start' : 'md:order-1 md:pr-12 md:pl-0 md:items-end'}`}>
-              <EditableText value={item.name} onChange={v => handleUpdate(item.id, 'name', v)} onSave={v => handleSave(item.id, 'name', v)} className={`font-inter-tight font-bold text-lg text-[#111111] leading-tight text-left w-full ${index % 2 === 0 ? 'md:text-left' : 'md:text-right'}`} />
-              <EditableText value={item.desc} onChange={v => handleUpdate(item.id, 'desc', v)} onSave={v => handleSave(item.id, 'desc', v)} className={`font-inter text-sm text-zinc-500 mt-1 text-left w-full ${index % 2 === 0 ? 'md:text-left' : 'md:text-right'}`} />
+              <EditableText value={item.name} onChange={v => handleUpdate(item.id, 'name', v)} onSave={v => handleSave(item.id, 'name', v)} className={`font-helvetica font-bold text-lg text-black leading-tight text-left w-full ${index % 2 === 0 ? 'md:text-left' : 'md:text-right'}`} />
+              <EditableText value={item.desc} onChange={v => handleUpdate(item.id, 'desc', v)} onSave={v => handleSave(item.id, 'desc', v)} className={`font-helvetica text-sm text-zinc-500 mt-1 text-left w-full ${index % 2 === 0 ? 'md:text-left' : 'md:text-right'}`} />
             </div>
 
             {index < timeline.length - 1 && (
               <div className="absolute -bottom-4 left-8 md:left-1/2 -translate-x-1/2 w-8 h-8 flex justify-center items-center z-20 opacity-0 group-hover:opacity-100 transition-opacity">
-                <button onClick={() => handleAddNode(index)} className="w-6 h-6 bg-white border border-[#111111] rounded-full text-[#111111] flex justify-center items-center hover:bg-[#111111] hover:text-white transition-colors pb-0.5" title="Insert Event">+</button>
+                <button onClick={() => handleAddNode(index)} className="w-6 h-6 bg-white border border-black rounded-full text-black flex justify-center items-center hover:bg-black hover:text-white transition-colors pb-0.5" title="Insert Event">+</button>
               </div>
             )}
           </div>
         ))}
 
         <div className="relative flex justify-center md:justify-center items-center py-8 w-full pl-16 md:pl-0">
-           <button onClick={() => handleAddNode(timeline.length - 1)} className="w-10 h-10 bg-zinc-100 hover:bg-[#111111] border border-dashed border-zinc-300 hover:border-[#111111] rounded-full text-zinc-400 hover:text-white flex justify-center items-center transition-all pb-1 text-xl absolute left-3 md:static" title="Add Final Event">+</button>
+           <button onClick={() => handleAddNode(timeline.length - 1)} className="w-10 h-10 bg-zinc-100 hover:bg-black border border-dashed border-zinc-300 hover:border-black rounded-full text-zinc-400 hover:text-white flex justify-center items-center transition-all pb-1 text-xl absolute left-3 md:static" title="Add Final Event">+</button>
         </div>
       </div>
     </div>
@@ -2808,7 +3380,8 @@ const AdminStudioSettings = () => {
       latitude_longitude: 'latitude_longitude',
       address: 'address',
       email: 'email',
-      phone: 'phone'
+      phone: 'phone',
+      homeVideo: 'home_video'
     };
     const dbField = dbMap[field] || field;
 
@@ -2827,22 +3400,22 @@ const AdminStudioSettings = () => {
   return (
     <div className="w-full max-w-5xl mx-auto flex flex-col pb-24">
       <div className="flex justify-between items-end mb-12 border-b border-zinc-200 pb-4">
-        <h3 className="font-bebas text-4xl tracking-wide uppercase text-[#111111]">Site Settings & Identity</h3>
+        <h3 className="font-helvetica font-bold text-4xl tracking-wide uppercase text-black">Site Settings & Identity</h3>
       </div>
 
       <div className="flex flex-col gap-8">
-         <span className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-400 border-b border-dashed border-zinc-200 pb-2">01. Visit Us (Location & Hours)</span>
+         <span className="font-helvetica text-xs font-bold uppercase tracking-widest text-zinc-400 border-b border-dashed border-zinc-200 pb-2">01. Visit Us (Location & Hours)</span>
          
          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-4">
             <div className="flex flex-col gap-10">
                <div className="flex flex-col gap-2">
-                 <span className="font-inter font-black text-xl text-[#111111] uppercase">ADDRESS</span>
-                 <EditableTextArea value={settings.address || ''} onChange={v => handleUpdate('address', v)} onSave={v => handleSave('address', v)} className="font-inter text-sm text-zinc-600 leading-relaxed bg-transparent" />
+                 <span className="font-helvetica font-black text-xl text-black uppercase">ADDRESS</span>
+                 <EditableTextArea value={settings.address || ''} onChange={v => handleUpdate('address', v)} onSave={v => handleSave('address', v)} className="font-helvetica text-sm text-zinc-600 leading-relaxed bg-transparent" />
                </div>
                
                <div className="flex flex-col gap-2">
-                 <span className="font-inter font-black text-xl text-[#111111] uppercase">HOURS</span>
-                 <div className="font-inter flex flex-col gap-1.5 mt-2">
+                 <span className="font-helvetica font-black text-xl text-black uppercase">HOURS</span>
+                 <div className="font-helvetica flex flex-col gap-1.5 mt-2">
                     <div className="flex justify-between items-center border-b border-zinc-200/50 py-1">
                         <span className="text-sm text-zinc-600">Wednesday – Thursday</span>
                         <EditableText value={settings.hours1} onChange={v => handleUpdate('hours1', v)} onSave={v => handleSave('hours1', v)} className="text-sm text-zinc-600 text-right w-32 bg-transparent" />
@@ -2863,7 +3436,7 @@ const AdminStudioSettings = () => {
                </div>
 
                <div className="flex flex-col gap-2">
-                 <span className="font-inter font-black text-xl text-[#111111] uppercase">CONTACT</span>
+                 <span className="font-helvetica font-black text-xl text-black uppercase">CONTACT</span>
                  <div className="flex items-center gap-4 mt-2">
                      <span className="text-xs font-bold text-zinc-400 w-12 uppercase tracking-widest">EMAIL</span>
                      <EditableText value={settings.email} onChange={v => handleUpdate('email', v)} onSave={v => handleSave('email', v)} className="text-sm text-zinc-600 bg-transparent" />
@@ -2875,27 +3448,41 @@ const AdminStudioSettings = () => {
                </div>
             </div>
 
-            <div className="flex flex-col">
-               <span className="font-inter font-black text-xl text-[#111111] uppercase mb-4">BAR SPACE PHOTO</span>
-               <EditableImage 
-                 src={settings.barImage} 
-                 aspect="aspect-[16/10]" 
-                 onUpload={(url, isFinal) => {
-                   handleUpdate('barImage', url);
-                   if (isFinal) handleSave('barImage', url);
-                 }} 
-               />
-               <span className="text-[10px] text-zinc-400 uppercase tracking-widest mt-3">Click image to update gallery photo</span>
+            <div className="flex flex-col gap-8">
+              <div className="flex flex-col">
+                 <span className="font-helvetica font-black text-xl text-black uppercase mb-4">BAR SPACE PHOTO</span>
+                 <EditableImage 
+                   src={settings.barImage} 
+                   aspect="aspect-[16/10]" 
+                   onUpload={(url, isFinal) => {
+                     handleUpdate('barImage', url);
+                     if (isFinal) handleSave('barImage', url);
+                   }} 
+                 />
+                 <span className="text-[10px] text-zinc-400 uppercase tracking-widest mt-3">Click image to update gallery photo</span>
+              </div>
+              <div className="flex flex-col">
+                 <span className="font-helvetica font-black text-xl text-black uppercase mb-4">HOME BANNER VIDEO</span>
+                 <EditableVideo 
+                   src={settings.homeVideo} 
+                   aspect="aspect-[16/10]" 
+                   onUpload={(url, isFinal) => {
+                     handleUpdate('homeVideo', url);
+                     if (isFinal) handleSave('homeVideo', url);
+                   }} 
+                 />
+                 <span className="text-[10px] text-zinc-400 uppercase tracking-widest mt-3">Click video to update home banner video</span>
+              </div>
             </div>
          </div>
       </div>
 
       <div className="flex flex-col gap-8 mt-16">
-         <span className="font-inter-tight text-xs font-bold uppercase tracking-widest text-zinc-400 border-b border-dashed border-zinc-200 pb-2">02. Google Map Integration & Location Coordinates</span>
+         <span className="font-helvetica text-xs font-bold uppercase tracking-widest text-zinc-400 border-b border-dashed border-zinc-200 pb-2">02. Google Map Integration & Location Coordinates</span>
          
          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mt-4">
             <div className="flex flex-col gap-2">
-               <span className="font-inter font-black text-xl text-[#111111] uppercase">COORDINATES (LAT, LONG)</span>
+               <span className="font-helvetica font-black text-xl text-black uppercase">COORDINATES (LAT, LONG)</span>
                <EditableText 
                   value={settings.latitude_longitude || "40.7128° N, 74.0060° W"} 
                   onChange={v => handleUpdate('latitude_longitude', v)} 
@@ -2907,7 +3494,7 @@ const AdminStudioSettings = () => {
             </div>
 
             <div className="flex flex-col gap-2">
-               <span className="font-inter font-black text-xl text-[#111111] uppercase">GOOGLE MAP EMBED URL (IFRAME SRC)</span>
+               <span className="font-helvetica font-black text-xl text-black uppercase">GOOGLE MAP EMBED URL (IFRAME SRC)</span>
                <EditableTextArea 
                   value={settings.map_embed_url || "https://www.google.com/maps/embed?..."} 
                   onChange={v => handleUpdate('map_embed_url', v)} 
@@ -2948,14 +3535,14 @@ const AdminLayout = ({ onLogout }) => {
       case 'settings': return <AdminStudioSettings />;
       default: return (
         <div className="w-full h-64 border-2 border-dashed border-zinc-200 flex justify-center items-center">
-          <span className="font-inter font-bold text-zinc-400">Module under construction</span>
+          <span className="font-helvetica font-bold text-zinc-400">Module under construction</span>
         </div>
       );
     }
   };
 
   return (
-    <div className="flex h-screen bg-[#ffffff] overflow-hidden font-inter relative">
+    <div className="flex h-screen bg-[#ffffff] overflow-hidden font-helvetica relative">
       {/* Mobile Overlay */}
       {isSidebarOpen && (
         <div 
@@ -2966,13 +3553,13 @@ const AdminLayout = ({ onLogout }) => {
 
       <aside className={`bg-[#F5F5F5] border-r border-zinc-200 flex flex-col shrink-0 transition-all duration-300 ease-in-out fixed md:relative z-50 h-full ${isSidebarOpen ? 'translate-x-0 w-64' : '-translate-x-full md:translate-x-0 md:w-20'}`}>
         <div className="h-20 flex items-center justify-between px-6 border-b border-zinc-200 shrink-0">
-          {(isSidebarOpen || window.innerWidth < 768) && <span className="font-bebas text-2xl tracking-wide text-[#111111]">STUDIO</span>}
-          <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-zinc-400 hover:text-[#111111] transition-colors p-2 -mr-2 hidden md:block">
+          {(isSidebarOpen || window.innerWidth < 768) && <span className="font-helvetica font-bold text-2xl tracking-wide text-black">STUDIO</span>}
+          <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-zinc-400 hover:text-black transition-colors p-2 -mr-2 hidden md:block">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
-          <button onClick={() => setIsSidebarOpen(false)} className="text-zinc-400 hover:text-[#111111] transition-colors p-2 -mr-2 md:hidden">
+          <button onClick={() => setIsSidebarOpen(false)} className="text-zinc-400 hover:text-black transition-colors p-2 -mr-2 md:hidden">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M6 18L18 6M6 6l12 12" />
             </svg>
@@ -2987,13 +3574,13 @@ const AdminLayout = ({ onLogout }) => {
                 setActiveTab(item.id);
                 if (window.innerWidth < 768) setIsSidebarOpen(false);
               }}
-              className={`w-full flex items-center gap-4 px-4 py-3 rounded-md transition-colors ${activeTab === item.id ? 'bg-white shadow-sm text-[#111111] font-bold' : 'text-zinc-500 hover:bg-zinc-200/50 hover:text-[#111111]'}`}
+              className={`w-full flex items-center gap-4 px-4 py-3 rounded-md transition-colors ${activeTab === item.id ? 'bg-white shadow-sm text-black font-bold' : 'text-zinc-500 hover:bg-zinc-200/50 hover:text-black'}`}
               title={!isSidebarOpen ? item.label : ""}
             >
               <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d={item.icon}></path>
               </svg>
-              {(isSidebarOpen || window.innerWidth < 768) && <span className="font-inter-tight text-[11px] uppercase tracking-widest truncate">{item.label}</span>}
+              {(isSidebarOpen || window.innerWidth < 768) && <span className="font-helvetica text-[11px] uppercase tracking-widest truncate">{item.label}</span>}
             </button>
           ))}
         </nav>
@@ -3001,7 +3588,7 @@ const AdminLayout = ({ onLogout }) => {
         <div className="p-4 border-t border-zinc-200">
           <button onClick={onLogout} className={`w-full flex items-center gap-4 px-4 py-3 rounded-md text-red-500 hover:bg-red-50 transition-colors ${!isSidebarOpen && 'justify-center px-0'}`} title={!isSidebarOpen ? "Logout" : ""}>
             <svg className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
-            {(isSidebarOpen || window.innerWidth < 768) && <span className="font-inter-tight text-[11px] uppercase tracking-widest font-bold">Close Studio</span>}
+            {(isSidebarOpen || window.innerWidth < 768) && <span className="font-helvetica text-[11px] uppercase tracking-widest font-bold">Close Studio</span>}
           </button>
         </div>
       </aside>
@@ -3013,18 +3600,18 @@ const AdminLayout = ({ onLogout }) => {
                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
              </button>
              <div className="flex items-center gap-2 bg-zinc-100/80 px-3 py-1.5 rounded-full border border-zinc-200/50">
-               {syncStatus === 'Mock Mode' && <><span className="w-2 h-2 rounded-full bg-orange-400"></span><span className="font-inter-tight text-[10px] text-zinc-500 uppercase tracking-widest hidden md:inline">Local Mock Mode</span></>}
-               {syncStatus === 'Synced' && <><span className="w-2 h-2 rounded-full bg-green-500"></span><span className="font-inter-tight text-[10px] text-zinc-500 uppercase tracking-widest hidden md:inline">Saved to Cloud</span></>}
+               {syncStatus === 'Mock Mode' && <><span className="w-2 h-2 rounded-full bg-orange-400"></span><span className="font-helvetica text-[10px] text-zinc-500 uppercase tracking-widest hidden md:inline">Local Mock Mode</span></>}
+               {syncStatus === 'Synced' && <><span className="w-2 h-2 rounded-full bg-green-500"></span><span className="font-helvetica text-[10px] text-zinc-500 uppercase tracking-widest hidden md:inline">Saved to Cloud</span></>}
                {syncStatus === 'Saving...' && (
                  <>
                    <svg className="w-3 h-3 text-zinc-500 animate-spin" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                   <span className="font-inter-tight text-[10px] text-zinc-500 uppercase tracking-widest hidden md:inline">Saving...</span>
+                   <span className="font-helvetica text-[10px] text-zinc-500 uppercase tracking-widest hidden md:inline">Saving...</span>
                  </>
                )}
-               {syncStatus === 'Error' && <><span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span><span className="font-inter-tight text-[10px] text-red-500 uppercase tracking-widest hidden md:inline">Save Failed</span></>}
+               {syncStatus === 'Error' && <><span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span><span className="font-helvetica text-[10px] text-red-500 uppercase tracking-widest hidden md:inline">Save Failed</span></>}
              </div>
            </div>
-           <span className="font-helvetica font-bold text-sm text-[#111111] uppercase tracking-tight">
+           <span className="font-helvetica font-bold text-sm text-black uppercase tracking-tight">
               {menuItems.find(m => m.id === activeTab)?.label}
            </span>
         </header>
@@ -3089,11 +3676,11 @@ export default function App() {
 
   if (isDbConnecting) {
     return (
-      <div className="fixed inset-0 bg-[#111111] z-[99999] flex flex-col justify-center items-center">
+      <div className="fixed inset-0 bg-black z-[99999] flex flex-col justify-center items-center">
          <motion.div 
            animate={{ opacity: [0.5, 1, 0.5] }} 
            transition={{ repeat: Infinity, duration: 1.5 }}
-           className="font-inter-tight text-[10px] md:text-xs font-bold uppercase tracking-widest text-[#F5F5F5]"
+           className="font-helvetica text-[10px] md:text-xs font-thin capitalize tracking-widest text-[#F5F5F5]"
          >
            Connecting to Secure Database...
          </motion.div>
