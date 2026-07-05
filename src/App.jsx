@@ -479,7 +479,7 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
         </div>
 
         <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
-           <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-14 sm:h-16 md:h-20 object-contain brightness-0 opacity-80 hover:opacity-100 transition-opacity duration-300" />
+           <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-16 sm:h-20 md:h-24 object-contain brightness-0 opacity-80 hover:opacity-100 transition-opacity duration-300" />
         </div>
 
         <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-black/80">
@@ -612,7 +612,7 @@ const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, cur
         </div>
 
         <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
-           <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-14 sm:h-16 md:h-20 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
+           <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-16 sm:h-20 md:h-24 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
         </div>
 
         <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
@@ -790,7 +790,7 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime,
         </div>
 
         <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
-           <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-14 sm:h-16 md:h-20 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
+           <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-16 sm:h-20 md:h-24 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
         </div>
 
         <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
@@ -1010,7 +1010,7 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
           </div>
 
           <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
-             <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-14 sm:h-16 md:h-20 object-contain brightness-0" />
+             <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-16 sm:h-20 md:h-24 object-contain brightness-0" />
           </div>
 
           <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-black">
@@ -1228,7 +1228,7 @@ const CocktailOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, 
         </div>
 
         <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
-           <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-14 sm:h-16 md:h-20 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
+           <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-16 sm:h-20 md:h-24 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
         </div>
 
         <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
@@ -1550,7 +1550,7 @@ const JourneyOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, c
         </div>
 
         <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
-           <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-14 sm:h-16 md:h-20 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
+           <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-16 sm:h-20 md:h-24 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
         </div>
 
         <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
@@ -2134,7 +2134,7 @@ const FrontendApp = ({ onSecretClick }) => {
           </div>
           
           <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
-             <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-14 sm:h-16 md:h-20 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
+             <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-16 sm:h-20 md:h-24 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
           </div>
 
           <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
