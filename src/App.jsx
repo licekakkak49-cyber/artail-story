@@ -457,7 +457,7 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
 
   return (
     <div className="fixed inset-0 bg-[#ffffff] z-[9999] overflow-y-auto" onScroll={handleScroll}>
-      <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-white/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.05)] pt-[60px] pb-[60px] px-[8vw]">
+      <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-white/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.05)] pt-[25px] pb-[25px] px-[8vw]">
         <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-black/80">
           <span onClick={() => { onClose(); setView('cocktail'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
           <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
@@ -479,7 +479,7 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
         </div>
 
         <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
-           <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-16 sm:h-20 md:h-24 object-contain brightness-0 opacity-80 hover:opacity-100 transition-opacity duration-300" />
+           <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-20 sm:h-24 md:h-28 object-contain brightness-0 opacity-80 hover:opacity-100 transition-opacity duration-300" />
         </div>
 
         <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-black/80">
@@ -590,7 +590,7 @@ const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, cur
 
   return (
     <div className="fixed inset-0 bg-black z-[9999] overflow-y-auto" onScroll={handleScroll}>
-      <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] pt-[60px] pb-[60px] px-[8vw]">
+      <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] pt-[25px] pb-[25px] px-[8vw]">
         <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
           <span onClick={() => { onClose(); setView('cocktail'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
           <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
@@ -612,7 +612,7 @@ const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, cur
         </div>
 
         <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
-           <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-16 sm:h-20 md:h-24 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
+           <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-20 sm:h-24 md:h-28 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
         </div>
 
         <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
@@ -768,7 +768,7 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime,
 
   return (
     <div className="fixed inset-0 bg-black z-[9999] overflow-y-auto">
-      <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] pt-[60px] pb-[60px] px-[8vw]">
+      <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] pt-[25px] pb-[25px] px-[8vw]">
         <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
           <span onClick={() => { onClose(); setView('cocktail'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
           <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
@@ -790,7 +790,7 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime,
         </div>
 
         <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
-           <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-16 sm:h-20 md:h-24 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
+           <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-20 sm:h-24 md:h-28 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
         </div>
 
         <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
@@ -987,7 +987,7 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
 
   return (
     <div ref={overlayRef} className="fixed inset-0 bg-[#F5F5F5] z-[9999] overflow-y-auto" onScroll={handleScroll}>
-      <div className={`sticky top-0 w-full z-50 px-6 py-7 transition-all duration-300 ${isSticky ? 'bg-[#F5F5F5]/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
+      <div className={`sticky top-0 w-full z-50 px-6 py-5 transition-all duration-300 ${isSticky ? 'bg-[#F5F5F5]/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
         <div className="flex justify-between items-center w-full relative">
           <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-black">
             <span onClick={() => { onClose(); setView('cocktail'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
@@ -1010,7 +1010,7 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
           </div>
 
           <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
-             <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-16 sm:h-20 md:h-24 object-contain brightness-0" />
+             <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-20 sm:h-24 md:h-28 object-contain brightness-0" />
           </div>
 
           <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-black">
@@ -1206,7 +1206,7 @@ const CocktailOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, 
 
   return (
     <div className="fixed inset-0 bg-black z-[9999] overflow-y-auto" onScroll={handleScroll}>
-      <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] pt-[60px] pb-[60px] px-[8vw]">
+      <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] pt-[25px] pb-[25px] px-[8vw]">
         <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
           <span onClick={() => { if (typeof onClose === 'function') onClose(); setView('cocktail'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
           <span onClick={() => { if (typeof onClose === 'function') onClose(); setView('editorial'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
@@ -1228,7 +1228,7 @@ const CocktailOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, 
         </div>
 
         <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
-           <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-16 sm:h-20 md:h-24 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
+           <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-20 sm:h-24 md:h-28 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
         </div>
 
         <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
@@ -1528,7 +1528,7 @@ const JourneyOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, c
 
   return (
     <div className="fixed inset-0 bg-black z-[9999] overflow-y-auto" onScroll={handleScroll}>
-      <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] pt-[60px] pb-[60px] px-[8vw]">
+      <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] pt-[25px] pb-[25px] px-[8vw]">
         <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
           <span onClick={() => { onClose(); setView('cocktail'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
           <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
@@ -1550,7 +1550,7 @@ const JourneyOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, c
         </div>
 
         <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
-           <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-16 sm:h-20 md:h-24 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
+           <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-20 sm:h-24 md:h-28 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
         </div>
 
         <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
@@ -2111,7 +2111,7 @@ const FrontendApp = ({ onSecretClick }) => {
           animate={{ y: "0%", opacity: 1 }}
           exit={{ y: "-100%", opacity: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] pt-[60px] pb-[60px] px-[8vw] md:px-[8vw]"
+          className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] pt-[25px] pb-[25px] px-[8vw] md:px-[8vw]"
         >
           <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
             <span onClick={() => setView('cocktail')} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
@@ -2134,7 +2134,7 @@ const FrontendApp = ({ onSecretClick }) => {
           </div>
           
           <div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>
-             <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-16 sm:h-20 md:h-24 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
+             <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-20 sm:h-24 md:h-28 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
           </div>
 
           <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
