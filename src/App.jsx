@@ -1999,6 +1999,11 @@ const FrontendApp = ({ onSecretClick }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { settings, cocktails } = useData(); 
   const { scrollY } = useScroll();
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setIsScrolled(latest > 50);
+  });
 
   const [view, setView] = useState('home');
   const [overlayView, setOverlayView] = useState('grid');
@@ -2111,7 +2116,11 @@ const FrontendApp = ({ onSecretClick }) => {
           animate={{ y: "0%", opacity: 1 }}
           exit={{ y: "-100%", opacity: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] h-32 sm:h-36 md:h-40 px-[8vw] md:px-[8vw]"
+          className={`fixed top-0 left-0 w-full z-[999] flex justify-between items-center transition-all duration-500 h-32 sm:h-36 md:h-40 px-[8vw] md:px-[8vw] ${
+            view === 'home' && !isScrolled
+              ? 'bg-transparent backdrop-blur-none shadow-none'
+              : 'bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)]'
+          }`}
         >
           <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
             <span onClick={() => setView('cocktail')} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
