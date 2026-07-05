@@ -457,7 +457,7 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
 
   return (
     <div className="fixed inset-0 bg-[#ffffff] z-[9999] overflow-y-auto" onScroll={handleScroll}>
-      <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-white/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.05)] h-28 sm:h-32 md:h-36 px-[8vw]">
+      <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-white/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.05)] h-32 sm:h-36 md:h-40 px-[8vw]">
         <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-black/80">
           <span onClick={() => { onClose(); setView('cocktail'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
           <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
@@ -590,7 +590,7 @@ const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, cur
 
   return (
     <div className="fixed inset-0 bg-black z-[9999] overflow-y-auto" onScroll={handleScroll}>
-      <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] h-28 sm:h-32 md:h-36 px-[8vw]">
+      <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] h-32 sm:h-36 md:h-40 px-[8vw]">
         <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
           <span onClick={() => { onClose(); setView('cocktail'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
           <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
@@ -768,7 +768,7 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime,
 
   return (
     <div className="fixed inset-0 bg-black z-[9999] overflow-y-auto">
-      <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] h-28 sm:h-32 md:h-36 px-[8vw]">
+      <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] h-32 sm:h-36 md:h-40 px-[8vw]">
         <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
           <span onClick={() => { onClose(); setView('cocktail'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
           <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
@@ -987,7 +987,7 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
 
   return (
     <div ref={overlayRef} className="fixed inset-0 bg-[#F5F5F5] z-[9999] overflow-y-auto" onScroll={handleScroll}>
-      <div className={`sticky top-0 w-full z-50 px-6 h-28 sm:h-32 md:h-36 flex items-center transition-all duration-300 ${isSticky ? 'bg-[#F5F5F5]/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
+      <div className={`sticky top-0 w-full z-50 px-6 h-32 sm:h-36 md:h-40 flex items-center transition-all duration-300 ${isSticky ? 'bg-[#F5F5F5]/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
         <div className="flex justify-between items-center w-full relative">
           <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-black">
             <span onClick={() => { onClose(); setView('cocktail'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
@@ -1206,7 +1206,7 @@ const CocktailOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, 
 
   return (
     <div className="fixed inset-0 bg-black z-[9999] overflow-y-auto" onScroll={handleScroll}>
-      <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] h-28 sm:h-32 md:h-36 px-[8vw]">
+      <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] h-32 sm:h-36 md:h-40 px-[8vw]">
         <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
           <span onClick={() => { if (typeof onClose === 'function') onClose(); setView('cocktail'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
           <span onClick={() => { if (typeof onClose === 'function') onClose(); setView('editorial'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
@@ -1528,7 +1528,7 @@ const JourneyOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, c
 
   return (
     <div className="fixed inset-0 bg-black z-[9999] overflow-y-auto" onScroll={handleScroll}>
-      <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] h-28 sm:h-32 md:h-36 px-[8vw]">
+      <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] h-32 sm:h-36 md:h-40 px-[8vw]">
         <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
           <span onClick={() => { onClose(); setView('cocktail'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
           <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
@@ -2111,7 +2111,7 @@ const FrontendApp = ({ onSecretClick }) => {
           animate={{ y: "0%", opacity: 1 }}
           exit={{ y: "-100%", opacity: 0 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
-          className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] h-28 sm:h-32 md:h-36 px-[8vw] md:px-[8vw]"
+          className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] h-32 sm:h-36 md:h-40 px-[8vw] md:px-[8vw]"
         >
           <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
             <span onClick={() => setView('cocktail')} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
