@@ -1,12 +1,20 @@
 const fs = require('fs');
-let file = fs.readFileSync('src/App.jsx', 'utf8');
+const file = '/Users/aliceer/wayd-gallery-2/src/App.jsx';
+let content = fs.readFileSync(file, 'utf8');
 
-// The original wrapper
-const oldWrapper1 = '<div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center pointer-events-none">';
+// Replace D.svg logo in navbars
+// Pattern: <img src=".../D.svg" alt="logo" className="h-9 sm:h-11 md:h-12 object-contain brightness-0" />
+// Pattern: <img src=".../D.svg" alt="logo" className="h-9 sm:h-11 md:h-12 object-contain brightness-0 invert" />
 
-// The new wrapper
-const newWrapper1 = `<div className="absolute left-1/2 top-[50%] -translate-x-1/2 -translate-y-1/2 flex justify-center items-center cursor-pointer" onClick={() => { window.scrollTo({ top: 0, behavior: 'smooth' }); if (typeof onClose === 'function') onClose(); else if (typeof setView === 'function') setView('home'); }}>`;
+content = content.replace(
+  /<img src="[^"]*D\.svg" alt="logo" className="h-9 sm:h-11 md:h-12 object-contain brightness-0 invert" \/>/g,
+  '<img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-12 sm:h-14 md:h-16 object-contain brightness-0 invert" />'
+);
 
-file = file.split(oldWrapper1).join(newWrapper1);
+content = content.replace(
+  /<img src="[^"]*D\.svg" alt="logo" className="h-9 sm:h-11 md:h-12 object-contain brightness-0" \/>/g,
+  '<img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-12 sm:h-14 md:h-16 object-contain brightness-0" />'
+);
 
-fs.writeFileSync('src/App.jsx', file);
+fs.writeFileSync(file, content, 'utf8');
+console.log('Logo updated');
