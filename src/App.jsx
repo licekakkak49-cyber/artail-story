@@ -661,7 +661,7 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-[#ffffff] z-[90] flex flex-col justify-center items-center gap-6 sm:gap-8 md:gap-12 pt-28 sm:pt-32 pb-8 overflow-y-auto font-helvetica uppercase"
+              className="fixed inset-0 bg-[#ffffff] z-[90] flex flex-col justify-evenly items-center pt-[140px] pb-[40px] h-[100dvh] overflow-y-auto gap-2 font-helvetica uppercase"
               style={{ pointerEvents: 'auto' }}
             >
               <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('cocktail'); }} className="text-black text-2xl font-light capitalize tracking-widest cursor-pointer">Menu</span>
@@ -1021,7 +1021,7 @@ const NewsOverlay = ({ onClose, cartCount, setView, setOverlayView, currentUser,
         {isMobileMenuOpen && (
           <motion.div 
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black z-[90] flex flex-col justify-center items-center gap-6 sm:gap-8 md:gap-12 pt-28 sm:pt-32 pb-8 overflow-y-auto font-helvetica uppercase text-[#F5F5F5]"
+            className="fixed inset-0 bg-black z-[90] flex flex-col justify-evenly items-center pt-[140px] pb-[40px] h-[100dvh] overflow-y-auto gap-2 font-helvetica uppercase text-[#F5F5F5]"
             style={{ pointerEvents: 'auto' }}
           >
             <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('cocktail'); }} className="text-2xl font-light capitalize tracking-widest cursor-pointer">Menu</span>
@@ -1123,7 +1123,7 @@ const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, cur
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black z-[90] flex flex-col justify-center items-center gap-6 sm:gap-8 md:gap-12 pt-28 sm:pt-32 pb-8 overflow-y-auto font-helvetica uppercase"
+            className="fixed inset-0 bg-black z-[90] flex flex-col justify-evenly items-center pt-[140px] pb-[40px] h-[100dvh] overflow-y-auto gap-2 font-helvetica uppercase"
             style={{ pointerEvents: 'auto' }}
           >
             <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('cocktail'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">Menu</span>
@@ -1303,7 +1303,7 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime,
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black z-[90] flex flex-col justify-center items-center gap-6 sm:gap-8 md:gap-12 pt-28 sm:pt-32 pb-8 overflow-y-auto font-helvetica uppercase"
+            className="fixed inset-0 bg-black z-[90] flex flex-col justify-evenly items-center pt-[140px] pb-[40px] h-[100dvh] overflow-y-auto gap-2 font-helvetica uppercase"
             style={{ pointerEvents: 'auto' }}
           >
             <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('cocktail'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">Menu</span>
@@ -1528,7 +1528,7 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-[#ffffff] z-[90] flex flex-col justify-center items-center gap-6 sm:gap-8 md:gap-12 pt-28 sm:pt-32 pb-8 overflow-y-auto font-helvetica uppercase"
+              className="fixed inset-0 bg-[#ffffff] z-[90] flex flex-col justify-evenly items-center pt-[140px] pb-[40px] h-[100dvh] overflow-y-auto gap-2 font-helvetica uppercase"
               style={{ pointerEvents: 'auto' }}
             >
               <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('cocktail'); }} className="text-black text-2xl font-light capitalize tracking-widest cursor-pointer">Menu</span>
@@ -1820,7 +1820,7 @@ const CocktailOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black z-[90] flex flex-col justify-center items-center gap-6 sm:gap-8 md:gap-12 pt-28 sm:pt-32 pb-8 overflow-y-auto font-helvetica uppercase"
+            className="fixed inset-0 bg-black z-[90] flex flex-col justify-evenly items-center pt-[140px] pb-[40px] h-[100dvh] overflow-y-auto gap-2 font-helvetica uppercase"
             style={{ pointerEvents: 'auto' }}
           >
             <span onClick={() => { setIsMobileMenuOpen(false); if (typeof onClose === 'function') onClose(); setView('cocktail'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">Menu</span>
@@ -2090,7 +2090,7 @@ const JourneyOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, c
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black z-[90] flex flex-col justify-center items-center gap-6 sm:gap-8 md:gap-12 pt-28 sm:pt-32 pb-8 overflow-y-auto font-helvetica uppercase"
+              className="fixed inset-0 bg-black z-[90] flex flex-col justify-evenly items-center pt-[140px] pb-[40px] h-[100dvh] overflow-y-auto gap-2 font-helvetica uppercase"
               style={{ pointerEvents: 'auto' }}
             >
               <span onClick={() => { setIsMobileMenuOpen(false); setView('home'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">Home</span>
@@ -2401,7 +2401,7 @@ const HeroLandingStage = ({ setView, setOverlayView, cartCount, scrollToMenu, cu
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black z-[90] flex flex-col justify-center items-center gap-6 sm:gap-8 md:gap-12 pt-28 sm:pt-32 pb-8 overflow-y-auto font-helvetica uppercase"
+              className="fixed inset-0 bg-black z-[90] flex flex-col justify-evenly items-center pt-[140px] pb-[40px] h-[100dvh] overflow-y-auto gap-2 font-helvetica uppercase"
               style={{ pointerEvents: 'auto' }}
             >
               <span onClick={() => { setIsMobileMenuOpen(false); setView('cocktail'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">Menu</span>
@@ -2688,7 +2688,7 @@ const FrontendApp = ({ onSecretClick, onAdminDirectLogin }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black z-[90] flex flex-col justify-center items-center gap-6 sm:gap-8 md:gap-12 pt-28 sm:pt-32 pb-8 overflow-y-auto font-helvetica uppercase"
+            className="fixed inset-0 bg-black z-[90] flex flex-col justify-evenly items-center pt-[140px] pb-[40px] h-[100dvh] overflow-y-auto gap-2 font-helvetica uppercase"
             style={{ pointerEvents: 'auto' }}
           >
             <span onClick={() => { setIsMobileMenuOpen(false); setView('cocktail'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">Menu</span>
