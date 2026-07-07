@@ -610,7 +610,7 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
   return (
     <div className="fixed inset-0 bg-[#ffffff] z-[9999] overflow-y-auto" onScroll={handleScroll}>
       <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-white/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.05)] h-32 sm:h-36 md:h-40 px-[8vw]">
-        <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-black/80">
+        <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-light capitalize tracking-widest text-black/80">
           <span onClick={() => { onClose(); setView('cocktail'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
           <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
           <span onClick={openGrid} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Shop</span>
@@ -622,7 +622,7 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
         <div className="md:hidden flex items-center z-[1001]">
           <button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
-            className="flex flex-col justify-between w-5 h-3 cursor-pointer focus:outline-none text-black bg-transparent border-none p-0"
+            className="flex flex-col justify-between w-6 h-[14px] cursor-pointer p-2 box-content -m-2 focus:outline-none text-black bg-transparent border-none p-0"
             aria-label="Toggle Menu"
           >
             <span className="w-full h-[1px] bg-current transition-transform duration-300 origin-left" style={{ transform: isMobileMenuOpen ? 'rotate(45deg) translate(1px, -1px)' : 'none' }}></span>
@@ -635,8 +635,8 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
            <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-20 sm:h-24 md:h-28 object-contain brightness-0 opacity-80 hover:opacity-100 transition-opacity duration-300" />
         </div>
 
-        <div className="flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-black/80">
-          <span onClick={openBag} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300 mr-4 sm:mr-6 md:mr-8">Bag ({cartCount})</span>
+        <div className="flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-light capitalize tracking-widest text-black/80">
+          <span onClick={openBag} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300 mr-4 sm:mr-6 md:mr-8">BAG ({cartCount})</span>
           <span onClick={() => {
             if (currentUser) {
               onClose();
@@ -651,7 +651,7 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
         </div>
       </nav>
       {/* Main Content Area */}
-      <div className="w-full pt-[160px] md:pt-[180px] px-[8vw] pb-32 flex flex-col bg-white text-black">
+      <div className="w-full pt-[200px] md:pt-[220px] px-[8vw] pb-32 flex flex-col bg-white text-black">
         <h1 className="font-helvetica font-bold text-[40px] leading-[0.9] tracking-tight uppercase text-black mb-4 md:mb-8">
           SHOP
         </h1>
@@ -664,14 +664,20 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
               className="fixed inset-0 bg-[#ffffff] z-[90] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
               style={{ pointerEvents: 'auto' }}
             >
-              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('cocktail'); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">Menu</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('editorial'); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">About</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); openGrid(); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">Shop</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('journey'); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">{(settings?.journey_title || "Our Journey").replace(/\n/g, ' ')}</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('news'); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">News</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('visit'); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">Visit</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('cocktail'); }} className="text-black text-2xl font-light capitalize tracking-widest cursor-pointer">Menu</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('editorial'); }} className="text-black text-2xl font-light capitalize tracking-widest cursor-pointer">About</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); openGrid(); }} className="text-black text-2xl font-light capitalize tracking-widest cursor-pointer">Shop</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('journey'); }} className="text-black text-2xl font-light capitalize tracking-widest cursor-pointer">{(settings?.journey_title || "Our Journey").replace(/\n/g, ' ')}</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('news'); }} className="text-black text-2xl font-light capitalize tracking-widest cursor-pointer">News</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('visit'); }} className="text-black text-2xl font-light capitalize tracking-widest cursor-pointer">Visit</span>
               
               <div className="flex flex-col gap-4 mt-8 w-full max-w-[280px]">
+                <button 
+                  onClick={() => { setIsMobileMenuOpen(false); setOverlayView('bag'); }} 
+                  className="border border-black/20 text-black hover:bg-black hover:text-white rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase transition-all duration-300"
+                >
+                  BAG ({cartCount})
+                </button>
                 <button 
                   onClick={() => {
                     setIsMobileMenuOpen(false);
@@ -699,7 +705,7 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
           <ProductDetail item={selectedItem} onNavigate={openDetail} onAcquire={handleAcquire} onBack={openGrid} />
         ) : (
           <div className="w-full mt-10 md:mt-14">
-            <div className="flex justify-between items-center w-full mb-4 md:mb-6 text-[10px] md:text-xs font-helvetica font-thin capitalize tracking-widest text-black px-0">
+            <div className="flex justify-between items-center w-full mb-4 md:mb-6 text-[10px] md:text-xs font-helvetica font-light capitalize tracking-widest text-black px-0">
               <span>OBJECTS ({catalogue.length})</span>
               <span>SHOW ALL</span>
             </div>
@@ -797,7 +803,7 @@ const NewsOverlay = ({ onClose, cartCount, setView, setOverlayView, currentUser,
   return (
     <div className="fixed inset-0 bg-black z-[9999] overflow-y-auto" onScroll={handleScroll}>
       <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] h-32 sm:h-36 md:h-40 px-[8vw]">
-        <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
+        <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-light capitalize tracking-widest text-[#F5F5F5]/80">
           <span onClick={() => { onClose(); setView('cocktail'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
           <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
           <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Shop</span>
@@ -809,7 +815,7 @@ const NewsOverlay = ({ onClose, cartCount, setView, setOverlayView, currentUser,
         <div className="md:hidden flex items-center z-[1001]">
           <button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
-            className="flex flex-col justify-between w-5 h-3 cursor-pointer focus:outline-none text-[#F5F5F5] bg-transparent border-none p-0"
+            className="flex flex-col justify-between w-6 h-[14px] cursor-pointer p-2 box-content -m-2 focus:outline-none text-[#F5F5F5] bg-transparent border-none p-0"
           >
             <span className="w-full h-[1px] bg-current transition-transform duration-300 origin-left" style={{ transform: isMobileMenuOpen ? 'rotate(45deg) translate(1px, -1px)' : 'none' }}></span>
             <span className="w-full h-[1px] bg-current transition-opacity duration-300" style={{ opacity: isMobileMenuOpen ? 0 : 1 }}></span>
@@ -821,15 +827,15 @@ const NewsOverlay = ({ onClose, cartCount, setView, setOverlayView, currentUser,
            <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-20 sm:h-24 md:h-28 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
         </div>
 
-        <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
-          <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300 mr-4 sm:mr-6 md:mr-8">Bag ({cartCount})</span>
+        <div className="flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-light capitalize tracking-widest text-[#F5F5F5]/80">
+          <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300 mr-4 sm:mr-6 md:mr-8">BAG ({cartCount})</span>
           <span onClick={() => {
             if (currentUser) {
               onClose(); setView('catalogue'); setEcommerceView('profile');
             } else {
               onClose(); setView('catalogue'); setEcommerceView('auth');
             }
-          }} className="cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-[#F5F5F5]/20 rounded-full hover:bg-[#F5F5F5] hover:text-black hover:border-[#F5F5F5] transition-all duration-300">
+          }} className="hidden md:inline-block cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-[#F5F5F5]/20 rounded-full hover:bg-[#F5F5F5] hover:text-black hover:border-[#F5F5F5] transition-all duration-300">
             {currentUser ? 'Account' : 'Log In'}
           </span>
         </div>
@@ -1018,12 +1024,36 @@ const NewsOverlay = ({ onClose, cartCount, setView, setOverlayView, currentUser,
             className="fixed inset-0 bg-black z-[90] flex flex-col justify-center items-center gap-12 font-helvetica uppercase text-[#F5F5F5]"
             style={{ pointerEvents: 'auto' }}
           >
-            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('cocktail'); }} className="text-2xl font-thin capitalize tracking-widest cursor-pointer">Menu</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('editorial'); }} className="text-2xl font-thin capitalize tracking-widest cursor-pointer">About</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('grid'); }} className="text-2xl font-thin capitalize tracking-widest cursor-pointer">Shop</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('journey'); }} className="text-2xl font-thin capitalize tracking-widest cursor-pointer">{(settings?.journey_title || "Our Journey").replace(/\n/g, ' ')}</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('news'); }} className="text-[#C28256] text-2xl font-thin capitalize tracking-widest cursor-pointer">News</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('visit'); }} className="text-2xl font-thin capitalize tracking-widest cursor-pointer">Visit</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('cocktail'); }} className="text-2xl font-light capitalize tracking-widest cursor-pointer">Menu</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('editorial'); }} className="text-2xl font-light capitalize tracking-widest cursor-pointer">About</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('grid'); }} className="text-2xl font-light capitalize tracking-widest cursor-pointer">Shop</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('journey'); }} className="text-2xl font-light capitalize tracking-widest cursor-pointer">{(settings?.journey_title || "Our Journey").replace(/\n/g, ' ')}</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('news'); }} className="text-[#C28256] text-2xl font-light capitalize tracking-widest cursor-pointer">News</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('visit'); }} className="text-2xl font-light capitalize tracking-widest cursor-pointer">Visit</span>
+            
+            <div className="flex flex-col gap-4 mt-8 w-full max-w-[280px]">
+              <button 
+                onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('bag'); }} 
+                className="border border-white/20 text-[#F5F5F5] hover:bg-white hover:text-black rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase transition-all duration-300"
+              >
+                BAG ({cartCount})
+              </button>
+              <button 
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  if (currentUser) {
+                    onClose();
+                    setEcommerceView('profile');
+                  } else {
+                    onClose();
+                    setEcommerceView('auth');
+                  }
+                }} 
+                className="bg-white text-black hover:bg-white/80 rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase font-bold transition-all duration-300"
+              >
+                {currentUser ? 'Account' : 'Log In'}
+              </button>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -1047,7 +1077,7 @@ const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, cur
   return (
     <div className="fixed inset-0 bg-black z-[9999] overflow-y-auto" onScroll={handleScroll}>
       <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] h-32 sm:h-36 md:h-40 px-[8vw]">
-        <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
+        <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-light capitalize tracking-widest text-[#F5F5F5]/80">
           <span onClick={() => { onClose(); setView('cocktail'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
           <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
           <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Shop</span>
@@ -1059,7 +1089,7 @@ const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, cur
         <div className="md:hidden flex items-center z-[1001]">
           <button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
-            className="flex flex-col justify-between w-5 h-3 cursor-pointer focus:outline-none text-[#F5F5F5] bg-transparent border-none p-0"
+            className="flex flex-col justify-between w-6 h-[14px] cursor-pointer p-2 box-content -m-2 focus:outline-none text-[#F5F5F5] bg-transparent border-none p-0"
             aria-label="Toggle Menu"
           >
             <span className="w-full h-[1px] bg-current transition-transform duration-300 origin-left" style={{ transform: isMobileMenuOpen ? 'rotate(45deg) translate(1px, -1px)' : 'none' }}></span>
@@ -1072,8 +1102,8 @@ const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, cur
            <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-20 sm:h-24 md:h-28 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
         </div>
 
-        <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
-          <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300 mr-4 sm:mr-6 md:mr-8">Bag ({cartCount})</span>
+        <div className="flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-light capitalize tracking-widest text-[#F5F5F5]/80">
+          <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300 mr-4 sm:mr-6 md:mr-8">BAG ({cartCount})</span>
           <span onClick={() => {
             if (currentUser) {
               onClose();
@@ -1082,7 +1112,7 @@ const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, cur
               onClose();
               setEcommerceView('auth');
             }
-          }} className="cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-white/20 rounded-full hover:bg-white hover:text-black hover:border-white transition-all duration-300">
+          }} className="hidden md:inline-block cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-white/20 rounded-full hover:bg-white hover:text-black hover:border-white transition-all duration-300">
             {currentUser ? 'Account' : 'Log In'}
           </span>
         </div>
@@ -1096,19 +1126,19 @@ const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, cur
             className="fixed inset-0 bg-black z-[90] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
             style={{ pointerEvents: 'auto' }}
           >
-            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('cocktail'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Menu</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('editorial'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">About</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Shop</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('journey'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">{(settings?.journey_title || "Our Journey").replace(/\n/g, ' ')}</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('news'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">News</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('visit'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Visit</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('cocktail'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">Menu</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('editorial'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">About</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">Shop</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('journey'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">{(settings?.journey_title || "Our Journey").replace(/\n/g, ' ')}</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('news'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">News</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('visit'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">Visit</span>
             
             <div className="flex flex-col gap-4 mt-8 w-full max-w-[280px]">
               <button 
                 onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('bag'); }} 
                 className="border border-white/20 text-[#F5F5F5] hover:bg-white hover:text-black rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase transition-all duration-300"
               >
-                Bag ({cartCount})
+                BAG ({cartCount})
               </button>
               <button 
                 onClick={() => {
@@ -1131,7 +1161,7 @@ const VisitOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, cur
       </AnimatePresence>
 
       {/* Main Content Area */}
-      <div className="w-full pt-[160px] md:pt-[180px] px-[12vw] md:px-[22vw] pb-32 flex flex-col bg-black text-[#F5F5F5]">
+      <div className="w-full pt-[200px] md:pt-[220px] px-[12vw] md:px-[22vw] pb-32 flex flex-col bg-black text-[#F5F5F5]">
         <h1 className="font-helvetica font-bold text-[40px] leading-[0.9] tracking-tight uppercase text-[#F5F5F5] mb-4 md:mb-8">
           VISIT US
         </h1>
@@ -1227,7 +1257,7 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime,
   return (
     <div className="fixed inset-0 bg-black z-[9999] overflow-y-auto">
       <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] h-32 sm:h-36 md:h-40 px-[8vw]">
-        <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
+        <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-light capitalize tracking-widest text-[#F5F5F5]/80">
           <span onClick={() => { onClose(); setView('cocktail'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
           <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
           <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Shop</span>
@@ -1239,7 +1269,7 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime,
         <div className="md:hidden flex items-center z-[1001]">
           <button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
-            className="flex flex-col justify-between w-5 h-3 cursor-pointer focus:outline-none text-[#F5F5F5] bg-transparent border-none p-0"
+            className="flex flex-col justify-between w-6 h-[14px] cursor-pointer p-2 box-content -m-2 focus:outline-none text-[#F5F5F5] bg-transparent border-none p-0"
             aria-label="Toggle Menu"
           >
             <span className="w-full h-[1px] bg-current transition-transform duration-300 origin-left" style={{ transform: isMobileMenuOpen ? 'rotate(45deg) translate(1px, -1px)' : 'none' }}></span>
@@ -1252,8 +1282,8 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime,
            <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-20 sm:h-24 md:h-28 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
         </div>
 
-        <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
-          <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300 mr-4 sm:mr-6 md:mr-8">Bag ({cartCount})</span>
+        <div className="flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-light capitalize tracking-widest text-[#F5F5F5]/80">
+          <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300 mr-4 sm:mr-6 md:mr-8">BAG ({cartCount})</span>
           <span onClick={() => {
             if (currentUser) {
               onClose();
@@ -1262,7 +1292,7 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime,
               onClose();
               setEcommerceView('auth');
             }
-          }} className="cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-white/20 rounded-full hover:bg-white hover:text-black hover:border-white transition-all duration-300">
+          }} className="hidden md:inline-block cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-white/20 rounded-full hover:bg-white hover:text-black hover:border-white transition-all duration-300">
             {currentUser ? 'Account' : 'Log In'}
           </span>
         </div>
@@ -1276,19 +1306,19 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime,
             className="fixed inset-0 bg-black z-[90] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
             style={{ pointerEvents: 'auto' }}
           >
-            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('cocktail'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Menu</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('editorial'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">About</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Shop</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('journey'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">{(settings?.journey_title || "Our Journey").replace(/\n/g, ' ')}</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('news'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">News</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('visit'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Visit</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('cocktail'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">Menu</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('editorial'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">About</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">Shop</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('journey'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">{(settings?.journey_title || "Our Journey").replace(/\n/g, ' ')}</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('news'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">News</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('visit'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">Visit</span>
             
             <div className="flex flex-col gap-4 mt-8 w-full max-w-[280px]">
               <button 
                 onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('bag'); }} 
                 className="border border-white/20 text-[#F5F5F5] hover:bg-white hover:text-black rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase transition-all duration-300"
               >
-                Bag ({cartCount})
+                BAG ({cartCount})
               </button>
               <button 
                 onClick={() => {
@@ -1311,7 +1341,7 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime,
       </AnimatePresence>
 
       {/* Main Content Area */}
-      <div className="w-full pt-[160px] md:pt-[180px] px-[8vw] pb-32 flex flex-col bg-black text-[#F5F5F5]">
+      <div className="w-full pt-[200px] md:pt-[220px] px-[8vw] pb-32 flex flex-col bg-black text-[#F5F5F5]">
         <h1 className="font-helvetica font-bold text-[40px] leading-[0.9] tracking-tight uppercase text-[#F5F5F5] mb-4 md:mb-8">
           ABOUT
         </h1>
@@ -1450,7 +1480,7 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
     <div ref={overlayRef} className="fixed inset-0 bg-[#F5F5F5] z-[9999] overflow-y-auto" onScroll={handleScroll}>
       <div className={`sticky top-0 w-full z-50 px-6 h-32 sm:h-36 md:h-40 flex items-center transition-all duration-300 ${isSticky ? 'bg-[#F5F5F5]/90 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.03)]' : 'bg-transparent'}`}>
         <div className="flex justify-between items-center w-full relative">
-          <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-black">
+          <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-light capitalize tracking-widest text-black">
             <span onClick={() => { onClose(); setView('cocktail'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
             <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
             <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Shop</span>
@@ -1462,7 +1492,7 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
           <div className="md:hidden flex items-center z-[1001]">
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
-              className="flex flex-col justify-between w-5 h-3 cursor-pointer focus:outline-none text-black bg-transparent border-none p-0"
+              className="flex flex-col justify-between w-6 h-[14px] cursor-pointer p-2 box-content -m-2 focus:outline-none text-black bg-transparent border-none p-0"
               aria-label="Toggle Menu"
             >
               <span className="w-full h-[1px] bg-current transition-transform duration-300 origin-left" style={{ transform: isMobileMenuOpen ? 'rotate(45deg) translate(1px, -1px)' : 'none' }}></span>
@@ -1475,7 +1505,7 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
              <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-20 sm:h-24 md:h-28 object-contain brightness-0" />
           </div>
 
-          <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-black">
+          <div className="flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-light capitalize tracking-widest text-black">
             <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300 mr-4 sm:mr-6 md:mr-8">
               BAG ({cartCount})
             </span>
@@ -1487,7 +1517,7 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
                 onClose();
                 setEcommerceView('auth');
               }
-            }} className="cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-black/20 rounded-full hover:bg-black hover:text-white hover:border-black transition-all duration-300">
+            }} className="hidden md:inline-block cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-black/20 rounded-full hover:bg-black hover:text-white hover:border-black transition-all duration-300">
               {currentUser ? 'Account' : 'Log In'}
             </span>
           </div>
@@ -1501,19 +1531,19 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
               className="fixed inset-0 bg-[#ffffff] z-[90] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
               style={{ pointerEvents: 'auto' }}
             >
-              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('cocktail'); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">Menu</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('editorial'); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">About</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('grid'); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">Shop</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('journey'); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">{(settings?.journey_title || "Our Journey").replace(/\n/g, ' ')}</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('news'); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">News</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('visit'); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">Visit</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('cocktail'); }} className="text-black text-2xl font-light capitalize tracking-widest cursor-pointer">Menu</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('editorial'); }} className="text-black text-2xl font-light capitalize tracking-widest cursor-pointer">About</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('grid'); }} className="text-black text-2xl font-light capitalize tracking-widest cursor-pointer">Shop</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('journey'); }} className="text-black text-2xl font-light capitalize tracking-widest cursor-pointer">{(settings?.journey_title || "Our Journey").replace(/\n/g, ' ')}</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('news'); }} className="text-black text-2xl font-light capitalize tracking-widest cursor-pointer">News</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('visit'); }} className="text-black text-2xl font-light capitalize tracking-widest cursor-pointer">Visit</span>
               
               <div className="flex flex-col gap-4 mt-8 w-full max-w-[280px]">
                 <button 
                   onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('bag'); }} 
                   className="border border-black/20 text-black hover:bg-black hover:text-white rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase transition-all duration-300"
                 >
-                  Bag ({cartCount})
+                  BAG ({cartCount})
                 </button>
                 <button 
                   onClick={() => {
@@ -1744,7 +1774,7 @@ const CocktailOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, 
   return (
     <div className="fixed inset-0 bg-black z-[9999] overflow-y-auto" onScroll={handleScroll}>
       <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] h-32 sm:h-36 md:h-40 px-[8vw]">
-        <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
+        <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-light capitalize tracking-widest text-[#F5F5F5]/80">
           <span onClick={() => { if (typeof onClose === 'function') onClose(); setView('cocktail'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
           <span onClick={() => { if (typeof onClose === 'function') onClose(); setView('editorial'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
           <span onClick={() => { if (typeof onClose === 'function') onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Shop</span>
@@ -1756,7 +1786,7 @@ const CocktailOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, 
         <div className="md:hidden flex items-center z-[1001]">
           <button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
-            className="flex flex-col justify-between w-5 h-3 cursor-pointer focus:outline-none text-[#F5F5F5] bg-transparent border-none p-0"
+            className="flex flex-col justify-between w-6 h-[14px] cursor-pointer p-2 box-content -m-2 focus:outline-none text-[#F5F5F5] bg-transparent border-none p-0"
             aria-label="Toggle Menu"
           >
             <span className="w-full h-[1px] bg-current transition-transform duration-300 origin-left" style={{ transform: isMobileMenuOpen ? 'rotate(45deg) translate(1px, -1px)' : 'none' }}></span>
@@ -1769,8 +1799,8 @@ const CocktailOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, 
            <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-20 sm:h-24 md:h-28 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
         </div>
 
-        <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
-          <span onClick={() => { if (typeof onClose === 'function') onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300 mr-4 sm:mr-6 md:mr-8">Bag ({cartCount})</span>
+        <div className="flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-light capitalize tracking-widest text-[#F5F5F5]/80">
+          <span onClick={() => { if (typeof onClose === 'function') onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300 mr-4 sm:mr-6 md:mr-8">BAG ({cartCount})</span>
           <span onClick={() => {
             if (currentUser) {
               if (typeof onClose === 'function') onClose();
@@ -1779,7 +1809,7 @@ const CocktailOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, 
               if (typeof onClose === 'function') onClose();
               setView('auth');
             }
-          }} className="cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-white/20 rounded-full hover:bg-white hover:text-black hover:border-white transition-all duration-300">
+          }} className="hidden md:inline-block cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-white/20 rounded-full hover:bg-white hover:text-black hover:border-white transition-all duration-300">
             {currentUser ? 'Account' : 'Log In'}
           </span>
         </div>
@@ -1793,19 +1823,19 @@ const CocktailOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, 
             className="fixed inset-0 bg-black z-[90] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
             style={{ pointerEvents: 'auto' }}
           >
-            <span onClick={() => { setIsMobileMenuOpen(false); if (typeof onClose === 'function') onClose(); setView('cocktail'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Menu</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); if (typeof onClose === 'function') onClose(); setView('editorial'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">About</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); if (typeof onClose === 'function') onClose(); setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Shop</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); if (typeof onClose === 'function') onClose(); setView('journey'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">{(settings?.journey_title || "Our Journey").replace(/\n/g, ' ')}</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); if (typeof onClose === 'function') onClose(); setView('news'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">News</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); if (typeof onClose === 'function') onClose(); setView('visit'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Visit</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); if (typeof onClose === 'function') onClose(); setView('cocktail'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">Menu</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); if (typeof onClose === 'function') onClose(); setView('editorial'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">About</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); if (typeof onClose === 'function') onClose(); setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">Shop</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); if (typeof onClose === 'function') onClose(); setView('journey'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">{(settings?.journey_title || "Our Journey").replace(/\n/g, ' ')}</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); if (typeof onClose === 'function') onClose(); setView('news'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">News</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); if (typeof onClose === 'function') onClose(); setView('visit'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">Visit</span>
             
             <div className="flex flex-col gap-4 mt-8 w-full max-w-[280px]">
               <button 
                 onClick={() => { setIsMobileMenuOpen(false); if (typeof onClose === 'function') onClose(); setView('catalogue'); setOverlayView('bag'); }} 
                 className="border border-white/20 text-[#F5F5F5] hover:bg-white hover:text-black rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase transition-all duration-300"
               >
-                Bag ({cartCount})
+                BAG ({cartCount})
               </button>
               <button 
                 onClick={() => {
@@ -1828,7 +1858,7 @@ const CocktailOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, 
       </AnimatePresence>
 
       {/* Main Content Area */}
-      <div className="w-full pt-[160px] md:pt-[180px] px-[8vw] pb-32 flex flex-col bg-black text-[#F5F5F5]">
+      <div className="w-full pt-[200px] md:pt-[220px] px-[8vw] pb-32 flex flex-col bg-black text-[#F5F5F5]">
         <h1 className="font-helvetica font-bold text-[40px] leading-[0.9] tracking-tight uppercase text-[#F5F5F5] mb-4 md:mb-8">
           MENU
         </h1>
@@ -2012,7 +2042,7 @@ const JourneyOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, c
   return (
     <div className="fixed inset-0 bg-black z-[9999] overflow-y-auto" onScroll={handleScroll}>
       <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)] h-32 sm:h-36 md:h-40 px-[8vw]">
-        <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
+        <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-light capitalize tracking-widest text-[#F5F5F5]/80">
           <span onClick={() => { onClose(); setView('cocktail'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
           <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
           <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Shop</span>
@@ -2024,7 +2054,7 @@ const JourneyOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, c
         <div className="md:hidden flex items-center z-[1001]">
           <button 
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
-            className="flex flex-col justify-between w-5 h-3 cursor-pointer focus:outline-none text-[#F5F5F5] bg-transparent border-none p-0"
+            className="flex flex-col justify-between w-6 h-[14px] cursor-pointer p-2 box-content -m-2 focus:outline-none text-[#F5F5F5] bg-transparent border-none p-0"
             aria-label="Toggle Menu"
           >
             <span className="w-full h-[1px] bg-current transition-transform duration-300 origin-left" style={{ transform: isMobileMenuOpen ? 'rotate(45deg) translate(1px, -1px)' : 'none' }}></span>
@@ -2037,8 +2067,8 @@ const JourneyOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, c
            <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-20 sm:h-24 md:h-28 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
         </div>
 
-        <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
-          <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300 mr-4 sm:mr-6 md:mr-8">Bag ({cartCount})</span>
+        <div className="flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-light capitalize tracking-widest text-[#F5F5F5]/80">
+          <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300 mr-4 sm:mr-6 md:mr-8">BAG ({cartCount})</span>
           <span onClick={() => {
             if (currentUser) {
               onClose();
@@ -2047,13 +2077,13 @@ const JourneyOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, c
               onClose();
               setEcommerceView('auth');
             }
-          }} className="cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-white/20 rounded-full hover:bg-white hover:text-black hover:border-white transition-all duration-300">
+          }} className="hidden md:inline-block cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-white/20 rounded-full hover:bg-white hover:text-black hover:border-white transition-all duration-300">
             {currentUser ? 'Account' : 'Log In'}
           </span>
         </div>
       </nav>
       {/* Main Content Area */}
-      <div className="w-full pt-[160px] md:pt-[180px] px-[8vw] pb-32 flex flex-col bg-black text-[#F5F5F5]">
+      <div className="w-full pt-[200px] md:pt-[220px] px-[8vw] pb-32 flex flex-col bg-black text-[#F5F5F5]">
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div 
@@ -2063,20 +2093,20 @@ const JourneyOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, c
               className="fixed inset-0 bg-black z-[90] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
               style={{ pointerEvents: 'auto' }}
             >
-              <span onClick={() => { setIsMobileMenuOpen(false); setView('home'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Home</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); setView('cocktail'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Menu</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); setView('editorial'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">About</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Shop</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); setView('journey'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">{(settings?.journey_title || "Our Journey").replace(/\n/g, ' ')}</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); setView('news'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">News</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); setView('visit'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Visit</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('home'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">Home</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('cocktail'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">Menu</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('editorial'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">About</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">Shop</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('journey'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">{(settings?.journey_title || "Our Journey").replace(/\n/g, ' ')}</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('news'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">News</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('visit'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">Visit</span>
               
               <div className="flex flex-col gap-4 mt-8 w-full max-w-[280px]">
                 <button 
                   onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('bag'); }} 
                   className="border border-white/20 text-[#F5F5F5] hover:bg-white hover:text-black rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase transition-all duration-300"
                 >
-                  Bag ({cartCount})
+                  BAG ({cartCount})
                 </button>
                 <button 
                   onClick={() => {
@@ -2328,18 +2358,18 @@ const HeroLandingStage = ({ setView, setOverlayView, cartCount, scrollToMenu, cu
         <motion.nav style={{ opacity: navOpacity, y: navY, pointerEvents, visibility: visibilityState }} className="absolute top-[12%] left-[8vw] right-[8vw] flex justify-between items-center z-50">
             {/* Desktop Links */}
             <div className="hidden md:flex gap-16 md:gap-24">
-                <span onClick={() => setView('cocktail')} className="text-[#F5F5F5]/80 text-[9px] md:text-[10px] font-helvetica font-thin capitalize tracking-widest cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
-                <span onClick={() => setView('editorial')} className="text-[#F5F5F5]/80 text-[9px] md:text-[10px] font-helvetica font-thin capitalize tracking-widest cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
-                <span onClick={() => { setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5]/80 text-[9px] md:text-[10px] font-helvetica font-thin capitalize tracking-widest cursor-pointer hover:text-[#C28256] transition-colors duration-300">Shop</span>
-                <span onClick={() => setView('journey')} className="text-[#F5F5F5]/80 text-[9px] md:text-[10px] font-helvetica font-thin capitalize tracking-widest cursor-pointer hover:text-[#C28256] transition-colors duration-300">{(settings?.journey_title || "Our Journey").replace(/\n/g, ' ')}</span>
-                <span onClick={() => setView('news')} className="text-[#F5F5F5]/80 text-[9px] md:text-[10px] font-helvetica font-thin capitalize tracking-widest cursor-pointer hover:text-[#C28256] transition-colors duration-300">News</span>
-                <span onClick={() => setView('visit')} className="text-[#F5F5F5]/80 text-[9px] md:text-[10px] font-helvetica font-thin capitalize tracking-widest cursor-pointer hover:text-[#C28256] transition-colors duration-300">Visit</span>
+                <span onClick={() => setView('cocktail')} className="text-[#F5F5F5]/80 text-[9px] md:text-[10px] font-helvetica font-light capitalize tracking-widest cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
+                <span onClick={() => setView('editorial')} className="text-[#F5F5F5]/80 text-[9px] md:text-[10px] font-helvetica font-light capitalize tracking-widest cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
+                <span onClick={() => { setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5]/80 text-[9px] md:text-[10px] font-helvetica font-light capitalize tracking-widest cursor-pointer hover:text-[#C28256] transition-colors duration-300">Shop</span>
+                <span onClick={() => setView('journey')} className="text-[#F5F5F5]/80 text-[9px] md:text-[10px] font-helvetica font-light capitalize tracking-widest cursor-pointer hover:text-[#C28256] transition-colors duration-300">{(settings?.journey_title || "Our Journey").replace(/\n/g, ' ')}</span>
+                <span onClick={() => setView('news')} className="text-[#F5F5F5]/80 text-[9px] md:text-[10px] font-helvetica font-light capitalize tracking-widest cursor-pointer hover:text-[#C28256] transition-colors duration-300">News</span>
+                <span onClick={() => setView('visit')} className="text-[#F5F5F5]/80 text-[9px] md:text-[10px] font-helvetica font-light capitalize tracking-widest cursor-pointer hover:text-[#C28256] transition-colors duration-300">Visit</span>
             </div>
             {/* Hamburger Icon */}
             <div className="md:hidden flex items-center z-[1001]">
               <button 
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
-                className="flex flex-col justify-between w-5 h-3 cursor-pointer focus:outline-none text-[#F5F5F5] bg-transparent border-none p-0"
+                className="flex flex-col justify-between w-6 h-[14px] cursor-pointer p-2 box-content -m-2 focus:outline-none text-[#F5F5F5] bg-transparent border-none p-0"
                 aria-label="Toggle Menu"
               >
                 <span className="w-full h-[1px] bg-current transition-transform duration-300 origin-left" style={{ transform: isMobileMenuOpen ? 'rotate(45deg) translate(1px, -1px)' : 'none' }}></span>
@@ -2348,8 +2378,8 @@ const HeroLandingStage = ({ setView, setOverlayView, cartCount, scrollToMenu, cu
               </button>
             </div>
             
-            <div className="hidden md:flex items-center text-[9px] md:text-[10px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
-                <span onClick={() => { setView('catalogue'); setOverlayView('bag'); }} className="text-[#F5F5F5]/80 text-[9px] md:text-[10px] font-helvetica font-thin capitalize tracking-widest cursor-pointer hover:text-[#C28256] transition-colors duration-300 mr-4 sm:mr-6 md:mr-8">
+            <div className="flex items-center text-[9px] md:text-[10px] font-helvetica font-light capitalize tracking-widest text-[#F5F5F5]/80">
+                <span onClick={() => { setView('catalogue'); setOverlayView('bag'); }} className="text-[#F5F5F5]/80 text-[9px] md:text-[10px] font-helvetica font-light capitalize tracking-widest cursor-pointer hover:text-[#C28256] transition-colors duration-300 mr-4 sm:mr-6 md:mr-8">
                     BAG ({cartCount})
                 </span>
                 <span onClick={() => {
@@ -2358,7 +2388,7 @@ const HeroLandingStage = ({ setView, setOverlayView, cartCount, scrollToMenu, cu
                   } else {
                     setEcommerceView('auth');
                   }
-                }} className="cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-white/20 rounded-full hover:bg-white hover:text-black hover:border-white transition-all duration-300">
+                }} className="hidden md:inline-block cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-white/20 rounded-full hover:bg-white hover:text-black hover:border-white transition-all duration-300">
                   {currentUser ? 'Account' : 'Log In'}
                 </span>
             </div>
@@ -2374,20 +2404,15 @@ const HeroLandingStage = ({ setView, setOverlayView, cartCount, scrollToMenu, cu
               className="fixed inset-0 bg-black z-[90] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
               style={{ pointerEvents: 'auto' }}
             >
-              <span onClick={() => { setIsMobileMenuOpen(false); setView('cocktail'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Menu</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); setView('editorial'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">About</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Shop</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); setView('journey'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">{(settings?.journey_title || "Our Journey").replace(/\n/g, ' ')}</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); setView('news'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">News</span>
-              <span onClick={() => { setIsMobileMenuOpen(false); setView('visit'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Visit</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('cocktail'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">Menu</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('editorial'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">About</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">Shop</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('journey'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">{(settings?.journey_title || "Our Journey").replace(/\n/g, ' ')}</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('news'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">News</span>
+              <span onClick={() => { setIsMobileMenuOpen(false); setView('visit'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">Visit</span>
               
               <div className="flex flex-col gap-4 mt-8 w-full max-w-[280px]">
-                <button 
-                  onClick={() => { setIsMobileMenuOpen(false); setView('catalogue'); setOverlayView('bag'); }} 
-                  className="border border-white/20 text-[#F5F5F5] hover:bg-white hover:text-black rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase transition-all duration-300"
-                >
-                  Bag ({cartCount})
-                </button>
+                
                 <button 
                   onClick={() => {
                     setIsMobileMenuOpen(false);
@@ -2624,7 +2649,7 @@ const FrontendApp = ({ onSecretClick, onAdminDirectLogin }) => {
               : 'bg-black/85 backdrop-blur-md shadow-[0_4px_30px_rgba(0,0,0,0.5)]'
           }`}
         >
-          <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
+          <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-light capitalize tracking-widest text-[#F5F5F5]/80">
             <span onClick={() => setView('cocktail')} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
             <span onClick={() => setView('editorial')} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
             <span onClick={() => { setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Shop</span>
@@ -2636,7 +2661,7 @@ const FrontendApp = ({ onSecretClick, onAdminDirectLogin }) => {
           <div className="md:hidden flex items-center z-[1001]">
             <button 
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} 
-              className="flex flex-col justify-between w-5 h-3 cursor-pointer focus:outline-none text-[#F5F5F5] bg-transparent border-none p-0"
+              className="flex flex-col justify-between w-6 h-[14px] cursor-pointer p-2 box-content -m-2 focus:outline-none text-[#F5F5F5] bg-transparent border-none p-0"
               aria-label="Toggle Menu"
             >
               <span className="w-full h-[1px] bg-current transition-transform duration-300 origin-left" style={{ transform: isMobileMenuOpen ? 'rotate(45deg) translate(1px, -1px)' : 'none' }}></span>
@@ -2649,15 +2674,8 @@ const FrontendApp = ({ onSecretClick, onAdminDirectLogin }) => {
              <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-20 sm:h-24 md:h-28 object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity duration-300" />
           </div>
 
-          <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-[#F5F5F5]/80">
-            <span onClick={() => { setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300 mr-4 sm:mr-6 md:mr-8">Bag ({cartCount})</span>
-            <span onClick={() => {
-              if (currentUser) {
-                setEcommerceView('profile');
-              } else {
-                setEcommerceView('auth');
-              }
-            }} className="cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-white/20 rounded-full hover:bg-white hover:text-black hover:border-white transition-all duration-300">
+          <div className="flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-light capitalize tracking-widest text-[#F5F5F5]/80">
+            <span onClick={() => { if (currentUser) { setEcommerceView('profile'); } else { setEcommerceView('auth'); } }} className="hidden md:inline-block cursor-pointer px-3 py-1 sm:px-4 sm:py-1.5 border border-white/20 rounded-full hover:bg-white hover:text-black hover:border-white transition-all duration-300">
               {currentUser ? 'Account' : 'Log In'}
             </span>
           </div>
@@ -2673,19 +2691,19 @@ const FrontendApp = ({ onSecretClick, onAdminDirectLogin }) => {
             className="fixed inset-0 bg-black z-[90] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
             style={{ pointerEvents: 'auto' }}
           >
-            <span onClick={() => { setIsMobileMenuOpen(false); setView('cocktail'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Menu</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); setView('editorial'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">About</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Shop</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); setView('journey'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">{(settings?.journey_title || "Our Journey").replace(/\n/g, ' ')}</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); setView('news'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">News</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); setView('visit'); }} className="text-[#F5F5F5] text-2xl font-thin capitalize tracking-widest cursor-pointer">Visit</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); setView('cocktail'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">Menu</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); setView('editorial'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">About</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); setView('catalogue'); setOverlayView('grid'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">Shop</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); setView('journey'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">{(settings?.journey_title || "Our Journey").replace(/\n/g, ' ')}</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); setView('news'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">News</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); setView('visit'); }} className="text-[#F5F5F5] text-2xl font-light capitalize tracking-widest cursor-pointer">Visit</span>
             
             <div className="flex flex-col gap-4 mt-8 w-full max-w-[280px]">
               <button 
                 onClick={() => { setIsMobileMenuOpen(false); setView('catalogue'); setOverlayView('bag'); }} 
                 className="border border-white/20 text-[#F5F5F5] hover:bg-white hover:text-black rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase transition-all duration-300"
               >
-                Bag ({cartCount})
+                BAG ({cartCount})
               </button>
               <button 
                 onClick={() => {
@@ -3659,7 +3677,7 @@ const AdminStudioOrders = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
                   <div className="flex flex-col gap-4">
                     <span className="font-sans text-[9px] font-bold text-[#a0a0a0] uppercase tracking-widest border-b border-black/10 pb-2">CUSTOMER</span>
-                    <div className="flex flex-col gap-1 text-[11px] font-sans font-thin capitalize tracking-widest text-black">
+                    <div className="flex flex-col gap-1 text-[11px] font-sans font-light capitalize tracking-widest text-black">
                       <span>{selectedOrder.customer}</span>
                       <a href={`mailto:${selectedOrder.email}`} className="text-[#a0a0a0] hover:text-black transition-colors">{selectedOrder.email}</a>
                       <a href={`tel:${selectedOrder.phone}`} className="text-[#a0a0a0] hover:text-black transition-colors">{selectedOrder.phone}</a>
@@ -3667,7 +3685,7 @@ const AdminStudioOrders = () => {
                   </div>
                   <div className="flex flex-col gap-4">
                     <span className="font-sans text-[9px] font-bold text-[#a0a0a0] uppercase tracking-widest border-b border-black/10 pb-2">SHIPPING ADDRESS</span>
-                    <p className="text-[11px] font-sans font-thin capitalize tracking-widest text-black leading-relaxed">
+                    <p className="text-[11px] font-sans font-light capitalize tracking-widest text-black leading-relaxed">
                       {(selectedOrder.address || '').split('\n').map((line, i) => <React.Fragment key={i}>{line}<br/></React.Fragment>)}
                     </p>
                   </div>
@@ -3739,7 +3757,7 @@ const AdminStudioOrders = () => {
                       <div className="flex gap-2 mt-2 items-center">
                         <span className="font-sans text-[9px] text-[#a0a0a0] font-bold uppercase tracking-widest">TRACKING NO:</span>
                         <span className="font-sans font-bold text-[11px] uppercase tracking-widest text-black">{selectedOrder.tracking}</span>
-                        <button className="ml-2 px-2 py-1 text-[8px] border border-black/20 hover:border-black font-sans font-thin capitalize tracking-widest">UPDATE</button>
+                        <button className="ml-2 px-2 py-1 text-[8px] border border-black/20 hover:border-black font-sans font-light capitalize tracking-widest">UPDATE</button>
                       </div>
                     </div>
                   )}
@@ -4634,7 +4652,7 @@ export default function App() {
          <motion.div 
            animate={{ opacity: [0.5, 1, 0.5] }} 
            transition={{ repeat: Infinity, duration: 1.5 }}
-           className="font-helvetica text-[10px] md:text-xs font-thin capitalize tracking-widest text-[#F5F5F5]"
+           className="font-helvetica text-[10px] md:text-xs font-light capitalize tracking-widest text-[#F5F5F5]"
          >
            Connecting to Secure Database...
          </motion.div>
