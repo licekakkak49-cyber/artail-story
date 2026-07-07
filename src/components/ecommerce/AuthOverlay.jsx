@@ -53,7 +53,7 @@ export const AuthOverlay = ({ onClose, onLogin, onRegister, setView, setOverlayV
   return (
     <div className="fixed inset-0 z-[10000] flex flex-col bg-white overflow-y-auto selection:bg-[#111111] selection:text-white">
       <nav className="fixed top-0 left-0 w-full z-[999] flex justify-between items-center bg-transparent h-32 sm:h-36 md:h-40 px-[8vw]">
-        <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-black/80">
+        <div className="hidden md:flex gap-4 sm:gap-6 md:gap-8 text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-light capitalize tracking-widest text-black/80">
           <span onClick={() => { onClose(); setView('cocktail'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Menu</span>
           <span onClick={() => { onClose(); setView('editorial'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">About</span>
           <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('grid'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300">Shop</span>
@@ -78,8 +78,8 @@ export const AuthOverlay = ({ onClose, onLogin, onRegister, setView, setOverlayV
            <img src="https://ttfdcqpzaxnxduvlhtgi.supabase.co/storage/v1/object/public/WAYD-gallery/svgwayd.svg" alt="logo" className="h-20 sm:h-24 md:h-28 object-contain brightness-0 opacity-80 hover:opacity-100 transition-opacity duration-300" />
         </div>
 
-        <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-thin capitalize tracking-widest text-black/80">
-          <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300 mr-4 sm:mr-6 md:mr-8">Bag ({cartCount})</span>
+        <div className="hidden md:flex items-center text-[9px] sm:text-[10px] md:text-[11px] font-helvetica font-light capitalize tracking-widest text-black/80">
+          <span onClick={() => { onClose(); setView('catalogue'); setOverlayView('bag'); }} className="cursor-pointer hover:text-[#C28256] transition-colors duration-300 mr-4 sm:mr-6 md:mr-8">BAG ({cartCount})</span>
           <span onClick={() => {
             if (currentUser) {
               onClose();
@@ -98,22 +98,22 @@ export const AuthOverlay = ({ onClose, onLogin, onRegister, setView, setOverlayV
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-[#ffffff] z-[90] flex flex-col justify-center items-center gap-12 font-helvetica uppercase"
+            className="fixed inset-0 bg-[#ffffff] z-[90] flex flex-col justify-evenly items-center pt-[140px] pb-[40px] h-[100dvh] overflow-y-auto gap-2 font-helvetica uppercase"
             style={{ pointerEvents: 'auto' }}
           >
-            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('cocktail'); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">Menu</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('editorial'); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">About</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('grid'); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">Shop</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('journey'); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">Our Journey</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('news'); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">News</span>
-            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('visit'); }} className="text-black text-2xl font-thin capitalize tracking-widest cursor-pointer">Visit</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('cocktail'); }} className="text-black text-2xl font-light capitalize tracking-widest cursor-pointer">Menu</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('editorial'); }} className="text-black text-2xl font-light capitalize tracking-widest cursor-pointer">About</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('grid'); }} className="text-black text-2xl font-light capitalize tracking-widest cursor-pointer">Shop</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('journey'); }} className="text-black text-2xl font-light capitalize tracking-widest cursor-pointer">Our Journey</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('news'); }} className="text-black text-2xl font-light capitalize tracking-widest cursor-pointer">News</span>
+            <span onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('visit'); }} className="text-black text-2xl font-light capitalize tracking-widest cursor-pointer">Visit</span>
             
             <div className="flex flex-col gap-4 mt-8 w-full max-w-[280px]">
               <button 
                 onClick={() => { setIsMobileMenuOpen(false); onClose(); setView('catalogue'); setOverlayView('bag'); }} 
                 className="border border-black/20 text-black hover:bg-black hover:text-white rounded-full px-6 py-2.5 text-center text-xs tracking-widest uppercase transition-all duration-300"
               >
-                Bag ({cartCount})
+                BAG ({cartCount})
               </button>
               <button 
                 onClick={() => {
