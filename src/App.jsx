@@ -2805,7 +2805,7 @@ const FrontendApp = ({ onSecretClick, onAdminDirectLogin }) => {
             cartCount={cartItems.reduce((sum, item) => sum + item.qty, 0)}
             currentUser={currentUser}
             onLogin={async (email, password) => {
-              const isAdmin = email === 'admin@waydgallery.com' || email === 'admin@wayd.com' || email === 'admin';
+              const isAdmin = email === 'waydwebsite@gmail.com' || email === 'admin@waydgallery.com' || email === 'admin@wayd.com' || email === 'admin';
               
               if (supabase) {
                 const { data, error } = await supabase.auth.signInWithPassword({ email, password });
