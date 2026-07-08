@@ -3052,6 +3052,12 @@ const AdminLogin = ({ onLogin, onCancel }) => {
       return;
     }
 
+    if (email.trim().toLowerCase() !== 'waydwebsite@gmail.com') {
+      setErrorMsg('UNAUTHORIZED EMAIL');
+      setIsLoggingIn(false);
+      return;
+    }
+
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     if (error) {
       setErrorMsg(error.message.toUpperCase());
