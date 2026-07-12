@@ -1660,7 +1660,7 @@ const CocktailMenuItem = ({ menu, i }) => {
       <div className="w-full md:w-1/2 flex flex-col items-center justify-center p-8 md:p-12 lg:p-16 relative group/image">
         <div className="w-full max-w-md lg:max-w-lg xl:max-w-xl flex flex-col">
           <div className="w-full aspect-square bg-[#1C1C1C] overflow-hidden shadow-2xl cursor-pointer">
-            <img src={menu.image} alt={menu.title} className="w-full h-full object-cover grayscale opacity-90 group-hover/image:grayscale-0 group-hover/image:opacity-100 transition-all duration-700 ease-out" />
+            <img src={menu.image} alt={menu.title} className="w-full h-full object-cover opacity-100 transition-all duration-700 ease-out" />
           </div>
           <div className="w-full text-[8px] md:text-[9px] text-zinc-500 text-right font-helvetica uppercase whitespace-pre-wrap mt-3 tracking-wider leading-relaxed">
             {menu.reference}
