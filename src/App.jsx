@@ -3434,6 +3434,25 @@ const AdminStudioCatalogue = () => {
     setEditingItem(null);
   };
 
+  const handleDelete = async () => {
+    if (!window.confirm('Are you sure you want to delete this object?')) return;
+    
+    const newCat = catalogue.filter(i => i.id !== editingItem.id && i.name !== editingItem.name);
+    setCatalogue(newCat);
+    
+    if (supabaseUrl !== 'YOUR_SUPABASE_URL' && supabase && editingItem.id) {
+      setSyncStatus('Deleting...');
+      try {
+        await supabase.from('catalogue').delete().eq('id', editingItem.id);
+        setSyncStatus('Synced');
+      } catch(e) { 
+        console.error("Delete error:", e);
+        setSyncStatus('Error');
+      }
+    }
+    setEditingItem(null);
+  };
+
   return (
     <div className="w-full relative">
       <div className="flex justify-between items-end mb-8">
@@ -3478,6 +3497,7 @@ const AdminStudioCatalogue = () => {
             <div className="flex justify-between items-center mb-12 border-b border-zinc-100 pb-4 sticky top-0 bg-white z-10 pt-4">
               <span className="font-sans font-bold text-2xl uppercase tracking-wide">Edit Object</span>
               <div className="flex gap-6">
+                <button onClick={handleDelete} className="font-sans text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-[#d92323] transition-colors">Delete</button>
                 <button onClick={() => setEditingItem(null)} className="font-sans text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-black transition-colors">Cancel</button>
                 <button onClick={handleSave} className="font-sans text-[10px] font-bold uppercase tracking-widest text-[#d92323] hover:text-black transition-colors">Save Changes</button>
               </div>
