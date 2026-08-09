@@ -184,6 +184,22 @@ const siteSettingsData = {
   hours3: "5:00 PM – 11:00 PM",
   hours4: "Closed (Studio Days)",
   barImage: "https://images.unsplash.com/photo-1572116469696-31de0f17cc34?auto=format&fit=crop&w=1200&q=80",
+  artists_data: [
+    {
+      id: "1",
+      name: "Mimi",
+      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
+      subtext: "",
+      quote: "“I once believed I had lost my art. But behind the bar, I found it again. Today, I paint with flavor, balance, and emotion.\n\nThis pop-up is my canvas, and every drink tells the story of my return to myself.”"
+    },
+    {
+      id: "2",
+      name: "Teddy",
+      image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=800&q=80",
+      subtext: "Winner “Bar Star Awards” by New York Bartender Week 2025",
+      quote: "“Cocktails became my world when I realized they weren't just my job; they're how I express who I am.\n\nAfter years behind the bar, I'm taking the next step: blending cocktails and art, and turning drinks into stories.”"
+    }
+  ],
   artist1_name: "Mimi",
   artist1_image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=800&q=80",
   artist1_subtext: "",
@@ -283,6 +299,22 @@ export const DataProvider = ({ children }) => {
             social_instagram: stData.social_instagram ?? siteSettingsData.social_instagram,
             social_tiktok: stData.social_tiktok ?? siteSettingsData.social_tiktok,
             social_youtube: stData.social_youtube ?? siteSettingsData.social_youtube,
+            artists_data: stData.artists_data || [
+              {
+                id: "1",
+                name: stData.artist1_name ?? siteSettingsData.artist1_name,
+                image: stData.artist1_image ?? siteSettingsData.artist1_image,
+                subtext: formatText(stData.artist1_subtext ?? siteSettingsData.artist1_subtext),
+                quote: formatText(stData.artist1_quote ?? siteSettingsData.artist1_quote)
+              },
+              {
+                id: "2",
+                name: stData.artist2_name ?? siteSettingsData.artist2_name,
+                image: stData.artist2_image ?? siteSettingsData.artist2_image,
+                subtext: formatText(stData.artist2_subtext ?? siteSettingsData.artist2_subtext),
+                quote: formatText(stData.artist2_quote ?? siteSettingsData.artist2_quote)
+              }
+            ],
             artist1_name: stData.artist1_name ?? siteSettingsData.artist1_name,
             artist2_name: stData.artist2_name ?? siteSettingsData.artist2_name,
             artist1_image: stData.artist1_image ?? siteSettingsData.artist1_image,
@@ -855,8 +887,10 @@ const NewsOverlay = ({ onClose, cartCount, setView, setOverlayView, currentUser,
                 {item.video ? (
                   <>
                     <video 
+                      key={item.id + '_vid'}
                       src={item.video} 
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover/card:scale-105" 
+                      preload="metadata"
+                      className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover/card:scale-105 ${playingVideoId !== item.id && item.cover_image ? 'opacity-0' : 'opacity-100'}`} 
                       loop 
                       muted 
                       playsInline 
@@ -867,6 +901,14 @@ const NewsOverlay = ({ onClose, cartCount, setView, setOverlayView, currentUser,
                         }
                       }}
                     />
+                    {playingVideoId !== item.id && item.cover_image && (
+                      <img 
+                        src={item.cover_image} 
+                        alt="Video Cover" 
+                        loading="lazy" 
+                        className="absolute inset-0 w-full h-full object-cover pointer-events-none transition-transform duration-700 ease-out group-hover/card:scale-105" 
+                      />
+                    )}
                     {playingVideoId !== item.id && (
                       <div 
                         className="absolute inset-0 flex items-center justify-center z-10"
@@ -956,7 +998,17 @@ const NewsOverlay = ({ onClose, cartCount, setView, setOverlayView, currentUser,
                 {/* Left side: Image/Video */}
                 <div className="w-full md:w-1/2 h-[45%] md:h-full relative bg-black shrink-0">
                   {selectedItem.video ? (
-                    <video src={selectedItem.video} className="w-full h-full object-cover" controls playsInline />
+                    <>
+                      <video 
+                        key={selectedItem.id + '_vid'}
+                        src={selectedItem.video} 
+                        poster={selectedItem.cover_image || undefined}
+                        preload="metadata"
+                        className="w-full h-full object-cover" 
+                        controls 
+                        playsInline 
+                      />
+                    </>
                   ) : (
                     <img src={selectedItem.image} alt={selectedItem.title} className="w-full h-full object-cover" />
                   )}
@@ -1350,80 +1402,62 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime,
         {/* Dynamic Space */}
         {/* Dynamic Space (Matching Menu catalog layout) */}
         <div className="w-full flex flex-col bg-black text-[#EAEAEA]">
-          
-          {/* Artist 1: Mimi (Text Left, Image Right) */}
-          <div className="w-full flex flex-col md:flex-row min-h-[90vh] relative bg-black py-16 md:py-24">
-            {/* Left Column (Text details) */}
-            <div className="w-full md:w-[46%] flex flex-col justify-center items-center p-8 md:p-12 lg:p-20 relative bg-black">
-              <div className="font-helvetica font-medium text-xs md:text-sm lg:text-[15px] leading-[1.8] whitespace-pre-wrap max-w-md w-full">
-                
-                {/* Title */}
-                <h2 className="font-helvetica font-bold text-[30px] text-white mb-6 tracking-wide uppercase text-left leading-[1.2]">
-                  {settings.artist1_name || "MIMI"}
-                </h2>
-                {settings.artist1_subtext && (
-                  <p className="font-helvetica font-light text-[16px] uppercase tracking-widest text-zinc-300 mb-8">
-                    {settings.artist1_subtext}
-                  </p>
+          {settings.artists_data && settings.artists_data.map((artist, idx) => {
+            const isTextLeft = idx % 2 === 0;
+
+            const TextColumn = (
+              <div className="w-full md:w-[46%] flex flex-col justify-center items-center p-8 md:p-12 lg:p-20 relative bg-black">
+                <div className="font-helvetica font-medium text-xs md:text-sm lg:text-[15px] leading-[1.8] whitespace-pre-wrap max-w-md w-full">
+                  <h2 className="font-helvetica font-bold text-[30px] text-white mb-6 tracking-wide uppercase text-left leading-[1.2]">
+                    {artist.name || "ARTIST"}
+                  </h2>
+                  {artist.subtext && (
+                    <p className="font-helvetica font-light text-[16px] uppercase tracking-widest text-zinc-300 mb-8">
+                      {artist.subtext}
+                    </p>
+                  )}
+                  <div className="space-y-6 text-zinc-300 font-light leading-[1.8] text-[16px]">
+                    {(artist.quote || "").split('\n').filter(p => p.trim() !== '').map((p, pIdx) => (
+                      <p key={pIdx}>{p}</p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+
+            const ImageColumn = (
+              <div className="w-full md:w-[54%] flex flex-col items-center justify-center px-8 md:px-12 relative">
+                <div className="w-full max-w-sm lg:max-w-md flex flex-col">
+                  <div className="w-full aspect-[4/5] bg-zinc-900 overflow-hidden shadow-2xl">
+                    <img 
+                      src={artist.image || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=80"} 
+                      alt={artist.name || "Artist"} 
+                      loading="lazy" 
+                      decoding="async" 
+                      className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-in-out" 
+                      draggable="false" 
+                    />
+                  </div>
+                </div>
+              </div>
+            );
+
+            return (
+              <div key={artist.id || idx} className="w-full flex flex-col md:flex-row min-h-[90vh] relative bg-black py-16 md:py-24">
+                {isTextLeft ? (
+                  <>
+                    {TextColumn}
+                    {ImageColumn}
+                  </>
+                ) : (
+                  <>
+                    {ImageColumn}
+                    {TextColumn}
+                  </>
                 )}
-
-                {/* Description (Larger text) */}
-                <div className="space-y-6 text-zinc-300 font-light leading-[1.8] text-[16px]">
-                  {(settings.artist1_quote || "").split('\n').filter(p => p.trim() !== '').map((p, idx) => (
-                    <p key={idx}>{p}</p>
-                  ))}
-                </div>
-
               </div>
-            </div>
-
-            {/* Right Column (Portrait) */}
-            <div className="w-full md:w-[54%] flex flex-col items-center justify-center px-8 md:px-12 relative">
-              <div className="w-full max-w-sm lg:max-w-md flex flex-col">
-                <div className="w-full aspect-[4/5] bg-zinc-900 overflow-hidden shadow-2xl">
-                  <img src={settings.artist1_image || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=80"} alt={settings.artist1_name || "Mimi"} loading="lazy" decoding="async" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-in-out" draggable="false" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Artist 2: Teddy */}
-          <div className="w-full flex flex-col md:flex-row min-h-[90vh] relative bg-black py-16 md:py-24">
-            {/* Left Column (Portrait) */}
-            <div className="w-full md:w-[54%] flex flex-col items-center justify-center px-8 md:px-12 relative">
-              <div className="w-full max-w-sm lg:max-w-md flex flex-col">
-                <div className="w-full aspect-[4/5] bg-zinc-900 overflow-hidden shadow-2xl">
-                  <img src={settings.artist2_image || "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=1200&q=80"} alt={settings.artist2_name || "Teddy"} loading="lazy" decoding="async" className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-in-out" draggable="false" />
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column (Text details) */}
-            <div className="w-full md:w-[46%] flex flex-col justify-center items-center p-8 md:p-12 lg:p-20 relative bg-black">
-              <div className="font-helvetica font-medium text-xs md:text-sm lg:text-[15px] leading-[1.8] whitespace-pre-wrap max-w-md w-full">
-                
-                {/* Title */}
-                <h2 className="font-helvetica font-bold text-[30px] text-white mb-6 tracking-wide uppercase text-left leading-[1.2]">
-                  {settings.artist2_name || "TEDDY"}
-                </h2>
-                {(settings.artist2_subtext) && (
-                  <p className="font-helvetica font-light text-[16px] uppercase tracking-widest text-zinc-300 mb-8">
-                    {settings.artist2_subtext}
-                  </p>
-                )}
-
-                {/* Description (Larger text) */}
-                <div className="space-y-6 text-zinc-300 font-light leading-[1.8] text-[16px]">
-                  {(settings.artist2_quote || "").split('\n').filter(p => p.trim() !== '').map((p, idx) => (
-                    <p key={idx}>{p}</p>
-                  ))}
-                </div>
-
-
-              </div>
-            </div>
-          </div>
-
+            );
+          })}
         </div>
 
       </div>
@@ -1593,7 +1627,7 @@ const MenuDetailOverlay = ({ item, onClose, nyTime, onMenuClick, cartCount, setV
 
             <div className="flex items-center gap-4 mb-12">
               <div className="w-10 h-10 rounded-full bg-zinc-300 overflow-hidden shrink-0">
-                <img src={item.artist === (settings.artist1_name || 'Mimi') ? (settings.artist1_image || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80") : (settings.artist2_image || "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&q=80")} alt={item.artist} className="w-full h-full object-cover grayscale" />
+                <img src={settings.artists_data?.find(a => a.name === item.artist)?.image || "https://via.placeholder.com/200x200?text=Artist"} alt={item.artist} className="w-full h-full object-cover grayscale" />
               </div>
               <div className="flex flex-col">
                 <div className="flex items-baseline gap-2">
@@ -3315,17 +3349,23 @@ const AdminStudioOverview = () => {
 
 const AdminStudioEditorials = () => {
   const { settings, setSettings, setSyncStatus } = useData();
-  const [activeArtist, setActiveArtist] = useState('1');
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  const artists = settings.artists_data || [];
+  const currentArtist = artists[activeIdx] || {};
 
   const handleUpdate = (field, value) => {
-    setSettings(prev => ({ ...prev, [field]: value }));
+    const newArtists = [...artists];
+    if (!newArtists[activeIdx]) newArtists[activeIdx] = { id: Date.now().toString() };
+    newArtists[activeIdx] = { ...newArtists[activeIdx], [field]: value };
+    setSettings(prev => ({ ...prev, artists_data: newArtists }));
   };
 
-  const handleSave = async (field, value) => {
+  const handleSave = async () => {
     if (supabaseUrl !== 'YOUR_SUPABASE_URL' && supabase) {
       setSyncStatus('Saving...');
       try {
-        const { error } = await supabase.from('site_settings').update({ [field]: value }).eq('id', 1);
+        const { error } = await supabase.from('site_settings').update({ artists_data: settings.artists_data }).eq('id', 1);
         if (error) throw error;
         setSyncStatus('Synced');
       } catch(e) { 
@@ -3335,76 +3375,131 @@ const AdminStudioEditorials = () => {
     }
   };
 
-  const tabs = [
-    { key: '1', label: settings.artist1_name || 'Mimi (Artist 1)' },
-    { key: '2', label: settings.artist2_name || 'Teddy (Artist 2)' }
-  ];
+  const addArtist = async () => {
+    const newArtist = {
+      id: Date.now().toString(),
+      name: "New Artist",
+      image: "",
+      subtext: "",
+      quote: ""
+    };
+    const newArtists = [...artists, newArtist];
+    setSettings(prev => ({ ...prev, artists_data: newArtists }));
+    setActiveIdx(newArtists.length - 1);
+    
+    // Auto save
+    if (supabaseUrl !== 'YOUR_SUPABASE_URL' && supabase) {
+      setSyncStatus('Saving...');
+      const { error } = await supabase.from('site_settings').update({ artists_data: newArtists }).eq('id', 1);
+      if (error) {
+        console.error("Add artist error:", error);
+        setSyncStatus('Error');
+        alert("Error saving to database. Did you create the artists_data column in Supabase?");
+      } else {
+        setSyncStatus('Synced');
+      }
+    }
+  };
 
-  const prefix = `artist${activeArtist}`;
+  const deleteArtist = async () => {
+    if (artists.length <= 1) {
+      alert("You must have at least one artist.");
+      return;
+    }
+    if (!window.confirm("Are you sure you want to delete this artist?")) return;
+    
+    const newArtists = artists.filter((_, i) => i !== activeIdx);
+    setSettings(prev => ({ ...prev, artists_data: newArtists }));
+    setActiveIdx(Math.max(0, activeIdx - 1));
+    
+    // Auto save
+    if (supabaseUrl !== 'YOUR_SUPABASE_URL' && supabase) {
+      setSyncStatus('Deleting...');
+      const { error } = await supabase.from('site_settings').update({ artists_data: newArtists }).eq('id', 1);
+      if (error) {
+        console.error("Delete artist error:", error);
+        setSyncStatus('Error');
+        alert("Error deleting from database. Did you create the artists_data column in Supabase?");
+      } else {
+        setSyncStatus('Synced');
+      }
+    }
+  };
 
   return (
     <div className="w-full flex flex-col pb-24 h-[calc(100vh-140px)] overflow-y-auto pr-4">
-      <div className="flex gap-8 border-b border-zinc-200 mb-8 pb-4 shrink-0">
-        {tabs.map(tab => (
+      <div className="flex gap-8 border-b border-zinc-200 mb-8 pb-4 shrink-0 overflow-x-auto">
+        {artists.map((artist, idx) => (
           <button 
-            key={tab.key} 
-            onClick={() => setActiveArtist(tab.key)} 
-            className={`font-sans font-bold text-3xl uppercase tracking-wide transition-colors ${activeArtist === tab.key ? 'text-black' : 'text-zinc-300 hover:text-zinc-400'}`}>
-            {tab.label}
+            key={artist.id || idx} 
+            onClick={() => setActiveIdx(idx)} 
+            className={`font-sans font-bold text-3xl uppercase tracking-wide transition-colors whitespace-nowrap ${activeIdx === idx ? 'text-black' : 'text-zinc-300 hover:text-zinc-400'}`}>
+            {artist.name || `Artist ${idx + 1}`}
           </button>
         ))}
+        <button 
+          onClick={addArtist}
+          className="font-sans font-bold text-3xl uppercase tracking-wide text-zinc-300 hover:text-black transition-colors whitespace-nowrap">
+          + Add
+        </button>
       </div>
 
-      <div className="flex flex-col gap-8 max-w-4xl">
-        <div className="flex flex-col gap-2">
-          <label className="font-sans text-xs font-bold uppercase tracking-widest text-zinc-500">Artist Name</label>
-          <input 
-            type="text" 
-            value={settings[`${prefix}_name`] || ''} 
-            onChange={(e) => handleUpdate(`${prefix}_name`, e.target.value)}
-            onBlur={(e) => handleSave(`${prefix}_name`, e.target.value)}
-            className="w-full bg-[#F5F5F5] border border-zinc-200 p-4 font-sans text-black focus:outline-none focus:border-black transition-colors"
-            placeholder="e.g. MIMI"
-          />
-        </div>
+      {artists.length > 0 && (
+        <div className="flex flex-col gap-8 max-w-4xl relative">
+          <button onClick={deleteArtist} className="absolute top-0 right-0 font-sans text-[10px] font-bold uppercase tracking-widest text-[#d92323] hover:text-black transition-colors">
+            Delete Artist
+          </button>
 
-        <div className="flex flex-col gap-2">
-          <label className="font-sans text-xs font-bold uppercase tracking-widest text-zinc-500">Artist Portrait (Upload Image)</label>
-          <div className="w-48">
-            <EditableImage 
-              src={settings[`${prefix}_image`] || 'https://via.placeholder.com/400x500?text=Upload+Portrait'} 
-              aspect="aspect-[4/5]" 
-              onUpload={(url, isFinal) => {
-                handleUpdate(`${prefix}_image`, url);
-                if (isFinal) handleSave(`${prefix}_image`, url);
-              }} 
+          <div className="flex flex-col gap-2 pt-6">
+            <label className="font-sans text-xs font-bold uppercase tracking-widest text-zinc-500">Artist Name</label>
+            <input 
+              type="text" 
+              value={currentArtist.name || ''} 
+              onChange={(e) => handleUpdate('name', e.target.value)}
+              onBlur={handleSave}
+              className="w-full bg-[#F5F5F5] border border-zinc-200 p-4 font-sans text-black focus:outline-none focus:border-black transition-colors"
+              placeholder="e.g. MIMI"
+            />
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <label className="font-sans text-xs font-bold uppercase tracking-widest text-zinc-500">Artist Portrait (Upload Image)</label>
+            <div className="w-48">
+              <EditableImage 
+                src={currentArtist.image || 'https://via.placeholder.com/400x500?text=Upload+Portrait'} 
+                aspect="aspect-[4/5]" 
+                onUpload={(url, isFinal) => {
+                  handleUpdate('image', url);
+                  if (isFinal) handleSave();
+                }} 
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <label className="font-sans text-xs font-bold uppercase tracking-widest text-zinc-500">Main Quote / Story</label>
+            <textarea 
+              value={currentArtist.quote || ''} 
+              onChange={(e) => handleUpdate('quote', e.target.value)}
+              onBlur={handleSave}
+              className="w-full bg-[#F5F5F5] border border-zinc-200 p-4 font-sans font-bold text-xl md:text-2xl text-black focus:outline-none focus:border-black transition-colors min-h-[200px] resize-y leading-[1.3]"
+              placeholder="“I once believed I had lost my art...”"
+            />
+            <p className="text-[10px] text-zinc-400 font-sans uppercase tracking-widest">Use Return key for paragraphs.</p>
+          </div>
+
+          <div className="flex flex-col gap-2">
+            <label className="font-sans text-xs font-bold uppercase tracking-widest text-zinc-500">Subtext / Awards</label>
+            <textarea 
+              value={currentArtist.subtext || ''} 
+              onChange={(e) => handleUpdate('subtext', e.target.value)}
+              onBlur={handleSave}
+              className="w-full bg-[#F5F5F5] border border-zinc-200 p-4 font-mono text-sm text-black focus:outline-none focus:border-black transition-colors min-h-[100px] resize-y"
+              placeholder="Winner Bar Star Awards..."
             />
           </div>
         </div>
-
-        <div className="flex flex-col gap-2">
-          <label className="font-sans text-xs font-bold uppercase tracking-widest text-zinc-500">Main Quote / Story</label>
-          <textarea 
-            value={settings[`${prefix}_quote`] || ''} 
-            onChange={(e) => handleUpdate(`${prefix}_quote`, e.target.value)}
-            onBlur={(e) => handleSave(`${prefix}_quote`, e.target.value)}
-            className="w-full bg-[#F5F5F5] border border-zinc-200 p-4 font-sans font-bold text-xl md:text-2xl text-black focus:outline-none focus:border-black transition-colors min-h-[200px] resize-y leading-[1.3]"
-            placeholder="“I once believed I had lost my art...”"
-          />
-          <p className="text-[10px] text-zinc-400 font-sans uppercase tracking-widest">Use Return key for paragraphs.</p>
-        </div>
-
-        <div className="flex flex-col gap-2">
-          <label className="font-sans text-xs font-bold uppercase tracking-widest text-zinc-500">Subtext / Awards</label>
-          <textarea 
-            value={settings[`${prefix}_subtext`] || ''} 
-            onChange={(e) => handleUpdate(`${prefix}_subtext`, e.target.value)}
-            onBlur={(e) => handleSave(`${prefix}_subtext`, e.target.value)}
-            className="w-full bg-[#F5F5F5] border border-zinc-200 p-4 font-mono text-sm text-black focus:outline-none focus:border-black transition-colors min-h-[100px] resize-y"
-            placeholder="Winner Bar Star Awards..."
-          />
-        </div>
-      </div>
+      )}
     </div>
   );
 };
@@ -3415,16 +3510,27 @@ const AdminStudioCatalogue = () => {
 
   const handleSave = async () => {
     const newCat = [...catalogue];
-    const idx = newCat.findIndex(i => i.id === editingItem.id || i.name === editingItem.name); 
+    const isNew = String(editingItem.id).startsWith('new_');
+    const idx = newCat.findIndex(i => i.id === editingItem.id);
     if (idx !== -1) {
       newCat[idx] = editingItem;
-      setCatalogue(newCat);
+    } else {
+      newCat.unshift(editingItem);
     }
+    setCatalogue(newCat);
     
-    if (supabaseUrl !== 'YOUR_SUPABASE_URL' && supabase && editingItem.id) {
+    if (supabaseUrl !== 'YOUR_SUPABASE_URL' && supabase) {
       setSyncStatus('Saving...');
       try {
-        await supabase.from('catalogue').update(editingItem).eq('id', editingItem.id);
+        if (isNew) {
+          const { id, ...insertData } = editingItem;
+          const { data, error } = await supabase.from('catalogue').insert([insertData]).select();
+          if (data && data.length > 0) {
+            setCatalogue(prev => prev.map(item => item.id === editingItem.id ? data[0] : item));
+          }
+        } else if (editingItem.id) {
+          await supabase.from('catalogue').update(editingItem).eq('id', editingItem.id);
+        }
         setSyncStatus('Synced');
       } catch(e) { 
         console.error("Save error:", e);
@@ -3456,8 +3562,8 @@ const AdminStudioCatalogue = () => {
   return (
     <div className="w-full relative">
       <div className="flex justify-between items-end mb-8">
-        <h3 className="font-sans font-bold text-2xl tracking-tight uppercase">Objects & Artifacts</h3>
-        <span className="font-sans text-[10px] text-zinc-400 uppercase tracking-widest cursor-pointer hover:text-black transition-colors">+ Add Object</span>
+        <h3 className="font-sans font-bold text-2xl tracking-tight uppercase">Shop</h3>
+        <span onClick={() => setEditingItem({ id: 'new_' + Date.now(), name: 'New Object', designer: '', price: '0', stock: '1', year: '', colour: '', material: '', info: '', images: [''], src: '' })} className="font-sans text-[10px] text-zinc-400 uppercase tracking-widest cursor-pointer hover:text-black transition-colors">+ Add Object</span>
       </div>
 
       <div className="flex flex-col border-t border-zinc-200">
@@ -4169,7 +4275,8 @@ const AdminStudioNews = () => {
       date: new Date().toLocaleDateString('en-US', { month: 'long', day: '2-digit', year: 'numeric' }), 
       content: "Article content goes here...", 
       hashtag: "#waydgallery #artailstory", 
-      image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1200&q=80" 
+      image: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=1200&q=80",
+      cover_image: ""
     };
 
     if (supabaseUrl !== 'YOUR_SUPABASE_URL' && supabase) {
@@ -4224,7 +4331,8 @@ const AdminStudioNews = () => {
           content: updatedItem.content,
           image: updatedItem.image,
           hashtag: updatedItem.hashtag,
-          video: updatedItem.video
+          video: updatedItem.video,
+          cover_image: updatedItem.cover_image
         };
         const { error } = await supabase.from('news').update(payload).eq('id', updatedItem.id);
         if (error) throw error;
@@ -4232,6 +4340,7 @@ const AdminStudioNews = () => {
       } catch(e) {
         console.error("Save error:", e);
         setSyncStatus('Error');
+        alert("Error saving News to database. Did you create the cover_image column in Supabase?");
       }
     }
   };
@@ -4331,30 +4440,92 @@ const AdminStudioNews = () => {
                  <EditableTextArea value={editingItem.content} onSave={v => { handleUpdate('content', v); handleSaveItem('content', v); }} className="font-sans text-xs text-zinc-600 border border-zinc-200 p-2" rows={8} />
               </div>
 
-              <div className="flex flex-col gap-2 mt-4">
-                 <span className="font-sans font-black text-sm text-black uppercase">Cover Photo</span>
-                 <EditableImage 
-                   src={editingItem.image} 
-                   aspect="aspect-[4/3]" 
-                   onUpload={(url, isFinal) => {
-                     handleUpdate('image', url);
-                     if (isFinal) handleSaveItem('image', url);
-                   }} 
-                 />
-                 <span className="text-[9px] text-zinc-400 uppercase tracking-widest mt-1">Suggested Aspect Ratio: 4:3 (Landscape)</span>
-              </div>
+              {/* --- NEW UI FOR MEDIA --- */}
+              <div className="flex flex-col gap-4 mt-6 border-t border-zinc-200 pt-6">
+                <h4 className="font-sans font-black text-lg uppercase tracking-wide">Media Settings</h4>
+                
+                {/* 1. Main Photo */}
+                <div className="flex flex-col gap-2 p-4 border border-zinc-200 bg-zinc-50 relative">
+                  <div className="flex justify-between items-center">
+                    <span className="font-sans font-black text-sm text-black uppercase">1. Main Photo</span>
+                    {editingItem.image && (
+                      <button onClick={() => { handleUpdate('image', ''); handleSaveItem('image', ''); }} className="text-[10px] font-bold text-red-500 uppercase tracking-widest hover:text-red-700 transition-colors">
+                        [ Remove ]
+                      </button>
+                    )}
+                  </div>
+                  <span className="text-[10px] text-zinc-500 uppercase leading-snug">
+                    This photo is used as the article cover. <br/>
+                    (If a Main Video is uploaded below, this photo will be ignored).
+                  </span>
+                  <div className="mt-2 w-full max-w-sm">
+                    <EditableImage 
+                      src={editingItem.image || 'https://via.placeholder.com/800x600?text=Upload+Photo'} 
+                      aspect="aspect-[4/3]" 
+                      onUpload={(url, isFinal) => {
+                        handleUpdate('image', url);
+                        if (isFinal) handleSaveItem('image', url);
+                      }} 
+                    />
+                  </div>
+                </div>
 
-              <div className="flex flex-col gap-2 mt-2">
-                 <span className="font-sans font-black text-sm text-black uppercase">Cover Video (Optional)</span>
-                 <EditableVideo 
-                   src={editingItem.video} 
-                   aspect="aspect-[4/3]" 
-                   onUpload={(url, isFinal) => {
-                     handleUpdate('video', url);
-                     if (isFinal) handleSaveItem('video', url);
-                   }} 
-                 />
-                 <span className="text-[9px] text-zinc-400 uppercase tracking-widest mt-1">Upload an MP4/WebM video to play instead of the photo.</span>
+                {/* 2. Main Video */}
+                <div className="flex flex-col gap-2 p-4 border border-zinc-200 bg-zinc-50 relative">
+                  <div className="flex justify-between items-center">
+                    <span className="font-sans font-black text-sm text-black uppercase">2. Main Video</span>
+                    {editingItem.video && (
+                      <button onClick={() => { handleUpdate('video', ''); handleSaveItem('video', ''); }} className="text-[10px] font-bold text-red-500 uppercase tracking-widest hover:text-red-700 transition-colors">
+                        [ Remove ]
+                      </button>
+                    )}
+                  </div>
+                  <span className="text-[10px] text-zinc-500 uppercase leading-snug">
+                    Upload an MP4/WebM. <br/>
+                    <strong className="text-black">Note: This will override the Main Photo and play in a loop.</strong>
+                  </span>
+                  
+                  <div className="mt-2 w-full max-w-sm">
+                    <EditableVideo 
+                      src={editingItem.video} 
+                      aspect="aspect-[4/3]" 
+                      onUpload={(url, isFinal) => {
+                        handleUpdate('video', url);
+                        if (isFinal) handleSaveItem('video', url);
+                      }} 
+                    />
+                  </div>
+
+                  {/* Video Poster Settings */}
+                  {editingItem.video && (
+                    <div className="flex flex-col gap-4 mt-6 p-4 border border-dashed border-[#C28256] bg-orange-50/50">
+                       <span className="font-sans font-black text-[11px] text-[#C28256] uppercase tracking-widest">Video Cover Settings (Fix Black Screen)</span>
+                       
+                       {/* Poster Image */}
+                       <div className="flex flex-col gap-1.5">
+                         <div className="flex justify-between items-center">
+                           <span className="text-[10px] text-zinc-500 uppercase tracking-widest font-bold">A. Custom Cover Image</span>
+                           {editingItem.cover_image && (
+                             <button onClick={() => { handleUpdate('cover_image', ''); handleSaveItem('cover_image', ''); }} className="text-[10px] font-bold text-red-500 uppercase tracking-widest hover:text-red-700 transition-colors">
+                               [ Remove ]
+                             </button>
+                           )}
+                         </div>
+                         <span className="text-[9px] text-zinc-400 uppercase">Displays before the video plays. (Overrides start time).</span>
+                         <div className="w-48 mt-1">
+                           <EditableImage 
+                             src={editingItem.cover_image || 'https://via.placeholder.com/400x300?text=Upload+Cover'} 
+                             aspect="aspect-[4/3]" 
+                             onUpload={(url, isFinal) => {
+                               handleUpdate('cover_image', url);
+                               if (isFinal) handleSaveItem('cover_image', url);
+                             }} 
+                           />
+                         </div>
+                       </div>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           ) : (
@@ -4513,8 +4684,8 @@ const AdminLayout = ({ onLogout }) => {
   const menuItems = [
     { id: 'overview', label: 'Cocktail Menu', icon: 'M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z' },
     { id: 'banner', label: 'Banners', icon: 'M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z' },
-    { id: 'editorials', label: 'About Page', icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10' },
-    { id: 'catalogue', label: 'Catalogue', icon: 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z' },
+    { id: 'editorials', label: 'About', icon: 'M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10' },
+    { id: 'catalogue', label: 'Shop', icon: 'M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z' },
     { id: 'orders', label: 'Order Ledger', icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2' },
     { id: 'timeline', label: 'Our Journey', icon: 'M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z' },
     { id: 'news', label: 'News', icon: 'M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2.5 2.5 0 00-2.5-2.5H15' },
