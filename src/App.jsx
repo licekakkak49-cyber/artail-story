@@ -1,5 +1,6 @@
-import React, { useRef, useState, useEffect, createContext, useContext, useMemo } from 'react';
+import React, { useRef, useState, useEffect, createContext, useContext, useMemo, useCallback } from 'react';
 import { motion, useScroll, useTransform, useMotionValueEvent, AnimatePresence } from 'framer-motion';
+import Cropper from 'react-easy-crop';
 import { CheckoutOverlay } from './components/ecommerce/CheckoutOverlay';
 import { OrderSuccessOverlay } from './components/ecommerce/OrderSuccessOverlay';
 import { AuthOverlay } from './components/ecommerce/AuthOverlay';
@@ -1428,13 +1429,13 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime,
             const ImageColumn = (
               <div className="w-full md:w-[54%] flex flex-col items-center justify-center px-8 md:px-12 relative">
                 <div className="w-full max-w-sm lg:max-w-md flex flex-col">
-                  <div className="w-full aspect-[4/5] bg-zinc-900 overflow-hidden shadow-2xl">
+                  <div className="w-full bg-zinc-900 overflow-hidden shadow-2xl">
                     <img 
                       src={artist.image || "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=1200&q=80"} 
                       alt={artist.name || "Artist"} 
                       loading="lazy" 
                       decoding="async" 
-                      className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-in-out" 
+                      className="w-full h-auto object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-in-out" 
                       draggable="false" 
                     />
                   </div>
@@ -1693,8 +1694,8 @@ const CocktailMenuItem = ({ menu, i }) => {
       {/* Left Column (Image & Reference) */}
       <div className="w-full md:w-1/2 flex flex-col items-center justify-center p-8 md:p-12 lg:p-16 relative group/image">
         <div className="w-full max-w-md lg:max-w-lg xl:max-w-xl flex flex-col">
-          <div className="w-full aspect-square bg-[#1C1C1C] overflow-hidden shadow-2xl cursor-pointer">
-            <img src={menu.image} alt={menu.title} className="w-full h-full object-cover opacity-100 transition-all duration-700 ease-out" />
+          <div className="w-full bg-[#1C1C1C] overflow-hidden shadow-2xl cursor-pointer">
+            <img src={menu.image} alt={menu.title} className="w-full h-auto object-cover opacity-100 transition-all duration-700 ease-out" />
           </div>
           <div className="w-full text-[8px] md:text-[9px] text-zinc-500 text-right font-helvetica uppercase whitespace-pre-wrap mt-3 tracking-wider leading-relaxed">
             {menu.reference}
@@ -2936,44 +2937,208 @@ const uploadImageToSupabase = async (file) => {
   }
 };
 
-const EditableImage = ({ src, aspect = "aspect-[3/4]", className = "", onUpload, grayscale = false }) => {
-  const [isUploading, setIsUploading] = useState(false);
+const createImage = (url) =>
+  new Promise((resolve, reject) => {
+    const image = new Image();
+    image.addEventListener('load', () => resolve(image));
+    image.addEventListener('error', (error) => reject(error));
+    image.setAttribute('crossOrigin', 'anonymous');
+    image.src = url;
+  });
 
-  const handleFile = async (e) => {
+const getCroppedImg = async (imageSrc, pixelCrop) => {
+  const image = await createImage(imageSrc);
+  const canvas = document.createElement('canvas');
+  const ctx = canvas.getContext('2d');
+
+  if (!ctx) return null;
+
+  canvas.width = pixelCrop.width;
+  canvas.height = pixelCrop.height;
+
+  ctx.drawImage(
+    image,
+    pixelCrop.x,
+    pixelCrop.y,
+    pixelCrop.width,
+    pixelCrop.height,
+    0,
+    0,
+    pixelCrop.width,
+    pixelCrop.height
+  );
+
+  return new Promise((resolve, reject) => {
+    canvas.toBlob((blob) => {
+      if (!blob) {
+        reject(new Error('Canvas is empty'));
+        return;
+      }
+      resolve(new File([blob], 'cropped.jpeg', { type: 'image/jpeg' }));
+    }, 'image/jpeg', 0.95);
+  });
+};
+
+const ImageCropperModal = ({ imageSrc, aspect, onCropComplete, onCancel, lockAspect }) => {
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+
+  const onCropCompleteHandler = useCallback((croppedArea, croppedAreaPixels) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  }, []);
+
+  const handleSave = async () => {
+    try {
+      const croppedFile = await getCroppedImg(imageSrc, croppedAreaPixels);
+      onCropComplete(croppedFile);
+    } catch (e) {
+      console.error(e);
+      alert('Error cropping image');
+    }
+  };
+
+  const parsedAspect = useMemo(() => {
+    if (!aspect || aspect === 'h-full') return undefined;
+    const match = aspect.match(/aspect-\[(\d+)\/(\d+)\]/);
+    if (match) return parseInt(match[1], 10) / parseInt(match[2], 10);
+    if (aspect === 'aspect-square') return 1;
+    if (aspect === 'aspect-video') return 16/9;
+    return undefined;
+  }, [aspect]);
+
+  const [currentAspect, setCurrentAspect] = useState(parsedAspect);
+
+  const RATIOS = [
+    { label: 'Freeform', value: undefined },
+    { label: '1:1', value: 1 },
+    { label: '4:5', value: 4/5 },
+    { label: '3:4', value: 3/4 },
+    { label: '16:9', value: 16/9 }
+  ];
+
+  return (
+    <div className="fixed inset-0 bg-black/90 z-[99999] flex flex-col">
+      <div className="relative flex-1">
+        <Cropper
+          image={imageSrc}
+          crop={crop}
+          zoom={zoom}
+          aspect={currentAspect}
+          onCropChange={setCrop}
+          onCropComplete={onCropCompleteHandler}
+          onZoomChange={setZoom}
+          showGrid={true}
+        />
+        {/* Center Crosshairs */}
+        <div className="absolute inset-0 pointer-events-none flex items-center justify-center opacity-50 mix-blend-difference">
+           <div className="w-px h-full bg-white border-l border-dashed border-zinc-400" />
+           <div className="h-px w-full absolute bg-white border-t border-dashed border-zinc-400" />
+        </div>
+      </div>
+      <div className="bg-zinc-900 p-6 flex flex-col gap-4 shrink-0 h-auto">
+        {/* Aspect Ratio Buttons */}
+        {!lockAspect && (
+          <div className="flex justify-center gap-2 mb-2 flex-wrap">
+            {RATIOS.map(ratio => (
+              <button
+                key={ratio.label}
+                onClick={() => setCurrentAspect(ratio.value)}
+                className={`text-[10px] uppercase font-bold tracking-widest px-3 py-1.5 rounded transition-colors ${
+                  currentAspect === ratio.value ? 'bg-[#C28256] text-white' : 'bg-zinc-800 text-zinc-400 hover:bg-zinc-700 hover:text-white'
+                }`}
+              >
+                {ratio.label}
+              </button>
+            ))}
+          </div>
+        )}
+        <div className="flex items-center gap-4 max-w-md mx-auto w-full">
+          <span className="text-white text-xs uppercase font-bold tracking-widest">Zoom</span>
+          <input 
+            type="range" 
+            value={zoom} 
+            min={1} 
+            max={3} 
+            step={0.1} 
+            aria-labelledby="Zoom" 
+            onChange={(e) => setZoom(e.target.value)} 
+            className="w-full accent-[#C28256]"
+          />
+        </div>
+        <div className="flex justify-between max-w-md mx-auto w-full">
+          <button onClick={onCancel} className="text-zinc-400 hover:text-white uppercase text-xs font-bold tracking-widest transition-colors px-4 py-2 border border-zinc-700 hover:border-zinc-500 rounded">Cancel</button>
+          <button onClick={handleSave} className="bg-[#C28256] text-white uppercase text-xs font-bold tracking-widest px-6 py-2 rounded hover:bg-[#a66a42] transition-colors">Apply Crop</button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+const EditableImage = ({ src, aspect = "aspect-[3/4]", className = "", onUpload, grayscale = false, lockAspect = false }) => {
+  const [isUploading, setIsUploading] = useState(false);
+  const [cropImageSrc, setCropImageSrc] = useState(null);
+
+  const handleFile = (e) => {
     if (e.target.files && e.target.files[0]) {
       const file = e.target.files[0];
-      const tempUrl = URL.createObjectURL(file);
-      if (onUpload) onUpload(tempUrl, false); 
-
-      if (supabaseUrl !== 'YOUR_SUPABASE_URL') {
-        setIsUploading(true);
-        const publicUrl = await uploadImageToSupabase(file);
-        if (publicUrl && onUpload) {
-          onUpload(publicUrl, true); 
+      const img = new Image();
+      const objectUrl = URL.createObjectURL(file);
+      
+      img.onload = () => {
+        if (img.width < 800 || img.height < 800) {
+          alert(`Warning: Your image is ${img.width}x${img.height}px. We recommend at least 800x800px for good quality.`);
         }
-        setIsUploading(false);
-      } else {
-        if (onUpload) onUpload(tempUrl, true); 
+        setCropImageSrc(objectUrl);
+      };
+      img.src = objectUrl;
+    }
+  };
+
+  const handleCropComplete = async (croppedFile) => {
+    setCropImageSrc(null);
+    const tempUrl = URL.createObjectURL(croppedFile);
+    if (onUpload) onUpload(tempUrl, false); 
+
+    if (supabaseUrl !== 'YOUR_SUPABASE_URL') {
+      setIsUploading(true);
+      const publicUrl = await uploadImageToSupabase(croppedFile);
+      if (publicUrl && onUpload) {
+        onUpload(publicUrl, true); 
       }
+      setIsUploading(false);
+    } else {
+      if (onUpload) onUpload(tempUrl, true); 
     }
   };
 
   return (
-    <div className={`relative w-full ${aspect} bg-[#EAEAEA] overflow-hidden group cursor-pointer ${className}`}>
-      <img src={src} className={`w-full h-full object-cover transition-all duration-300 ${grayscale ? 'grayscale group-hover:grayscale-0' : ''} ${isUploading ? 'blur-sm opacity-50' : ''}`} alt="Editable content" />
-      {isUploading && (
-        <div className="absolute inset-0 flex justify-center items-center z-20 pointer-events-none">
-          <span className="bg-black/80 text-white px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded-full">Uploading...</span>
+    <>
+      <div className={`relative w-full ${aspect} bg-[#EAEAEA] overflow-hidden group cursor-pointer ${className}`}>
+        <img src={src} className={`w-full ${aspect === 'h-auto' ? 'h-auto' : 'h-full'} object-cover transition-all duration-300 ${grayscale ? 'grayscale group-hover:grayscale-0' : ''} ${isUploading ? 'blur-sm opacity-50' : ''}`} alt="Editable content" />
+        {isUploading && (
+          <div className="absolute inset-0 flex justify-center items-center z-20 pointer-events-none">
+            <span className="bg-black/80 text-white px-3 py-1.5 text-[10px] font-bold uppercase tracking-widest rounded-full">Uploading...</span>
+          </div>
+        )}
+        <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
+          <label className="text-white text-[10px] font-bold uppercase tracking-widest cursor-pointer flex flex-col items-center gap-2 w-full h-full justify-center">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+            Upload Media
+            <input type="file" accept="image/*" className="hidden" onChange={handleFile} disabled={isUploading} onClick={(e) => e.target.value = null} />
+          </label>
         </div>
-      )}
-      <div className="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
-        <label className="text-white text-[10px] font-bold uppercase tracking-widest cursor-pointer flex flex-col items-center gap-2 w-full h-full justify-center">
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-          Upload Media
-          <input type="file" accept="image/*" className="hidden" onChange={handleFile} disabled={isUploading} />
-        </label>
       </div>
-    </div>
+      {cropImageSrc && (
+        <ImageCropperModal
+          imageSrc={cropImageSrc}
+          aspect={aspect}
+          lockAspect={lockAspect}
+          onCropComplete={handleCropComplete}
+          onCancel={() => setCropImageSrc(null)}
+        />
+      )}
+    </>
   );
 };
 
@@ -3315,8 +3480,8 @@ const AdminStudioOverview = () => {
 
                 <div className="flex flex-col gap-2">
                   <label className="font-sans text-xs font-bold uppercase tracking-widest text-zinc-500">Main Image</label>
-                  <div className="w-48 aspect-[4/5] ring-1 ring-black/5 shadow-md">
-                     <EditableImage src={editingCocktail.src} aspect="h-full" onUpload={(url) => setEditingCocktail({...editingCocktail, src: url})} />
+                  <div className="w-48 ring-1 ring-black/5 shadow-md overflow-hidden">
+                     <EditableImage src={editingCocktail.src} aspect="h-auto" onUpload={(url) => setEditingCocktail({...editingCocktail, src: url})} />
                   </div>
                 </div>
 
@@ -3464,10 +3629,10 @@ const AdminStudioEditorials = () => {
 
           <div className="flex flex-col gap-2">
             <label className="font-sans text-xs font-bold uppercase tracking-widest text-zinc-500">Artist Portrait (Upload Image)</label>
-            <div className="w-48">
+            <div className="w-48 overflow-hidden ring-1 ring-black/5 shadow-md">
               <EditableImage 
                 src={currentArtist.image || 'https://via.placeholder.com/400x500?text=Upload+Portrait'} 
-                aspect="aspect-[4/5]" 
+                aspect="h-auto" 
                 onUpload={(url, isFinal) => {
                   handleUpdate('image', url);
                   if (isFinal) handleSave();
@@ -3613,7 +3778,7 @@ const AdminStudioCatalogue = () => {
               <div className="w-full flex gap-2 overflow-x-auto pb-4 snap-x">
                 {editingItem.images.map((img, i) => (
                   <div key={i} className="w-48 aspect-[4/5] shrink-0 snap-center relative group">
-                    <EditableImage src={img} aspect="aspect-[4/5]" onUpload={(url) => {
+                    <EditableImage src={img} aspect="aspect-[4/5]" lockAspect={true} onUpload={(url) => {
                       const newImgs = [...editingItem.images]; newImgs[i] = url;
                       setEditingItem({...editingItem, images: newImgs, src: i===0 ? url : editingItem.src});
                     }} />
@@ -4462,6 +4627,7 @@ const AdminStudioNews = () => {
                     <EditableImage 
                       src={editingItem.image || 'https://via.placeholder.com/800x600?text=Upload+Photo'} 
                       aspect="aspect-[4/3]" 
+                      lockAspect={true}
                       onUpload={(url, isFinal) => {
                         handleUpdate('image', url);
                         if (isFinal) handleSaveItem('image', url);
@@ -4516,6 +4682,7 @@ const AdminStudioNews = () => {
                            <EditableImage 
                              src={editingItem.cover_image || 'https://via.placeholder.com/400x300?text=Upload+Cover'} 
                              aspect="aspect-[4/3]" 
+                             lockAspect={true}
                              onUpload={(url, isFinal) => {
                                handleUpdate('cover_image', url);
                                if (isFinal) handleSaveItem('cover_image', url);
@@ -4615,7 +4782,8 @@ const AdminStudioSettings = () => {
                  <span className="font-sans font-black text-xl text-black uppercase mb-4">VISIT BANNER IMAGE</span>
                  <EditableImage 
                    src={settings.barImage} 
-                   aspect="aspect-[16/10]" 
+                   aspect="aspect-[21/9]" 
+                   lockAspect={true}
                    onUpload={(url, isFinal) => {
                      handleUpdate('barImage', url);
                      if (isFinal) handleSave('barImage', url);
