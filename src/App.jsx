@@ -213,7 +213,30 @@ const siteSettingsData = {
   latitude_longitude: "40.7128° N, 74.0060° W",
   homeVideo: "",
   journey_title: "Our\nJourney",
-  journey_subtitle: "From a shared belief to a permanent canvas"
+  journey_subtitle: "From a shared belief to a permanent canvas",
+  journey_images: [
+    {
+      src: '/bar_award_1.png',
+      badge: "ASIA'S 50 BEST BARS 2025",
+      rank: '',
+      name: 'WAYD',
+      location: ''
+    },
+    {
+      src: '/bar_award_2.png',
+      badge: "THE BEST BAR IN THAILAND 2025,\nSPONSORED BY AMARO LUCANO",
+      rank: '',
+      name: 'WAYD',
+      location: ''
+    },
+    {
+      src: '/bar_award_3.png',
+      badge: "THE WORLD'S 50 BEST BARS 2025",
+      rank: '',
+      name: 'WAYD',
+      location: ''
+    }
+  ]
 };
 
 export const DataProvider = ({ children }) => {
@@ -326,6 +349,7 @@ export const DataProvider = ({ children }) => {
             artist2_subtext: formatText(stData.artist2_subtext ?? siteSettingsData.artist2_subtext),
             journey_title: formatText(stData.journey_title ?? siteSettingsData.journey_title),
             journey_subtitle: formatText(stData.journey_subtitle ?? siteSettingsData.journey_subtitle),
+            journey_images: stData.journey_images || siteSettingsData.journey_images
           });
         }
         // 🌟 [END: แก้ปัญหา \n] 🌟
@@ -1435,7 +1459,7 @@ const EditorialOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime,
                       alt={artist.name || "Artist"} 
                       loading="lazy" 
                       decoding="async" 
-                      className="w-full h-auto object-cover grayscale hover:grayscale-0 transition-all duration-700 ease-in-out" 
+                      className="w-full h-auto object-cover grayscale-0 hover:grayscale transition-all duration-700 ease-in-out" 
                       draggable="false" 
                     />
                   </div>
@@ -2018,7 +2042,7 @@ const JourneyOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, c
   const [isSticky, setIsSticky] = useState(false);
   const headerRef = useRef(null);
 
-  const [customImages, setCustomImages] = useState([
+  const customImages = settings?.journey_images || [
     {
       src: '/bar_award_1.png',
       badge: "ASIA'S 50 BEST BARS 2025",
@@ -2040,33 +2064,7 @@ const JourneyOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, c
       name: 'WAYD',
       location: ''
     }
-  ]);
-
-  const handleImageUpload = (e) => {
-    const files = Array.from(e.target.files).slice(0, 3);
-    if (files.length === 0) return;
-
-    const newImages = files.map((file, idx) => {
-      const url = URL.createObjectURL(file);
-      const mockTexts = [
-        { badge: "ASIA'S 50 BEST BARS 2025", rank: '', name: 'WAYD', location: '' },
-        { badge: 'THE BEST BAR IN THAILAND 2025', rank: '', name: 'WAYD', location: '' },
-        { badge: "THE WORLD'S 50 BEST BARS 2025", rank: '', name: 'WAYD', location: '' }
-      ];
-      return {
-        src: url,
-        badge: mockTexts[idx]?.badge || 'MEMORIES',
-        rank: mockTexts[idx]?.rank || '',
-        name: 'MY BAR',
-        location: 'MEMORIES'
-      };
-    });
-    setCustomImages(newImages);
-  };
-
-  const updateImageText = (index, field, value) => {
-    setCustomImages(prev => prev.map((img, i) => i === index ? { ...img, [field]: value } : img));
-  };
+  ];
 
   const handleScroll = (e) => {
     if (headerRef.current) {
@@ -2215,50 +2213,7 @@ const JourneyOverlay = ({ onClose, cartCount, setView, setOverlayView, nyTime, c
                     className="absolute inset-0 w-full h-full object-cover grayscale-0 group-hover:grayscale transition-all duration-700 ease-in-out pointer-events-none" 
                   />
                   {/* Dark overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/80 opacity-95 transition-opacity duration-500 group-hover:opacity-75 pointer-events-none" />
-
-
-                  {/* Bottom details: No.4, BAR US, BANGKOK */}
-                  <div className="relative z-10 w-full flex flex-col items-center gap-2 mt-auto">
-                    {img.rank && (
-                      <div className="bg-white px-2 py-0.5 shadow-md">
-                        <span 
-                          contentEditable
-                          suppressContentEditableWarning
-                          onBlur={(e) => updateImageText(idx, 'rank', e.target.innerText)}
-                          className="font-helvetica font-black text-[10px] md:text-[12px] text-black uppercase tracking-tight block outline-none cursor-text"
-                        >
-                          {img.rank}
-                        </span>
-                      </div>
-                    )}
-
-                    {img.name && img.name !== 'WAYD' && (
-                      <div className="bg-white px-1 py-[2px] shadow-md leading-none">
-                        <span 
-                          contentEditable
-                          suppressContentEditableWarning
-                          onBlur={(e) => updateImageText(idx, 'name', e.target.innerText)}
-                          className="font-helvetica font-bold text-xl md:text-2xl lg:text-3xl text-black uppercase tracking-wide block leading-none outline-none cursor-text"
-                        >
-                          {img.name}
-                        </span>
-                      </div>
-                    )}
-
-                    {img.location && (
-                      <div className="bg-white px-3 py-1 shadow-md">
-                        <span 
-                          contentEditable
-                          suppressContentEditableWarning
-                          onBlur={(e) => updateImageText(idx, 'location', e.target.innerText)}
-                          className="font-helvetica font-black text-[9px] md:text-[10px] text-black uppercase tracking-widest block outline-none cursor-text"
-                        >
-                          {img.location}
-                        </span>
-                      </div>
-                    )}
-                  </div>
+                  <div className="absolute inset-0 bg-black/20 opacity-0 transition-opacity duration-500 group-hover:opacity-100 pointer-events-none" />
                 </div>
               ))}
           </div>
@@ -4220,6 +4175,27 @@ const AdminStudioTimeline = () => {
                  <span className="font-sans text-xs text-zinc-500 uppercase tracking-widest">{item.name}</span>
               </div>
             ))}
+
+            <div className="flex flex-col gap-4 p-4 border border-zinc-200 bg-[#F5F5F5]/50 mt-4 mb-4 rounded-sm">
+              <span className="font-sans font-black text-[10px] text-zinc-400 uppercase tracking-widest border-b border-zinc-200 pb-2">Journey Gallery Images (Bottom)</span>
+              {settings.journey_images?.map((img, idx) => (
+                <div key={idx} className="flex flex-col gap-3 p-3 bg-white border border-zinc-200">
+                  <div className="w-full aspect-[4/3] bg-zinc-100 overflow-hidden relative group">
+                    <EditableImage 
+                      src={img.src} 
+                      aspect="aspect-[4/3]" 
+                      lockAspect={true}
+                      onUpload={(url) => {
+                        const newImages = [...(settings.journey_images || [])];
+                        newImages[idx] = { ...newImages[idx], src: url };
+                        handleUpdateSetting('journey_images', newImages);
+                        handleSaveSetting('journey_images', newImages);
+                      }} 
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
          </div>
       </div>
 
