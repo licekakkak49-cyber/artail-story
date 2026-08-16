@@ -3640,20 +3640,29 @@ const AdminStudioCatalogue = () => {
   const handleDelete = async () => {
     if (!window.confirm('Are you sure you want to delete this object?')) return;
     
-    const newCat = catalogue.filter(i => i.id !== editingItem.id && i.name !== editingItem.name);
-    setCatalogue(newCat);
+    // Check if it's a new item that hasn't been saved to DB yet
+    const isNew = String(editingItem.id).startsWith('new_');
     
-    if (supabaseUrl !== 'YOUR_SUPABASE_URL' && supabase && editingItem.id) {
+    if (!isNew && supabaseUrl !== 'YOUR_SUPABASE_URL' && supabase && editingItem.id) {
       setSyncStatus('Deleting...');
       try {
-        await supabase.from('catalogue').delete().eq('id', editingItem.id);
+        const { error } = await supabase.from('catalogue').delete().eq('id', editingItem.id);
+        if (error) throw error;
+        
         setSyncStatus('Synced');
+        const newCat = catalogue.filter(i => i.id !== editingItem.id);
+        setCatalogue(newCat);
+        setEditingItem(null);
       } catch(e) { 
         console.error("Delete error:", e);
         setSyncStatus('Error');
+        alert(`Failed to delete: ${e.message}`);
       }
+    } else {
+      const newCat = catalogue.filter(i => i.id !== editingItem.id);
+      setCatalogue(newCat);
+      setEditingItem(null);
     }
-    setEditingItem(null);
   };
 
   return (
