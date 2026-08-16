@@ -61,30 +61,7 @@ const editorialStories = {
     { category: "GALLERY", title: "The First Solo Exhibition", aspect: "aspect-[3/4]", src: "https://images.unsplash.com/photo-1597330768910-c081e7d23588?auto=format&fit=crop&w=800&q=80" }
   ]
 };
-
-const demoGalleryItem = {
-  id: 'demo-item-999',
-  name: "The Kai Vase (Demo Gallery)",
-  price: "145",
-  src: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=800&q=80",
-  designer: "Wayd Studio",
-  year: "2026",
-  colour: "Matte Cream",
-  size: "4.5\" x 4.5\" x 6.0\"",
-  material: "Handcrafted Ceramic",
-  info: "A beautifully sculpted, minimal ceramic vase. This is a demo item to showcase the multiple image gallery with 5 pictures for your client.",
-  stock: "10",
-  images: [
-    "https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1610701596027-14c0a524bcda?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1610701596013-14902b37bd14?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1597330768910-c081e7d23588?auto=format&fit=crop&w=800&q=80",
-    "https://images.unsplash.com/photo-1597330768875-14f09d84f93b?auto=format&fit=crop&w=800&q=80"
-  ]
-};
-
 const catalogueItems = [
-  demoGalleryItem,
   { name: "Whispered Whirlwind", price: "129", src: "https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=800&q=80", designer: "Daniel Kim", year: "2026", colour: "Ebony Black", size: "2.7\" x 2.7\" x 5.0\"", material: "STONEWARE", info: "Tray with matte finish. Candle included in your order may differ in color.", stock: "03", images: ["https://images.unsplash.com/photo-1610701596007-11502861dcfa?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1610701596027-14c0a524bcda?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1610701596013-14902b37bd14?auto=format&fit=crop&w=800&q=80"] },
   { name: "Enchanted Canvas", price: "375", src: "https://images.unsplash.com/photo-1597330768910-c081e7d23588?auto=format&fit=crop&w=800&q=80", designer: "Elena Rostova", year: "2025", colour: "Cerulean Blue", size: "12.0\" x 8.5\" x 4.0\"", material: "CERAMIC & CLAY", info: "Hand-sculpted centerpiece. Each piece is unique and may feature slight variations.", stock: "01", images: ["https://images.unsplash.com/photo-1597330768910-c081e7d23588?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1597330768875-14f09d84f93b?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1597330768900-349c258d4a66?auto=format&fit=crop&w=800&q=80"] },
   { name: "Ethereal Serenade", price: "89", src: "https://images.unsplash.com/photo-1602928321679-560bb453f190?auto=format&fit=crop&w=800&q=80", designer: "Studio Narkara", year: "2026", colour: "Midnight & Coral", size: "5.5\" x 4.0\" x 8.0\"", material: "MIXED MEDIA", info: "Abstract floral interpretation. Keep away from direct sunlight to preserve colors.", stock: "05", images: ["https://images.unsplash.com/photo-1602928321679-560bb453f190?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1602928321855-3a7c6f091c78?auto=format&fit=crop&w=800&q=80", "https://images.unsplash.com/photo-1602928321590-b1935c181fcd?auto=format&fit=crop&w=800&q=80"] },
@@ -285,8 +262,8 @@ export const DataProvider = ({ children }) => {
             setCocktails(mappedCocktails);
           }
         }
-        if (catData && catData.length > 0) {
-          setCatalogue([demoGalleryItem, ...catData]);
+        if (catData) {
+          setCatalogue(catData);
         }
 
         if (edData && edData.length > 0) {
@@ -592,7 +569,7 @@ const ProductDetail = ({ item, onNavigate, onAcquire, onBack }) => {
           </div>
           <div className="flex justify-between w-full max-w-lg mt-8 md:mt-12 pt-4 border-t border-black/10">
              <span onClick={handlePrev} className={`font-helvetica text-[10px] font-bold uppercase tracking-widest transition-colors ${currentIndex > 0 ? 'text-black cursor-pointer hover:text-zinc-500' : 'text-zinc-300 pointer-events-none'}`}>Previous</span>
-            <span onClick={handleNext} className={`font-helvetica text-[10px] font-bold uppercase tracking-widest transition-colors ${currentIndex < catalogueItems.length - 1 ? 'text-black cursor-pointer hover:text-zinc-500' : 'text-zinc-300 pointer-events-none'}`}>Next</span>
+            <span onClick={handleNext} className={`font-helvetica text-[10px] font-bold uppercase tracking-widest transition-colors ${currentIndex < catalogue.length - 1 ? 'text-black cursor-pointer hover:text-zinc-500' : 'text-zinc-300 pointer-events-none'}`}>Next</span>
           </div>
         </div>
       </div>
