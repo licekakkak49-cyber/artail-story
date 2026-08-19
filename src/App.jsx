@@ -388,15 +388,29 @@ const BagView = ({ cartItems, onRemove, onCheckout, onBack, onUpdateQty }) => {
             </button>
           </div>
         ) : (
-          cartItems.map((item, idx) => (
+          cartItems.map((item, idx) => {
+            let maxStock = Number(item.stock) || 10;
+            if ((item.has_sizes || item.has_colors) && item.variant_inventory) {
+              const variantKey = [item.selectedColor, item.selectedSize].filter(Boolean).join('-');
+              if (variantKey && item.variant_inventory[variantKey] !== undefined) {
+                maxStock = Number(item.variant_inventory[variantKey]);
+              }
+            }
+            
+            return (
             <div key={idx} className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 md:gap-4 border-b border-black/10 py-6 group">
               <div className="w-full md:w-[55%] flex items-center gap-6">
                 <div className="w-16 md:w-20 aspect-[4/5] bg-[#F5F5F5] overflow-hidden shrink-0">
                   <img src={item.src || item.image || item.image_url || (item.images && item.images[0])} alt={item.name} loading="lazy" decoding="async" className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" draggable="false" />
                 </div>
                 <div className="flex flex-col gap-1.5">
-                  <span className="font-helvetica text-black text-[12px] md:text-[14px] font-bold tracking-tight">"{item.name}"</span>
                   <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest">{item.designer}</span>
+                  <span className="font-helvetica text-black text-[14px] font-bold tracking-tight">"{item.name}"</span>
+                  {(item.selectedSize || item.selectedColor) && (
+                    <span className="font-helvetica text-black/60 text-[9px] font-bold uppercase tracking-widest mt-0.5">
+                      {item.selectedSize && `SIZE: ${item.selectedSize}`} {item.selectedSize && item.selectedColor && '| '} {item.selectedColor && `COLOR: ${item.selectedColor}`}
+                    </span>
+                  )}
                 </div>
               </div>
               <div className="w-full md:w-[45%] flex justify-between items-center md:items-center mt-2 md:mt-0">
@@ -405,7 +419,7 @@ const BagView = ({ cartItems, onRemove, onCheckout, onBack, onUpdateQty }) => {
                   <div className="flex items-center gap-2">
                     <button onClick={() => onUpdateQty(idx, item.qty - 1)} className="w-5 h-5 flex items-center justify-center border border-black/20 hover:border-black rounded-full text-[10px] transition-colors" disabled={item.qty <= 1}>-</button>
                     <span className="font-helvetica text-black text-[12px] font-bold tracking-tight w-4 text-center">{item.qty < 10 ? `0${item.qty}` : item.qty}</span>
-                    <button onClick={() => onUpdateQty(idx, item.qty + 1)} className="w-5 h-5 flex items-center justify-center border border-black/20 hover:border-black rounded-full text-[10px] transition-colors" disabled={item.qty >= (item.stock || 10)}>+</button>
+                    <button onClick={() => onUpdateQty(idx, item.qty + 1)} className="w-5 h-5 flex items-center justify-center border border-black/20 hover:border-black rounded-full text-[10px] transition-colors" disabled={item.qty >= maxStock}>+</button>
                   </div>
                 </div>
                 <div className="w-1/3 md:w-[33%] flex flex-col md:flex-row md:justify-end items-start md:items-center gap-1.5 md:gap-0">
@@ -417,7 +431,8 @@ const BagView = ({ cartItems, onRemove, onCheckout, onBack, onUpdateQty }) => {
                 </div>
               </div>
             </div>
-          ))
+            );
+          })
         )}
       </div>
       <div className="w-full md:w-1/3 flex flex-col mt-8 md:mt-0 md:pl-8 lg:pl-16">
@@ -446,9 +461,39 @@ const ProductDetail = ({ item, onNavigate, onAcquire, onBack }) => {
   const [imageIndex, setImageIndex] = useState(0);
   const [isAdded, setIsAdded] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [selectedSize, setSelectedSize] = useState(null);
+  const [selectedColor, setSelectedColor] = useState(null);
+  const [showWarning, setShowWarning] = useState(false);
+
+  const sizes = item.has_sizes && item.sizes ? item.sizes.split(',').map(s => s.trim()) : [];
+  const colors = item.has_colors && item.colors ? item.colors.split(',').map(c => c.trim()) : [];
+
+  let currentAvailableStock = Number(item.stock) || 10;
+  if ((item.has_sizes || item.has_colors) && item.variant_inventory) {
+    const variantKey = [selectedColor, selectedSize].filter(Boolean).join('-');
+    if (variantKey) {
+      currentAvailableStock = Number(item.variant_inventory[variantKey] || 0);
+    } else {
+      currentAvailableStock = 0; // Require selection before knowing stock
+    }
+  }
+
+  // Ensure quantity doesn't exceed new variant stock if they switch variants
+  useEffect(() => {
+    if (quantity > currentAvailableStock && currentAvailableStock > 0) {
+      setQuantity(currentAvailableStock);
+    } else if (currentAvailableStock === 0) {
+      setQuantity(1); // Reset
+    }
+  }, [selectedSize, selectedColor, currentAvailableStock]);
 
   const handleAcquireClick = () => {
-    onAcquire(item, quantity);
+    if ((sizes.length > 0 && !selectedSize) || (colors.length > 0 && !selectedColor)) {
+      setShowWarning(true);
+      setTimeout(() => setShowWarning(false), 2000);
+      return;
+    }
+    onAcquire({ ...item, selectedSize, selectedColor }, quantity);
     setIsAdded(true);
     setTimeout(() => setIsAdded(false), 1500);
   };
@@ -465,6 +510,19 @@ const ProductDetail = ({ item, onNavigate, onAcquire, onBack }) => {
   const currentIndex = catalogue.findIndex(i => i.name === item.name);
   const handlePrev = () => { if (currentIndex > 0) onNavigate(catalogue[currentIndex - 1]); };
   const handleNext = () => { if (currentIndex < catalogue.length - 1) onNavigate(catalogue[currentIndex + 1]); };
+
+  const isVariantInStock = (c, s) => {
+    if (!item.variant_inventory) return true;
+    const key = [c, s].filter(Boolean).join('-');
+    // If only one is selected, we can't fully check the exact variant yet, so we allow it to be selected 
+    // or we check if there's ANY stock for this partial match.
+    if (sizes.length > 0 && colors.length > 0 && (!c || !s)) {
+      // Partial check: Does this color have ANY sizes in stock? (or vice versa)
+      if (c) return sizes.some(size => Number(item.variant_inventory[`${c}-${size}`] || 0) > 0);
+      if (s) return colors.some(color => Number(item.variant_inventory[`${color}-${s}`] || 0) > 0);
+    }
+    return Number(item.variant_inventory[key] || 0) > 0;
+  };
 
   return (
     <div className="w-full flex flex-col mt-4 md:mt-8 pb-24 gap-8 items-start">
@@ -502,13 +560,57 @@ const ProductDetail = ({ item, onNavigate, onAcquire, onBack }) => {
           <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest">YEAR</span>
           <span className="font-helvetica text-black text-[12px] font-bold tracking-tight">{item.year}</span>
         </div>
-        <div className="flex flex-col gap-1.5">
-          <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest">COLOUR</span>
-          <span className="font-helvetica text-black text-[12px] font-bold tracking-tight">{item.colour}</span>
+        <div className={`flex flex-col gap-1.5 ${showWarning && colors.length > 0 && !selectedColor ? 'animate-[shake_0.5s_ease-in-out]' : ''}`}>
+          <div className="flex items-center gap-2">
+            <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest">COLOUR</span>
+            {showWarning && colors.length > 0 && !selectedColor && <span className="text-red-500 text-[8px] font-bold uppercase tracking-widest">*REQUIRED</span>}
+          </div>
+          {colors.length > 0 ? (
+            <div className="flex flex-wrap gap-2 mt-0.5">
+              {colors.map((c, idx) => {
+                const inStock = isVariantInStock(c, selectedSize);
+                return (
+                  <span key={c} className="flex items-center gap-2">
+                    <span 
+                      onClick={() => { if(inStock) { setSelectedColor(c); setShowWarning(false); } }}
+                      className={`font-helvetica text-[11px] font-bold tracking-tight uppercase transition-colors ${inStock ? 'cursor-pointer hover:text-black' : 'cursor-not-allowed opacity-30 line-through'} ${selectedColor === c ? 'text-black border-b border-black' : 'text-zinc-400'}`}
+                    >
+                      {c}
+                    </span>
+                    {idx < colors.length - 1 && <span className="text-zinc-300 text-[10px]">/</span>}
+                  </span>
+                );
+              })}
+            </div>
+          ) : (
+            <span className="font-helvetica text-black text-[12px] font-bold tracking-tight">{item.colour || '-'}</span>
+          )}
         </div>
-        <div className="flex flex-col gap-1.5">
-          <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest">SIZE</span>
-          <span className="font-helvetica text-black text-[12px] font-bold tracking-tight">{item.size}</span>
+        <div className={`flex flex-col gap-1.5 ${showWarning && sizes.length > 0 && !selectedSize ? 'animate-[shake_0.5s_ease-in-out]' : ''}`}>
+          <div className="flex items-center gap-2">
+            <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest">SIZE</span>
+            {showWarning && sizes.length > 0 && !selectedSize && <span className="text-red-500 text-[8px] font-bold uppercase tracking-widest">*REQUIRED</span>}
+          </div>
+          {sizes.length > 0 ? (
+            <div className="flex flex-wrap gap-2 mt-0.5">
+              {sizes.map((s, idx) => {
+                const inStock = isVariantInStock(selectedColor, s);
+                return (
+                  <span key={s} className="flex items-center gap-2">
+                    <span 
+                      onClick={() => { if(inStock) { setSelectedSize(s); setShowWarning(false); } }}
+                      className={`font-helvetica text-[11px] font-bold tracking-tight uppercase transition-colors ${inStock ? 'cursor-pointer hover:text-black' : 'cursor-not-allowed opacity-30 line-through'} ${selectedSize === s ? 'text-black border-b border-black' : 'text-zinc-400'}`}
+                    >
+                      {s}
+                    </span>
+                    {idx < sizes.length - 1 && <span className="text-zinc-300 text-[10px]">/</span>}
+                  </span>
+                );
+              })}
+            </div>
+          ) : (
+            <span className="font-helvetica text-black text-[12px] font-bold tracking-tight">{item.size || '-'}</span>
+          )}
         </div>
         <div className="flex flex-col gap-1.5 hidden md:flex">
           <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest">MATERIAL</span>
@@ -531,25 +633,30 @@ const ProductDetail = ({ item, onNavigate, onAcquire, onBack }) => {
             <div className="flex flex-col gap-1.5 shrink-0">
               <div className="flex items-baseline gap-2">
                 <span className="font-helvetica text-[#a0a0a0] text-[9px] font-bold uppercase tracking-widest">QTY</span>
-                <span className="font-helvetica text-[#a0a0a0] text-[8px] uppercase tracking-widest">({item.stock || 10} AVAILABLE)</span>
+                <span className="font-helvetica text-[#a0a0a0] text-[8px] uppercase tracking-widest">({currentAvailableStock} AVAILABLE)</span>
               </div>
               <div className="flex items-center gap-3">
                 <button 
                   onClick={() => setQuantity(q => Math.max(1, q - 1))}
                   className="w-6 h-6 flex items-center justify-center border border-black/20 hover:border-black rounded-full text-[10px] transition-colors"
+                  disabled={currentAvailableStock === 0}
                 >-</button>
                 <span className="font-helvetica text-black text-[14px] font-bold tracking-tight w-4 text-center">{quantity < 10 ? `0${quantity}` : quantity}</span>
                 <button 
-                  onClick={() => setQuantity(q => Math.min(item.stock || 10, q + 1))}
+                  onClick={() => setQuantity(q => Math.min(currentAvailableStock, q + 1))}
                   className="w-6 h-6 flex items-center justify-center border border-black/20 hover:border-black rounded-full text-[10px] transition-colors"
+                  disabled={currentAvailableStock === 0}
                 >+</button>
               </div>
             </div>
             <button 
               onClick={handleAcquireClick} 
+              disabled={currentAvailableStock === 0}
               className={`w-full font-helvetica font-semibold text-[11px] uppercase tracking-widest py-4 transition-all duration-300 flex justify-center items-center gap-3 border ${
                 isAdded 
                   ? 'bg-white text-black border-black/20 shadow-sm' 
+                  : currentAvailableStock === 0
+                  ? 'bg-zinc-200 text-zinc-400 border-transparent cursor-not-allowed'
                   : 'bg-black text-[#F5F5F5] border-transparent hover:bg-zinc-800'
               }`}
             >
@@ -562,9 +669,9 @@ const ProductDetail = ({ item, onNavigate, onAcquire, onBack }) => {
                 </>
               ) : (
                 <>
-                  <span>ADD TO BAG</span>
-                  <span className="w-1 h-1 bg-[#F5F5F5] rounded-full opacity-30"></span>
-                  <span>${item.price}</span>
+                  <span>{currentAvailableStock === 0 ? 'OUT OF STOCK' : 'ADD TO BAG'}</span>
+                  {currentAvailableStock > 0 && <span className="w-1 h-1 bg-[#F5F5F5] rounded-full opacity-30"></span>}
+                  {currentAvailableStock > 0 && <span>${item.price}</span>}
                 </>
               )}
             </button>
@@ -624,9 +731,9 @@ const CatalogueOverlay = ({ onClose, cartItems, setCartItems, overlayView, setOv
 
   const handleAcquire = (itemToAdd, qty = 1) => {
     setCartItems(prev => {
-      const exists = prev.find(i => i.name === itemToAdd.name);
-      if (exists) {
-        return prev.map(i => i.name === itemToAdd.name ? { ...i, qty: i.qty + qty } : i);
+      const existsIndex = prev.findIndex(i => i.name === itemToAdd.name && i.selectedSize === itemToAdd.selectedSize && i.selectedColor === itemToAdd.selectedColor);
+      if (existsIndex >= 0) {
+        return prev.map((i, index) => index === existsIndex ? { ...i, qty: i.qty + qty } : i);
       }
       return [...prev, { ...itemToAdd, qty }];
     });
@@ -3657,6 +3764,32 @@ const AdminStudioCatalogue = () => {
     }
   };
 
+  const getCombinations = () => {
+    if (!editingItem) return [];
+    const sizes = editingItem.has_sizes && editingItem.sizes ? editingItem.sizes.split(',').map(s => s.trim()).filter(Boolean) : [];
+    const colors = editingItem.has_colors && editingItem.colors ? editingItem.colors.split(',').map(c => c.trim()).filter(Boolean) : [];
+    if (sizes.length === 0 && colors.length === 0) return [];
+    if (sizes.length > 0 && colors.length === 0) return sizes.map(s => ({ key: s, label: s }));
+    if (colors.length > 0 && sizes.length === 0) return colors.map(c => ({ key: c, label: c }));
+    
+    const combos = [];
+    colors.forEach(c => {
+      sizes.forEach(s => {
+        combos.push({ key: `${c}-${s}`, label: `${c} / ${s}` });
+      });
+    });
+    return combos;
+  };
+
+  const variantCombos = editingItem ? getCombinations() : [];
+  const hasVariants = editingItem && (editingItem.has_sizes || editingItem.has_colors);
+  
+  if (editingItem && hasVariants) {
+    editingItem.variant_inventory = editingItem.variant_inventory || {};
+    const totalVariantStock = variantCombos.reduce((sum, c) => sum + Number(editingItem.variant_inventory[c.key] || 0), 0);
+    editingItem.stock = totalVariantStock;
+  }
+
   return (
     <div className="w-full relative">
       <div className="flex justify-between items-end mb-8">
@@ -3750,7 +3883,11 @@ const AdminStudioCatalogue = () => {
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <span className="font-sans text-zinc-400 text-[9px] font-bold uppercase tracking-widest">STOCK QTY</span>
-                  <EditableText value={editingItem.stock} onChange={v => setEditingItem({...editingItem, stock: v})} className={`text-sm font-bold font-sans ${Number(editingItem.stock) === 0 ? 'text-red-500' : ''}`} />
+                  {hasVariants ? (
+                    <span className="text-sm font-bold font-sans text-zinc-500">{editingItem.stock} <span className="text-[9px] uppercase font-normal">(Auto-calculated from variants)</span></span>
+                  ) : (
+                    <EditableText value={editingItem.stock} onChange={v => setEditingItem({...editingItem, stock: v})} className={`text-sm font-bold font-sans ${Number(editingItem.stock) === 0 ? 'text-red-500' : ''}`} />
+                  )}
                 </div>
                 <div className="flex flex-col gap-1.5">
                   <span className="font-sans text-zinc-400 text-[9px] font-bold uppercase tracking-widest">DESIGNER</span>
@@ -3768,7 +3905,74 @@ const AdminStudioCatalogue = () => {
                   <span className="font-sans text-zinc-400 text-[9px] font-bold uppercase tracking-widest">MATERIAL</span>
                   <EditableText value={editingItem.material} onChange={v => setEditingItem({...editingItem, material: v})} className="text-sm font-bold font-sans" />
                 </div>
-                <div className="flex flex-col gap-1.5 col-span-2">
+                
+                {/* Variant Configuration */}
+                <div className="flex flex-col gap-3 col-span-2 pt-4 border-t border-zinc-200 mt-2">
+                  <span className="font-sans text-black font-black text-sm uppercase tracking-widest">Variant Options</span>
+                  <div className="flex flex-col gap-4">
+                    {/* Size Variants */}
+                    <div className="flex items-center gap-4">
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" checked={editingItem.has_sizes || false} onChange={e => setEditingItem({...editingItem, has_sizes: e.target.checked})} className="w-4 h-4 accent-black" />
+                        <span className="font-sans text-xs font-bold uppercase tracking-widest">Enable Sizes</span>
+                      </label>
+                      {editingItem.has_sizes && (
+                        <div className="flex-1 flex flex-col gap-1">
+                          <span className="font-sans text-zinc-400 text-[9px] uppercase tracking-widest">Available Sizes (comma separated, e.g. S, M, L)</span>
+                          <EditableText value={editingItem.sizes || ''} onChange={v => setEditingItem({...editingItem, sizes: v})} className="text-sm font-bold font-sans border-b border-zinc-300" />
+                        </div>
+                      )}
+                    </div>
+                    {/* Color Variants */}
+                    <div className="flex items-center gap-4">
+                      <label className="flex items-center gap-2 cursor-pointer">
+                        <input type="checkbox" checked={editingItem.has_colors || false} onChange={e => setEditingItem({...editingItem, has_colors: e.target.checked})} className="w-4 h-4 accent-black" />
+                        <span className="font-sans text-xs font-bold uppercase tracking-widest">Enable Colors</span>
+                      </label>
+                      {editingItem.has_colors && (
+                        <div className="flex-1 flex flex-col gap-1">
+                          <span className="font-sans text-zinc-400 text-[9px] uppercase tracking-widest">Available Colors (comma separated, e.g. Black, White)</span>
+                          <EditableText value={editingItem.colors || ''} onChange={v => setEditingItem({...editingItem, colors: v})} className="text-sm font-bold font-sans border-b border-zinc-300" />
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                  
+                  {/* Variant Matrix Table */}
+                  {hasVariants && variantCombos.length > 0 && (
+                    <div className="flex flex-col gap-2 mt-4 bg-white border border-zinc-200 p-4">
+                      <span className="font-sans text-black text-[10px] font-bold uppercase tracking-widest border-b border-zinc-200 pb-2 mb-2">Variant Stock Inventory</span>
+                      <div className="grid grid-cols-2 gap-4">
+                        {variantCombos.map(combo => (
+                          <div key={combo.key} className="flex justify-between items-center border-b border-zinc-100 pb-2">
+                            <span className="font-sans text-xs text-zinc-600">{combo.label}</span>
+                            <div className="flex items-center gap-2">
+                              <span className="font-sans text-[9px] text-zinc-400 uppercase tracking-widest">Qty</span>
+                              <input 
+                                type="number" 
+                                min="0"
+                                value={(editingItem.variant_inventory || {})[combo.key] || 0}
+                                onChange={(e) => {
+                                  const newVal = parseInt(e.target.value) || 0;
+                                  setEditingItem({
+                                    ...editingItem,
+                                    variant_inventory: {
+                                      ...(editingItem.variant_inventory || {}),
+                                      [combo.key]: newVal
+                                    }
+                                  });
+                                }}
+                                className="w-16 border border-zinc-300 px-2 py-1 text-xs font-bold focus:outline-none focus:border-black text-right"
+                              />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex flex-col gap-1.5 col-span-2 pt-4 border-t border-zinc-200 mt-2">
                   <span className="font-sans text-zinc-400 text-[9px] font-bold uppercase tracking-widest">INFO / DESCRIPTION</span>
                   <EditableTextArea value={editingItem.info} onChange={v => setEditingItem({...editingItem, info: v})} className="text-sm font-bold font-sans" />
                 </div>
